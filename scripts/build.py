@@ -245,6 +245,11 @@ def logo_mark(size=34):
     return f'<img src="/img/ui/logo.webp" alt="" width="{size}" height="{size}">'
 
 
+FOOT_MODELS = ["iphone-17-pro", "iphone-16", "iphone-15", "iphone-14", "iphone-13", "iphone-11", "iphone-12"]
+FOOT_SHOP = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "iPhone bazar"), ("/zanovni-iphone/", "Zánovní iPhony"), ("/novy-iphone/", "Nové iPhony"),
+             ("/srovnani/", "Srovnání modelů"), ("/jaky-iphone-koupit/", "Jaký iPhone koupit")]
+FOOT_GUIDES = [("co-znamena-repasovany-iphone", "Co je repasovaný iPhone"), ("stavy", "Kvalita A, B, C"), ("baterie", "Kondice baterie"),
+               ("podpora-ios", "Podpora iOS"), ("iphone-z-bazaru", "iPhone z bazaru")]
 NAV = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "Bazar"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
        ("/pruvodce/", "Průvodce")]
 
@@ -287,11 +292,14 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
         else:
             ga = (f'<meta name="ga4" content="{GA4_ID}"><script>{boot}gtag("js",new Date());gtag("config","{GA4_ID}");</script>'
                   f'<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>')
-    top_models = sorted((m for m in MODELS if ctx["by_model"].get(m["slug"])), key=lambda m: -len(ctx["by_model"][m["slug"]]))[:12]
-    fm = "".join(f'<li><a href="/{m["slug"]}/">{E(m["name"])}</a></li>' for m in sorted(top_models, key=lambda m: -m["year"]))
-    cats = "".join(f'<li><a href="{c["path"]}">{E(c["short"])}</a></li>' for c in ctx["cats"])
-    guides = "".join(f'<li><a href="/pruvodce/{g["slug"]}/">{E(g["short"])}</a></li>' for g in ctx["guides"])
-    shops = "".join(f'<li><a href="/obchody/{s}/">{E(SHOP[s]["name"])}</a></li>' for s in ctx["shop_ids"])
+    # footer: short on purpose (Kenny 25. 11.) - the full lists live on the hubs (/#modely, /pruvodce/, /obchody/)
+    top_models = [MODEL[x] for x in FOOT_MODELS if ctx["by_model"].get(x)][:6]   # most searched (DataForSEO 25. 11.: "iphone N bazar/použitý")
+    fm = "".join(f'<li><a href="/{m["slug"]}/">{E(m["name"])}</a></li>' for m in top_models)
+    fm += '<li><a class="more" href="/#modely">Všechny modely →</a></li>'
+    cats = "".join(f'<li><a href="{u}">{t}</a></li>' for u, t in FOOT_SHOP)
+    have = {g["slug"] for g in ctx["guides"]}
+    guides = "".join(f'<li><a href="/pruvodce/{u}/">{t}</a></li>' for u, t in FOOT_GUIDES if u in have)
+    guides += '<li><a class="more" href="/pruvodce/">Všichni průvodci →</a></li>'
     cfg_tag = f'<script type="application/json" id="cfg">{json.dumps(cfg, ensure_ascii=False, separators=(",", ":"))}</script>' if cfg else ""
     return f"""<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}"><link rel="canonical" href="{canon}"><meta name="robots" content="{robots}">
@@ -305,12 +313,10 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
 <nav class="nav" aria-label="Hlavní">{nav}</nav></div></header>
 {cr}<main id="obsah">{body}</main>
 <footer class="foot"><div class="wrap foot-in"><div class="about"><a class="logo" href="/">{logo_mark(30)}<span>repasovaný <b>iPhone</b></span></a>
-<p>Každou noc projdeme nabídky {obchodu(len(ctx['shop_ids']))} s repasovanými, zánovními i novými iPhony a ke každé konfiguraci najdeme nejlevnější obchod
-včetně platných slevových kódů. Ceny se během dne mohou změnit, platí údaj v obchodě.</p>
-<p class="muted">Za nákup přes odkaz můžeme dostat provizi, cenu ani pořadí to nemění. <a href="/o-webu/">Jak web funguje</a></p></div>
-<div><h2>Modely</h2><ul>{fm}</ul></div><div><h2>Kategorie</h2><ul>{cats}<li><a href="/srovnani/">Srovnání modelů</a></li><li><a href="/jaky-iphone-koupit/">Jaký iPhone koupit</a></li></ul></div>
-<div><h2>Průvodce</h2><ul>{guides}</ul><h2 class="mt">Obchody</h2><ul>{shops}</ul></div></div>
-<div class="wrap foot-legal"><a href="/o-webu/">O webu a kontakt</a><a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a>{'<a href="#" data-consent-open>Nastavení cookies</a>' if ga else ''}</div></footer>
+<p>Každou noc srovnáme nabídky {obchodu(len(ctx['shop_ids']))} včetně slevových kódů. Za nákup přes odkaz můžeme dostat provizi, cenu ani pořadí to nemění.
+<a href="/o-webu/">Jak web funguje</a></p></div>
+<div><h2>Modely</h2><ul>{fm}</ul></div><div><h2>Nakupujte</h2><ul>{cats}</ul></div><div><h2>Průvodce</h2><ul>{guides}</ul></div></div>
+<div class="wrap foot-legal"><a href="/o-webu/">O webu a kontakt</a><a href="/obchody/">Obchody ve srovnání</a><a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a>{'<a href="#" data-consent-open>Nastavení cookies</a>' if ga else ''}<span>© {TODAY.year} {BRAND}</span></div></footer>
 {'<div class="consent" data-consentbar role="dialog" aria-label="Souhlas s cookies" hidden><p>Smíme měřit návštěvnost (Google Analytics)? Bez souhlasu nic neukládáme. <a href="/ochrana-osobnich-udaju/">Více</a></p><div><button type="button" class="btn sm" data-consent="yes">Souhlasím</button> <button type="button" class="btn sm ghost" data-consent="no">Nesouhlasím</button></div></div>' if ga else ''}
 {cfg_tag}<script>{ctx['js']}</script>{SPECULATION}</body></html>"""
 

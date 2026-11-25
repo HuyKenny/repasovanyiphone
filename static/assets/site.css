@@ -423,3 +423,14 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 .vs .ptable{min-width:0}
 .vs .ptable td{text-align:left}
 @media (max-width:520px){.vs .ptable th,.vs .ptable td{padding:9px 6px;font-size:.88rem}.vs .ptable th[scope=row]{max-width:110px}}
+/* compact footer (25. 11.): 3 short lists + legal row */
+.foot{margin-top:48px;padding:30px 0 26px}
+.foot-in{grid-template-columns:1.4fr 1fr 1fr 1fr;gap:20px 28px}
+.foot .about p{margin:10px 0 0;font-size:.88rem;line-height:1.5;max-width:34ch}
+.foot h2{margin:0 0 4px}
+.foot a.more{color:var(--green);font-weight:600}
+.foot-legal{margin-top:18px;padding-top:12px;gap:2px 18px;align-items:center}
+.foot-legal span{color:var(--muted);margin-left:auto}
+@media (max-width:860px){.foot-in{grid-template-columns:1fr 1fr}.foot .about{grid-column:1/-1}.foot .about p{max-width:none}
+  .foot-in>div:last-child{grid-column:1/-1}.foot-in>div:last-child ul{columns:2;column-gap:20px}.foot-legal span{margin-left:0}}
+.foot .about p a{text-decoration:underline;text-underline-offset:2px}
