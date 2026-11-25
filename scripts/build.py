@@ -251,7 +251,7 @@ FOOT_SHOP = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "iPhone baz
              ("/ceny-iphonu/", "Vývoj cen"), ("/iphone-na-splatky/", "iPhone na splátky")]
 FOOT_GUIDES = [("co-znamena-repasovany-iphone", "Co je repasovaný iPhone"), ("stavy", "Kvalita A, B, C"), ("baterie", "Kondice baterie"),
                ("podpora-ios", "Podpora iOS"), ("iphone-z-bazaru", "iPhone z bazaru")]
-NAV = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "Bazar"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
+NAV = [("/#modely", "Modely"), ("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "Bazar"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
        ("/pruvodce/", "Průvodce")]
 
 
@@ -354,13 +354,15 @@ def href_attr(go):
     return f' data-href="{E(go)}"' if go else ""
 
 
-def coupon_box(c, go=""):
-    """Voucher ticket with copy button (app.js copies data-copy)."""
-    btn = f'<a class="btn sm" href="{E(go)}" rel="sponsored nofollow noopener" target="_blank" data-copy="{E(c["code"])}">Do obchodu</a>' if go else ""
+def coupon_box(c, go="", buttons=True):
+    """Voucher ticket with copy button (app.js copies data-copy). buttons=False: just the code (the page has its own copy-and-go button)."""
     sm = re.match(r"/go/([a-z0-9-]+)/", go)
+    btn = (f'<a class="btn sm" href="{E(go)}" rel="sponsored nofollow noopener" target="_blank" data-copy="{E(c["code"])}"'
+           + (f' data-go="{sm.group(1)}"' if sm else "") + '>Do obchodu</a>') if go and buttons else ""
     shop_attr = f' data-shop="{sm.group(1)}"' if sm else ""
-    return (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code>{E(c["code"])}</code>'
-            f'<button type="button" class="cpn-copy" data-copy="{E(c["code"])}"{shop_attr}{href_attr(go)}>Kopírovat</button>{btn}'
+    copy_btn = f'<button type="button" class="cpn-copy" data-copy="{E(c["code"])}"{shop_attr}{href_attr(go)}>Kopírovat</button>' if buttons else ""
+    return (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code data-kod="{E(c["code"])}">{E(c["code"])}</code>'
+            f'{copy_btn}{btn}'
             f'<small>{E(c["label"])} · {until_cz(c)} · zadejte v košíku{"" if c["auto"] else " · podmínky ověřte u obchodu"}</small></div>')
 
 
@@ -878,7 +880,7 @@ def page_vs(out, ctx):
 <h2>Ceny podle kvality</h2><p>Nejnižší dnešní cena v každé kvalitě (všechny paměti a barvy, se slevovými kódy).</p>
 <div class="tscroll"><table class="ptable cmp"><thead><tr><th>Kvalita</th><th>{E(a["name"])}</th><th>{E(b["name"])}</th></tr></thead><tbody>{"".join(prow)}</tbody></table></div>
 <h2>Který si vybrat?</h2><p>{verdict}</p>
-<p class="vs-cta"><a class="btn" href="/{sa}/">Ceny {E(a["name"])}</a> <a class="btn ghost" href="/{sb}/">Ceny {E(b["name"])}</a></p>
+<p class="vs-cta"><a class="btn" href="/{sa}/">Vybrat {E(a["name"])}{f" od {kc(la)}" if la else ""}</a> <a class="btn ghost" href="/{sb}/">Vybrat {E(b["name"])}{f" od {kc(lb)}" if lb else ""}</a></p>
 <h2>Časté otázky</h2>{faq_html(faq)}</article>
 <section class="sec"><h2>Další srovnání</h2><ul class="chips">{others}</ul></section></div>"""
         out.page(path, layout(ctx, path=path, title=title, desc=desc, body=body, ld=[faq_ld(faq)], active="/srovnani/",
@@ -1732,9 +1734,14 @@ def page_shops(out, ctx):
         gc = Counter(o["g"] for o in of)
         dist = "".join(f'<li>{grade_chip(g)} {E(GR[g]["name"])} <b>{num(gc[g])}</b></li>' for g, *_r in P.GRADES if gc.get(g))
         rows = sorted(best_per_model(ctx, lambda m, o, s=s: o["shop"] == s, grades=tuple(GR)), key=lambda r: (-r[0]["year"], r[1]["pc"]))
-        cbox = "".join(coupon_box(c, f"/go/{s}/?u=/") for c in ctx["coupons"].get(s, []))
+        cps_ = ctx["coupons"].get(s, [])
+        cbox = "".join(coupon_box(c, f"/go/{s}/?u=/", buttons=False) for c in cps_[:1])
+        c0 = cps_[0] if cps_ else None
+        cta = (f'<p class="shopcta"><a class="btn big" href="/go/{s}/?u=/" rel="sponsored nofollow noopener" target="_blank" data-go="{s}" data-shop="{s}" data-sp="shop"'
+               + (f' data-copy="{E(c0["code"])}" data-pop="1">Zkopírovat kód a přejít do obchodu' if c0 else f'>Přejít do obchodu {E(sh["name"])}')
+               + '</a><small>Konkrétní iPhone vyberete níže, ceny jsou včetně platných slevových kódů.</small></p>')
         review = shop_review(ctx, s, of) if s in REVIEW_SHOPS else ""
-        body = f"""<div class="wrap"><header class="mhead shophead">{shop_logo(s, 40)}<h1>{E(sh["name"])}: iPhony a ceny</h1><p class="lead">{info.get("lead", "")}</p>{cbox}</header>
+        body = f"""<div class="wrap"><header class="mhead shophead">{shop_logo(s, 40)}<h1>{E(sh["name"])}: iPhony a ceny</h1><p class="lead">{info.get("lead", "")}</p>{cbox}{cta}</header>
 <section class="sec two"><div class="prose">{info.get("text", "")}<h2>Nabídka podle kvality</h2><ul class="gdist">{dist}</ul></div>
 <aside class="card"><dl class="specs"><dt>Nabídek</dt><dd>{num(len(of))}</dd><dt>Cena od</dt><dd>{kc(min(o["pc"] for o in of))}</dd><dt>Web</dt><dd>{E(sh["domain"])}</dd></dl></aside></section>
 {review}<section class="sec"><h2>Nejlevnější kus každého modelu</h2>{cat_rows(ctx, rows, 30)}</section></div>"""
@@ -1843,6 +1850,32 @@ def guide_html(ctx, g):
     return h, toc
 
 
+GUIDE_PICK = {   # one factual sentence tying the guide to the comparison (what the visitor sees at the offers)
+    "baterie": "U každé nabídky ukazujeme, co prodejce o baterii uvádí: kondici konkrétního kusu, garantované minimum, nebo že údaj chybí.",
+    "stavy": "Kvalitu A+, A, B nebo C vyberete u každého modelu a hned uvidíte nejlevnější obchod.",
+    "kde-koupit-repasovany-iphone": "Stejný model ve stejné kvalitě porovnáme napříč obchody, včetně platných slevových kódů.",
+    "srovnani-obchodu-s-repasy": "Stejný model ve stejné kvalitě porovnáme napříč obchody, včetně platných slevových kódů.",
+    "iphone-z-bazaru": "Bez rizika zamčeného iCloudu a se zárukou: použité iPhony od obchodů a firem.",
+    "repas-vs-bazar": "Použité iPhony od obchodů mají záruku a 14 dní na vrácení při nákupu online.",
+    "zaruka": "U nabídek ukazujeme záruku, kterou obchod uvádí, nebo že ji neuvádí.",
+    "jaka-pamet": "U každého modelu vyberete paměť a uvidíte, o kolik je vyšší paměť dražší.",
+    "podpora-ios": "Modely s aktuálním iOS najdete v přehledu levných iPhonů i v doporučeních podle rozpočtu.",
+}
+
+
+def pick_models(ctx, n=6):
+    pop = [m for m in sorted(MODELS, key=lambda m: -len(ctx["by_model"].get(m["slug"], []))) if ctx["by_model"].get(m["slug"]) and ios_ok(m)][:n]
+    return sorted(pop, key=lambda m: -m["year"])
+
+
+def pick_box(ctx, slug=""):
+    """Bridge from an article to the comparison: the most offered models with today's price."""
+    chips = "".join(f'<li><a href="/{m["slug"]}/">{E(m["name"])} <span>od {kc(low_of(ctx, m["slug"]))}</span></a></li>' for m in pick_models(ctx))
+    ctxt = GUIDE_PICK.get(slug, f'Ceny z {obchodu(len(ctx["shop_ids"]))} každou noc, včetně slevových kódů.')
+    return (f'<aside class="pickbox"><p class="pk-h">Hledáte iPhone?</p><p class="pk-t">{E(ctxt)}</p><ul class="pk-chips">{chips}</ul>'
+            '<p class="pk-more"><a href="/levny-iphone/">Nejlevnější iPhony</a> · <a href="/#rozpocet">Podle rozpočtu</a> · <a href="/iphone-bazar/">Bazar se zárukou</a> · <a href="/#modely">Všechny modely</a></p></aside>')
+
+
 def page_guides(out, ctx):
     groups = []
     for key, name in GUIDE_GROUPS:
@@ -1862,6 +1895,10 @@ def page_guides(out, ctx):
     for g in ctx["guides"]:
         path = f'/pruvodce/{g["slug"]}/'
         html_, toc = guide_html(ctx, g)
+        hs = [mo.start() for mo in re.finditer(r"<h2[ >]", html_)]
+        if len(hs) >= 3:      # a short line after the second section, the full box before the FAQ
+            html_ = (html_[:hs[2]] + '<p class="pickline">Hledáte konkrétní iPhone? <a href="/#modely">Vyberte model</a> nebo se podívejte na '
+                     '<a href="/levny-iphone/">nejlevnější iPhony dnes</a>.</p>' + html_[hs[2]:])
         toc_html = ('<nav class="toc" aria-label="Obsah článku"><b>Obsah</b><ol>' + "".join(f'<li><a href="#{a}">{E(t)}</a></li>' for a, t in toc) + "</ol></nav>") if len(toc) >= 3 else ""
         faq = [tuple(x) for x in g.get("faq", [])]
         same = [x for x in ctx["guides"] if x is not g and x.get("group") == g.get("group")]
@@ -1872,7 +1909,7 @@ def page_guides(out, ctx):
                 f'<figcaption>Foto: {E(photo.get("by", ""))}, {E(photo.get("site", "Pexels"))}</figcaption></figure>') if photo.get("src") else ""
         upd = g.get("updated", TODAY.isoformat())
         body = (f'<div class="wrap"><article class="prose art"><h1>{E(g["h1"])}</h1><p class="meta muted">Aktualizováno {date_cz(dt.date.fromisoformat(upd))} · '
-                f'ceny a počty z {date_cz(TODAY)}</p>{hero}{toc_html}{html_}'
+                f'ceny a počty z {date_cz(TODAY)}</p>{hero}{toc_html}{html_}{pick_box(ctx, g["slug"])}'
                 + (f'<h2 id="caste-otazky">Časté otázky</h2>{faq_html(faq)}' if faq else "")
                 + f'</article><section class="sec"><h2>Další průvodci</h2><ul class="chips">{others}</ul></section></div>')
         art = {"@context": "https://schema.org", "@type": "Article", "headline": g["h1"], "description": g["desc"], "inLanguage": "cs",

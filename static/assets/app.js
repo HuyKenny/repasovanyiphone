@@ -117,9 +117,9 @@
     return true;
   };
   document.addEventListener("click", function (e) {
-    var a = e.target.closest('a[href^="#"]');
-    if (!a || a.getAttribute("href").length < 2 || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
-    if (jump(a.getAttribute("href").slice(1), true)) { e.preventDefault(); history.replaceState(null, "", a.getAttribute("href")); }
+    var a = e.target.closest('a[href*="#"]');
+    if (!a || a.hash.length < 2 || a.pathname !== location.pathname || a.origin !== location.origin || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    if (jump(a.hash.slice(1), true)) { e.preventDefault(); history.replaceState(null, "", a.hash); }
   });
   if (/^#[a-z][a-z0-9-]*$/.test(location.hash)) {
     var go0 = function () { jump(location.hash.slice(1), false); };
@@ -294,7 +294,7 @@
     var best = where(S.c, S.gi, S.g)[0], bb = document.querySelector("[data-buybar]");
     if (bb && best) {
       var cp = code(best);
-      bb.querySelector("[data-bb-t]").innerHTML = "<b>" + kc(best[8]) + "</b> " + esc(C.name) + " " + gbl(C.gbs[S.gi]) + ", " + C.grades[S.g][0] + (cp ? ", s kódem" : "");
+      bb.querySelector("[data-bb-t]").innerHTML = "<b>" + kc(best[8]) + "</b> " + esc(C.name) + " " + gbl(C.gbs[S.gi]) + ", " + (S.g === "novy" ? "nový" : "stav " + C.grades[S.g][0]) + (cp ? ", s kódem" : "");
       var a = bb.querySelector("[data-bb-a]");
       a.href = go(best);
       a.textContent = "Koupit u " + C.shops[best[4]][0];
@@ -330,7 +330,12 @@
   /* sticky buy bar on phones once the big button scrolls away */
   var bar = document.querySelector("[data-buybar]");
   if (bar && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (en) { bar.hidden = en[0].isIntersecting || en[0].boundingClientRect.top > 0; });
+    /* visible from the first screen (the price is two screens down on phones), hidden only while the big button is in view
+       or while the consent bar is open (both sit at the bottom) */
+    var seen = false, cbar = document.querySelector("[data-consentbar]");
+    var upd = function () { bar.hidden = seen || !!(cbar && !cbar.hidden); };
+    var io = new IntersectionObserver(function (en) { seen = en[0].isIntersecting; upd(); });
+    if (cbar) cbar.addEventListener("click", function () { setTimeout(upd, 0); });
     var watch = function () { var b = root.querySelector(".best .btn"); if (b) { io.disconnect(); io.observe(b); } };
     new MutationObserver(watch).observe(q("[data-result]"), { childList: true });
     watch();
