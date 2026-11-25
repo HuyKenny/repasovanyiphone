@@ -819,10 +819,12 @@ def model_faq(ctx, m, offers):
            f'Aktuální iOS 26 a 27 už nedostává, posledním systémem je {LAST_IOS.get(m["slug"], "starší verze iOS")}. Telefon funguje dál, ale nové funkce a postupně '
            'i některé aplikace mu chybí. <a href="/pruvodce/podpora-ios/">Podpora iOS u všech modelů</a>')
     age = max(TODAY.year - m["year"], 0)
-    items = [(f'Kolik stojí repasovaný a použitý {m["name"]}?', f'Nejlevnější nabídka dnes stojí {kc(min(o["pc"] for o in rf))}. Podle kvality: {gtxt}. Ceny kontrolujeme každou noc.'),
+    new_low = low_of(ctx, m["slug"], ("novy",))
+    items = [(f'Kolik stojí {m["name"]}?', f'Repasovaný nebo použitý {m["name"]} stojí dnes od {kc(min(o["pc"] for o in rf))}. Podle kvality: {gtxt}.'
+              + (f' Nový kus stojí od {kc(new_low)}.' if new_low else '') + ' Ceny kontrolujeme každou noc.'),
              (f'Kdy vyšel {m["name"]}?', f'{m["name"]} Apple představil v roce {m["year"]}' + (f', dnes je mu {age} {plural(age, "rok", "roky", "let")}' if age else '')
               + f'. Má čip {m["chip"]}, displej {str(m["display"]).replace(".", ",")}″ a konektor {m["port"]}.'),
-             (f'Jak dlouho bude {m["name"]} podporovaný?', sup),
+             ((f'Kdy skončí podpora {m["name"]}?' if ios_ok(m) else f'Dostává {m["name"]} ještě aktualizace iOS?'), sup),
              ("Co znamená kvalita A, B a C?",
               "Kvalita popisuje vzhled, ne funkčnost: A+ je jako nový, A má stopy viditelné jen zblízka, B jemné škrábance na rámu nebo zádech a C viditelné známky "
               'používání. Všechny obchody převádíme na tuhle jednu stupnici. <a href="/pruvodce/stavy/">Co přesně jednotlivé kvality znamenají</a>'),
@@ -863,6 +865,8 @@ def model_cats(ctx, m, offers):
         out.append(("/iphone-do-5000-kc/", "iPhone do 5 000 Kč"))
     elif low <= 10000:
         out.append(("/iphone-do-10000-kc/", "iPhone do 10 000 Kč"))
+    elif low <= 15000:
+        out.append(("/iphone-do-15000-kc/", "iPhone do 15 000 Kč"))
     if any(o["g"] == "aplus" for o in offers):
         out.append(("/zanovni-iphone/", "Zánovní a rozbalené iPhony"))
     if any(o["g"] == "novy" for o in offers):
@@ -884,7 +888,8 @@ def page_model(out, ctx, m, offers, gb=None):
     lab = f'{m["name"]} {P.gb_label(gb)}' if gb else m["name"]
     only_new = all(o["g"] == "novy" for o in offers)
     cfg = cfg_data(ctx, m, offers, gb)
-    title = short_title(f"{lab} bazar, použitý i repasovaný od {kc_plain(low)}" if not only_new
+    plab = re.sub(r"\s*\((\d{4})\)", r" \1", lab)     # "iPhone SE (2022)" -> "iPhone SE 2022" (how people search)
+    title = short_title(f"{plab}: cena, bazar a repasovaný od {kc_plain(low)}" if not only_new
                         else f"{lab} nejlevněji od {kc_plain(low)} – srovnání {n_shops} {plural(n_shops, 'obchodu', 'obchodů', 'obchodů')}")
     desc = (f"{'Repasovaný, použitý i bazarový' if not only_new else 'Nový'} {lab}: {nab(len(scope))} od {kc(low)} z {obchodu(n_shops)}. "
             "Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.").replace(" ", " ")
@@ -1100,6 +1105,9 @@ CATS = [
     {"path": "/iphone-do-10000-kc/", "short": "iPhone do 10 000 Kč", "h1": "iPhone do 10 000 Kč",
      "title": "iPhone do 10 000 Kč – nejnovější modely, které se vejdou",
      "lead": "Nejnovější iPhony, které dnes seženete do 10 000 Kč."},
+    {"path": "/iphone-do-15000-kc/", "short": "iPhone do 15 000 Kč", "h1": "iPhone do 15 000 Kč",
+     "title": "iPhone do 15 000 Kč – nejnovější modely, které se vejdou",
+     "lead": "Nejnovější iPhony, které dnes seženete do 15 000 Kč, včetně modelů s USB-C a Apple Intelligence."},
     {"path": "/iphone-pro-deti/", "short": "iPhone pro děti", "h1": "iPhone pro děti: levný a s podporou iOS",
      "title": "iPhone pro děti – levné repasované modely s aktuálním iOS",
      "lead": "Levný repas v kvalitě B nebo C (stejně dostane obal), který ale dostává aktuální iOS a rodičovskou kontrolu."},
@@ -1120,6 +1128,8 @@ CAT_TEXT = {
                            "a novější) a ptejte se na baterii: výměna v servisu stojí kolem tisíce korun.</p>",
     "/iphone-do-10000-kc/": "<h2>Co čekat do 10 000 Kč</h2><p>Do deseti tisíc se vejdou i modely s 120Hz displejem a třemi fotoaparáty (řada Pro z let 2021 a 2022) "
                             "nebo základní iPhony s USB-C. Porovnejte si je v <a href=\"/srovnani/\">tabulce modelů</a>.</p>",
+    "/iphone-do-15000-kc/": "<h2>Co čekat do 15 000 Kč</h2><p>Do patnácti tisíc se vejdou iPhony 14 Pro a 15, v lepší kvalitě i iPhone 15 Pro nebo základní iPhone 16. "
+                            "Od iPhonu 15 mají USB-C a od 15 Pro podporu Apple Intelligence. Rozdíly mezi sousedními modely ukazují <a href=\"/srovnani/\">srovnání modelů</a>, doporučení podle rozpočtu je v článku <a href=\"/jaky-iphone-koupit/\">jaký iPhone koupit</a>.</p>",
     "/iphone-pro-deti/": "<h2>Proč repas pro dítě</h2><p>Dětský telefon dostane obal, spadne a za dva roky se vymění. Repas v kvalitě B nebo C ušetří peníze a pořád podporuje "
                          "Čas u obrazovky a rodičovskou kontrolu. Vybírejte modely s aktuálním iOS a menší velikostí do ruky.</p>",
 }
@@ -1130,7 +1140,7 @@ def cat_content(ctx, c):
     p = c["path"]
     if p == "/levny-iphone/":
         rows = sorted(best_per_model(ctx, lambda m, o: True), key=lambda r: (not ios_ok(r[0]), r[1]["pc"]))
-        return rows, ('<ul class="chips"><li><a href="/iphone-do-5000-kc/">iPhone do 5 000 Kč</a></li><li><a href="/iphone-do-10000-kc/">iPhone do 10 000 Kč</a></li>'
+        return rows, ('<ul class="chips"><li><a href="/iphone-do-5000-kc/">iPhone do 5 000 Kč</a></li><li><a href="/iphone-do-10000-kc/">iPhone do 10 000 Kč</a></li><li><a href="/iphone-do-15000-kc/">iPhone do 15 000 Kč</a></li>'
                       '<li><a href="/iphone-pro-deti/">iPhone pro děti</a></li><li><a href="/maly-iphone/">Malé iPhony</a></li></ul>')
     if p == "/novy-iphone/":
         return sorted(best_per_model(ctx, lambda m, o: True, grades=("novy",)), key=newest), ""
@@ -1144,6 +1154,8 @@ def cat_content(ctx, c):
         return sorted(best_per_model(ctx, lambda m, o: o["pc"] <= 5000), key=newest), ""
     if p == "/iphone-do-10000-kc/":
         return sorted(best_per_model(ctx, lambda m, o: o["pc"] <= 10000), key=newest), ""
+    if p == "/iphone-do-15000-kc/":
+        return sorted(best_per_model(ctx, lambda m, o: o["pc"] <= 15000), key=newest), ""
     if p == "/iphone-pro-deti/":
         return sorted(best_per_model(ctx, lambda m, o: ios_ok(m) and o["pc"] <= 9000, grades=("a", "b", "c")), key=newest), ""
     return [], ""
@@ -1532,6 +1544,38 @@ def page_buy(out, ctx):
                                             body=body, crumbs=[("/", "Repasované iPhony"), ("/jaky-iphone-koupit/", "Jaký iPhone koupit")]))
 
 
+REVIEW_SHOPS = ("jabkolevne", "mobilegear", "iphonemarket")   # specialists people search by name ("jabkolevně recenze" 1 000/month, KD 0)
+
+
+def shop_review(ctx, s, of):
+    """'Recenze' from data only: we have not ordered here, so we say what the offer looks like and how it compares. No invented customer reviews."""
+    name = SHOP[s]["name"]
+    ref = [o for o in of if o["g"] != "novy"]
+    if len(ref) < 20:
+        return ""
+    models = len({o["model"] for o in ref})
+    by_g = defaultdict(list)
+    for o in ref:
+        by_g[o["g"]].append(o["p"])
+    cmp_rows, wins = [], 0
+    for (m, gb, g), mine in ((k, [o["p"] for o in ref if (o["model"], o["gb"], o["g"]) == k]) for k in {(o["model"], o["gb"], o["g"]) for o in ref}):
+        others = [x["p"] for x in ctx["offers"] if x["shop"] != s and x["g"] == g and x["model"] == m and x["gb"] == gb]
+        if len(others) >= 2:
+            cmp_rows.append(min(mine) <= min(others))
+    share = round(sum(cmp_rows) / len(cmp_rows) * 100) if len(cmp_rows) >= 20 else None
+    bat = sum(1 for o in ref if o["bat"])
+    gl = ", ".join(f'{GR[g]["short"]} {len(v)}' for g, v in sorted(by_g.items(), key=lambda x: P.GRADE_ORDER[x[0]]))
+    code = ctx["coupons"].get(s)
+    t = [f'<p>{E(name)} má dnes ve srovnání <strong>{nab(len(ref))}</strong> použitých, repasovaných a zánovních iPhonů ({models} modelů), od {kc(min(o["p"] for o in ref))}. Rozdělení podle kvality (kusů): {gl}.</p>']
+    if share is not None:
+        t.append(f'<p>U stejného modelu, paměti a kvality má {E(name)} nejnižší cenu v <strong>{share}&nbsp;%</strong> z {len(cmp_rows)} srovnatelných kombinací, '
+                 'u kterých nabízí aspoň dva další obchody.</p>')
+    t.append((f'<p>Kondici baterie uvádí {round(bat / len(ref) * 100)}&nbsp;% nabídek. ' if bat else '<p>Kondici baterie obchod v produktovém exportu neuvádí, ptejte se na ni před nákupem. ') + (f'Platný slevový kód: <strong>{E(code[0]["code"])}</strong> ({E(code[0]["label"])}).' if code else 'Slevový kód teď nemá.') + '</p>')
+    return (f'<section class="sec prose"><h2>{E(name)} recenze: co ukazují data</h2>' + "".join(t)
+            + f'<p class="muted">Nákup u {E(name)} jsme nezkoušeli, hodnotíme jen nabídku a ceny z produktového exportu obchodu. Zkušenosti zákazníků hledejte na Heurece nebo Googlu. '
+              f'Jak obchody srovnáváme, vysvětluje stránka <a href="/o-webu/">o webu</a>, přehled obchodů je v <a href="/obchody/">srovnání obchodů</a>.</p></section>')
+
+
 def page_shops(out, ctx):
     li = "".join(f'<li><a class="shopc" href="/obchody/{s}/">{shop_logo(s, 30)}<span>{nab(ctx["shop_count"][s])}'
                  f'{" · slevový kód" if ctx["coupons"].get(s) else ""}</span></a></li>' for s in ctx["shop_ids"])
@@ -1554,11 +1598,12 @@ def page_shops(out, ctx):
         dist = "".join(f'<li>{grade_chip(g)} {E(GR[g]["name"])} <b>{num(gc[g])}</b></li>' for g, *_r in P.GRADES if gc.get(g))
         rows = sorted(best_per_model(ctx, lambda m, o, s=s: o["shop"] == s, grades=tuple(GR)), key=lambda r: (-r[0]["year"], r[1]["pc"]))
         cbox = "".join(coupon_box(c, f"/go/{s}/?u=/") for c in ctx["coupons"].get(s, []))
+        review = shop_review(ctx, s, of) if s in REVIEW_SHOPS else ""
         body = f"""<div class="wrap"><header class="mhead shophead">{shop_logo(s, 40)}<h1>{E(sh["name"])}: iPhony a ceny</h1><p class="lead">{info.get("lead", "")}</p>{cbox}</header>
 <section class="sec two"><div class="prose">{info.get("text", "")}<h2>Nabídka podle kvality</h2><ul class="gdist">{dist}</ul></div>
 <aside class="card"><dl class="specs"><dt>Nabídek</dt><dd>{num(len(of))}</dd><dt>Cena od</dt><dd>{kc(min(o["pc"] for o in of))}</dd><dt>Web</dt><dd>{E(sh["domain"])}</dd></dl></aside></section>
-<section class="sec"><h2>Nejlevnější kus každého modelu</h2>{cat_rows(ctx, rows, 30)}</section></div>"""
-        out.page(f"/obchody/{s}/", layout(ctx, path=f"/obchody/{s}/", title=f"{sh['name']} – iPhony, ceny a slevové kódy",
+{review}<section class="sec"><h2>Nejlevnější kus každého modelu</h2>{cat_rows(ctx, rows, 30)}</section></div>"""
+        out.page(f"/obchody/{s}/", layout(ctx, path=f"/obchody/{s}/", title=(f"{sh['name']} recenze: nabídka, ceny a slevový kód" if s in REVIEW_SHOPS else f"{sh['name']} – iPhony, ceny a slevové kódy"),
                                           desc=f"iPhony z {sh['name']}: {nab(len(of))} od {kc(min(o['pc'] for o in of))}, kvalita na jedné stupnici a platné slevové kódy.".replace(" ", " "),
                                           body=body, crumbs=[("/", "Repasované iPhony"), ("/obchody/", "Obchody"), (f"/obchody/{s}/", sh["name"])], index=len(of) >= 5),
                  index=len(of) >= 5)
