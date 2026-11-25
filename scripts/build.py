@@ -247,7 +247,8 @@ def logo_mark(size=34):
 
 FOOT_MODELS = ["iphone-17-pro", "iphone-16", "iphone-15", "iphone-14", "iphone-13", "iphone-11", "iphone-12"]
 FOOT_SHOP = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "iPhone bazar"), ("/zanovni-iphone/", "Zánovní iPhony"), ("/novy-iphone/", "Nové iPhony"),
-             ("/srovnani/", "Srovnání modelů"), ("/jaky-iphone-koupit/", "Jaký iPhone koupit")]
+             ("/srovnani/", "Srovnání modelů"), ("/jaky-iphone-koupit/", "Jaký iPhone koupit"),
+             ("/ceny-iphonu/", "Vývoj cen")]
 FOOT_GUIDES = [("co-znamena-repasovany-iphone", "Co je repasovaný iPhone"), ("stavy", "Kvalita A, B, C"), ("baterie", "Kondice baterie"),
                ("podpora-ios", "Podpora iOS"), ("iphone-z-bazaru", "iPhone z bazaru")]
 NAV = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "Bazar"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
@@ -416,8 +417,65 @@ def chart_html(points):
 
 # ---------------------------------------------------------------- configurator
 
+def offer_facts(o):
+    """What the buyer gets with this offer, for the offer card: (battery, battery level, warranty, warranty level, type, shipping, proven).
+    Sources, in this order: the offer text (parse.battery_info / warranty_of), then the shop's own terms for that grade
+    (data/shops.json "terms", read on the shop's website, see "src" and "checked"). Nothing is assumed: unknown stays "neuvádí".
+    Levels: "ok" = documented, "info" = stated only as an average or on the shop's page, "no" = not stated."""
+    t = SHOP[o["shop"]].get("terms") or {}
+    sg = (o.get("sg") or "").strip()
+    st = t.get("sg", {}).get(sg.lower()) or t.get("sg", {}).get("*") or {}
+    kind, val = o.get("batk") or (None, None)
+    if not kind and st.get("bat"):
+        kind, val = st["bat"]
+    war = o.get("war") or st.get("war") or 0
+    novy = o["g"] == "novy"
+    if novy:
+        bat, bl = "", "ok"
+    elif kind == "kus":
+        bat, bl = f"Baterie tohoto kusu {val}\u00a0%", "ok"
+    elif kind == "nova":
+        bat, bl = "Nová baterie", "ok"
+    elif kind == "min":
+        bat, bl = (f"Baterie {val}\u00a0% podle prodejce" if int(val) >= 100 else f"Prodejce garantuje baterii min. {val}\u00a0%"), "ok"
+    elif kind == "avg":
+        bat, bl = f"Baterie v průměru {val}\u00a0% (údaj prodejce pro tento stav)", "info"
+    elif kind == "web":
+        bat, bl = "Kondici baterie prodejce uvádí u kusu na svém webu", "info"
+    else:
+        bat, bl = "Kondici baterie prodejce v nabídce neuvádí", "no"
+    if war:
+        wt, wl = f"Záruka {war} měsíců", "ok"
+    elif t.get("market"):
+        wt, wl = "Záruka podle prodejce na tržišti", "no"
+    else:
+        wt, wl = "Záruku nabídka neuvádí", "no"
+    if novy:
+        typ = "Nový, nerozbalený kus"
+    else:
+        typ = f"Stav {GR[o['g']]['short']} ({GR[o['g']]['name'].lower()})" + (f", u prodejce „{sg}“" if sg and sg.lower() != GR[o["g"]]["name"].lower() else "")
+    if t.get("market"):
+        typ += f", nabídka z tržiště {SHOP[o['shop']]['name']}"
+    proven = not novy and kind in ("kus", "nova", "min") and int(val or 0) >= 80 and war > 0
+    bs = ("nový kus" if novy else f"baterie {val}\u00a0%" if kind == "kus" or (kind == "min" and int(val) >= 100) else "nová baterie" if kind == "nova"
+          else f"baterie min. {val}\u00a0%" if kind == "min" else f"baterie ø\u00a0{val}\u00a0%" if kind == "avg"
+          else "baterie na webu obchodu" if kind == "web" else "baterie neuvedena")
+    short = bs + " · " + (f"záruka {war}\u00a0měs." if war else "záruka neuvedena")
+    return (bat, bl, wt, wl, typ, t.get("ship", ""), 1 if proven else 0, short)
+
+
+def facts_html(f):
+    """Same markup as facts() in app.js."""
+    bat, bl, wt, wl, typ, ship = f[:6]
+    li = ([f'<li class="of of-b {bl}">{E(bat)}</li>'] if bat else []) + [f'<li class="of of-w {wl}">{E(wt)}</li>', f'<li class="of of-t">{E(typ)}</li>']
+    if ship:
+        li.append(f'<li class="of of-d">{E(ship[0].upper() + ship[1:])}</li>')
+    return f'<ul class="ofacts">{"".join(li)}</ul>'
+
+
 def cfg_data(ctx, m, offers, gb_pref=None):
-    """Compact JSON for app.js. Rows: [colour i, storage i, grade, shop price, shop, go, battery, eSIM, price after code]; sorted by the last.
+    """Compact JSON for app.js. Rows: [colour i, storage i, grade, shop price, shop, go, battery, eSIM, price after code, facts i]; sorted by price after code.
+    "f": distinct offer facts (offer_facts()), "low": cheapest refurbished combination of the page (set by page_model).
     No shop wording: quality is our scale only."""
     slug = m["slug"]
     cols = [c for c in P.COLORS.get(slug, []) if any(o["col"] == c["key"] for o in offers)]
@@ -425,12 +483,15 @@ def cfg_data(ctx, m, offers, gb_pref=None):
     ci = {c["key"]: i for i, c in enumerate(cols)}
     gi = {g: i for i, g in enumerate(gbs)}
     shops = sorted({o["shop"] for o in offers})
-    rows = []
+    rows, fidx = [], {}
     for o in sorted(offers, key=lambda o: (o["pc"], o["p"])):
         go = o["go"]
         pre = f"/go/{o['shop']}/?u="
         go = "~" + go[len(pre):] if go.startswith(pre) else go    # "~" = only the shop path; app.js / go_url() put /go/<shop>/?u= back
-        rows.append([ci[o["col"]], gi[o["gb"]], o["g"], o["p"], o["shop"], go, o["bat"] or 0, 1 if o["esim"] else 0, o["pc"]])
+        f = offer_facts(o)
+        if f not in fidx:
+            fidx[f] = len(fidx)
+        rows.append([ci[o["col"]], gi[o["gb"]], o["g"], o["p"], o["shop"], go, o["bat"] or 0, 1 if o["esim"] else 0, o["pc"], fidx[f]])
     rf = [o for o in offers if o["g"] != "novy"] or offers
     dgb = gb_pref if gb_pref in gi else Counter(o["gb"] for o in rf).most_common(1)[0][0]
     pool = [o for o in rf if o["gb"] == dgb] or [o for o in offers if o["gb"] == dgb]
@@ -447,7 +508,8 @@ def cfg_data(ctx, m, offers, gb_pref=None):
                 break
     return {"m": slug, "name": m["name"], "cols": [[c["key"], c["name"], c["hex"], photo(ctx, slug, c["key"], 600)] for c in cols],
             "gbs": gbs, "shops": shop_meta, "newp": {str(gb): ctx["new_min"][(slug, gb)] for gb in gbs if (slug, gb) in ctx["new_min"]},
-            "grades": {k: [v["short"], v["name"], v["ex"]] for k, v in GR.items()}, "gimg": GIMG, "cp": cps, "o": rows, "def": [dcol, dgb, dg]}
+            "grades": {k: [v["short"], v["name"], v["ex"]] for k, v in GR.items()}, "gimg": GIMG, "cp": cps, "o": rows, "def": [dcol, dgb, dg],
+            "f": [list(f) for f in fidx]}
 
 
 def configurator_html(ctx, m, cfg):
@@ -484,18 +546,20 @@ def result_html(cfg, res, gb):
     if not res:
         return '<p class="empty">Tahle kombinace teď není skladem. Zkuste jinou barvu nebo kvalitu.</p>'
     best = res[0]
+    F = cfg["f"]
     newp = cfg["newp"].get(str(gb))
     sh, cps = cfg["shops"], cfg["cp"]
     save = f'<span class="save hand">o {kc(newp - best[8])} levněji než nový</span>' if newp and newp > best[8] and best[2] != "novy" else ""
     was = f'<span class="was">{kc(best[3])} v obchodě</span>' if best[8] < best[3] else ""
-    facts = []
-    if best[6]:
-        facts.append(f"baterie {best[6]} %")
-    if best[7]:
-        facts.append("jen eSIM")
+    low = cfg.get("low")
+    lowl = ""
+    if low and best[8] > low[3]:
+        cname = next((c[1] for c in cfg["cols"] if c[0] == low[0]), "")
+        lowl = (f'<a class="lowlink" href="?barva={low[0]}&amp;pamet={low[1]}&amp;kvalita={low[2]}" data-low>Nejlevnější {E(cfg["name"])} za <b>{kc(low[3])}</b>'
+                f' · stav {E(cfg["grades"][low[2]][0])}, {P.gb_label(low[1])}, {E(cname.lower())}</a>')
     cp = cps.get(best[4]) if best[8] < best[3] else None
-    cbox = (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code>{E(cp[0])}</code><button type="button" class="cpn-copy" data-copy="{E(cp[0])}" data-shop="{best[4]}"{href_attr(go_url(best))}>Kopírovat</button>'
-            f'<small>{E(cp[1])} · {E(cp[2])} · zadejte v košíku</small></div>') if cp else ""
+    cbox = (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code data-kod="{E(cp[0])}">{E(cp[0])}</code>'
+            f'<small>{E(cp[1])} · {E(cp[2])} · tlačítko kód zkopíruje, v košíku ho vložte</small></div>') if cp else ""
     per_shop = {}
     for r in res:
         per_shop.setdefault(r[4], r)
@@ -503,23 +567,34 @@ def result_html(cfg, res, gb):
 
     def chip(r):
         c = cps.get(r[4]) if r[8] < r[3] else None
-        return (f'<button type="button" class="cchip" data-copy="{E(c[0])}" data-shop="{r[4]}"{href_attr(go_url(r))} aria-label="Kopírovat slevový kód {E(c[0])}">'
+        return (f'<button type="button" class="cchip" data-copy="{E(c[0])}" data-shop="{r[4]}" data-sp="chip"{href_attr(go_url(r))} aria-label="Kopírovat slevový kód {E(c[0])}">'
                 f'<span>{E(c[0])}</span>{COPY_ICON}</button>') if c else ""
-    olist = "".join(f'<li><span class="o-shop">{shop_mini(sh, r[4])}</span><span class="o-cp">{chip(r)}</span>'
+
+    def short(r):
+        return f'<span class="o-f">{E(F[r[9]][7])}</span>'
+    olist = "".join(f'<li><span class="o-shop">{shop_mini(sh, r[4])}{short(r)}</span><span class="o-cp">{chip(r)}</span>'
                     f'<span class="o-p"><b>{kc(r[8])}</b>{f"<s>{kc(r[3])}</s>" if r[8] < r[3] else ""}</span>'
-                    f'<a class="btn sm ghost" href="{E(go_url(r))}" rel="sponsored nofollow noopener" target="_blank" data-go="{r[4]}" data-price="{r[8]}"'
+                    f'<a class="btn sm ghost" href="{E(go_url(r))}" rel="sponsored nofollow noopener" target="_blank" data-go="{r[4]}" data-price="{r[8]}" data-sp="alt"'
                     f'{(" data-copy=" + chr(34) + E(cps[r[4]][0]) + chr(34)) if r[8] < r[3] and r[4] in cps else ""}>Do obchodu</a></li>'
                     for r in others)
     near = next((r for r in others if r[8] < r[3] and r[4] in cps and r[8] <= best[8] * 1.03), None) if not cp else None
     hint = (f'<p class="cphint"><span class="hand">Radši se slevovým kódem?</span> {E(sh[near[4]][0])} s kódem {chip(near)} '
             f'za {kc(near[8])}{f" (jen o {kc(near[8] - best[8])} víc)" if near[8] > best[8] else ""}</p>') if near else ""
-    cta = f"Koupit s kódem u {E(sh[best[4]][0])}" if cp else f"Koupit u {E(sh[best[4]][0])}"
+    pr = None if F[best[9]][6] else next((r for r in res if F[r[9]][6]), None)
+    proven = ""
+    if pr:
+        pc = cps.get(pr[4]) if pr[8] < pr[3] else None
+        proven = (f'<div class="proven"><p class="pv-k">Nejlevnější s doloženou baterií a zárukou</p>'
+                  f'<div class="pv-row">{shop_mini(sh, pr[4])}<span class="pv-p"><b>{kc(pr[8])}</b><small>o {kc(pr[8] - best[8])} víc</small></span>'
+                  f'<a class="btn sm" href="{E(go_url(pr))}" rel="sponsored nofollow noopener" target="_blank" data-go="{pr[4]}" data-price="{pr[8]}" data-sp="proven"'
+                  + (f' data-copy="{E(pc[0])}"' if pc else "") + f'>Do obchodu</a></div>{facts_html(F[pr[9]])}</div>')
+    cta = "Zkopírovat kód a přejít do obchodu" if cp else f"Koupit u {E(sh[best[4]][0])}"
     return (f'<div class="best"><div class="best-top"><span class="best-k">Nejlevněji</span>{shop_mini(sh, best[4], 26)}</div>'
-            f'<p class="best-p"><span class="price">{kc(best[8])}</span>{was}{save}</p>'
-            + (f'<p class="best-f">{" · ".join(facts)}</p>' if facts else "") + cbox
-            + f'<a class="btn big" href="{E(go_url(best))}" rel="sponsored nofollow noopener" target="_blank" data-go="{best[4]}" data-price="{best[8]}"'
-            + (f' data-copy="{E(cp[0])}"' if cp else "") + f'>{cta}</a>'
-            f'<p class="best-n">{nab(len(res))} v této konfiguraci</p></div>' + hint
+            f'<p class="best-p"><span class="price">{kc(best[8])}</span>{was}{save}</p>{lowl}'
+            + facts_html(F[best[9]]) + ('<p class="best-f">jen eSIM</p>' if best[7] else "") + cbox
+            + f'<a class="btn big" href="{E(go_url(best))}" rel="sponsored nofollow noopener" target="_blank" data-go="{best[4]}" data-price="{best[8]}" data-sp="best"'
+            + (f' data-copy="{E(cp[0])}" data-pop="1"' if cp else "") + f'>{cta}</a>'
+            f'<p class="best-n">{nab(len(res))} v této konfiguraci</p></div>' + proven + hint
             + (f'<div class="alts"><h3>Další obchody</h3><ul>{olist}</ul></div>' if olist else ""))
 
 
@@ -888,6 +963,9 @@ def page_model(out, ctx, m, offers, gb=None):
     lab = f'{m["name"]} {P.gb_label(gb)}' if gb else m["name"]
     only_new = all(o["g"] == "novy" for o in offers)
     cfg = cfg_data(ctx, m, offers, gb)
+    olow = min(scope, key=lambda o: (o["pc"], o["p"]))
+    cfg["low"] = [olow["col"], olow["gb"], olow["g"], olow["pc"]]
+    low_href = f'?barva={olow["col"]}&amp;pamet={olow["gb"]}&amp;kvalita={olow["g"]}'
     plab = re.sub(r"\s*\((\d{4})\)", r" \1", lab)     # "iPhone SE (2022)" -> "iPhone SE 2022" (how people search)
     title = short_title(f"{plab}: cena, bazar a repasovaný od {kc_plain(low)}" if not only_new
                         else f"{lab} nejlevněji od {kc_plain(low)} – srovnání {n_shops} {plural(n_shops, 'obchodu', 'obchodů', 'obchodů')}")
@@ -908,10 +986,10 @@ def page_model(out, ctx, m, offers, gb=None):
     h1 = f"Repasovaný a použitý {E(lab)}" if not only_new else E(lab)
     body = f"""<div class="wrap">
 <header class="mhead"><p class="eyebrow">Ceny z {date_cz(TODAY)} · {nab(len(scope))} z {obchodu(n_shops)}</p>
-<h1>{h1}</h1><p class="lead">{'Repasované, zánovní, bazarové i nové kusy' if not only_new else 'Nové kusy'} od <strong>{kc(low)}</strong>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.</p></header>
+<h1>{h1}</h1><p class="lead">{'Repasované, zánovní, bazarové i nové kusy' if not only_new else 'Nové kusy'} od <a href="{low_href}" data-low><strong>{kc(low)}</strong> (stav {GR[olow["g"]]["short"]})</a>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.</p></header>
 {configurator_html(ctx, m, cfg)}
 <section class="sec"><h2>Ceník podle paměti a kvality</h2><p class="muted">Nejnižší cena v každé kombinaci (všechny barvy, včetně platných slevových kódů). Sloupec „Nový“ je nejlevnější nový kus.</p>{price_table(ctx, m, offers)}</section>
-<section class="sec two"><div class="prose"><h2>Vyplatí se {E(m["name"])} z druhé ruky?</h2>{model_text(ctx, m, offers)}{storage_text(gb) if gb else ""}{chart_html(hist)}</div>
+<section class="sec two"><div class="prose"><h2>Vyplatí se {E(m["name"])} z druhé ruky?</h2>{model_text(ctx, m, offers)}{storage_text(gb) if gb else ""}{chart_html(hist)}<p class="muted">Jak se ceny mění u dalších modelů, ukazuje <a href="/ceny-iphonu/">vývoj cen repasovaných iPhonů</a> (graf, CSV a metodika).</p></div>
 <aside><div class="card"><h2>Technický list</h2>{specs_html(m)}</div>{tariff_box(m)}</aside></section>
 <section class="sec"><h2>Časté otázky</h2>{faq_html(items)}</section>
 {f'<section class="sec"><h2>{E(m["name"])} podle paměti</h2><ul class="chips">{gbl}</ul></section>' if gbl else ''}
@@ -919,7 +997,7 @@ def page_model(out, ctx, m, offers, gb=None):
 {f'<section class="sec"><h2>Podobné modely</h2><ul class="chips">{rel}</ul></section>' if rel else ''}
 {model_reading(ctx, m)}
 </div>
-<div class="buybar" data-buybar hidden><div class="wrap buybar-in"><span class="bb-t" data-bb-t></span><a class="btn" data-bb-a href="/{slug}/" rel="sponsored nofollow noopener" target="_blank">Koupit</a></div></div>"""
+<div class="buybar" data-buybar hidden><div class="wrap buybar-in"><span class="bb-t" data-bb-t></span><a class="btn" data-bb-a data-sp="bar" href="/{slug}/" rel="sponsored nofollow noopener" target="_blank">Koupit</a></div></div>"""
     crumbs = [("/", "Repasované iPhony"), (f"/{slug}/", m["name"])] + ([(path, P.gb_label(gb))] if gb else [])
     abs_img = SITE + ph600 if ph600 else ""
     ld = [product_ld(f"{lab}" + ("" if only_new else " (repasovaný)"), path, scope, abs_img, desc), faq_ld(items)]
@@ -974,6 +1052,54 @@ def model_card(ctx, m):
             f'<span class="mc-c">{nab(len(rf))}{" · s kódem" if low["pc"] < low["p"] else ""}</span></a></li>')
 
 
+BUDGETS = [(5000, "/iphone-do-5000-kc/"), (10000, "/iphone-do-10000-kc/"), (15000, "/iphone-do-15000-kc/")]
+TIER_RANK = {"Pro Max": 5, "Pro": 4, "Plus": 3, "Air": 3, "base": 2, "e": 1, "mini": 1, "SE": 0}
+
+
+def budget_tips(ctx, limit):
+    """Three picks for a budget band from tonight's offers (grade A+, A or B, price between the previous budget and this one, so each
+    budget shows what the extra money buys): the newest model, the most phone (highest tier) and the cheapest one with current iOS.
+    Each with the reason, computed from models.json only."""
+    floor = max((b for b, _ in BUDGETS if b < limit), default=0)
+    best = {}
+    for o in ctx["refurb"]:
+        if o["g"] in ("aplus", "a", "b") and floor < o["pc"] <= limit and (o["model"] not in best or o["pc"] < best[o["model"]]["pc"]):
+            best[o["model"]] = o
+    cand = [(MODEL[k], o) for k, o in best.items() if k in MODEL]
+    cur = [c for c in cand if ios_ok(c[0])] or cand
+    if not cur:
+        return []
+    cheap = min(cur, key=lambda c: c[1]["pc"])
+    newest = max(cur, key=lambda c: (c[0]["year"], TIER_RANK.get(tier(c[0]), 2), -c[1]["pc"]))
+    most = max(cur, key=lambda c: (TIER_RANK.get(tier(c[0]), 2), c[0]["year"], -c[1]["pc"]))
+    out, seen = [], set()
+    for lab, (m, o) in (("Nejnovější", newest), ("Nejvíc telefonu", most), ("Nejlevnější s aktuálním iOS", cheap)):
+        if m["slug"] in seen:
+            continue
+        seen.add(m["slug"])
+        if m is cheap[0]:
+            why = f'{m["year"]}, {str(m["display"]).replace(".", ",")}″, {m["port"]}' + (", aktuální iOS" if ios_ok(m) else "")
+        else:
+            d = spec_diffs(cheap[0], m)[:2] or [f'novější ({m["year"]})']
+            why = ", ".join(d) + (f', o {kc(o["pc"] - cheap[1]["pc"])} dráž' if o["pc"] > cheap[1]["pc"] else "")
+        out.append({"lab": lab, "m": m, "o": o, "why": why})
+    return out
+
+
+def budget_html(ctx, limit, path, h="h3", more=True):
+    tips = budget_tips(ctx, limit)
+    if not tips:
+        return ""
+    li = "".join(
+        f'<li><span class="bt-k">{E(t["lab"])}</span><a class="bt-m" href="/{t["m"]["slug"]}/?barva={t["o"]["col"]}&amp;pamet={t["o"]["gb"]}&amp;kvalita={t["o"]["g"]}">'
+        f'<b>{E(t["m"]["name"])}</b> <span class="muted">{P.gb_label(t["o"]["gb"])}, stav {GR[t["o"]["g"]]["short"]}</span></a>'
+        f'<span class="bt-p">{kc(t["o"]["pc"])}</span><span class="bt-w">{E(t["why"])}</span></li>' for t in tips)
+    floor = max((b for b, _ in BUDGETS if b < limit), default=0)
+    head = f'<{h} class="bt-h">{"Do " + kc(limit) if not floor else kc_plain(floor).replace(" Kč", "") + "–" + kc(limit)}</{h}>'
+    return (f'<div class="bcard">{head}<ol class="btips">{li}</ol>'
+            + (f'<a class="bt-more" href="{path}">Všechny iPhony do {kc(limit)}</a>' if more else "") + '</div>')
+
+
 def page_home(out, ctx):
     rf = ctx["refurb"]
     low = min(o["pc"] for o in rf)
@@ -1010,12 +1136,14 @@ def page_home(out, ctx):
 <p class="eyebrow">{nab(len(rf))} z {obchodu(shops)} · ceny z dnešní noci</p>
 <h1>Repasovaný iPhone za&nbsp;cenu, která dává smysl</h1>
 <p class="lead">Vyberete model, barvu, paměť a kvalitu. My projdeme obchody s repasy i bazarové nabídky, započítáme slevové kódy a ukážeme, kde je to nejlevnější. Od <strong>{kc(low)}</strong>.</p>
-<ul class="chips">{chips}</ul><p><a class="btn big" href="#modely">Vybrat model</a></p></div>
+<ul class="chips">{chips}</ul><p class="hero-cta"><a class="btn big" href="#modely">Vybrat model</a><a class="btn big ghost" href="#rozpocet">Vybrat podle rozpočtu</a></p></div>
 <div class="hero-art">{hero_img}{note}</div></div></section>
 <section class="steps wrap" aria-label="Jak to funguje"><ol>
 <li><img src="/img/ui/ic-tap.webp" alt="" width="64" height="64"><b>Vyberte model</b><span>od iPhonu 7 po 18 Pro</span></li>
 <li><img src="/img/ui/ic-swatches.webp" alt="" width="64" height="64"><b>Barvu a paměť</b><span>jen to, co je skladem</span></li>
 <li><img src="/img/ui/ic-search.webp" alt="" width="64" height="64"><b>Kvalitu A, B nebo C</b><span>a máte nejlevnější obchod</span></li></ol></section>
+<section class="sec wrap" id="rozpocet"><h2>Vyberte podle rozpočtu</h2><p class="muted">Tři tipy pro každý rozpočet z dnešních nabídek ve stavu A+, A nebo B, s tím, co za příplatek dostanete.</p>
+<div class="bgrid">{"".join(budget_html(ctx, b, u) for b, u in BUDGETS)}</div></section>
 <section class="sec wrap" id="modely"><h2>Vyberte model</h2>{"".join(fams)}</section>
 {f'<section class="sec wrap"><h2>Slevové kódy, které teď platí</h2><p class="muted">V cenách na webu už jsou započítané. Kód zadáte v košíku obchodu.</p><ul class="cpns">{cps}</ul></section>' if cps else ''}
 {f'<section class="sec wrap"><h2>Dnes se vyplatí</h2><p class="muted">Největší rozdíl proti nejlevnějšímu novému kusu se stejnou pamětí.</p><ul class="deals">{dl}</ul></section>' if dl else ''}
@@ -1486,11 +1614,13 @@ def page_cats(out, ctx):
         cnt = {}
         for m, o, n in rows:
             cnt[m["slug"]] = n
+        bud = next((b for b, u in BUDGETS if u == c["path"]), 0)
         tip_html = "".join(cat_card(ctx, MODEL[o["model"]], o, len([x for x in ctx["by_model"][o["model"]] if x["g"] == o["g"]]), E(r)) for o, r in tips)
         grid = "".join(cat_card(ctx, m, o, n) for m, o, n in rows)
         body = f"""<div class="wrap"><header class="mhead"><p class="eyebrow">Ceny z {date_cz(TODAY)} · {len(rows)} {plural(len(rows), "model", "modely", "modelů")}</p>
 <h1>{E(c["h1"])}</h1><p class="lead">{lead}</p></header>
 {f'<section class="sec ctips"><h2 class="sr">Naše tipy</h2><ul class="cgrid tipgrid">{tip_html}</ul></section>' if tip_html else ''}
+{f'<section class="sec"><h2>Tři tipy, co dostanete za {kc(bud)}</h2><div class="bgrid one">{budget_html(ctx, bud, c["path"], more=False)}</div></section>' if bud else ''}
 <section class="sec"><h2>{"Všechny modely od nejnižší ceny" if kind == "price" else "Všechny modely"}</h2>{cat_filters(kind)}<ul class="cgrid" data-cgrid>{grid}</ul>{extra}</section>
 <section class="sec prose catseo">{sec}</section>
 {f'<section class="sec"><h2>Časté otázky</h2>{faq_html(faq)}</section>' if faq else ''}</div>"""
@@ -1859,7 +1989,9 @@ Dozorovým úřadem je Úřad pro ochranu osobních údajů (uoou.cz), u kteréh
 neukládají se žádné analytické cookies ani identifikátory a do Googlu jde jen anonymní signál bez cookies. Po souhlasu měříme, které stránky lidé čtou, na které obchody klikají
 a které slevové kódy kopírují, abychom web zlepšovali. Souhlas můžete kdykoli změnit odkazem „Nastavení cookies“ v patičce. Reklamní cookies nepoužíváme.</p>
 <h2>Odkazy do obchodů</h2><p>Odkazy do e-shopů vedou přes affiliate sítě eHub a CJ, které si mohou uložit cookie, aby obchod poznal, že jste přišli od nás. Řídí se zásadami těchto sítí a obchodu.</p>
-<h2>Slevové kódy</h2><p>Tlačítko „Kopírovat“ jen vloží kód do schránky vašeho zařízení. Kód nikam neodesíláme.</p></article></div>"""
+<h2>Slevové kódy</h2><p>Tlačítko „Kopírovat“ jen vloží kód do schránky vašeho zařízení. Kód nikam neodesíláme.</p>
+<h2>Označení odkazů</h2><p>Do odkazu do obchodu přidáváme jen označení naší stránky a místa, odkud jste klikli (třeba „iphone-15“ a „best“). Affiliate síť ho vrátí u provize,
+takže víme, které stránky lidem pomáhají vybrat. Nejde o osobní údaj a nic o vás neobsahuje.</p></article></div>"""
     out.page("/ochrana-osobnich-udaju/", layout(ctx, path="/ochrana-osobnich-udaju/", title="Ochrana osobních údajů a cookies | Repasovaný iPhone",
                                                 desc="Kdo provozuje repasovanyiphone.cz, jak měříme návštěvnost se souhlasem a jak fungují odkazy do obchodů a slevové kódy.",
                                                 body=body, crumbs=[("/", "Repasované iPhony"), ("/ochrana-osobnich-udaju/", "Ochrana osobních údajů")]))
@@ -1889,6 +2021,128 @@ def history(refurb):
         for k, p in v.items():
             per[k].append((f"{dd.day}. {dd.month}.", p))
     return per
+
+
+SNAP_START = dt.date(2026, 11, 25)     # first daily snapshot
+
+
+def snapshot(offers):
+    """Daily price snapshot (from 25. 11. 2026), one file per day in the encrypted state (data/state/prices/YYYY-MM-DD.json, kept for good):
+    "model|storage|grade" -> [cheapest price after code, median price after code, offers, shops]. Only the full nightly build writes it
+    (env QUICK unset), a quick fix build reads. Feeds /ceny-iphonu/ and its CSV; these are tracked offers, not sales."""
+    d = STATE / "prices"
+    d.mkdir(parents=True, exist_ok=True)
+    if not os.environ.get("QUICK"):
+        grp = defaultdict(list)
+        for o in offers:
+            grp[f'{o["model"]}|{o["gb"]}|{o["g"]}'].append(o)
+        day = {}
+        for k, os_ in grp.items():
+            ps = sorted(x["pc"] for x in os_)
+            mid = ps[len(ps) // 2] if len(ps) % 2 else round((ps[len(ps) // 2 - 1] + ps[len(ps) // 2]) / 2)
+            day[k] = [ps[0], mid, len(ps), len({x["shop"] for x in os_})]
+        (d / f"{TODAY.isoformat()}.json").write_text(json.dumps(day, separators=(",", ":"), sort_keys=True))
+    return {f.stem: json.loads(f.read_text()) for f in sorted(d.glob("*.json"))}
+
+
+def spark(points, label):
+    """One small-multiple line (one series, no legend: the card title names it). points = [(date, price or None)]."""
+    W, H, px, py = 300, 96, 6, 14
+    vals = [v for _, v in points if v]
+    if len(vals) < 2:
+        return ""
+    lo, hi = min(vals), max(vals)
+    span = max(hi - lo, 1)
+    n = len(points)
+    xy = [(px + i * (W - 2 * px) / (n - 1), H - py - (v - lo) / span * (H - 2 * py)) for i, (_, v) in enumerate(points) if v]
+    path = "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in xy)
+    dots = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="7" class="hit"><title>{date_cz(d)}: {kc_plain(v)}</title></circle>'
+                   for (x, y), (d, v) in zip(xy, [(d, v) for d, v in points if v]))
+    (x0, y0), (x1, y1) = xy[0], xy[-1]
+    return (f'<svg class="spark" viewBox="0 0 {W} {H}" role="img" aria-label="{E(label)}">'
+            f'<line class="base" x1="{px}" x2="{W - px}" y1="{H - py + 6}" y2="{H - py + 6}"/><path class="ln" d="{path}"/>'
+            f'<circle class="end" cx="{x0:.1f}" cy="{y0:.1f}" r="3.5"/><circle class="end" cx="{x1:.1f}" cy="{y1:.1f}" r="4"/>{dots}</svg>')
+
+
+def page_prices(out, ctx):
+    """/ceny-iphonu/: tracked prices over time (small multiples), today's table by quality, CSV and methodology."""
+    snaps = ctx["snaps"]
+    days = sorted(snaps)
+    refurb = ctx["refurb"]
+    cnt = Counter(o["model"] for o in refurb)
+    top = [MODEL[m] for m, _ in cnt.most_common() if m in MODEL and ios_ok(MODEL[m])][:6]
+    base = {m["slug"]: Counter(o["gb"] for o in refurb if o["model"] == m["slug"]).most_common(1)[0][0] for m in top}
+    n_shops = len(ctx["shop_ids"])
+    first = dt.date.fromisoformat(days[0]) if days else TODAY
+    cards = []
+    for m in top:
+        k = f'{m["slug"]}|{base[m["slug"]]}|a'
+        pts = [(dt.date.fromisoformat(d), (snaps[d].get(k) or [None])[0]) for d in days]
+        vals = [v for _, v in pts if v]
+        if not vals:
+            continue
+        ch = ""
+        if len(vals) >= 2 and vals[0]:
+            pct = (vals[-1] - vals[0]) / vals[0] * 100
+            ch = f'<span class="pc-ch {"dn" if pct < 0 else "up" if pct > 0 else ""}">{"+" if pct > 0 else ""}{pct:.1f}\u00a0%'.replace(".", ",") + f' od {date_cz(first)}</span>'
+        lab = f'{m["name"]} {P.gb_label(base[m["slug"]])}, stav A'
+        sv = spark(pts, f"Nejnižší cena {lab} podle dne") if len(days) >= 7 else ""
+        cards.append(f'<li class="pcard"><a href="/{m["slug"]}/?pamet={base[m["slug"]]}&amp;kvalita=a"><b>{E(m["name"])}</b> <span class="muted">{P.gb_label(base[m["slug"]])}, stav A</span></a>'
+                     f'<p class="pc-now">{kc(vals[-1])}{ch}</p>{sv}</li>')
+    wait = "" if len(days) >= 7 else (f'<p class="note">Ceny ukládáme každou noc od {date_cz(SNAP_START)}. Křivky se tu ukážou po prvním týdnu měření, '
+                                      f'zatím máme {len(days)} {plural(len(days), "den", "dny", "dní")}. CSV níže je kompletní od prvního dne.</p>')
+    # today's table: every current model with offers, base storage, by quality
+    today = snaps.get(days[-1], {}) if days else {}
+    rows = []
+    for m in MODELS:
+        if not ctx["by_model"].get(m["slug"]):
+            continue
+        rf = [o for o in refurb if o["model"] == m["slug"]]
+        if not rf:
+            continue
+        gb = Counter(o["gb"] for o in rf).most_common(1)[0][0]
+        cells = []
+        for g in ("aplus", "a", "b", "c", "novy"):
+            v = today.get(f'{m["slug"]}|{gb}|{g}')
+            cells.append(f'<td>{kc(v[0])}<small>{v[2]}×</small></td>' if v else '<td class="na">–</td>')
+        rows.append(f'<tr><th><a href="/{m["slug"]}/">{E(m["name"])}</a> <span class="muted">{P.gb_label(gb)}</span></th>{"".join(cells)}</tr>')
+    table = ('<div class="tscroll"><table class="ptable prt"><thead><tr><th>Model, nejčastější paměť</th><th>A+</th><th>A</th><th>B</th><th>C</th><th>Nový</th></tr></thead>'
+             f'<tbody>{"".join(rows)}</tbody></table></div>')
+    # CSV (semicolon + BOM: opens correctly in Czech Excel)
+    lines = ["datum;model;pamet_gb;kvalita;nejnizsi_kc;median_kc;nabidek;obchodu"]
+    for d in days:
+        for k, v in sorted(snaps[d].items()):
+            mo, gb, g = k.split("|")
+            lines.append(f"{d};{mo};{gb};{g};{v[0]};{v[1]};{v[2]};{v[3]}")
+    out.write("data/ceny-repasovanych-iphonu.csv", "\ufeff" + "\n".join(lines) + "\n")
+    disclaimer = (f"Jde o sledované nabídky {n_shops} obchodů a tržišť ve srovnání, ne o prodeje ani o celý český trh. "
+                  "Nabídka, která zmizí, mohla být prodaná, stažená nebo přeceněná, to z dat nepoznáme.")
+    body = f"""<div class="wrap"><header class="mhead"><p class="eyebrow">Data · aktualizace každou noc</p><h1>Vývoj cen repasovaných iPhonů</h1>
+<p class="lead">Kolik stojí nejlevnější repasovaný iPhone ve stavu A u šesti modelů s největší nabídkou a jak se cena mění den po dni. {E(disclaimer)}</p></header>
+<section class="sec"><h2>Nejlevnější kus ve stavu A</h2>{wait}<ul class="pgrid">{"".join(cards)}</ul>
+<p class="muted small">Cena po započtení platného slevového kódu, u každého modelu jeho nejčastější paměť. Každý graf má vlastní rozsah osy, porovnávejte vývoj, ne výšku křivek. Najetím na bod zobrazíte datum a cenu.</p></section>
+<section class="sec"><h2>Dnešní ceny podle kvality</h2><p class="muted">Nejnižší cena a počet nabídek ({date_cz(TODAY)}). Stav převádíme na jednu stupnici, viz <a href="/pruvodce/stavy/">převodník stavů</a>.</p>{table}</section>
+<section class="sec two"><div class="prose"><h2>Data ke stažení</h2>
+<p><a class="btn ghost" href="/data/ceny-repasovanych-iphonu.csv" download>Stáhnout CSV</a></p>
+<p>Jeden řádek = den, model, paměť a kvalita: nejnižší cena, medián, počet nabídek a počet obchodů. Oddělovač středník, kódování UTF-8. Data můžete volně použít s odkazem na repasovanyiphone.cz.</p>
+<h2>Metodika</h2>
+<ul><li><strong>Zdroj:</strong> produktové exporty obchodů v našem srovnání ({E(", ".join(SHOP[s]["name"] for s in ctx["shop_ids"]))}), stažené každou noc kolem 1. hodiny.</li>
+<li><strong>Co počítáme:</strong> u každé kombinace modelu, paměti a kvality nejnižší cenu, medián a počet nabídek. Barvy slučujeme.</li>
+<li><strong>Cena:</strong> po odečtení platného slevového kódu, pokud jde jednoznačně uplatnit. Doprava není započtená.</li>
+<li><strong>Kvalita:</strong> označení obchodů převádíme na Nový, A+, A, B a C. Nabídky, které neumíme spolehlivě zařadit, vynecháváme.</li>
+<li><strong>Měříme od {date_cz(SNAP_START)}.</strong> Starší historii nemáme a nedopočítáváme.</li></ul>
+<p class="note">{E(disclaimer)}</p></div>
+<aside><div class="card"><h2>Kde dál</h2><ul class="chips"><li><a href="/levny-iphone/">Levné iPhony</a></li><li><a href="/iphone-bazar/">iPhone bazar</a></li><li><a href="/jaky-iphone-koupit/">Jaký iPhone koupit</a></li><li><a href="/o-webu/">Jak web funguje</a></li></ul></div></aside></section></div>"""
+    ld = [{"@context": "https://schema.org", "@type": "Dataset", "name": "Ceny repasovaných iPhonů v Česku (sledované nabídky)",
+           "description": "Denní nejnižší a mediánové ceny repasovaných, použitých a nových iPhonů podle modelu, paměti a kvality z nabídek "
+                          f"{n_shops} českých obchodů a tržišť. " + disclaimer,
+           "url": SITE + "/ceny-iphonu/", "isAccessibleForFree": True, "license": "https://creativecommons.org/licenses/by/4.0/",
+           "creator": {"@type": "Organization", "name": BRAND, "url": SITE + "/"},
+           "temporalCoverage": f"{days[0] if days else TODAY.isoformat()}/..", "spatialCoverage": "Česká republika",
+           "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": SITE + "/data/ceny-repasovanych-iphonu.csv"}]}]
+    out.page("/ceny-iphonu/", layout(ctx, path="/ceny-iphonu/", title="Vývoj cen repasovaných iPhonů – graf a data ke stažení",
+                                     desc="Jak se mění ceny repasovaných iPhonů: nejlevnější kus ve stavu A u šesti modelů, dnešní ceny podle kvality, CSV a metodika. Sledované nabídky, ne prodeje.",
+                                     body=body, crumbs=[("/", "Repasované iPhony"), ("/ceny-iphonu/", "Vývoj cen")], ld=ld))
 
 
 WP_ARTICLES = {
@@ -2018,7 +2272,7 @@ def main():
     col_rank = {m: [c for c, _ in Counter(o["col"] for o in of).most_common()] for m, of in by_model.items()}
     shop_count = Counter(o["shop"] for o in offers)
     ctx = {"offers": offers, "refurb": refurb, "new_min": new_min, "by_model": by_model, "sub_pages": sub_pages, "shop_count": shop_count,
-           "shop_ids": [s["id"] for s in SHOPS if shop_count.get(s["id"])], "guides": load_guides(), "hist": history(refurb),
+           "shop_ids": [s["id"] for s in SHOPS if shop_count.get(s["id"])], "guides": load_guides(), "hist": history(refurb), "snaps": snapshot(offers),
            "photos": have, "col_rank": col_rank, "deals": deals, "cats": CATS, "coupons": coupons}
     ctx["css"] = minify_css((APP / "static/assets/site.css").read_text())
     ctx["js"] = (APP / "static/assets/app.js").read_text().replace("</script", "<\\/script")
@@ -2041,11 +2295,12 @@ def main():
     page_shops(out, ctx)
     page_guides(out, ctx)
     page_about(out, ctx)
+    page_prices(out, ctx)
     page_partners(out, ctx)
     page_privacy(out, ctx)
     page_404(out, ctx)
     golinks.write_go(out, go_tpl, SHOP)
-    out.write("go/vodafone/index.html", golinks.go_page("vodafone", {"p": "", "s": "", "m": "r", "h": "", "d": ["ehub.cz"], "sd": []}, "Vodafone",
+    out.write("go/vodafone/index.html", golinks.go_page("vodafone", {"p": "", "s": "", "m": "r", "h": "", "d": ["ehub.cz"], "sd": [], "n": "ehub"}, "Vodafone",
                                                          golinks.GO_JS, default=VODAFONE_AFF, label="na"))
     n_redir = redirects(out, {p for p, _ in out.pages})
 

@@ -13,7 +13,30 @@
    "logo": "/img/shops/mobilegear.webp",
    "lw": 360,
    "lh": 100,
-   "logo_src": 22904
+   "logo_src": 22904,
+   "terms": {
+    "checked": "2026-11-25",
+    "src": [
+     "https://mobilegear.cz/obchodni-podminky",
+     "https://mobilegear.cz/o-nas"
+    ],
+    "sg": {
+     "*": {
+      "bat": [
+       "web",
+       0
+      ],
+      "war": 12
+     },
+     "nový": {
+      "bat": [
+       "nova",
+       100
+      ],
+      "war": 24
+     }
+    }
+   }
   },
   {
    "id": "jabkolevne",
@@ -27,7 +50,53 @@
    "lw": 305,
    "lh": 84,
    "logo_src": 22809,
-   "feed_key": "eh_jabkolevne"
+   "feed_key": "eh_jabkolevne",
+   "terms": {
+    "checked": "2026-11-25",
+    "src": [
+     "https://www.jabkolevne.cz/stavy-zarizeni/iphone/",
+     "https://www.jabkolevne.cz/kondice-baterie/",
+     "https://www.jabkolevne.cz/platba-a-doprava/"
+    ],
+    "ship": "doprava od 99 Kč, osobní odběr v Praze zdarma",
+    "sg": {
+     "*": {
+      "bat": [
+       "min",
+       80
+      ],
+      "war": 12
+     },
+     "nerozbaleno": {
+      "bat": [
+       "nova",
+       100
+      ],
+      "war": 12
+     },
+     "nový": {
+      "bat": [
+       "nova",
+       100
+      ],
+      "war": 12
+     },
+     "rozbaleno": {
+      "bat": [
+       "min",
+       100
+      ],
+      "war": 12
+     },
+     "zánovní": {
+      "bat": [
+       "min",
+       100
+      ],
+      "war": 12
+     }
+    }
+   }
   },
   {
    "id": "smarty",
@@ -41,7 +110,44 @@
    "logo": "/img/shops/smarty.webp",
    "lw": 360,
    "lh": 77,
-   "logo_src": 18188
+   "logo_src": 18188,
+   "terms": {
+    "checked": "2026-11-25",
+    "src": [
+     "https://www.smarty.cz/Apple-iPhone-15-Plus-128GB-ruzovy-4p114473-C",
+     "https://www.smarty.cz/Apple-iPhone-14-Pro-Max-128GB-vesmirne-cerny-4p51174-A"
+    ],
+    "sg": {
+     "kategorie a": {
+      "bat": [
+       "min",
+       80
+      ],
+      "war": 12
+     },
+     "kategorie b": {
+      "bat": [
+       "min",
+       80
+      ],
+      "war": 12
+     },
+     "kategorie c": {
+      "bat": [
+       "min",
+       80
+      ],
+      "war": 12
+     },
+     "nový": {
+      "bat": [
+       "nova",
+       100
+      ],
+      "war": 24
+     }
+    }
+   }
   },
   {
    "id": "iphonemarket",
@@ -55,7 +161,57 @@
    "logo": "/img/shops/iphonemarket.webp",
    "lw": 360,
    "lh": 99,
-   "logo_src": 22804
+   "logo_src": 22804,
+   "terms": {
+    "checked": "2026-11-25",
+    "src": [
+     "https://www.iphonemarket.cz/stavy-iphonu/"
+    ],
+    "sg": {
+     "nerozbaleno": {
+      "bat": [
+       "nova",
+       100
+      ],
+      "war": 24
+     },
+     "rozbaleno": {
+      "bat": [
+       "min",
+       99
+      ],
+      "war": 24
+     },
+     "premium": {
+      "bat": [
+       "avg",
+       "93"
+      ],
+      "war": 12
+     },
+     "zánovní": {
+      "bat": [
+       "avg",
+       "85–90"
+      ],
+      "war": 12
+     },
+     "výborný": {
+      "bat": [
+       "avg",
+       "85–90"
+      ],
+      "war": 12
+     },
+     "velmi dobrý": {
+      "bat": [
+       "avg",
+       "85"
+      ],
+      "war": 12
+     }
+    }
+   }
   },
   {
    "id": "aukro",
@@ -74,7 +230,13 @@
    "logo": "/img/shops/aukro.webp",
    "lw": 348,
    "lh": 120,
-   "logo_src": 22546
+   "logo_src": 22546,
+   "terms": {
+    "checked": "2026-11-25",
+    "market": true,
+    "src": [],
+    "sg": {}
+   }
   },
   {
    "id": "istyle",
@@ -88,7 +250,22 @@
    "lw": 352,
    "lh": 120,
    "logo_src": 8123,
-   "feed_key": "eh_istyle"
+   "feed_key": "eh_istyle",
+   "terms": {
+    "checked": "2026-11-25",
+    "src": [
+     "zákon: nové zboží od obchodníka, § 2165 OZ"
+    ],
+    "sg": {
+     "*": {
+      "bat": [
+       "nova",
+       100
+      ],
+      "war": 24
+     }
+    }
+   }
   },
   {
    "id": "allegro",
@@ -104,7 +281,13 @@
    "logo": "/img/shops/allegro.webp",
    "lw": 312,
    "lh": 120,
-   "logo_src": 22533
+   "logo_src": 22533,
+   "terms": {
+    "checked": "2026-11-25",
+    "market": true,
+    "src": [],
+    "sg": {}
+   }
   }
  ]
 }

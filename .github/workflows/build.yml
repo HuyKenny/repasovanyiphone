@@ -71,6 +71,7 @@ jobs:
         run: python3 scripts/build.py
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          QUICK: ${{ (github.event_name == 'workflow_dispatch' && inputs.quick) && '1' || '' }}   # quick fix: no new daily price snapshot
       - name: SEO lint (broken links, titles, canonicals, JSON-LD, sitemap) - a hard error stops the deploy
         run: python3 scripts/seo_lint.py dist | tee /tmp/seo-report.json
       - name: Secret check of repo + build output

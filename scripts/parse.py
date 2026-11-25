@@ -19,7 +19,7 @@ _C = json.loads((APP / "data/colors.json").read_text())
 COLORS = {slug: _C["sets"][k] for slug, k in _C["models"].items()}
 
 GRADES = [  # key, short label, name, what you see
-    ("novy", "Nový", "Nerozbalený", "nový kus s plnou zárukou 24 měsíců"),
+    ("novy", "Nový", "Nerozbalený", "nový, nerozbalený a neaktivovaný kus"),
     ("aplus", "A+", "Jako nový", "bez viditelných stop, často rozbalený nebo krátce používaný"),
     ("a", "A", "Výborný", "drobné stopy, které uvidíte jen zblízka"),
     ("b", "B", "Velmi dobrý", "jemné škrábance na rámu nebo zádech"),
@@ -88,13 +88,44 @@ def color(model, key):
 
 
 def battery_of(text):
+    """Measured battery health of this very piece (exact %, or a new battery), else None. See battery_info()."""
+    k, v = battery_info(text)
+    return v if k in ("kus", "nova") else None
+
+
+def battery_info(text):
+    """(kind, %) from an offer text. kind: "kus" = health of this piece, "nova" = new battery,
+    "min" = the seller guarantees at least this ("Kondice baterie 90-100 %", "85 % a více"); (None, None) if not stated."""
+    t = text or ""
+    m = re.search(r"(?:kondic\w*|kapacit\w*|stav)\s+bateri\w*[^0-9%]{0,12}(\d{2,3})\s?%?\s?[-–]\s?(\d{2,3})\s?%", t, re.I)
+    if m and 60 <= int(m.group(1)) < int(m.group(2)) <= 100:
+        return "min", int(m.group(1))
+    m = re.search(r"bateri\w*[^0-9%]{0,20}(\d{2,3})\s?%\s*a\s+v[ií]ce", t, re.I) or re.search(r"(?:min\.?|minimáln\w*)\s+(\d{2,3})\s?%\s*(?:kondic|kapacit)", t, re.I)
+    if m and 60 <= int(m.group(1)) <= 100:
+        return "min", int(m.group(1))
+    m = re.search(r"nov(?:ou|á|ý)\s+bateri\w*", t, re.I)
+    if m and not re.search(r"neměn|nebyl\w*\s+měn", t, re.I):
+        return "nova", 100
     for rx in (r"(?:kondic\w*|kapacit\w*|zdrav\w*|stav)\s+bateri\w*[^0-9%]{0,20}(\d{2,3})\s?%",
                r"(\d{2,3})\s?%\s*(?:kondic\w*|kapacit\w*|zdraví)\s*(?:bateri\w*)?",
                r"bateri\w*\s*(?:na\s*)?(\d{2,3})\s?%"):
-        m = re.search(rx, text or "", re.I)
+        m = re.search(rx, t, re.I)
         if m and 70 <= int(m.group(1)) <= 100:
-            return int(m.group(1))
-    return None
+            return "kus", int(m.group(1))
+    return None, None
+
+
+def warranty_of(text):
+    """Warranty in months stated in the offer text ("Záruka: 24 měsíců", "12měsíční záruka", "záruka 1 rok", "roční záruka"), else 0."""
+    t = text or ""
+    for rx, mul in ((r"záruk\w*:?\s*(\d{1,2})\s*měs", 1), (r"(\d{1,2})\s*-?\s*měsíčn\w*\s+záruk", 1),
+                    (r"záruk\w*:?\s*(\d)\s*(?:rok|roky|let)\b", 12), (r"(\d)\s*(?:rok|roky|let)\w*\s+záruk", 12)):
+        m = re.search(rx, t, re.I)
+        if m and 6 <= int(m.group(1)) * mul <= 60:
+            return int(m.group(1)) * mul
+    if re.search(r"\b(roční|dvouletou|dvouletá)\s+záruk", t, re.I):
+        return 24 if re.search(r"dvoulet", t, re.I) else 12
+    return 0
 
 
 MG = {"premium": "aplus", "zánovní": "aplus", "výborný": "a", "velmi dobrý+": "b", "velmi dobrý": "b", "dobrý": "c", "nový": "novy"}
@@ -180,7 +211,8 @@ def normalise(shop, r, report=None):
     if BY_SLUG[model].get("esim_only"):
         esim = True
     return {"shop": shop["id"], "id": str(r["id"]), "model": model, "gb": storage, "g": g, "sg": sg, "col": col,
-            "bat": battery_of(t + " " + r.get("d", "")), "esim": esim, "p": int(round(r["p"])), "was": int(round(r.get("was") or 0)),
+            "bat": battery_of(t + " " + r.get("d", "")), "batk": battery_info(t + " " + r.get("d", "")),
+            "war": warranty_of(t + " " + r.get("d", "")), "esim": esim, "p": int(round(r["p"])), "was": int(round(r.get("was") or 0)),
             "url": r["url"], "go": r["go"], "img": r.get("img") or "", "t": t}
 
 

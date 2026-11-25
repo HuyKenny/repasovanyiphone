@@ -1,6 +1,6 @@
 /* repasovanyiphone.cz: voucher copy buttons (every page) + configurator colour -> storage -> quality -> cheapest shop (model pages).
    Configurator data: <script id="cfg" type="application/json"> from scripts/build.py.
-   Rows: [colour, storage, grade, shop price, shop, go, battery, eSIM, price after voucher code], sorted by the last one.
+   Rows: [colour, storage, grade, shop price, shop, go, battery, eSIM, price after voucher code, facts index into C.f], sorted by price after code.
    The markup mirrors configurator_html()/result_html() in build.py, so the page reads the same without JS. Quality = our scale only. */
 (function () {
   /* copy a voucher code: buttons show "Zkopírováno", links (Koupit s kódem / Do obchodu) copy and then open the shop as usual */
@@ -19,13 +19,14 @@
     var code = el.dataset.copy, shop = el.dataset.shop || el.dataset.go || "", p = copy(code);
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: "coupon_copy", coupon: code, shop: shop, from_path: location.pathname });
-    if (el.tagName !== "BUTTON") return;
+    if (el.tagName !== "BUTTON" && !el.dataset.pop) return;
     /* coupon-site pattern: this page (with the code) opens in a new tab, the current tab goes to the shop through /go/,
        so a copied code still counts as our affiliate click. Ctrl/Cmd/Shift/middle click = copy only. */
-    var href = el.dataset.href;
+    var href = el.dataset.href || (el.dataset.pop ? el.getAttribute("href") : "");
     if (href && !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button)) {
       var tab = window.open(location.pathname + location.search + "#kod=" + encodeURIComponent(code) + (shop ? "&s=" + encodeURIComponent(shop) : ""), "_blank");
       if (tab) {
+        e.preventDefault();      /* "Zkopírovat kód a přejít do obchodu" link: this tab goes to the shop, the new one keeps the code */
         try { tab.opener = null; } catch (x) { /* ignore */ }
         window.dataLayer.push({ event: "click_shop", shop: shop, with_code: "yes", via: "copy", from_path: location.pathname, transport_type: "beacon" });
         var gone = 0, leave = function () { if (!gone) { gone = 1; location.href = href; } };
@@ -33,6 +34,7 @@
         setTimeout(leave, 400);
         return;
       }
+      if (el.tagName !== "BUTTON") return;      /* popup blocked: the link simply opens the shop */
       if (!el.parentNode.querySelector(".cpn-open")) {
         var a = document.createElement("a");
         a.className = "cpn-open"; a.href = href; a.target = "_blank"; a.rel = "sponsored nofollow noopener";
@@ -58,7 +60,7 @@
       bar.querySelector("code").textContent = kc0;
       bar.querySelector(".cpn-copy").dataset.copy = kc0;
       bar.querySelector(".kodbar-x").addEventListener("click", function () { bar.remove(); });
-      var t = document.querySelector('[data-copy="' + kc0.replace(/["\\]/g, "") + '"]:not(a)');
+      var k1 = kc0.replace(/["\\]/g, ""), t = document.querySelector('[data-kod="' + k1 + '"], [data-copy="' + k1 + '"]:not(a)');
       document.body.appendChild(bar);
       var box = t && (t.closest(".cpn, .ccard, .alts li, .cphint") || t);
       if (box) {
@@ -75,11 +77,27 @@
   /* clicks to shops for GTM (click_shop) */
   document.addEventListener("click", function (e) {
     var a = e.target.closest("a[data-go]");
-    if (!a) return;
+    if (!a || e.defaultPrevented) return;
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: "click_shop", shop: a.dataset.go, with_code: a.dataset.copy ? "yes" : "no", price: +(a.dataset.price || 0) || undefined,
       from_path: location.pathname, transport_type: "beacon" });
   });
+
+  /* subID for commission per page: every /go/ link gets ?si=<page>&sp=<place>; the /go/ page turns them into
+     eHub data1/data2 or CJ sid (prefix rp-). Kept in the browser so guides, categories and the configurator all share it. */
+  var SI = (location.pathname.replace(/^\/+|\/+$/g, "").replace(/[^a-z0-9]+/g, "-") || "home").slice(0, 40);
+  var tagged = function (h, sp) {
+    if (!h || h.indexOf("/go/") !== 0 || /[?&]si=/.test(h)) return h;
+    return h + (h.indexOf("?") < 0 ? "?" : "&") + "si=" + SI + "&sp=" + sp;
+  };
+  window.rpTag = function (root) {
+    (root || document).querySelectorAll('a[href^="/go/"], [data-href^="/go/"]').forEach(function (a) {
+      var sp = /^[a-z]{1,10}$/.test(a.dataset.sp || "") ? a.dataset.sp : a.dataset.go === "vodafone" ? "vf" : "l";
+      if (a.tagName === "A") a.setAttribute("href", tagged(a.getAttribute("href"), sp));
+      if (a.dataset.href) a.dataset.href = tagged(a.dataset.href, sp);
+    });
+  };
+  window.rpTag();
 
   /* consent bar: Consent Mode v2 update (the default "denied" is set in the page head before GTM loads) */
   var bar = document.querySelector("[data-consentbar]");
@@ -149,30 +167,48 @@
       : '<span class="slogo stext" style="--c:' + s[2] + '">' + esc(s[0]) + "</span>";
   }
 
+  function facts(f) {
+    var li = (f[0] ? '<li class="of of-b ' + f[1] + '">' + esc(f[0]) + "</li>" : "") + '<li class="of of-w ' + f[3] + '">' + esc(f[2]) + '</li><li class="of of-t">' + esc(f[4]) + "</li>" +
+      (f[5] ? '<li class="of of-d">' + esc(f[5].charAt(0).toUpperCase() + f[5].slice(1)) + "</li>" : "");
+    return '<ul class="ofacts">' + li + "</ul>";
+  }
+
   function result() {
     var res = where(S.c, S.gi, S.g);
     if (!res.length) return '<p class="empty">Tahle kombinace teď není skladem. Zkuste jinou barvu nebo kvalitu.</p>';
-    var best = res[0], gb = C.gbs[S.gi], newp = C.newp[String(gb)], cp = code(best);
+    var best = res[0], gb = C.gbs[S.gi], newp = C.newp[String(gb)], cp = code(best), F = C.f;
     var save = newp && newp > best[8] && best[2] !== "novy" ? '<span class="save hand">o ' + kc(newp - best[8]) + " levněji než nový</span>" : "";
     var was = best[8] < best[3] ? '<span class="was">' + kc(best[3]) + " v obchodě</span>" : "";
-    var facts = [];
-    if (best[6]) facts.push("baterie " + best[6] + " %");
-    if (best[7]) facts.push("jen eSIM");
+    var lowl = "", L = C.low;
+    if (L && best[8] > L[3]) {
+      var lc = C.cols[colIdx(L[0])];
+      lowl = '<a class="lowlink" href="?barva=' + L[0] + "&amp;pamet=" + L[1] + "&amp;kvalita=" + L[2] + '" data-low>Nejlevnější ' + esc(C.name) + " za <b>" + kc(L[3]) + "</b> · stav " +
+        esc(C.grades[L[2]][0]) + ", " + gbl(L[1]) + ", " + esc(lc ? lc[1].toLowerCase() : "") + "</a>";
+    }
     var seen = {}, others = [];
     res.forEach(function (r) { if (!seen[r[4]]) { seen[r[4]] = 1; if (r !== best) others.push(r); } });
+    var pr = F[best[9]][6] ? null : res.filter(function (r) { return F[r[9]][6]; })[0], proven = "";
+    if (pr) {
+      var pc = code(pr);
+      proven = '<div class="proven"><p class="pv-k">Nejlevnější s doloženou baterií a zárukou</p><div class="pv-row">' + shopMini(pr[4]) +
+        '<span class="pv-p"><b>' + kc(pr[8]) + "</b><small>o " + kc(pr[8] - best[8]) + " víc</small></span>" +
+        '<a class="btn sm" href="' + esc(go(pr)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + pr[4] + '" data-price="' + pr[8] + '" data-sp="proven"' +
+        (pc ? ' data-copy="' + esc(pc[0]) + '"' : "") + ">Do obchodu</a></div>" + facts(F[pr[9]]) + "</div>";
+    }
     var html = '<div class="best"><div class="best-top"><span class="best-k">Nejlevněji</span>' + shopMini(best[4], 26) + "</div>" +
-      '<p class="best-p"><span class="price">' + kc(best[8]) + "</span>" + was + save + "</p>" +
-      (facts.length ? '<p class="best-f">' + facts.join(" · ") + "</p>" : "") +
-      (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code>' + esc(cp[0]) + '</code><button type="button" class="cpn-copy" data-copy="' + esc(cp[0]) + '" data-shop="' + best[4] + '" data-href="' + esc(go(best)) + '">Kopírovat</button>' +
-        "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · zadejte v košíku</small></div>" : "") +
-      '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '"' + (cp ? ' data-copy="' + esc(cp[0]) + '"' : "") + ">" +
-      (cp ? "Koupit s kódem u " : "Koupit u ") + esc(C.shops[best[4]][0]) + "</a>" +
-      '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p></div>";
+      '<p class="best-p"><span class="price">' + kc(best[8]) + "</span>" + was + save + "</p>" + lowl + facts(F[best[9]]) +
+      (best[7] ? '<p class="best-f">jen eSIM</p>' : "") +
+      (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code data-kod="' + esc(cp[0]) + '">' + esc(cp[0]) + "</code>" +
+        "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · tlačítko kód zkopíruje, v košíku ho vložte</small></div>" : "") +
+      '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '" data-sp="best"' +
+      (cp ? ' data-copy="' + esc(cp[0]) + '" data-pop="1"' : "") + ">" +
+      (cp ? "Zkopírovat kód a přejít do obchodu" : "Koupit u " + esc(C.shops[best[4]][0])) + "</a>" +
+      '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p></div>" + proven;
     var ICON = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>' +
       '<path d="M5 15V6a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     var chip = function (r) {
       var c = code(r);
-      return c ? '<button type="button" class="cchip" data-copy="' + esc(c[0]) + '" data-shop="' + r[4] + '" data-href="' + esc(go(r)) + '" aria-label="Kopírovat slevový kód ' + esc(c[0]) + '"><span>' + esc(c[0]) + "</span>" + ICON + "</button>" : "";
+      return c ? '<button type="button" class="cchip" data-copy="' + esc(c[0]) + '" data-shop="' + r[4] + '" data-sp="chip" data-href="' + esc(go(r)) + '" aria-label="Kopírovat slevový kód ' + esc(c[0]) + '"><span>' + esc(c[0]) + "</span>" + ICON + "</button>" : "";
     };
     if (!cp) {
       var near = others.filter(function (r) { return code(r) && r[8] <= best[8] * 1.03; })[0];
@@ -182,8 +218,8 @@
     if (others.length) {
       html += '<div class="alts"><h3>Další obchody</h3><ul>' + others.map(function (r) {
         var c = code(r);
-        return '<li><span class="o-shop">' + shopMini(r[4]) + '</span><span class="o-cp">' + chip(r) + '</span><span class="o-p"><b>' + kc(r[8]) + "</b>" + (c ? "<s>" + kc(r[3]) + "</s>" : "") +
-          '</span><a class="btn sm ghost" href="' + esc(go(r)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + r[4] + '" data-price="' + r[8] + '"' + (c ? ' data-copy="' + esc(c[0]) + '"' : "") + ">Do obchodu</a></li>";
+        return '<li><span class="o-shop">' + shopMini(r[4]) + '<span class="o-f">' + esc(F[r[9]][7]) + '</span></span><span class="o-cp">' + chip(r) + '</span><span class="o-p"><b>' + kc(r[8]) + "</b>" + (c ? "<s>" + kc(r[3]) + "</s>" : "") +
+          '</span><a class="btn sm ghost" href="' + esc(go(r)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + r[4] + '" data-price="' + r[8] + '" data-sp="alt"' + (c ? ' data-copy="' + esc(c[0]) + '"' : "") + ">Do obchodu</a></li>";
       }).join("") + "</ul></div>";
     }
     /* cheaper nearby: another colour (same storage + quality) or one step lower quality (same colour + storage) */
@@ -225,6 +261,7 @@
     var gim = q("[data-gimg]");
     if (gim) { var ok = (C.gimg || []).indexOf(S.g) >= 0; gim.hidden = !ok; if (ok) gim.src = "/img/ui/grade-" + S.g + ".webp"; }
     q("[data-result]").innerHTML = result();
+    if (window.rpTag) window.rpTag(q("[data-result]"));
     var best = where(S.c, S.gi, S.g)[0], bb = document.querySelector("[data-buybar]");
     if (bb && best) {
       var cp = code(best);
@@ -233,12 +270,22 @@
       a.href = go(best);
       a.textContent = "Koupit u " + C.shops[best[4]][0];
       if (cp) a.dataset.copy = cp[0]; else delete a.dataset.copy;
+      if (window.rpTag) window.rpTag(bb);
     }
     if (!S.touched && !location.search) return;          /* clean URL until the visitor chooses something */
     var u = new URLSearchParams(location.search);
     u.set("barva", col[0]); u.set("pamet", C.gbs[S.gi]); u.set("kvalita", S.g);
     history.replaceState(null, "", location.pathname + "?" + u.toString());
   }
+
+  document.addEventListener("click", function (e) {
+    var l = e.target.closest("a[data-low]");
+    if (!l || !C.low || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    S.c = colIdx(C.low[0]); S.gi = C.gbs.indexOf(C.low[1]); S.g = C.low[2]; S.touched = true;
+    settle("g"); render();
+    if (l.closest(".mhead")) root.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   root.addEventListener("click", function (e) {
     var b = e.target.closest("button");
