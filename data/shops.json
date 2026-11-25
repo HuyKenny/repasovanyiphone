@@ -35,6 +35,12 @@
       ],
       "war": 24
      }
+    },
+    "vykup": {
+     "u": "/vykup/",
+     "t": "Online odhad ceny, telefon pošlete zdarma poštou, nebo ho přinesete na prodejnu.",
+     "src": "https://www.mobilegear.cz/vykup/",
+     "checked": "2026-11-25"
     }
    }
   },
@@ -99,6 +105,12 @@
     "splatky": {
      "kdo": "Home Credit",
      "src": "https://www.jabkolevne.cz/platba-a-doprava/"
+    },
+    "vykup": {
+     "u": "/vykup/",
+     "t": "Přepravní štítek přijde e-mailem. Když vám nabídka nesedí, telefon vrátí zdarma. Jde to i na pobočce.",
+     "src": "https://www.jabkolevne.cz/vykup/",
+     "checked": "2026-11-25"
     }
    }
   },
@@ -218,6 +230,12 @@
       ],
       "war": 12
      }
+    },
+    "vykup": {
+     "u": "/vykup/",
+     "t": "Na prodejně telefon zkontroluje technik zhruba za 10 minut, jde to i na dálku. Umí protiúčet, doplatek jen v hotovosti.",
+     "src": "https://www.iphonemarket.cz/vykup/",
+     "checked": "2026-11-25"
     }
    }
   },
@@ -272,6 +290,12 @@
       ],
       "war": 24
      }
+    },
+    "vykup": {
+     "u": "/pages/vykup-zarizeni",
+     "t": "Orientační cenu ukáže kalkulačka, finální určí kontrola. K vybraným novým zařízením přidává bonus k výkupu. Firmám nevykupuje.",
+     "src": "https://www.istyle.cz/pages/vykup-zarizeni",
+     "checked": "2026-11-25"
     }
    }
   },

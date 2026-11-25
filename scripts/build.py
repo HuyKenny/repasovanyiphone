@@ -248,7 +248,7 @@ def logo_mark(size=34):
 FOOT_MODELS = ["iphone-17-pro", "iphone-16", "iphone-15", "iphone-14", "iphone-13", "iphone-11", "iphone-12"]
 FOOT_SHOP = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "iPhone bazar"), ("/zanovni-iphone/", "Zánovní iPhony"), ("/novy-iphone/", "Nové iPhony"),
              ("/srovnani/", "Srovnání modelů"), ("/jaky-iphone-koupit/", "Jaký iPhone koupit"),
-             ("/ceny-iphonu/", "Vývoj cen"), ("/iphone-na-splatky/", "iPhone na splátky")]
+             ("/ceny-iphonu/", "Vývoj cen"), ("/vykup-iphonu/", "Výkup iPhonu"), ("/iphone-na-splatky/", "iPhone na splátky")]
 FOOT_GUIDES = [("co-znamena-repasovany-iphone", "Co je repasovaný iPhone"), ("stavy", "Kvalita A, B, C"), ("baterie", "Kondice baterie"),
                ("podpora-ios", "Podpora iOS"), ("iphone-z-bazaru", "iPhone z bazaru")]
 NAV = [("/#modely", "Modely"), ("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "Bazar"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
@@ -1035,7 +1035,7 @@ def page_model(out, ctx, m, offers, gb=None):
 <section class="sec"><h2>Ceník podle paměti a kvality</h2><p class="muted">Nejnižší cena v každé kombinaci (všechny barvy, včetně platných slevových kódů). Sloupec „Nový“ je nejlevnější nový kus.</p>{price_table(ctx, m, offers)}</section>
 <section class="sec two"><div class="prose"><h2>Vyplatí se {E(m["name"])} z druhé ruky?</h2>{model_text(ctx, m, offers)}{storage_text(gb) if gb else ""}{chart_html(hist)}<p class="muted">Jak se ceny mění u dalších modelů, ukazuje <a href="/ceny-iphonu/">vývoj cen repasovaných iPhonů</a> (graf, CSV a metodika).</p></div>
 <aside><div class="card"><h2>Technický list</h2>{specs_html(m)}</div>{tariff_box(m)}</aside></section>
-<section class="sec"><h2>Časté otázky</h2>{faq_html(items)}</section>
+<section class="sec"><h2>Časté otázky</h2>{faq_html(items)}<p class="muted">Prodáváte starý iPhone? <a href="/vykup-iphonu/">Kde ho vykoupí a kolik si říct</a>.</p></section>
 {f'<section class="sec"><h2>{E(m["name"])} podle paměti</h2><ul class="chips">{gbl}</ul></section>' if gbl else ''}
 {f'<section class="sec"><h2>Kategorie</h2><ul class="chips">{cats}</ul></section>' if cats else ''}
 {f'<section class="sec"><h2>Podobné modely</h2><ul class="chips">{rel}</ul></section>' if rel else ''}
@@ -1261,7 +1261,7 @@ CATS = [
      "title": "iPhone bazar – použité iPhony od {low} se zárukou",
      "lead": "Použité a bazarové iPhony z obchodů a od firem na Aukru a Allegru, se zárukou a kvalitou na jedné stupnici."},
     {"path": "/levny-iphone/", "short": "Levné iPhony", "h1": "Levný iPhone: nejlevnější iPhony dnes",
-     "title": "Levný iPhone – nejlevnější iPhony dnes od {low}",
+     "title": "Levný iPhone – iPhone levně dnes od {low}",
      "lead": "Nejlevnější kus každého modelu, seřazený od nejnižší ceny včetně slevových kódů. Modely bez aktuálního iOS jsou až na konci."},
     {"path": "/novy-iphone/", "short": "Nové iPhony", "h1": "Nový iPhone: kde je nejlevnější",
      "title": "Nový iPhone nejlevněji – ceny {n} modelů",
@@ -1417,7 +1417,7 @@ def seo_levny(ctx, rows):
     M = lambda o: MODEL[o["model"]]  # noqa: E731
     tips = [(cheap_ok, f"Nejlevnější s aktuálním iOS"), (mid, "Nejnovější do 10 000 Kč v dobrém stavu")] + ([(usbc, "Nejlevnější s USB-C")] if usbc else [])
     tips = [(o, r) for o, r in tips if o]
-    lead = (f'Nejlevnější iPhone dnes stojí <strong>{kc(cheapest["pc"])}</strong> – {E(M(cheapest)["name"])}. Nejlevnější iPhone s aktuálním iOS je '
+    lead = (f'Kde koupit iPhone levně: nejlevnější iPhone dnes stojí <strong>{kc(cheapest["pc"])}</strong> – {E(M(cheapest)["name"])}. Nejlevnější iPhone s aktuálním iOS je '
             f'{E(M(cheap_ok)["name"])} za <strong>{kc(cheap_ok["pc"])}</strong>. Ceny včetně slevových kódů.')
     brackets = []
     for lo, hi, lab, url in ((0, 5000, "do 5 000 Kč", "/iphone-do-5000-kc/"), (5000, 10000, "5 000–10 000 Kč", "/iphone-do-10000-kc/"),
@@ -1456,12 +1456,14 @@ a paměť, výkon je u stejného modelu stejný. Proto se vyplatí porovnávat: 
 <li><strong>Aktivační zámek.</strong> Telefon musí jít nastavit s vaším Apple účtem, jinak ho vraťte. <a href="/pruvodce/kontrola/">Kontrola po převzetí</a></li>
 {f'<li><strong>Slevové kódy.</strong> V cenách výše jsou už započítané:<ul>{codes}</ul></li>' if codes else ''}</ul>"""
     faq = [("Jaký je nejlevnější iPhone?", f'Dnes {E(M(cheapest)["name"])} za {kc(cheapest["pc"])}. Pokud chcete telefon s aktuálním iOS, nejlevnější je {E(M(cheap_ok)["name"])} za {kc(cheap_ok["pc"])}.'),
-           ("Kde koupit iPhone nejlevněji?", "Nejlevněji vycházejí repasované kusy z obchodů s kvalitou B nebo C. Srovnáváme "
+           ("Kde koupit iPhone levně?", "Nejlevněji vycházejí repasované kusy z obchodů s kvalitou B nebo C. Srovnáváme "
             + E(", ".join(SHOP[s]["name"] for s in ctx["shop_ids"])) + " a ke každé konfiguraci ukážeme nejlevnější obchod včetně slevových kódů."),
            ("Vyplatí se ještě iPhone 11?", "Ano, pokud chcete co nejlevnější iPhone s podporou: dostává iOS 26 i iOS 27. Nemá ale 5G ani USB-C a baterie bývá u starších kusů opotřebovaná."),
            ("Je levný repasovaný iPhone horší než nový?", "Funkčně ne, obchod ho otestoval a dává na něj záruku. Liší se vzhledem podle kvality (A+ až C) a kondicí baterie.")]
     if cheap_new:
         faq.insert(1, ("Jaký je nejlevnější nový iPhone?", f'{E(M(cheap_new)["name"])} za {kc(cheap_new["pc"])} ({E(SHOP[cheap_new["shop"]]["name"])}).'))
+        faq.insert(2, ("Jde koupit nepoužitý iPhone levně?", f'Nejlevnější nový, nerozbalený iPhone je dnes {E(M(cheap_new)["name"])} za {kc(cheap_new["pc"])}. '
+                       'Levnější cestou k nepoužitému telefonu jsou rozbalené kusy bez stop používání, najdete je mezi <a href="/zanovni-iphone/">zánovními iPhony</a>.'))
     return lead, tips, sec, faq
 
 
@@ -1637,7 +1639,7 @@ CAT_SEO = {"/iphone-bazar/": ("fam", seo_bazar), "/levny-iphone/": ("price", seo
 CAT_META = {
     "/iphone-bazar/": ("iPhone bazar – použité iPhony od {low} se zárukou",
                        "Použité a bazarové iPhony od {low} z obchodů i od firem na Aukru a Allegru, se zárukou a kvalitou A, B, C. Kolik stojí použitý iPhone a jak ho koupit bezpečně."),
-    "/levny-iphone/": ("Levný iPhone – nejlevnější iPhony dnes od {low}",
+    "/levny-iphone/": ("Levný iPhone – iPhone levně dnes od {low}",
                        "Nejlevnější iPhony dnes od {low}: repasované, zánovní i nové, ceny včetně slevových kódů. Který levný iPhone se vyplatí a kde koupit iPhone levně."),
     "/zanovni-iphone/": ("Zánovní iPhone a rozbalené iPhony od {low}",
                          "Zánovní a rozbalené iPhony bez stop od {low}. Kolik ušetříte proti novému, jakou mají záruku a na co si dát pozor. Ceny každý den."),
@@ -1838,6 +1840,7 @@ def load_guides():
         m = re.match(r"<!--(.*?)-->\s*", txt, re.S)
         meta = json.loads(m.group(1))
         meta["html"], meta["slug"] = txt[m.end():], f.stem
+        meta.setdefault("path", f"/pruvodce/{f.stem}/")   # a guide promoted to its own landing keeps the article template ("path" in its header)
         meta.setdefault("photo", photos.get(f.stem, {}))
         gs.append(meta)
     return sorted(gs, key=lambda g: g.get("order", 99))
@@ -1870,7 +1873,8 @@ def guide_html(ctx, g):
     rf = ctx["refurb"]
     rep_ = {"{{GRADE_TABLE}}": lambda: grade_table(ctx), "{{IOS_TABLE}}": lambda: ios_table(ctx), "{{SHOP_TABLE}}": lambda: shop_table(ctx),
             "{{BATTERY_STATS}}": lambda: battery_stats(ctx), "{{N_OFFERS}}": lambda: num(len(rf)), 
-            "{{LOW_PRICE}}": lambda: kc(min(o["pc"] for o in rf)), "{{VF_URL}}": lambda: VODAFONE}
+            "{{LOW_PRICE}}": lambda: kc(min(o["pc"] for o in rf)), "{{VF_URL}}": lambda: VODAFONE,
+            "{{VYKUP_TABLE}}": lambda: vykup_table(ctx), "{{VYKUP_SHOPS}}": lambda: vykup_shops(ctx)}
     h = g["html"]
     for k, f in rep_.items():
         if k in h:
@@ -1889,6 +1893,37 @@ def guide_html(ctx, g):
     return h, toc
 
 
+def vykup_table(ctx):
+    """/vykup-iphonu/: today's cheapest refurbished piece per model (its most common storage) = the ceiling for a trade-in or private sale.
+    Only our own prices; we publish no buy-back prices (they are the shops' and change daily)."""
+    rows = []
+    for m in MODELS:
+        rf = [o for o in ctx["refurb"] if o["model"] == m["slug"]]
+        if len(rf) < 3:
+            continue
+        gb = Counter(o["gb"] for o in rf).most_common(1)[0][0]
+        cells = []
+        for gs in (("aplus", "a"), ("b",), ("c",)):
+            ps = [o["pc"] for o in rf if o["gb"] == gb and o["g"] in gs]
+            cells.append(f"<td>{kc(min(ps))}</td>" if ps else '<td class="na">–</td>')
+        rows.append(f'<tr><th><a href="/{m["slug"]}/?pamet={gb}">{E(m["name"])}</a> <span class="muted">{P.gb_label(gb)}</span></th>{"".join(cells)}</tr>')
+    return ('<div class="tscroll"><table class="ptable prt vyk"><thead><tr><th>Model, nejčastější paměť</th><th>Stav A / A+</th><th>Stav B</th><th>Stav C</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div><p class="muted small">Nejnižší cena repasovaného kusu v obchodech v našem srovnání, {date_cz(TODAY)}, '
+            'po započtení platného slevového kódu. Ceny se aktualizují každou noc. Výkupní ceny obchodů neuvádíme, každý výkup je určuje sám podle kontroly telefonu.</p>')
+
+
+def vykup_shops(ctx):
+    """Shops in the comparison that buy iPhones (terms.vykup in data/shops.json, each checked on the shop's own page)."""
+    li = []
+    for s in ctx["shop_ids"]:
+        v = SHOP[s].get("terms", {}).get("vykup")
+        if v:
+            li.append(f'<li>{shop_logo(s, 20)}<p>{E(v["t"])}</p><a class="btn ghost" href="/go/{s}/?u={v["u"]}" rel="sponsored nofollow noopener" target="_blank" '
+                      f'data-go="{s}" data-shop="{s}" data-sp="vykup">Výkup {E(SHOP[s]["name"])}</a></li>')
+    return (f'<ul class="vshops">{"".join(li)}</ul><p class="muted small">Podle stránek obchodů k {date_cz(dt.date.fromisoformat(max(SHOP[s]["terms"]["vykup"]["checked"] for s in ctx["shop_ids"] if SHOP[s].get("terms", {}).get("vykup"))))}. '
+            'Postup i podmínky se můžou změnit, platí to, co obchod uvádí při výkupu.</p>') if li else ""
+
+
 GUIDE_PICK = {   # one factual sentence tying the guide to the comparison (what the visitor sees at the offers)
     "baterie": "U každé nabídky ukazujeme, co prodejce o baterii uvádí: kondici konkrétního kusu, garantované minimum, nebo že údaj chybí.",
     "stavy": "Kvalitu A+, A, B nebo C vyberete u každého modelu a hned uvidíte nejlevnější obchod.",
@@ -1898,6 +1933,7 @@ GUIDE_PICK = {   # one factual sentence tying the guide to the comparison (what 
     "repas-vs-bazar": "Použité iPhony od obchodů mají záruku a 14 dní na vrácení při nákupu online.",
     "zaruka": "U nabídek ukazujeme záruku, kterou obchod uvádí, nebo že ji neuvádí.",
     "jaka-pamet": "U každého modelu vyberete paměť a uvidíte, o kolik je vyšší paměť dražší.",
+    "prodej-stareho-iphonu": "Peníze z výkupu často pokryjí velkou část repasu o dvě až tři generace novějšího. Dnešní ceny:",
     "podpora-ios": "Modely s aktuálním iOS najdete v přehledu levných iPhonů i v doporučeních podle rozpočtu.",
 }
 
@@ -1920,11 +1956,11 @@ def page_guides(out, ctx):
     for key, name in GUIDE_GROUPS:
         gs = [g for g in ctx["guides"] if g.get("group", "zaklady") == key]
         if gs:
-            li = "".join(f'<li><a href="/pruvodce/{g["slug"]}/"><img src="/img/ui/ic-{GUIDE_ICON.get(g.get("icon"), g.get("icon", "search"))}.webp" alt="" width="56" height="56" loading="lazy">'
+            li = "".join(f'<li><a href="{g["path"]}"><img src="/img/ui/ic-{GUIDE_ICON.get(g.get("icon"), g.get("icon", "search"))}.webp" alt="" width="56" height="56" loading="lazy">'
                          f'<b>{E(g["h1"])}</b><span>{E(g["desc"])}</span></a></li>' for g in gs)
             groups.append(f'<section class="sec"><h2>{E(name)}</h2><ul class="glist">{li}</ul></section>')
     hub_ld = [{"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [
-        {"@type": "ListItem", "position": i + 1, "url": f'{SITE}/pruvodce/{g["slug"]}/', "name": g["h1"]} for i, g in enumerate(ctx["guides"])]}]
+        {"@type": "ListItem", "position": i + 1, "url": SITE + g["path"], "name": g["h1"]} for i, g in enumerate(ctx["guides"])]}]
     out.page("/pruvodce/", layout(ctx, path="/pruvodce/", title="Průvodce nákupem repasovaného a použitého iPhonu",
                                   desc="Co znamená repasovaný iPhone, kvalita A, B, C, kondice baterie, podpora iOS, kontrola IMEI a iCloudu, záruka a nákup z bazaru. Návody krok za krokem.",
                                   body=f'<div class="wrap"><header class="mhead"><h1>Průvodce nákupem iPhonu z druhé ruky</h1><p class="lead">Všechno, co potřebujete vědět před nákupem '
@@ -1932,7 +1968,7 @@ def page_guides(out, ctx):
                                        f'Čísla v článcích se každou noc přepočítávají z {nab(len(ctx["refurb"]))}.</p></header>{"".join(groups)}</div>',
                                   ld=hub_ld, crumbs=[("/", "Repasované iPhony"), ("/pruvodce/", "Průvodce")], active="/pruvodce/"))
     for g in ctx["guides"]:
-        path = f'/pruvodce/{g["slug"]}/'
+        path = g["path"]
         html_, toc = guide_html(ctx, g)
         hs = [mo.start() for mo in re.finditer(r"<h2[ >]", html_)]
         if len(hs) >= 3:      # a short line after the second section, the full box before the FAQ
@@ -1942,7 +1978,7 @@ def page_guides(out, ctx):
         faq = [tuple(x) for x in g.get("faq", [])]
         same = [x for x in ctx["guides"] if x is not g and x.get("group") == g.get("group")]
         rest = [x for x in ctx["guides"] if x is not g and x not in same]
-        others = "".join(f'<li><a href="/pruvodce/{x["slug"]}/">{E(x["short"])}</a></li>' for x in same + rest)
+        others = "".join(f'<li><a href="{x["path"]}">{E(x["short"])}</a></li>' for x in same + rest)
         photo = g.get("photo") or {}
         hero = (f'<figure class="ghero"><img src="{photo["src"]}" alt="{E(photo.get("alt", ""))}" width="1200" height="630" fetchpriority="high">'
                 f'<figcaption>Foto: {E(photo.get("by", ""))}, {E(photo.get("site", "Pexels"))}</figcaption></figure>') if photo.get("src") else ""
@@ -1958,9 +1994,9 @@ def page_guides(out, ctx):
         if photo.get("src"):
             art["image"] = SITE + photo["src"]
         ld = [art] + ([faq_ld(faq)] if faq else [])
-        out.page(path, layout(ctx, path=path, title=short_title(g["title"]), desc=g["desc"], body=body, ld=ld, active="/pruvodce/",
+        out.page(path, layout(ctx, path=path, title=short_title(g["title"]), desc=g["desc"], body=body, ld=ld, active=None if g.get("landing") else "/pruvodce/",
                               og_img=SITE + photo["src"] if photo.get("src") else "",
-                              crumbs=[("/", "Repasované iPhony"), ("/pruvodce/", "Průvodce"), (path, g["short"])]))
+                              crumbs=[("/", "Repasované iPhony")] + ([] if g.get("landing") else [("/pruvodce/", "Průvodce")]) + [(path, g["short"])]))
 
 
 PARTNER_MAIL = "info@repasovanyiphone.cz"   # forwarded by Cloudflare Email Routing to napis@sbalit.cz
@@ -2344,15 +2380,21 @@ def wp_legacy(current):
     return out
 
 
+MOVED = {"/pruvodce/prodej-stareho-iphonu/": "/vykup-iphonu/"}   # pages moved on purpose (25. 11. 2026: the trade-in guide became a landing)
+
+
 def redirects(out, current):
     """301 for every path that existed in an earlier build and is gone now (Workers static assets read dist/_redirects)."""
     kp = STATE / "known-paths.json"
     known = set(json.loads(kp.read_text())) if kp.exists() else set()
     known |= set(out.old)
+    known |= set(MOVED)
     lines = []
     for p in sorted(known - current):
         m = re.match(r"^/(iphone-[a-z0-9-]+)/\d+-gb/$", p)
-        if m and f"/{m.group(1)}/" in current:
+        if MOVED.get(p) in current:
+            to = MOVED[p]
+        elif m and f"/{m.group(1)}/" in current:
             to = f"/{m.group(1)}/"
         elif p.startswith("/obchody/"):
             to = "/obchody/"
