@@ -487,14 +487,16 @@ def page_home(out, ctx):
     dl = "".join(deal_card(ctx, o) for o in deals)
     pop = [m for m in sorted(MODELS, key=lambda m: -len(ctx["by_model"].get(m["slug"], []))) if ctx["by_model"].get(m["slug"])][:8]
     chips = "".join(f'<li><a href="/{m["slug"]}/">{E(m["name"])}</a></li>' for m in sorted(pop, key=lambda m: -m["year"]))
-    ex = next((o for o in deals if o["model"] in ("iphone-15", "iphone-16", "iphone-15-pro", "iphone-14", "iphone-13", "iphone-16-pro")), deals[0] if deals else None)
+    ex = next((o for o in ctx["deals"] if o["model"] in ("iphone-15", "iphone-16", "iphone-15-pro", "iphone-14", "iphone-13", "iphone-16-pro") and o["gb"] <= 256),
+              deals[0] if deals else None)
     note = (f'<span class="hand note-hero">{E(MODEL[ex["model"]]["name"])} o {kc(ctx["new_min"][(ex["model"], ex["gb"])] - ex["p"])} levněji než nový</span>'
             f'<svg class="note-arrow" viewBox="0 0 80 60" aria-hidden="true"><path d="M6 8c22 2 44 12 56 38" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>'
             f'<path d="M50 40l12 7 3-14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') if ex else ""
     grades = "".join(f'<li class="gx">' + (f'<img src="/img/ui/grade-{k}.webp" alt="" width="120" height="120" loading="lazy">' if k in GIMG else "")
                      + f'<span class="gl g-{k}">{E(GR[k]["short"])}</span><b>{E(GR[k]["name"])}</b><small>{E(GR[k]["ex"])}</small></li>' for k in REFURB_G)
     logos = "".join(f'<li><a href="/obchody/{s}/" aria-label="{E(SHOP[s]["name"])}">{shop_logo(s, 26)}</a></li>' for s in ctx["shop_ids"])
-    hero_img = ('<img src="/img/ui/hero.webp" alt="" width="520" height="520" fetchpriority="high">' if (APP / "static/img/ui/hero.webp").exists()
+    hero_img = ('<img src="/img/ui/hero.webp" srcset="/img/ui/hero-sm.webp 404w, /img/ui/hero.webp 808w" sizes="(max-width:860px) 300px, 420px" '
+                'alt="Ruka s telefonem, ze kterého padají mince do druhé dlaně" width="404" height="500" fetchpriority="high">' if (APP / "static/img/ui/hero.webp").exists()
                 else f'<img src="{E(img(model_photo(ctx, "iphone-15-pro"), 520))}" alt="" width="520" height="520" fetchpriority="high">')
     items = [("Co je repasovaný iPhone?",
               "Použitý nebo vrácený telefon, který obchod vyčistil, otestoval a případně opravil (nejčastěji baterii nebo displej) a prodává ho se zárukou. "
@@ -822,7 +824,7 @@ def main():
             new_min[k] = min(new_min.get(k, 10 ** 9), o["p"])
     for k, v in list(new_min.items()):     # a "new" price below the median refurbished one is a bad reference (grey import, mislabelled used)
         rs = sorted(o["p"] for o in refurb if (o["model"], o["gb"]) == k)
-        if rs and v < rs[len(rs) // 2]:
+        if rs and (v < rs[len(rs) // 2] or v > 2 * rs[len(rs) // 2]):   # ... or a marketplace seller asking double for a discontinued model
             del new_min[k]
     if len(refurb) < 300:
         sys.exit(f"only {len(refurb)} refurbished offers - refusing to build a near-empty site")

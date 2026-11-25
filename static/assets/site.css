@@ -83,11 +83,13 @@ button{font:inherit;color:inherit}
 .hero-in{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
 .hero h1{max-width:12em}
 .hero-art{position:relative}
-.hero-art img{width:100%;max-width:480px;margin-left:auto;mix-blend-mode:multiply}
-.note-hero{position:absolute;left:-4%;bottom:8%;font-size:1.55rem;line-height:1.05;max-width:13em;transform:rotate(-4deg)}
-.note-arrow{position:absolute;left:30%;bottom:-2%;width:70px;color:var(--note);transform:rotate(14deg)}
+.hero-art img{width:100%;max-width:420px;margin:0 auto;mix-blend-mode:multiply}
+.note-hero{position:absolute;left:-6%;top:44%;font-size:1.5rem;line-height:1.05;max-width:8.5em;transform:rotate(-5deg)}
+.note-arrow{position:absolute;left:22%;top:58%;width:60px;color:var(--note);transform:rotate(-8deg)}
 .hero .btn{margin-top:18px}
-@media (max-width:860px){.hero-in{grid-template-columns:1fr}.hero-art{max-width:360px;margin:0 auto}.note-hero{left:0;bottom:0;font-size:1.3rem}.note-arrow{display:none}}
+.hero .chips a{background:#fff}
+.hero .chips a:hover{background:var(--soft2)}
+@media (max-width:860px){.hero-in{grid-template-columns:1fr}.hero-art{max-width:360px;margin:0 auto}.note-hero{left:-4%;top:40%;font-size:1.2rem;max-width:7em}.note-arrow{display:none}}
 
 /* steps + why */
 .steps ol,.why ul{list-style:none;margin:0;padding:34px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
