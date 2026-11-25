@@ -1,0 +1,656 @@
+{
+ "_doc": "iPhone models the site knows. Facts are Apple's launch specs (year = launch year, display = diagonal in inches, storage = launch capacities in GB). ios26 = gets iOS 26 (Apple: iPhone 11 / SE 2nd gen and newer). ai = Apple Intelligence. family groups models on the home page. Order = newest first. iPhone 17e and 18 Pro facts come from the shops' parameter feeds (JabkoLevně), not from memory.",
+ "models": [
+  {
+   "slug": "iphone-18-pro-max",
+   "name": "iPhone 18 Pro Max",
+   "year": 2026,
+   "display": 6.9,
+   "chip": "A20 Pro",
+   "storage": [
+    256,
+    512,
+    1024,
+    2048
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "18"
+  },
+  {
+   "slug": "iphone-18-pro",
+   "name": "iPhone 18 Pro",
+   "year": 2026,
+   "display": 6.3,
+   "chip": "A20 Pro",
+   "storage": [
+    256,
+    512,
+    1024,
+    2048
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "18"
+  },
+  {
+   "slug": "iphone-17-pro-max",
+   "name": "iPhone 17 Pro Max",
+   "year": 2025,
+   "display": 6.9,
+   "chip": "A19 Pro",
+   "storage": [
+    256,
+    512,
+    1024,
+    2048
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "17"
+  },
+  {
+   "slug": "iphone-17-pro",
+   "name": "iPhone 17 Pro",
+   "year": 2025,
+   "display": 6.3,
+   "chip": "A19 Pro",
+   "storage": [
+    256,
+    512,
+    1024
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "17"
+  },
+  {
+   "slug": "iphone-air",
+   "name": "iPhone Air",
+   "year": 2025,
+   "display": 6.5,
+   "chip": "A19 Pro",
+   "storage": [
+    256,
+    512,
+    1024
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "esim_only": true,
+   "family": "17"
+  },
+  {
+   "slug": "iphone-17",
+   "name": "iPhone 17",
+   "year": 2025,
+   "display": 6.3,
+   "chip": "A19",
+   "storage": [
+    256,
+    512
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "17"
+  },
+  {
+   "slug": "iphone-17e",
+   "name": "iPhone 17e",
+   "year": 2026,
+   "display": 6.1,
+   "chip": "A19",
+   "storage": [
+    256,
+    512
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 60,
+   "ai": true,
+   "family": "17"
+  },
+  {
+   "slug": "iphone-16-pro-max",
+   "name": "iPhone 16 Pro Max",
+   "year": 2024,
+   "display": 6.9,
+   "chip": "A18 Pro",
+   "storage": [
+    256,
+    512,
+    1024
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "16"
+  },
+  {
+   "slug": "iphone-16-pro",
+   "name": "iPhone 16 Pro",
+   "year": 2024,
+   "display": 6.3,
+   "chip": "A18 Pro",
+   "storage": [
+    128,
+    256,
+    512,
+    1024
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "16"
+  },
+  {
+   "slug": "iphone-16-plus",
+   "name": "iPhone 16 Plus",
+   "year": 2024,
+   "display": 6.7,
+   "chip": "A18",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 60,
+   "ai": true,
+   "family": "16"
+  },
+  {
+   "slug": "iphone-16",
+   "name": "iPhone 16",
+   "year": 2024,
+   "display": 6.1,
+   "chip": "A18",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 60,
+   "ai": true,
+   "family": "16"
+  },
+  {
+   "slug": "iphone-16e",
+   "name": "iPhone 16e",
+   "year": 2025,
+   "display": 6.1,
+   "chip": "A18",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 60,
+   "ai": true,
+   "family": "16"
+  },
+  {
+   "slug": "iphone-15-pro-max",
+   "name": "iPhone 15 Pro Max",
+   "year": 2023,
+   "display": 6.7,
+   "chip": "A17 Pro",
+   "storage": [
+    256,
+    512,
+    1024
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "15"
+  },
+  {
+   "slug": "iphone-15-pro",
+   "name": "iPhone 15 Pro",
+   "year": 2023,
+   "display": 6.1,
+   "chip": "A17 Pro",
+   "storage": [
+    128,
+    256,
+    512,
+    1024
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 120,
+   "ai": true,
+   "family": "15"
+  },
+  {
+   "slug": "iphone-15-plus",
+   "name": "iPhone 15 Plus",
+   "year": 2023,
+   "display": 6.7,
+   "chip": "A16 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "15"
+  },
+  {
+   "slug": "iphone-15",
+   "name": "iPhone 15",
+   "year": 2023,
+   "display": 6.1,
+   "chip": "A16 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "USB-C",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "15"
+  },
+  {
+   "slug": "iphone-14-pro-max",
+   "name": "iPhone 14 Pro Max",
+   "year": 2022,
+   "display": 6.7,
+   "chip": "A16 Bionic",
+   "storage": [
+    128,
+    256,
+    512,
+    1024
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 120,
+   "family": "14"
+  },
+  {
+   "slug": "iphone-14-pro",
+   "name": "iPhone 14 Pro",
+   "year": 2022,
+   "display": 6.1,
+   "chip": "A16 Bionic",
+   "storage": [
+    128,
+    256,
+    512,
+    1024
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 120,
+   "family": "14"
+  },
+  {
+   "slug": "iphone-14-plus",
+   "name": "iPhone 14 Plus",
+   "year": 2022,
+   "display": 6.7,
+   "chip": "A15 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "14"
+  },
+  {
+   "slug": "iphone-14",
+   "name": "iPhone 14",
+   "year": 2022,
+   "display": 6.1,
+   "chip": "A15 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "14"
+  },
+  {
+   "slug": "iphone-se-2022",
+   "name": "iPhone SE (2022)",
+   "year": 2022,
+   "display": 4.7,
+   "chip": "A15 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Touch ID",
+   "hz": 60,
+   "family": "se"
+  },
+  {
+   "slug": "iphone-13-pro-max",
+   "name": "iPhone 13 Pro Max",
+   "year": 2021,
+   "display": 6.7,
+   "chip": "A15 Bionic",
+   "storage": [
+    128,
+    256,
+    512,
+    1024
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 120,
+   "family": "13"
+  },
+  {
+   "slug": "iphone-13-pro",
+   "name": "iPhone 13 Pro",
+   "year": 2021,
+   "display": 6.1,
+   "chip": "A15 Bionic",
+   "storage": [
+    128,
+    256,
+    512,
+    1024
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 120,
+   "family": "13"
+  },
+  {
+   "slug": "iphone-13",
+   "name": "iPhone 13",
+   "year": 2021,
+   "display": 6.1,
+   "chip": "A15 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "13"
+  },
+  {
+   "slug": "iphone-13-mini",
+   "name": "iPhone 13 mini",
+   "year": 2021,
+   "display": 5.4,
+   "chip": "A15 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "13"
+  },
+  {
+   "slug": "iphone-12-pro-max",
+   "name": "iPhone 12 Pro Max",
+   "year": 2020,
+   "display": 6.7,
+   "chip": "A14 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "12"
+  },
+  {
+   "slug": "iphone-12-pro",
+   "name": "iPhone 12 Pro",
+   "year": 2020,
+   "display": 6.1,
+   "chip": "A14 Bionic",
+   "storage": [
+    128,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "12"
+  },
+  {
+   "slug": "iphone-12",
+   "name": "iPhone 12",
+   "year": 2020,
+   "display": 6.1,
+   "chip": "A14 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "12"
+  },
+  {
+   "slug": "iphone-12-mini",
+   "name": "iPhone 12 mini",
+   "year": 2020,
+   "display": 5.4,
+   "chip": "A14 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "12"
+  },
+  {
+   "slug": "iphone-se-2020",
+   "name": "iPhone SE (2020)",
+   "year": 2020,
+   "display": 4.7,
+   "chip": "A13 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Touch ID",
+   "hz": 60,
+   "family": "se"
+  },
+  {
+   "slug": "iphone-11-pro-max",
+   "name": "iPhone 11 Pro Max",
+   "year": 2019,
+   "display": 6.5,
+   "chip": "A13 Bionic",
+   "storage": [
+    64,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "11"
+  },
+  {
+   "slug": "iphone-11-pro",
+   "name": "iPhone 11 Pro",
+   "year": 2019,
+   "display": 5.8,
+   "chip": "A13 Bionic",
+   "storage": [
+    64,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "11"
+  },
+  {
+   "slug": "iphone-11",
+   "name": "iPhone 11",
+   "year": 2019,
+   "display": 6.1,
+   "chip": "A13 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "family": "11"
+  },
+  {
+   "slug": "iphone-xs-max",
+   "name": "iPhone XS Max",
+   "year": 2018,
+   "display": 6.5,
+   "chip": "A12 Bionic",
+   "storage": [
+    64,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "old": true,
+   "family": "x"
+  },
+  {
+   "slug": "iphone-xs",
+   "name": "iPhone XS",
+   "year": 2018,
+   "display": 5.8,
+   "chip": "A12 Bionic",
+   "storage": [
+    64,
+    256,
+    512
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "old": true,
+   "family": "x"
+  },
+  {
+   "slug": "iphone-xr",
+   "name": "iPhone XR",
+   "year": 2018,
+   "display": 6.1,
+   "chip": "A12 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "old": true,
+   "family": "x"
+  },
+  {
+   "slug": "iphone-x",
+   "name": "iPhone X",
+   "year": 2017,
+   "display": 5.8,
+   "chip": "A11 Bionic",
+   "storage": [
+    64,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Face ID",
+   "hz": 60,
+   "old": true,
+   "family": "x"
+  },
+  {
+   "slug": "iphone-8-plus",
+   "name": "iPhone 8 Plus",
+   "year": 2017,
+   "display": 5.5,
+   "chip": "A11 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Touch ID",
+   "hz": 60,
+   "old": true,
+   "family": "8"
+  },
+  {
+   "slug": "iphone-8",
+   "name": "iPhone 8",
+   "year": 2017,
+   "display": 4.7,
+   "chip": "A11 Bionic",
+   "storage": [
+    64,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Touch ID",
+   "hz": 60,
+   "old": true,
+   "family": "8"
+  }
+ ]
+}

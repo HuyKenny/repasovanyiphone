@@ -1,0 +1,95 @@
+name: build
+# Nightly: fetch the shop feeds, rebuild the static site, deploy Workers static assets (no Worker script = nothing billed),
+# keep the encrypted state (price history) as a release asset. The whole run takes a few minutes.
+# PUBLIC repo: logs are public. Scripts print only shop ids and counts; feed URLs are masked; no `set -x` anywhere.
+on:
+  schedule:
+    - cron: "10 0 * * *"      # 01:10 CET every night (heavy work only at night)
+  workflow_dispatch:
+    inputs:
+      quick:
+        description: "Quick fix: no feed fetch, rebuild from the saved feeds and deploy (CSS/JS/template/text fixes, ~1 min)"
+        type: boolean
+        default: false
+concurrency:
+  group: build
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: production
+    permissions:
+      contents: write          # release asset with the encrypted state
+    env:
+      VT_ENV: ${{ vars.VT_ENV || 'staging' }}
+      GA4_ID: ${{ vars.GA4_ID || '' }}
+      HAS_CF: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: "Cost guard - the repo must stay public (private repos burn the shared 2 000 free minutes)"
+        run: |
+          [ "$(gh api repos/${{ github.repository }} --jq .private)" = "false" ] || { echo "repo is private - stopping"; exit 1; }
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Secret scan of the repository history (gitleaks, pinned + checksum)
+        run: |
+          curl -sSL -o /tmp/gl.tgz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  /tmp/gl.tgz" | sha256sum -c -
+          tar xzf /tmp/gl.tgz -C /tmp gitleaks
+          /tmp/gitleaks detect --source . --redact --no-banner --exit-code 1
+      - name: Restore state (encrypted)
+        run: scripts/state.sh pull
+        env:
+          STATE_KEY: ${{ secrets.STATE_KEY }}
+          GH_TOKEN: ${{ github.token }}
+      - name: Fetch feeds
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.quick) }}
+        timeout-minutes: 15
+        continue-on-error: true      # a failed shop keeps its previous file
+        run: python3 scripts/fetch.py
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+          CJ_CID: ${{ secrets.CJ_CID }}
+          CJ_PID: ${{ secrets.CJ_PID }}
+          FEEDS_JSON: ${{ secrets.FEEDS_JSON }}
+      - name: Build site
+        run: python3 scripts/build.py
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+      - name: Secret check of repo + build output
+        run: python3 scripts/verify_no_secrets.py
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          STATE_KEY: ${{ secrets.STATE_KEY }}
+          FEEDS_JSON: ${{ secrets.FEEDS_JSON }}
+      - name: Deploy (static assets only)
+        if: env.HAS_CF == 'true'
+        run: python3 scripts/deploy.py "$VT_ENV"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Save state (encrypted)
+        if: always()
+        run: '[ -f data/state/history.json ] && scripts/state.sh push || echo "no state to save"'
+        env:
+          STATE_KEY: ${{ secrets.STATE_KEY }}
+          GH_TOKEN: ${{ github.token }}
+      - name: IndexNow (changed pages)
+        if: env.VT_ENV == 'production' && !(github.event_name == 'workflow_dispatch' && inputs.quick)
+        continue-on-error: true
+        run: python3 scripts/indexnow.py
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+      - name: Summary
+        if: always()
+        run: |
+          set +e
+          { echo '### Fetch'; echo '```'; cat data/raw/fetch-report.json 2>/dev/null; echo '```'
+            echo '### Build'; echo '```'; cat data/state/build-report.json 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,17 @@
+{
+ "_doc": "Shops in the comparison. No secrets: CJ advertiser ids and eHub a_bid are public (they are in every affiliate link). feed = public shop export; feed_key = URL with a token, kept in the FEEDS_JSON secret. refurb = how an offer is recognised as refurbished/used (all = whole feed; hint = title/description must say so, others are new phones used only as the reference price).",
+ "shops": [
+  {"id": "jabkolevne", "name": "JabkoLevně", "domain": "jabkolevne.cz", "network": "ehub", "a_bid": "85731c2c",
+   "feed": "https://www.jabkolevne.cz/heureka/export/products.xml", "refurb": "hint", "color": "#E4002B"},
+  {"id": "iphonemarket", "name": "iPhoneMarket", "domain": "iphonemarket.cz", "network": "ehub", "a_bid": "2bcd6f9d",
+   "feed_key": "eh_iphonemarket", "refurb": "all", "color": "#111111", "enabled": false},
+  {"id": "mobilegear", "name": "MobileGear", "domain": "mobilegear.cz", "network": "ehub", "a_bid": "2e8d2a50",
+   "feed_key": "eh_mobilegear", "refurb": "all", "color": "#1F6FEB", "enabled": false},
+  {"id": "aukro", "name": "Aukro", "domain": "aukro.cz", "network": "cj", "advertiser": "5078957", "keywords": ["iPhone"],
+   "refurb": "fcond", "fcond": ["Refurbished"], "color": "#F5A800"},
+  {"id": "allegro", "name": "Allegro", "domain": "allegro.cz", "network": "cj", "advertiser": "6464420", "keywords": ["iPhone"],
+   "refurb": "hint", "color": "#FF5A00"},
+  {"id": "mall", "name": "MALL.CZ", "domain": "mall.cz", "network": "cj", "advertiser": "4615486", "keywords": ["iPhone"],
+   "refurb": "hint", "color": "#E2001A"}
+ ]
+}

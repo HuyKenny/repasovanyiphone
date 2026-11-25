@@ -1,0 +1,19 @@
+{
+ "_doc": "Short shop descriptions (HTML). Only facts checked on the shop's own site or visible in its feed.",
+ "jabkolevne": {
+  "lead": "Pražský specialista na iPhony: nové, zánovní, rozbalené i použité kusy, kamenná prodejna ve Vodičkově ulici.",
+  "text": "<p>JabkoLevně prodává hlavně iPhony a další zařízení Apple. Vedle e-shopu má prodejnu v Praze (Vodičkova 10, Praha 1), otevřeno je každý den od 8:30 do 20:00, takže telefon si můžete před koupí prohlédnout.</p><p>Stav píše přímo do názvu: <strong>Stav A</strong>, <strong>A-</strong>, <strong>A/B</strong> a <strong>B</strong>, k tomu zvlášť zánovní a rozbalené kusy. U každého telefonu je ve feedu i barva a přesná paměť, takže nabídky párujeme spolehlivě.</p>"
+ },
+ "aukro": {
+  "lead": "Tržiště, na kterém prodávají i specializovaní prodejci repasovaných telefonů. Bereme jen nabídky označené jako repasované.",
+  "text": "<p>Na Aukru se prodávají nové, bazarové i repasované telefony od firem i soukromníků. Do srovnání bereme <strong>jen nabídky, které prodejce označil jako repasované</strong>, a vynecháváme dražby a běžné bazarové inzeráty, u kterých nejde ověřit stav.</p><p>Repasované iPhony na Aukru mají stupnici Premium, Zánovní, Výborný, Téměř výborný, Velmi dobrý, Dobrý a Uspokojivý. U třídy Premium prodejce uvádí původní baterii se 100% kondicí. Před nákupem si u nabídky zkontrolujte, kdo je prodejce a jakou dává záruku.</p>"
+ },
+ "mall": {
+  "lead": "Velký obchod s elektronikou: vedle nových iPhonů občas i rozbalené a zánovní kusy.",
+  "text": "<p>MALL.CZ prodává hlavně nové telefony. Do srovnání repasovaných bereme jen kusy označené jako <strong>rozbalené, zánovní nebo použité</strong>; nové iPhony z MALLu slouží jako srovnávací cena „nový od“.</p>"
+ },
+ "allegro": {
+  "lead": "Tržiště s novými telefony; ceny nových iPhonů používáme jako srovnávací cenu.",
+  "text": "<p>Z Allegra bereme ceny nových iPhonů jako srovnání, kolik ušetříte koupí repasovaného kusu.</p>"
+ }
+}
