@@ -345,29 +345,44 @@
   render();
 })();
 
-/* category pages: filter chips over the card grid (price band, series, current line-up) */
+/* category pages: filter chips over the card grid (price band, series, current line-up); several groups combine (AND).
+   data-typ may list several values ("z r"); on the zánovní landing a type filter also hides the offer rows of the other type. */
 (function () {
-  var f = document.querySelector("[data-cfilter]"), grid = document.querySelector("[data-cgrid]");
-  if (!f || !grid) return;
-  var attr = f.dataset.cfilter, cards = Array.prototype.slice.call(grid.children), out = f.querySelector("[data-cf-n]");
-  var word = function (n) { return n + " " + (n === 1 ? "model" : n >= 2 && n <= 4 ? "modely" : "modelů"); };
-  function apply(v) {
+  var fs = Array.prototype.slice.call(document.querySelectorAll("[data-cfilter]")), grid = document.querySelector("[data-cgrid]");
+  if (!fs.length || !grid) return;
+  var cards = Array.prototype.slice.call(grid.children), out = document.querySelector("[data-cf-n]"), sel = {};
+  var nabWord = grid.dataset.word === "nab";
+  var word = function (n) {
+    return nabWord ? n + " " + (n === 1 ? "nabídka" : n >= 2 && n <= 4 ? "nabídky" : "nabídek")
+                   : n + " " + (n === 1 ? "model" : n >= 2 && n <= 4 ? "modely" : "modelů");
+  };
+  function has(list, v) { return (" " + (list || "") + " ").indexOf(" " + v + " ") >= 0; }
+  function apply() {
     var n = 0;
     cards.forEach(function (c) {
-      var ok = !v;
-      if (v && attr === "p") { var r = v.split("-"), p = +c.dataset.p; ok = p > +r[0] && p <= +r[1]; }
-      else if (v) ok = c.dataset[attr] === v;
+      var ok = true;
+      Object.keys(sel).forEach(function (a) {
+        var v = sel[a];
+        if (!v || !ok) return;
+        if (a === "p") { var r = v.split("-"), p = +c.dataset.p; ok = p > +r[0] && p <= +r[1]; }
+        else ok = has(c.dataset[a], v);
+      });
       c.hidden = !ok; if (ok) n++;
+      c.querySelectorAll(".zrow[data-typ]").forEach(function (r) { r.hidden = !!sel.typ && r.dataset.typ !== sel.typ; });
     });
-    out.textContent = word(n);
+    if (out) out.textContent = word(n) + (n ? "" : " · zkuste jiný filtr");
   }
-  f.addEventListener("click", function (e) {
-    var b = e.target.closest("button[data-v]");
-    if (!b) return;
-    f.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); });
-    apply(b.dataset.v);
+  fs.forEach(function (f) {
+    sel[f.dataset.cfilter] = "";
+    f.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]");
+      if (!b) return;
+      f.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); });
+      sel[f.dataset.cfilter] = b.dataset.v;
+      apply();
+    });
   });
-  apply("");
+  apply();
 })();
 
 /* mobile: keep the current menu item in view inside the scrolling menu */
