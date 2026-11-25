@@ -14,11 +14,38 @@
     if (!el) return;
     copy(el.dataset.copy);
     if (el.tagName === "BUTTON") {
-      var old = el.textContent; el.textContent = "Zkopírováno ✓"; el.classList.add("done");
-      setTimeout(function () { el.textContent = old; el.classList.remove("done"); }, 2200);
+      var old = el.innerHTML; el.textContent = "Zkopírováno ✓"; el.classList.add("done");
+      setTimeout(function () { el.innerHTML = old; el.classList.remove("done"); }, 2200);
     }
-    if (window.gtag) window.gtag("event", "coupon_copy", { code: el.dataset.copy });
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "coupon_copy", coupon: el.dataset.copy, shop: el.dataset.shop || el.dataset.go || "", from_path: location.pathname });
   });
+
+  /* clicks to shops for GTM (click_shop) */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-go]");
+    if (!a) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "click_shop", shop: a.dataset.go, with_code: a.dataset.copy ? "yes" : "no", price: +(a.dataset.price || 0) || undefined,
+      from_path: location.pathname, transport_type: "beacon" });
+  });
+
+  /* consent bar: Consent Mode v2 update (the default "denied" is set in the page head before GTM loads) */
+  var bar = document.querySelector("[data-consentbar]");
+  if (bar) {
+    var store = function (v) { try { if (v === undefined) return localStorage.getItem("ri-consent"); localStorage.setItem("ri-consent", v); } catch (e) { return null; } };
+    if (!store()) bar.hidden = false;
+    bar.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-consent]");
+      if (!b) return;
+      store(b.dataset.consent);
+      bar.hidden = true;
+      if (window.gtag) window.gtag("consent", "update", { analytics_storage: b.dataset.consent === "yes" ? "granted" : "denied" });
+    });
+    document.addEventListener("click", function (e) {
+      if (e.target.closest("[data-consent-open]")) { e.preventDefault(); bar.hidden = false; }
+    });
+  }
 })();
 
 (function () {
@@ -87,14 +114,25 @@
       (facts.length ? '<p class="best-f">' + facts.join(" · ") + "</p>" : "") +
       (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code>' + esc(cp[0]) + '</code><button type="button" class="cpn-copy" data-copy="' + esc(cp[0]) + '">Kopírovat</button>' +
         "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · zadejte v košíku</small></div>" : "") +
-      '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '"' + (cp ? ' data-copy="' + esc(cp[0]) + '"' : "") + ">" +
+      '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '"' + (cp ? ' data-copy="' + esc(cp[0]) + '"' : "") + ">" +
       (cp ? "Koupit s kódem u " : "Koupit u ") + esc(C.shops[best[4]][0]) + "</a>" +
       '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p></div>";
+    var ICON = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>' +
+      '<path d="M5 15V6a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    var chip = function (r) {
+      var c = code(r);
+      return c ? '<button type="button" class="cchip" data-copy="' + esc(c[0]) + '" data-shop="' + r[4] + '" aria-label="Kopírovat slevový kód ' + esc(c[0]) + '"><span>' + esc(c[0]) + "</span>" + ICON + "</button>" : "";
+    };
+    if (!cp) {
+      var near = others.filter(function (r) { return code(r) && r[8] <= best[8] * 1.03; })[0];
+      if (near) html += '<p class="cphint"><span class="hand">Radši se slevovým kódem?</span> ' + esc(C.shops[near[4]][0]) + " s kódem " + chip(near) + " za " + kc(near[8]) +
+        (near[8] > best[8] ? " (jen o " + kc(near[8] - best[8]) + " víc)" : "") + "</p>";
+    }
     if (others.length) {
       html += '<div class="alts"><h3>Další obchody</h3><ul>' + others.map(function (r) {
         var c = code(r);
-        return '<li><span class="o-shop">' + shopMini(r[4]) + '</span><span class="o-sg">' + (c ? "s kódem " + esc(c[0]) : "") + '</span><span class="o-p">' + kc(r[8]) +
-          '</span><a class="btn sm ghost" href="' + esc(go(r)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + r[4] + '"' + (c ? ' data-copy="' + esc(c[0]) + '"' : "") + ">Do obchodu</a></li>";
+        return '<li><span class="o-shop">' + shopMini(r[4]) + '</span><span class="o-cp">' + chip(r) + '</span><span class="o-p"><b>' + kc(r[8]) + "</b>" + (c ? "<s>" + kc(r[3]) + "</s>" : "") +
+          '</span><a class="btn sm ghost" href="' + esc(go(r)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + r[4] + '" data-price="' + r[8] + '"' + (c ? ' data-copy="' + esc(c[0]) + '"' : "") + ">Do obchodu</a></li>";
       }).join("") + "</ul></div>";
     }
     /* cheaper nearby: another colour (same storage + quality) or one step lower quality (same colour + storage) */
@@ -172,4 +210,29 @@
   }
   settle("col");
   render();
+})();
+
+/* category pages: filter chips over the card grid (price band, series, current line-up) */
+(function () {
+  var f = document.querySelector("[data-cfilter]"), grid = document.querySelector("[data-cgrid]");
+  if (!f || !grid) return;
+  var attr = f.dataset.cfilter, cards = Array.prototype.slice.call(grid.children), out = f.querySelector("[data-cf-n]");
+  var word = function (n) { return n + " " + (n === 1 ? "model" : n >= 2 && n <= 4 ? "modely" : "modelů"); };
+  function apply(v) {
+    var n = 0;
+    cards.forEach(function (c) {
+      var ok = !v;
+      if (v && attr === "p") { var r = v.split("-"), p = +c.dataset.p; ok = p > +r[0] && p <= +r[1]; }
+      else if (v) ok = c.dataset[attr] === v;
+      c.hidden = !ok; if (ok) n++;
+    });
+    out.textContent = word(n);
+  }
+  f.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-v]");
+    if (!b) return;
+    f.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); });
+    apply(b.dataset.v);
+  });
+  apply("");
 })();
