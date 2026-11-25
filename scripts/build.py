@@ -275,7 +275,7 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
                   f'(function(){{var d=0;function l(){{if(d)return;d=1;var s=document.createElement("script");s.async=true;'
                   f's.src="https://www.googletagmanager.com/gtm.js?id={GA4_ID}";document.head.appendChild(s)}}'
                   f'function idle(){{(window.requestIdleCallback||function(f){{setTimeout(f,1)}})(l,{{timeout:3500}})}}'
-                  f'function go(){{if(document.readyState==="complete")setTimeout(idle,1500);else addEventListener("load",function(){{setTimeout(idle,1500)}});'
+                  f'function go(){{if(document.readyState==="complete")setTimeout(idle,3500);else addEventListener("load",function(){{setTimeout(idle,3500)}});'
                   f'["pointerdown","keydown","scroll","touchstart"].forEach(function(e){{addEventListener(e,l,{{once:true,passive:true}})}})}}'
                   f'if(document.prerendering)document.addEventListener("prerenderingchange",go,{{once:true}});else go()}})();</script>')
             noscript = (f'<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GA4_ID}" height="0" width="0" '

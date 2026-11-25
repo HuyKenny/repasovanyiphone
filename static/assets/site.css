@@ -390,3 +390,8 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 .ptable th:first-child,.ptable td:first-child{position:sticky;left:0;background:var(--bg);z-index:1}
 .card .ptable th:first-child,.card .ptable td:first-child{background:var(--soft)}
 @media (max-width:720px){.tscroll{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent)}}
+/* touch targets in lists (footer, SEO texts): at least 24 px high with spacing, 44 px rows on phones */
+.foot li{margin:0}.foot li a{display:inline-block;padding:6px 0}
+.foot-legal a{display:inline-block;padding:6px 0}
+.catseo li>a:last-child,.prose li>a:last-child{display:inline-block;padding:4px 0}
+@media (max-width:720px){.foot li a,.foot-legal a{padding:11px 0}}
