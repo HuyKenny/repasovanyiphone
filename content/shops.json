@@ -2,15 +2,11 @@
  "_doc": "Short shop descriptions (HTML). Only facts checked on the shop's own site or visible in its feed.",
  "jabkolevne": {
   "lead": "Pražský specialista na iPhony: nové, zánovní, rozbalené i použité kusy, kamenná prodejna ve Vodičkově ulici.",
-  "text": "<p>JabkoLevně prodává hlavně iPhony a další zařízení Apple. Vedle e-shopu má prodejnu v Praze (Vodičkova 10, Praha 1), otevřeno je každý den od 8:30 do 20:00, takže telefon si můžete před koupí prohlédnout.</p><p>Stav píše přímo do názvu: <strong>Stav A</strong>, <strong>A-</strong>, <strong>A/B</strong> a <strong>B</strong>, k tomu zvlášť zánovní a rozbalené kusy. U každého telefonu je ve feedu i barva a přesná paměť, takže nabídky párujeme spolehlivě.</p>"
+  "text": "<p>JabkoLevně prodává hlavně iPhony a další zařízení Apple. Vedle e-shopu má prodejnu v Praze (Vodičkova 10, Praha 1), otevřeno je každý den od 8:30 do 20:00, takže telefon si můžete před koupí prohlédnout.</p><p>Nabízí nové, rozbalené, zánovní i použité kusy. U každého telefonu je ve feedu barva a přesná paměť, takže nabídky párujeme spolehlivě a kvalitu převádíme na naši stupnici A+, A, B a C.</p>"
  },
  "aukro": {
   "lead": "Tržiště, na kterém prodávají i specializovaní prodejci repasovaných telefonů. Bereme jen nabídky označené jako repasované.",
-  "text": "<p>Na Aukru se prodávají nové, bazarové i repasované telefony od firem i soukromníků. Do srovnání bereme <strong>jen nabídky, které prodejce označil jako repasované</strong>, a vynecháváme dražby a běžné bazarové inzeráty, u kterých nejde ověřit stav.</p><p>Repasované iPhony na Aukru mají stupnici Premium, Zánovní, Výborný, Téměř výborný, Velmi dobrý, Dobrý a Uspokojivý. U třídy Premium prodejce uvádí původní baterii se 100% kondicí. Před nákupem si u nabídky zkontrolujte, kdo je prodejce a jakou dává záruku.</p>"
- },
- "mall": {
-  "lead": "Velký obchod s elektronikou: vedle nových iPhonů občas i rozbalené a zánovní kusy.",
-  "text": "<p>MALL.CZ prodává hlavně nové telefony (u nás kvalita „Nový“). Rozbalené a zánovní kusy řadíme do A+, použité do B.</p>"
+  "text": "<p>Na Aukru se prodávají nové, bazarové i repasované telefony od firem i soukromníků. Do srovnání bereme <strong>jen nabídky, které prodejce označil jako repasované</strong>, a vynecháváme dražby a běžné bazarové inzeráty, u kterých nejde ověřit stav.</p><p>Kvalitu převádíme na naši stupnici A+, A, B a C. Před nákupem si u nabídky zkontrolujte, kdo je prodejce a jakou dává záruku.</p>"
  },
  "allegro": {
   "lead": "Tržiště s novými telefony; ceny nových iPhonů používáme jako srovnávací cenu.",
@@ -18,15 +14,15 @@
  },
  "mobilegear": {
   "lead": "Specialista na prověřené iPhony: největší nabídka ve srovnání, od iPhonu 7 po 17 Pro.",
-  "text": "<p>MobileGear prodává použité a repasované iPhony, které prošly rukama jeho techniků. Stav píše do názvu jako „třídy Premium, Zánovní, Výborný, Velmi dobrý+, Velmi dobrý a Dobrý“; ve srovnání z toho děláme A+, A, B a C (Velmi dobrý+ řadíme do B).</p><p>Ve feedu má u každého kusu barvu, paměť i model, takže nabídky párujeme spolehlivě.</p>"
+  "text": "<p>MobileGear prodává použité a repasované iPhony, které prošly rukama jeho techniků, od iPhonu 7 po 17 Pro. Ve srovnání má největší nabídku.</p><p>Ve feedu má u každého kusu barvu, paměť i model, takže nabídky párujeme spolehlivě a kvalitu převádíme na naši stupnici A+, A, B a C.</p>"
  },
  "smarty": {
   "lead": "Velký český e-shop s elektronikou: nové iPhony i použité kusy v kategoriích A, B a C.",
-  "text": "<p>Smarty.cz prodává nové telefony i použité kusy označené jako <strong>Kategorie A, B a C</strong>, které přebíráme beze změny. Kusy označené „Další“ do srovnání nebereme, protože z nich nejde poznat stav.</p>"
+  "text": "<p>Smarty.cz je velký český e-shop s elektronikou a prodejnami. Prodává nové telefony i použité kusy, jejichž kvalitu převádíme na naši stupnici A, B a C.</p><p>Kusy, u kterých z exportu nejde poznat stav, do srovnání nebereme.</p>"
  },
  "iphonemarket": {
   "lead": "Prodejce zánovních a použitých iPhonů s diagnostikou každého kusu.",
-  "text": "<p>iPhoneMarket.cz se zaměřuje na zánovní a použité iPhony. Stav uvádí jako Premium, Zánovní, Rozbaleno a Výborný; první tři u nás odpovídají kvalitě A+, Výborný kvalitě A.</p>"
+  "text": "<p>iPhoneMarket.cz se zaměřuje na zánovní a použité iPhony s diagnostikou každého kusu. Většina nabídky je u nás v kvalitě A+ nebo A.</p>"
  },
  "istyle": {
   "lead": "Apple Premium Partner: nové iPhony s plnou zárukou.",

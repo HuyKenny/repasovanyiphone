@@ -216,9 +216,45 @@ def run(shop):
     return {"ok": True, "n": len(recs)}
 
 
+def coupons(shops):
+    """Valid eHub voucher codes of our shops -> data/raw/coupons.json. The eHub API answers 403 without a browser User-Agent.
+    Shops are matched by the campaign name without diacritics == shop domain ("Jabkolevně.cz" -> jabkolevne.cz)."""
+    import datetime as dt
+    import unicodedata
+    nd = lambda s: unicodedata.normalize("NFKD", (s or "").lower()).encode("ascii", "ignore").decode()  # noqa: E731
+    by_dom = {s["domain"]: s["id"] for s in shops if s.get("network") == "ehub"}
+    pid, key = os.environ.get("EHUB_PUBLISHER_ID"), os.environ.get("EHUB_API_KEY")
+    if not (pid and key):
+        log("coupons: EHUB_* missing, keeping the previous file")
+        return
+    got, page, today = [], 1, dt.date.today().isoformat()
+    try:
+        while page < 200:
+            req = urllib.request.Request(f"https://api.ehub.cz/v3/publishers/{pid}/vouchers?apiKey={key}&perPage=100&page={page}",
+                                         headers={"User-Agent": "Mozilla/5.0 (compatible; RepasIphone/1.0)", "Accept": "application/json"})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                batch = json.load(r).get("vouchers") or []
+            for v in batch:
+                sid = by_dom.get(nd(v.get("campaignName")).strip())
+                if sid and v.get("isValid") and v.get("code") and (v.get("validTill") or "9999") >= today:
+                    got.append({"shop": sid, "code": v["code"].strip(), "rules": (v.get("rules") or "").strip(),
+                                "from": v.get("validFrom") or "", "until": v.get("validTill") or ""})
+            if len(batch) < 100:
+                break
+            page += 1
+    except Exception as e:
+        log(f"coupons: FAILED ({type(e).__name__}), keeping the previous file")
+        return
+    (RAW / "coupons.json").write_text(json.dumps(got, ensure_ascii=False, indent=1))
+    log(f"coupons: {len(got)} valid codes for our shops")
+
+
 def main():
     RAW.mkdir(parents=True, exist_ok=True)
     shops = [s for s in json.loads((APP / "data/shops.json").read_text())["shops"] if s.get("enabled", True)]
+    if "--coupons" in sys.argv:
+        coupons(shops)
+        return
     only = [a for a in sys.argv[1:] if not a.startswith("-")]
     if only:
         shops = [s for s in shops if s["id"] in only]

@@ -52,16 +52,25 @@ jobs:
         if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.quick) }}
         timeout-minutes: 15
         continue-on-error: true      # a failed shop keeps its previous file
-        run: python3 scripts/fetch.py
+        run: |
+          python3 scripts/fetch.py
+          python3 scripts/fetch.py --coupons
         env:
           CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
           CJ_CID: ${{ secrets.CJ_CID }}
           CJ_PID: ${{ secrets.CJ_PID }}
           FEEDS_JSON: ${{ secrets.FEEDS_JSON }}
+          EHUB_API_KEY: ${{ secrets.EHUB_API_KEY }}
+          EHUB_PUBLISHER_ID: ${{ secrets.EHUB_PUBLISHER_ID }}
+      - name: Product photos (self-hosted library, only new colours are downloaded)
+        continue-on-error: true      # a shop image server being down keeps the photos from earlier runs
+        run: python3 scripts/photos.py
       - name: Build site
         run: python3 scripts/build.py
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+      - name: SEO lint (broken links, titles, canonicals, JSON-LD, sitemap) - a hard error stops the deploy
+        run: python3 scripts/seo_lint.py dist | tee /tmp/seo-report.json
       - name: Secret check of repo + build output
         run: python3 scripts/verify_no_secrets.py
         env:
@@ -69,6 +78,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           STATE_KEY: ${{ secrets.STATE_KEY }}
           FEEDS_JSON: ${{ secrets.FEEDS_JSON }}
+          EHUB_API_KEY: ${{ secrets.EHUB_API_KEY }}
       - name: Deploy (static assets only)
         if: env.HAS_CF == 'true'
         run: python3 scripts/deploy.py "$VT_ENV"
@@ -92,4 +102,5 @@ jobs:
         run: |
           set +e
           { echo '### Fetch'; echo '```'; cat data/raw/fetch-report.json 2>/dev/null; echo '```'
-            echo '### Build'; echo '```'; cat data/state/build-report.json 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+            echo '### Build'; echo '```'; cat data/state/build-report.json 2>/dev/null; echo '```'
+            echo '### SEO lint'; echo '```'; cat /tmp/seo-report.json 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

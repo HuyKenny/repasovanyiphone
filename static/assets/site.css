@@ -4,7 +4,7 @@
 @font-face{font-family:"Hand";src:url(/fonts/cav-b.woff2) format("woff2");font-weight:600;font-display:swap;unicode-range:U+0100-017F}
 :root{
   --bg:#FFFFFF;--soft:#F5F5F2;--soft2:#ECECE7;--line:#E4E4DE;--ink:#18181A;--muted:#66666C;
-  --green:#1C7F47;--green-hi:#2BA35F;--green-soft:#E6F4EB;--note:#E8572A;
+  --green:#18703F;--green-hi:#2BA35F;--green-soft:#E6F4EB;--note:#B83F17;
   --g-novy:#18181A;--g-aplus:#187A44;--g-a:#2E9E5B;--g-b:#C2860A;--g-c:#B5532D;
   --r:20px;--r-s:14px;--shadow:0 10px 30px rgba(24,24,26,.07);
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -284,3 +284,22 @@ button{font:inherit;color:inherit}
 .foot .about p{margin-top:12px;color:#3a3a3e}
 @media (max-width:860px){.foot-in{grid-template-columns:1fr 1fr}.foot .about{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* vouchers: a dashed ticket with the code and a copy button */
+.cpn{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:12px 0 14px;padding:12px 14px;background:#fff;border:1.5px dashed var(--green-hi);border-radius:var(--r-s)}
+.cpn-k{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--green)}
+.cpn code{font:700 1.02rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.04em;background:var(--green-soft);padding:6px 10px;border-radius:8px}
+.cpn-copy{border:1.5px solid var(--ink);background:#fff;border-radius:999px;padding:6px 12px;font-weight:600;font-size:.85rem;cursor:pointer}
+.cpn-copy:hover{background:var(--ink);color:#fff}
+.cpn-copy.done{background:var(--green);border-color:var(--green);color:#fff}
+.cpn small{flex-basis:100%;color:var(--muted);font-size:.82rem}
+.cpn .btn.sm{margin-left:auto}
+.best-p .was{color:var(--muted);text-decoration:line-through;font-size:.95rem}
+.cpns{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.cpns li{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px 6px}
+.cpns .slogo{height:22px}
+.ccp{font-size:.78rem;font-weight:600;color:var(--green);background:var(--green-soft);border-radius:999px;padding:1px 8px}
+.gdist{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.gdist li{display:flex;align-items:center;gap:8px;background:var(--soft);border-radius:999px;padding:6px 14px}
+.shophead .cpn{max-width:640px}
+@media (max-width:520px){.cpns{grid-template-columns:1fr}}

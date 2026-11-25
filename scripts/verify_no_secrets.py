@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 APP = Path(__file__).resolve().parent.parent
-SECRET_NAMES = ["CJ_API_KEY", "CLOUDFLARE_API_TOKEN", "CF_API_TOKEN_REPAS", "STATE_KEY", "FEEDS_JSON", "AFFILIATEPORT_API_KEY_FULL",
+SECRET_NAMES = ["CJ_API_KEY", "EHUB_API_KEY", "CLOUDFLARE_API_TOKEN", "CF_API_TOKEN_REPAS", "STATE_KEY", "FEEDS_JSON", "AFFILIATEPORT_API_KEY_FULL",
                 "EHUB_API_KEY", "DOGNET_PASSWORD", "CF_API_KEY", "CF_GLOBAL_API_KEY"]
 # public by design: CJ_PID / CID (in every affiliate link / not usable without the key), IndexNow key (served as a file)
 PATTERNS = [

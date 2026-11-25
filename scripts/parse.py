@@ -143,12 +143,6 @@ def grade_of(shop, r):
             return AU[m.group(1).lower()], m.group(1)
         m = re.search(r"(?:třída|stav)\s*([ABC])\b", t + " " + d)
         return ({"A": "a", "B": "b", "C": "c"}.get(m.group(1)) if m else None), (f"třída {m.group(1)}" if m else "")
-    if sid == "mall":
-        m = re.search(r"\b(rozbalen[oéý]|zánovní|použit[éýá])\b", t, re.I)
-        if not m:
-            return "novy", "nový"
-        w = m.group(1).lower()
-        return ("aplus" if w.startswith(("rozbal", "zánov")) else "b"), w
     return None, ""
 
 
@@ -206,6 +200,28 @@ def load_all(raw_dir, shops):
                 kept += 1
         stats[s["id"]] = {"raw": n, "kept": kept}
     return offers, stats, {k: dict(v.most_common(40)) for k, v in report.items()}
+
+
+COUPON_LIMITS = re.compile(r"mimo|pouze|jen na|vybran|příslušenstv|sluchát|kryt|obal|reprodukt|nov[éeý] telefon|registrac|první nákup|aplikac|newsletter", re.I)
+
+
+def coupon_effect(rules):
+    """What a voucher does, read from eHub's free-text rules. -> {"amount": Kč or 0, "pct": % or 0, "min": Kč, "auto": bool}.
+    auto = the discount can be counted into the price (a plain fixed or percentage discount, optionally over a minimum order);
+    anything with exclusions or conditions we cannot check ("mimo", "jen na", "první nákup"...) is only shown, never counted."""
+    t = (rules or "").replace("\u00a0", " ")
+    amount = pct = minimum = 0
+    m = re.search(r"sleva\s*(\d[\d\s]*?)\s*(kč|,-)", t, re.I) or re.search(r"(\d[\d\s]*?)\s*kč\s*sleva", t, re.I)
+    if m:
+        amount = int(re.sub(r"\s", "", m.group(1)))
+    m = re.search(r"(\d{1,2})\s*%", t)
+    if m and not amount:
+        pct = int(m.group(1))
+    m = re.search(r"(?:nad|od|min(?:imáln\w*)?\.?\s*(?:nákup|objednávk)\w*\s*)\s*(\d[\d\s]*?)\s*kč", t, re.I)
+    if m:
+        minimum = int(re.sub(r"\s", "", m.group(1)))
+    auto = bool(amount or pct) and not COUPON_LIMITS.search(t)
+    return {"amount": amount, "pct": pct, "min": minimum, "auto": auto}
 
 
 def gb_label(v):

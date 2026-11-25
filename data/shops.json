@@ -77,18 +77,6 @@
    "logo_src": 22546
   },
   {
-   "id": "mall",
-   "name": "MALL.CZ",
-   "domain": "mall.cz",
-   "network": "cj",
-   "advertiser": "4615486",
-   "keywords": [
-    "iPhone"
-   ],
-   "role": "refurb",
-   "color": "#E2001A"
-  },
-  {
    "id": "istyle",
    "name": "iSTYLE",
    "domain": "istyle.cz",
