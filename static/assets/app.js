@@ -61,7 +61,13 @@
       var t = document.querySelector('[data-copy="' + kc0.replace(/["\\]/g, "") + '"]:not(a)');
       document.body.appendChild(bar);
       var box = t && (t.closest(".cpn, .ccard, .alts li, .cphint") || t);
-      if (box) { box.classList.add("kod-here"); box.scrollIntoView({ block: "center" }); }
+      if (box) {
+        /* sections below the fold use content-visibility (estimated 640 px heights): render everything first,
+           otherwise the scroll target is computed from the estimates and the page lands in the footer */
+        document.documentElement.classList.add("cv-off");
+        box.classList.add("kod-here");
+        requestAnimationFrame(function () { box.scrollIntoView({ block: "center" }); });
+      }
     };
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", reveal); else setTimeout(reveal, 0);
   }

@@ -405,3 +405,4 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 @keyframes kodp{0%{outline-color:transparent}50%{outline-color:var(--green-hi)}100%{outline-color:var(--green-hi)}}
 @media (prefers-reduced-motion:reduce){.kod-here{animation:none}}
 .cpn-open{display:inline-flex;align-items:center;min-height:44px;font-weight:600}
+.cv-off *{content-visibility:visible!important}
