@@ -95,6 +95,10 @@
       ],
       "war": 12
      }
+    },
+    "splatky": {
+     "kdo": "Home Credit",
+     "src": "https://www.jabkolevne.cz/platba-a-doprava/"
     }
    }
   },
@@ -146,6 +150,10 @@
       ],
       "war": 24
      }
+    },
+    "splatky": {
+     "kdo": "Home Credit",
+     "src": "https://www.smarty.cz/Apple-iPhone-14-Pro-Max-128GB-vesmirne-cerny-4p51174-A"
     }
    }
   },

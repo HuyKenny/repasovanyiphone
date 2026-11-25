@@ -248,7 +248,7 @@ def logo_mark(size=34):
 FOOT_MODELS = ["iphone-17-pro", "iphone-16", "iphone-15", "iphone-14", "iphone-13", "iphone-11", "iphone-12"]
 FOOT_SHOP = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "iPhone bazar"), ("/zanovni-iphone/", "Zánovní iPhony"), ("/novy-iphone/", "Nové iPhony"),
              ("/srovnani/", "Srovnání modelů"), ("/jaky-iphone-koupit/", "Jaký iPhone koupit"),
-             ("/ceny-iphonu/", "Vývoj cen")]
+             ("/ceny-iphonu/", "Vývoj cen"), ("/iphone-na-splatky/", "iPhone na splátky")]
 FOOT_GUIDES = [("co-znamena-repasovany-iphone", "Co je repasovaný iPhone"), ("stavy", "Kvalita A, B, C"), ("baterie", "Kondice baterie"),
                ("podpora-ios", "Podpora iOS"), ("iphone-z-bazaru", "iPhone z bazaru")]
 NAV = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "Bazar"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
@@ -594,7 +594,10 @@ def result_html(cfg, res, gb):
             + facts_html(F[best[9]]) + ('<p class="best-f">jen eSIM</p>' if best[7] else "") + cbox
             + f'<a class="btn big" href="{E(go_url(best))}" rel="sponsored nofollow noopener" target="_blank" data-go="{best[4]}" data-price="{best[8]}" data-sp="best"'
             + (f' data-copy="{E(cp[0])}" data-pop="1"' if cp else "") + f'>{cta}</a>'
-            f'<p class="best-n">{nab(len(res))} v této konfiguraci</p></div>' + proven + hint
+            f'<p class="best-n">{nab(len(res))} v této konfiguraci</p>'
+            + (f'<a class="loanrow" href="{LOAN}?z={cfg["m"]}" data-loan="card">{HC_LOGO.format(w=40, h=17)}<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>'
+               if best[8] >= LOAN_MIN else "")
+            + '</div>' + proven + hint
             + (f'<div class="alts"><h3>Další obchody</h3><ul>{olist}</ul></div>' if olist else ""))
 
 
@@ -1143,7 +1146,8 @@ def page_home(out, ctx):
 <li><img src="/img/ui/ic-swatches.webp" alt="" width="64" height="64"><b>Barvu a paměť</b><span>jen to, co je skladem</span></li>
 <li><img src="/img/ui/ic-search.webp" alt="" width="64" height="64"><b>Kvalitu A, B nebo C</b><span>a máte nejlevnější obchod</span></li></ol></section>
 <section class="sec wrap" id="rozpocet"><h2>Vyberte podle rozpočtu</h2><p class="muted">Tři tipy pro každý rozpočet z dnešních nabídek ve stavu A+, A nebo B, s tím, co za příplatek dostanete.</p>
-<div class="bgrid">{"".join(budget_html(ctx, b, u) for b, u in BUDGETS)}</div></section>
+<div class="bgrid">{"".join(budget_html(ctx, b, u) for b, u in BUDGETS)}</div>
+<p class="bnote">Nemáte celou částku najednou? {loan_link("home", "home")} v obchodě nebo s půjčkou Home Credit.</p></section>
 <section class="sec wrap" id="modely"><h2>Vyberte model</h2>{"".join(fams)}</section>
 {f'<section class="sec wrap"><h2>Slevové kódy, které teď platí</h2><p class="muted">V cenách na webu už jsou započítané. Kód zadáte v košíku obchodu.</p><ul class="cpns">{cps}</ul></section>' if cps else ''}
 {f'<section class="sec wrap"><h2>Dnes se vyplatí</h2><p class="muted">Největší rozdíl proti nejlevnějšímu novému kusu se stejnou pamětí.</p><ul class="deals">{dl}</ul></section>' if dl else ''}
@@ -1257,7 +1261,8 @@ CAT_TEXT = {
     "/iphone-do-10000-kc/": "<h2>Co čekat do 10 000 Kč</h2><p>Do deseti tisíc se vejdou i modely s 120Hz displejem a třemi fotoaparáty (řada Pro z let 2021 a 2022) "
                             "nebo základní iPhony s USB-C. Porovnejte si je v <a href=\"/srovnani/\">tabulce modelů</a>.</p>",
     "/iphone-do-15000-kc/": "<h2>Co čekat do 15 000 Kč</h2><p>Do patnácti tisíc se vejdou iPhony 14 Pro a 15, v lepší kvalitě i iPhone 15 Pro nebo základní iPhone 16. "
-                            "Od iPhonu 15 mají USB-C a od 15 Pro podporu Apple Intelligence. Rozdíly mezi sousedními modely ukazují <a href=\"/srovnani/\">srovnání modelů</a>, doporučení podle rozpočtu je v článku <a href=\"/jaky-iphone-koupit/\">jaký iPhone koupit</a>.</p>",
+                            "Od iPhonu 15 mají USB-C a od 15 Pro podporu Apple Intelligence. Rozdíly mezi sousedními modely ukazují <a href=\"/srovnani/\">srovnání modelů</a>, doporučení podle rozpočtu je v článku <a href=\"/jaky-iphone-koupit/\">jaký iPhone koupit</a>.</p>"
+                            "<p>Když nechcete platit najednou, některé obchody nabízejí splátky při objednávce a na telefon od 10 000 Kč jde i půjčka, viz <a href=\"/iphone-na-splatky/?z=iphone-do-15000-kc\" data-loan=\"cat\">iPhone na splátky</a>.</p>",
     "/iphone-pro-deti/": "<h2>Proč repas pro dítě</h2><p>Dětský telefon dostane obal, spadne a za dva roky se vymění. Repas v kvalitě B nebo C ušetří peníze a pořád podporuje "
                          "Čas u obrazovky a rodičovskou kontrolu. Vybírejte modely s aktuálním iOS a menší velikostí do ruky.</p>",
 }
@@ -1885,6 +1890,78 @@ def page_guides(out, ctx):
 PARTNER_MAIL = "info@repasovanyiphone.cz"   # forwarded by Cloudflare Email Routing to napis@sbalit.cz
 
 
+HC_IFRAME = "https://espolupracecz.go2cloud.org/aff_c?offer_id=40&aff_id=18313&file_id=46457&url_id=1275&utm_term=1275"   # eSpolupráce, Home Credit půjčka (Kenny 25. 11. 2026)
+HC_ORIGINS = ("https://espolupracecz.go2cloud.org", "https://produkty.espoluprace.cz")   # go2cloud redirects the frame to produkty.espoluprace.cz
+LOAN_MIN = 10000         # the form lends 10 000-250 000 Kč; below that the loan line is not shown
+LOAN = "/iphone-na-splatky/"
+HC_LOGO = '<img class="hc-logo" src="/img/partners/homecredit.svg" alt="Home Credit" width="{w}" height="{h}" loading="lazy" decoding="async">'
+
+
+def loan_link(z, place, text="iPhone na splátky"):
+    """Link to the instalments landing; z = the page the visitor comes from (passed to the partner as aff_sub2)."""
+    return f'<a href="{LOAN}?z={z}" data-loan="{place}">{text}</a>'
+
+
+def page_loan(out, ctx):
+    """/iphone-na-splatky/: buying the iPhone comes first (models, shops with instalments at checkout), the Home Credit loan form
+    (eSpolupráce iframe, run by Elephant Orchestra / Srovnejto.cz) second. No figures about the cost of credit on our side:
+    a rate, APR or instalment in an advert needs a representative example, which only the lender can give."""
+    refurb = ctx["refurb"]
+    picks = []
+    for m in MODELS:
+        rf = [o for o in refurb if o["model"] == m["slug"]]
+        if rf and ios_ok(m) and LOAN_MIN <= min(o["pc"] for o in rf) <= 30000:
+            picks.append((m, len(rf), min(o["pc"] for o in rf)))
+    picks = sorted(sorted(picks, key=lambda x: -x[1])[:6], key=lambda x: x[2])     # the six most offered, cheapest first
+    cards = "".join(model_card(ctx, m) for m, _n, _p in picks)
+    shops = [s for s in ctx["shop_ids"] if (SHOP[s].get("terms") or {}).get("splatky")]
+    shop_li = "".join(
+        f'<li class="spl">{shop_logo(s, 24)}<p><b>{E(SHOP[s]["name"])}</b>: při objednávce můžete zvolit splátky {E(SHOP[s]["terms"]["splatky"]["kdo"])}, '
+        f'telefon pak platíte postupně přímo u obchodu.</p><a class="btn sm ghost" href="/go/{s}/?u=/" rel="sponsored nofollow noopener" target="_blank" data-go="{s}" data-sp="spl">Do obchodu</a></li>'
+        for s in shops)
+    items = [("Kolik si můžu půjčit na iPhone?",
+              "Formulář Home Credit přijímá žádosti od 10 000 do 250 000 Kč. Kolik vám půjčí a za jakých podmínek, uvidíte v nabídce, kterou dostanete po vyplnění žádosti."),
+             ("Kdo půjčku poskytuje a kdo zpracuje žádost?",
+              "Nabídka je od Home Credit. Formulář provozuje Elephant Orchestra, s.r.o. (Srovnejto.cz), registrovaný zprostředkovatel spotřebitelských úvěrů, který se vám ozve "
+              "a žádost s vámi dokončí. Repasovanyiphone.cz úvěry nezprostředkovává a údaje z formuláře nevidí."),
+             ("Splátky v obchodě, nebo půjčka?",
+              "Splátky u obchodu se sjednávají přímo při objednávce telefonu, peníze jdou rovnou obchodu. Půjčka je volnější: peníze dostanete vy a iPhone koupíte, kde chcete. "
+              "Podmínky obou možností si před podpisem porovnejte, rozhodující je celková částka, kterou zaplatíte."),
+             ("Co když iPhone stojí méně než 10 000 Kč?",
+              f'Pak se půjčka přes tento formulář nehodí, začíná na 10 000 Kč. Repasovaný iPhone 13 nebo 14 se dá koupit i pod touto hranicí, viz <a href="/iphone-do-10000-kc/">iPhony do 10 000 Kč</a>.'),
+             ("Jaké údaje formulář chce?",
+              "Výši půjčky, jméno, telefon, e-mail, rodné číslo, adresu, zdroj a výši příjmu. Údaje zadáváte přímo zprostředkovateli, ten s nimi nakládá podle svých podmínek uvedených ve formuláři.")]
+    ir = (APP / "scripts/vendor/iframeResizer-4.3.11.min.js").read_text()
+    frame = (f'<div class="hc-frame"><iframe id="hcf" title="Žádost o půjčku Home Credit" data-src="{E(HC_IFRAME)}&amp;aff_sub=rp&amp;aff_sub2=" '
+             'sandbox="allow-same-origin allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms" scrolling="no" width="100%"></iframe>'
+             f'<noscript><iframe title="Žádost o půjčku Home Credit" src="{E(HC_IFRAME)}&amp;aff_sub=rp&amp;aff_sub2=landing" '
+             'sandbox="allow-same-origin allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms" width="100%" class="hc-noscript"></iframe></noscript></div>'
+             f'<script>{ir}</script>'
+             '<script>(function(){var f=document.getElementById("hcf"),z=new URLSearchParams(location.search).get("z")||"";if(!/^[a-z0-9-]{1,40}$/.test(z))z="landing";'
+             'var go=function(){if(f.src)return;f.src=f.dataset.src.replace(/&amp;/g,"&")+z;if(window.iFrameResize)window.iFrameResize({checkOrigin:'
+             + json.dumps(list(HC_ORIGINS)) + ',warningTimeout:0},f)};'
+             'if("IntersectionObserver" in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go()}},{rootMargin:"600px"});io.observe(f)}else go()})();</script>')
+    body = f"""<div class="wrap"><header class="mhead loanhead"><p class="eyebrow">Ve spolupráci s {HC_LOGO.format(w=52, h=22)}</p>
+<h1>iPhone na splátky</h1>
+<p class="lead">Repasovaný iPhone stojí o tisíce méně než nový, a když nechcete platit najednou, máte dvě cesty: <strong>splátky přímo v obchodě</strong> při objednávce,
+nebo <strong>půjčku Home Credit</strong>, se kterou pak koupíte telefon, kde chcete. Nejdřív si ale vyberte iPhone.</p>
+<p class="hero-cta"><a class="btn big" href="#vyber">Vybrat iPhone</a><a class="btn big ghost" href="#zadost">Žádost o půjčku</a></p></header>
+<section class="sec" id="vyber"><h2>Nejdřív si vyberte iPhone</h2><p class="muted">Nejnabízenější modely s aktuálním iOS, které dnes začínají mezi 10 000 a 30 000 Kč. Půjčka přes formulář níže začíná na 10 000 Kč.</p>
+<ul class="mgrid">{cards}</ul><p><a href="/levny-iphone/">Všechny iPhony od nejlevnějšího</a> · <a href="/jaky-iphone-koupit/">Jaký iPhone koupit</a></p></section>
+{f'<section class="sec"><h2>Splátky přímo v obchodě</h2><p class="muted">Tyto obchody z našeho srovnání nabízejí splátky při objednávce (ověřeno na jejich webu {date_cz(TODAY)}). Podmínky splátek uvidíte v košíku.</p><ul class="spls">{shop_li}</ul></section>' if shop_li else ''}
+<section class="sec" id="zadost"><h2>Půjčka Home Credit na telefon</h2>
+<ol class="hc-steps"><li><b>Vyplníte žádost</b><span>výši půjčky a základní údaje, zabere to pár minut</span></li><li><b>Ozvou se vám</b><span>zprostředkovatel s vámi žádost dokončí a ukáže podmínky</span></li><li><b>Koupíte iPhone</b><span>v obchodě, který vyjde nejlépe, třeba podle našeho srovnání</span></li></ol>
+<p class="hc-note">Formulář provozuje Elephant Orchestra, s.r.o., IČ 03272974 (Srovnejto.cz), registrovaný zprostředkovatel spotřebitelských úvěrů. Údaje zadáváte přímo jim, my je nevidíme.
+Podmínky půjčky a povinné informace najdete ve formuláři.</p>
+{frame}</section>
+<section class="sec"><h2>Časté otázky</h2>{faq_html(items)}</section>
+<p class="note">Home Credit je náš affiliate partner: když půjčku přes formulář sjednáte, můžeme dostat provizi. Vás to nic nestojí a srovnání iPhonů ani pořadí obchodů to neovlivňuje. <a href="/o-webu/">Jak web funguje</a></p>
+</div>"""
+    out.page(LOAN, layout(ctx, path=LOAN, title="iPhone na splátky – splátky v obchodě nebo půjčka Home Credit",
+                          desc="iPhone na splátky: které obchody s repasovanými iPhony nabízejí splátky při objednávce a jak požádat o půjčku Home Credit na telefon od 10 000 Kč.",
+                          body=body, crumbs=[("/", "Repasované iPhony"), (LOAN, "iPhone na splátky")], ld=[faq_ld(items)]))
+
+
 def page_partners(out, ctx):
     """B2B landing for shops selling refurbished iPhones: free listing, contact by e-mail. Linked only from the footer."""
     n_off, n_shops = len(ctx["offers"]), len(ctx["shop_ids"])
@@ -1990,6 +2067,9 @@ neukládají se žádné analytické cookies ani identifikátory a do Googlu jde
 a které slevové kódy kopírují, abychom web zlepšovali. Souhlas můžete kdykoli změnit odkazem „Nastavení cookies“ v patičce. Reklamní cookies nepoužíváme.</p>
 <h2>Odkazy do obchodů</h2><p>Odkazy do e-shopů vedou přes affiliate sítě eHub a CJ, které si mohou uložit cookie, aby obchod poznal, že jste přišli od nás. Řídí se zásadami těchto sítí a obchodu.</p>
 <h2>Slevové kódy</h2><p>Tlačítko „Kopírovat“ jen vloží kód do schránky vašeho zařízení. Kód nikam neodesíláme.</p>
+<h2>Formulář půjčky</h2><p>Na stránce <a href="/iphone-na-splatky/">iPhone na splátky</a> je vložený formulář partnera (Home Credit přes eSpolupráce, provozuje Elephant Orchestra, s.r.o.,
+IČ 03272974, Srovnejto.cz). Údaje do něj zadáváte přímo provozovateli formuláře, my je nevidíme ani neukládáme. Formulář používá vlastní cookies a měření podle podmínek uvedených v něm.
+Načte se, až k němu stránku posunete.</p>
 <h2>Označení odkazů</h2><p>Do odkazu do obchodu přidáváme jen označení naší stránky a místa, odkud jste klikli (třeba „iphone-15“ a „best“). Affiliate síť ho vrátí u provize,
 takže víme, které stránky lidem pomáhají vybrat. Nejde o osobní údaj a nic o vás neobsahuje.</p></article></div>"""
     out.page("/ochrana-osobnich-udaju/", layout(ctx, path="/ochrana-osobnich-udaju/", title="Ochrana osobních údajů a cookies | Repasovaný iPhone",
@@ -2296,6 +2376,7 @@ def main():
     page_guides(out, ctx)
     page_about(out, ctx)
     page_prices(out, ctx)
+    page_loan(out, ctx)
     page_partners(out, ctx)
     page_privacy(out, ctx)
     page_404(out, ctx)
@@ -2324,7 +2405,7 @@ def main():
            "manifest-src 'self'; worker-src 'none'; upgrade-insecure-requests; "
            "img-src 'self' data:" + (" https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://www.google.cz" if ga else "") + "; "
            "connect-src 'self'" + (" https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net" if ga else "") + "; "
-           "frame-src " + ("https://www.googletagmanager.com" if ga else "'none'"))
+           "frame-src " + " ".join(HC_ORIGINS) + (" https://www.googletagmanager.com" if ga else ""))   # Home Credit form on /iphone-na-splatky/
     out.write("_headers", f"""/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

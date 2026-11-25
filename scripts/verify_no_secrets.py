@@ -47,7 +47,8 @@ def secret_values():
                     m = re.match(r"^([A-Z0-9_]+)=(.+)$", line.strip())
                     if m and m.group(1) not in ("SITE_URL", "CJ_PID", "CJ_CID", "INDEXNOW_KEY", "CF_ACCOUNT_ID", "CF_ZONE_ID", "CF_WORKERS_SUBDOMAIN",
                                                 "WP_URL", "WP_USER", "FTP_HOST", "FTP_PORT", "FTP_USER", "CF_EMAIL", "EHUB_PUBLISHER_ID", "CJ_WEBSITE_ID",
-                                                "DOGNET_EMAIL", "DOGNET_CHANNEL_CODE", "GA4_ID") and len(m.group(2).strip("\"' ")) >= 12:
+                                                "DOGNET_EMAIL", "DOGNET_CHANNEL_CODE", "GA4_ID",
+                                                "ESPOLUPRACE_NETWORK_ID") and len(m.group(2).strip("\"' ")) >= 12:   # ESPOLUPRACE_NETWORK_ID: public subdomain of every eSpolupráce click link (Home Credit iframe)
                         vals[f"{f.name}:{m.group(1)}"] = m.group(2).strip("\"' ")
                 if f.suffix == ".json":
                     try:

@@ -99,6 +99,14 @@
   };
   window.rpTag();
 
+  /* instalments landing (Home Credit): an intermediate step, the key event stays click_shop */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-loan]");
+    if (!a) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "loan_click", via: a.dataset.loan, from_path: location.pathname, transport_type: "beacon" });
+  });
+
   /* consent bar: Consent Mode v2 update (the default "denied" is set in the page head before GTM loads) */
   var bar = document.querySelector("[data-consentbar]");
   if (bar) {
@@ -203,7 +211,9 @@
       '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '" data-sp="best"' +
       (cp ? ' data-copy="' + esc(cp[0]) + '" data-pop="1"' : "") + ">" +
       (cp ? "Zkopírovat kód a přejít do obchodu" : "Koupit u " + esc(C.shops[best[4]][0])) + "</a>" +
-      '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p></div>" + proven;
+      '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p>" +
+      (best[8] >= 10000 ? '<a class="loanrow" href="/iphone-na-splatky/?z=' + C.m + '" data-loan="card"><img class="hc-logo" src="/img/partners/homecredit.svg" alt="Home Credit" width="40" height="17" loading="lazy" decoding="async">' +
+        "<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>" : "") + "</div>" + proven;
     var ICON = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>' +
       '<path d="M5 15V6a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     var chip = function (r) {
