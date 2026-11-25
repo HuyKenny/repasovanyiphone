@@ -9,17 +9,62 @@
     var t = document.createElement("textarea"); t.value = code; t.style.position = "fixed"; t.style.opacity = "0";
     document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (e) { /* ignore */ } t.remove();
   }
+  function done(el) {
+    var old = el.innerHTML; el.textContent = "Zkopírováno ✓"; el.classList.add("done");
+    setTimeout(function () { el.innerHTML = old; el.classList.remove("done"); }, 2200);
+  }
   document.addEventListener("click", function (e) {
     var el = e.target.closest("[data-copy]");
     if (!el) return;
-    copy(el.dataset.copy);
-    if (el.tagName === "BUTTON") {
-      var old = el.innerHTML; el.textContent = "Zkopírováno ✓"; el.classList.add("done");
-      setTimeout(function () { el.innerHTML = old; el.classList.remove("done"); }, 2200);
-    }
+    var code = el.dataset.copy, shop = el.dataset.shop || el.dataset.go || "", p = copy(code);
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "coupon_copy", coupon: el.dataset.copy, shop: el.dataset.shop || el.dataset.go || "", from_path: location.pathname });
+    window.dataLayer.push({ event: "coupon_copy", coupon: code, shop: shop, from_path: location.pathname });
+    if (el.tagName !== "BUTTON") return;
+    /* coupon-site pattern: this page (with the code) opens in a new tab, the current tab goes to the shop through /go/,
+       so a copied code still counts as our affiliate click. Ctrl/Cmd/Shift/middle click = copy only. */
+    var href = el.dataset.href;
+    if (href && !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button)) {
+      var tab = window.open(location.pathname + location.search + "#kod=" + encodeURIComponent(code) + (shop ? "&s=" + encodeURIComponent(shop) : ""), "_blank");
+      if (tab) {
+        try { tab.opener = null; } catch (x) { /* ignore */ }
+        window.dataLayer.push({ event: "click_shop", shop: shop, with_code: "yes", via: "copy", from_path: location.pathname, transport_type: "beacon" });
+        var gone = 0, leave = function () { if (!gone) { gone = 1; location.href = href; } };
+        if (p && p.then) p.then(leave, leave);
+        setTimeout(leave, 400);
+        return;
+      }
+      if (!el.parentNode.querySelector(".cpn-open")) {
+        var a = document.createElement("a");
+        a.className = "cpn-open"; a.href = href; a.target = "_blank"; a.rel = "sponsored nofollow noopener";
+        a.dataset.go = shop; a.dataset.copy = code; a.textContent = "Otevřít obchod s kódem";
+        el.insertAdjacentElement("afterend", a);
+      }
+    }
+    done(el);
   });
+
+  /* the new tab from a copied code: say the code is in the clipboard, point at it, then clean the address */
+  var km = /^#kod=([^&]+)(?:&s=([a-z0-9-]+))?$/.exec(location.hash);
+  if (km) {
+    var kc0 = decodeURIComponent(km[1]);
+    history.replaceState(null, "", location.pathname + location.search);
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "coupon_reveal", coupon: kc0, shop: km[2] || "", from_path: location.pathname });
+    var reveal = function () {
+      var bar = document.createElement("div");
+      bar.className = "kodbar"; bar.setAttribute("role", "status");
+      bar.innerHTML = '<p>Kód <code></code> máte zkopírovaný. Obchod se otevřel v původní kartě, kód vložte v košíku.</p>' +
+        '<button type="button" class="cpn-copy">Kopírovat znovu</button><button type="button" class="kodbar-x" aria-label="Zavřít">×</button>';
+      bar.querySelector("code").textContent = kc0;
+      bar.querySelector(".cpn-copy").dataset.copy = kc0;
+      bar.querySelector(".kodbar-x").addEventListener("click", function () { bar.remove(); });
+      var t = document.querySelector('[data-copy="' + kc0.replace(/["\\]/g, "") + '"]:not(a)');
+      document.body.appendChild(bar);
+      var box = t && (t.closest(".cpn, .ccard, .alts li, .cphint") || t);
+      if (box) { box.classList.add("kod-here"); box.scrollIntoView({ block: "center" }); }
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", reveal); else setTimeout(reveal, 0);
+  }
 
   /* clicks to shops for GTM (click_shop) */
   document.addEventListener("click", function (e) {
@@ -112,7 +157,7 @@
     var html = '<div class="best"><div class="best-top"><span class="best-k">Nejlevněji</span>' + shopMini(best[4], 26) + "</div>" +
       '<p class="best-p"><span class="price">' + kc(best[8]) + "</span>" + was + save + "</p>" +
       (facts.length ? '<p class="best-f">' + facts.join(" · ") + "</p>" : "") +
-      (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code>' + esc(cp[0]) + '</code><button type="button" class="cpn-copy" data-copy="' + esc(cp[0]) + '">Kopírovat</button>' +
+      (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code>' + esc(cp[0]) + '</code><button type="button" class="cpn-copy" data-copy="' + esc(cp[0]) + '" data-shop="' + best[4] + '" data-href="' + esc(go(best)) + '">Kopírovat</button>' +
         "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · zadejte v košíku</small></div>" : "") +
       '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '"' + (cp ? ' data-copy="' + esc(cp[0]) + '"' : "") + ">" +
       (cp ? "Koupit s kódem u " : "Koupit u ") + esc(C.shops[best[4]][0]) + "</a>" +
@@ -121,7 +166,7 @@
       '<path d="M5 15V6a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     var chip = function (r) {
       var c = code(r);
-      return c ? '<button type="button" class="cchip" data-copy="' + esc(c[0]) + '" data-shop="' + r[4] + '" aria-label="Kopírovat slevový kód ' + esc(c[0]) + '"><span>' + esc(c[0]) + "</span>" + ICON + "</button>" : "";
+      return c ? '<button type="button" class="cchip" data-copy="' + esc(c[0]) + '" data-shop="' + r[4] + '" data-href="' + esc(go(r)) + '" aria-label="Kopírovat slevový kód ' + esc(c[0]) + '"><span>' + esc(c[0]) + "</span>" + ICON + "</button>" : "";
     };
     if (!cp) {
       var near = others.filter(function (r) { return code(r) && r[8] <= best[8] * 1.03; })[0];

@@ -337,11 +337,19 @@ def grade_chip(g):
     return f'<span class="gchip g-{g}" title="{E(GR[g]["name"])}">{E(GR[g]["short"])}</span>'
 
 
+def href_attr(go):
+    """Copy buttons carry the shop link: app.js opens this page with the code in a new tab and sends the current tab
+    through /go/ (the coupon-site pattern), so a copied code still goes through our affiliate link."""
+    return f' data-href="{E(go)}"' if go else ""
+
+
 def coupon_box(c, go=""):
     """Voucher ticket with copy button (app.js copies data-copy)."""
     btn = f'<a class="btn sm" href="{E(go)}" rel="sponsored nofollow noopener" target="_blank" data-copy="{E(c["code"])}">Do obchodu</a>' if go else ""
+    sm = re.match(r"/go/([a-z0-9-]+)/", go)
+    shop_attr = f' data-shop="{sm.group(1)}"' if sm else ""
     return (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code>{E(c["code"])}</code>'
-            f'<button type="button" class="cpn-copy" data-copy="{E(c["code"])}">Kopírovat</button>{btn}'
+            f'<button type="button" class="cpn-copy" data-copy="{E(c["code"])}"{shop_attr}{href_attr(go)}>Kopírovat</button>{btn}'
             f'<small>{E(c["label"])} · {until_cz(c)} · zadejte v košíku{"" if c["auto"] else " · podmínky ověřte u obchodu"}</small></div>')
 
 
@@ -476,7 +484,7 @@ def result_html(cfg, res, gb):
     if best[7]:
         facts.append("jen eSIM")
     cp = cps.get(best[4]) if best[8] < best[3] else None
-    cbox = (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code>{E(cp[0])}</code><button type="button" class="cpn-copy" data-copy="{E(cp[0])}">Kopírovat</button>'
+    cbox = (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code>{E(cp[0])}</code><button type="button" class="cpn-copy" data-copy="{E(cp[0])}" data-shop="{best[4]}"{href_attr(go_url(best))}>Kopírovat</button>'
             f'<small>{E(cp[1])} · {E(cp[2])} · zadejte v košíku</small></div>') if cp else ""
     per_shop = {}
     for r in res:
@@ -485,7 +493,7 @@ def result_html(cfg, res, gb):
 
     def chip(r):
         c = cps.get(r[4]) if r[8] < r[3] else None
-        return (f'<button type="button" class="cchip" data-copy="{E(c[0])}" data-shop="{r[4]}" aria-label="Kopírovat slevový kód {E(c[0])}">'
+        return (f'<button type="button" class="cchip" data-copy="{E(c[0])}" data-shop="{r[4]}"{href_attr(go_url(r))} aria-label="Kopírovat slevový kód {E(c[0])}">'
                 f'<span>{E(c[0])}</span>{COPY_ICON}</button>') if c else ""
     olist = "".join(f'<li><span class="o-shop">{shop_mini(sh, r[4])}</span><span class="o-cp">{chip(r)}</span>'
                     f'<span class="o-p"><b>{kc(r[8])}</b>{f"<s>{kc(r[3])}</s>" if r[8] < r[3] else ""}</span>'
@@ -875,7 +883,7 @@ def cat_card(ctx, m, o, n, reason=""):
     save = f'<span class="cc-save">o {kc(nw - o["pc"])} levněji než nový</span>' if nw and nw > o["pc"] and o["g"] != "novy" else ""
     cp = o["cp"] if o["pc"] < o["p"] else None
     was = f"<s>{kc(o['p'])}</s>" if cp else ""
-    chip = (f'<button type="button" class="cchip" data-copy="{E(cp["code"])}" data-shop="{o["shop"]}" aria-label="Kopírovat slevový kód {E(cp["code"])}">'
+    chip = (f'<button type="button" class="cchip" data-copy="{E(cp["code"])}" data-shop="{o["shop"]}"{href_attr(o["go"])} aria-label="Kopírovat slevový kód {E(cp["code"])}">'
             f'<span>{E(cp["code"])}</span>{COPY_ICON}</button>') if cp else ""
     return (f'<li class="ccard" data-p="{o["pc"]}" data-fam="{fam_key(m)}" data-cur="{1 if m["year"] >= 2025 else 0}">'
             + (f'<p class="cc-why">{reason}</p>' if reason else "")
