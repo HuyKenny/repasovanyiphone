@@ -1608,11 +1608,11 @@ a nemá viditelné stopy. Na stránce jsou jen nabídky, které obchod takto sá
 <p>Některé obchody mají nad stavem „výborný“ ještě třídu Premium. Jsou to nejlepší repasované kusy, často po výměně dílů, ne krátce používané telefony. V konfigurátoru
 každého modelu je najdete spolu se zánovními ve stavu <strong>A+</strong>. Sem patří jen zánovní a rozbalené kusy.</p>
 <h2>Zánovní, rozbalený, repasovaný, nebo z bazaru?</h2>
-<div class="tscroll"><table class="ptable cmp"><thead><tr><th></th><th>Vzhled</th><th>Záruka od obchodu</th><th>Cena proti novému</th></tr></thead><tbody>
-<tr><td>Nový</td><td>nerozbalený</td><td>24 měsíců</td><td>plná cena</td></tr>
-<tr><td><strong>Zánovní / rozbalený</strong></td><td>bez stop</td><td>12–24 měsíců</td><td>typicky −{pa}&nbsp;%</td></tr>
-<tr><td>Repasovaný (A, B, C)</td><td>drobné až viditelné stopy</td><td>nejméně 12 měsíců</td><td>typicky −{pr}&nbsp;%</td></tr>
-<tr><td>Bazar od soukromníka</td><td>podle štěstí</td><td>žádná</td><td>nejnižší, ale bez jistoty</td></tr></tbody></table></div>
+<div class="tscroll"><table class="ptable cmp"><thead><tr><th scope="col">Typ</th><th>Vzhled</th><th>Záruka od obchodu</th><th>Cena proti novému</th></tr></thead><tbody>
+<tr><th scope="row">Nový</th><td>nerozbalený</td><td>24 měsíců</td><td>plná cena</td></tr>
+<tr><th scope="row"><strong>Zánovní / rozbalený</strong></th><td>bez stop</td><td>12–24 měsíců</td><td>typicky −{pa}&nbsp;%</td></tr>
+<tr><th scope="row">Repasovaný (A, B, C)</th><td>drobné až viditelné stopy</td><td>nejméně 12 měsíců</td><td>typicky −{pr}&nbsp;%</td></tr>
+<tr><th scope="row">Bazar od soukromníka</th><td>podle štěstí</td><td>žádná</td><td>nejnižší, ale bez jistoty</td></tr></tbody></table></div>
 <p>Kdo telefon stejně nosí v obalu, ušetří víc s <a href="/levny-iphone/">levným repasem</a> v kvalitě B nebo C.</p>
 <h2>Jak vybrat a na co si dát pozor</h2><ul>
 <li><strong>Záruka:</strong> u rozbaleného kusu bývá plných 24 měsíců, u zánovního ji obchod smí zkrátit na 12. U každé nabídky ji vypisujeme. <a href="/pruvodce/zaruka/">Záruka a vrácení</a></li>
