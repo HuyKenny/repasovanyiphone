@@ -19,10 +19,12 @@ E = html.escape
 CJ_HOSTS = re.compile(r"^https://www\.(kqzyfj|tkqlhce|jdoqocy|dpbolvw|anrdoezrs)\.(com|net)/")
 CJ_SKU = re.compile(r"&cjsku=[^&]*$")
 
-GO_JS = r"""(function(){var b=document.body.dataset,q=new URLSearchParams(location.search),u=q.get("u")||"",g=q.get("g")||"",to="",d=[];
-try{d=JSON.parse(b.d)}catch(e){}
-function ok(x){try{var h=new URL(x).hostname;return d.some(function(n){return h===n||h.slice(-n.length-1)==="."+n})}catch(e){return false}}
-if(g){if(ok(g))to=g}else if(u){var t=/^https?:\/\//.test(u)?u:b.h+u;if(ok(t))to=b.p+(b.m==="e"?encodeURIComponent(t):t)+b.s}
+GO_JS = r"""(function(){var b=document.body.dataset,q=new URLSearchParams(location.search),u=q.get("u")||"",g=q.get("g")||"",to="",d=[],sd=[];
+try{d=JSON.parse(b.d);sd=JSON.parse(b.sd||"[]")}catch(e){}
+function inn(h,l){return l.some(function(n){return h===n||h.slice(-n.length-1)==="."+n})}
+function ok(x){try{var p=new URL(x);return p.protocol==="https:"&&inn(p.hostname,d)}catch(e){return false}}
+function nested(x){var m=decodeURIComponent(x).match(/https?:\/\/[^&?#"' ]+/g)||[];return m.slice(1).every(function(y){try{return inn(new URL(y).hostname,sd.length?sd:d)}catch(e){return false}})}
+if(g){if(ok(g)&&nested(g))to=g}else if(u){var t=/^https?:\/\//.test(u)?u:b.h+u;if(ok(t))to=b.p+(b.m==="e"?encodeURIComponent(t):t)+b.s}
 var a=document.getElementById("go");if(to){a.href=to;location.replace(to)}})();
 """
 
@@ -60,7 +62,9 @@ def _rebuild(path, t):
     k, v = q.split("=", 1)
     v = unquote(v)
     if k == "g":
-        return v if _host_ok(v, t["d"]) else None
+        nested = re.findall(r"https?://[^&?#\"' ]+", unquote(v))[1:]      # a network click link must point into the shop itself
+        ok = v.startswith("https://") and _host_ok(v, t["d"]) and all(_host_ok(x, t.get("sd") or t["d"]) for x in nested)
+        return v if ok else None
     full = v if re.match(r"https?://", v) else t["h"] + v
     if not _host_ok(full, t["d"]):
         return None
@@ -97,7 +101,8 @@ def local_go(products):
     tpl = {}
     for sid in set(keys) | set(hosts) | set(doms):
         k = keys[sid].most_common(1)[0][0] if keys[sid] else ("", "", "r")
-        tpl[sid] = {"p": k[0], "s": k[1], "m": k[2], "h": hosts[sid].most_common(1)[0][0] if hosts[sid] else "", "d": sorted(doms[sid])}
+        tpl[sid] = {"p": k[0], "s": k[1], "m": k[2], "h": hosts[sid].most_common(1)[0][0] if hosts[sid] else "", "d": sorted(doms[sid]),
+                    "sd": sorted({re.sub(r"^https?://", "", h) for h in hosts[sid]})}   # the shop's own hosts: where a ?g= link may finally land
     st = Counter()
     for o in offers:
         t, sid, orig = tpl.get(o["shop"]), o["shop"], o.get("go") or ""
@@ -132,14 +137,13 @@ def go_page(sid, t, name, js_name):
             '<meta name="robots" content="noindex,nofollow"><title>Přesměrování do obchodu ' + E(name) + '</title>'
             '<style>body{font:16px/1.5 system-ui,sans-serif;margin:0;display:grid;place-items:center;min-height:90vh;background:#f6f6f8;color:#1b1b24}'
             'a{color:#b5301f;font-weight:700}</style></head>'
-            f'<body data-p="{E(t["p"])}" data-s="{E(t["s"])}" data-m="{t["m"]}" data-h="{E(t["h"])}" data-d="{E(json.dumps(dom))}">'
+            f'<body data-p="{E(t["p"])}" data-s="{E(t["s"])}" data-m="{t["m"]}" data-h="{E(t["h"])}" data-d="{E(json.dumps(dom))}" data-sd="{E(json.dumps(t.get("sd", [])))}">'
             f'<p>Přesměrováváme vás do obchodu <b>{E(name)}</b>… <a id="go" href="{E(home)}" rel="sponsored nofollow">Pokračovat</a></p>'
-            f'<script src="/assets/{js_name}"></script></body></html>')
+            f'<script>{js_name}</script></body></html>')
 
 
 def write_go(out, tpl, shop_meta):
-    """Writes assets/go.<hash>.js and go/<shop>/index.html for every shop."""
-    js_name = f"go.{hashlib.md5(GO_JS.encode()).hexdigest()[:8]}.js"
-    out.write("assets/" + js_name, GO_JS)
+    """Writes go/<shop>/index.html for every shop, the redirect script inline (allowed by its CSP hash).
+    repasovanyiphone: inline script + ?g= nested-URL check (25. 11. 2026); the vian/hrackarium/auty copies still use the old external file."""
     for sid, t in tpl.items():
-        out.write(f"go/{sid}/index.html", go_page(sid, t, shop_meta.get(sid, {}).get("name", sid), js_name))
+        out.write(f"go/{sid}/index.html", go_page(sid, t, shop_meta.get(sid, {}).get("name", sid), GO_JS))
