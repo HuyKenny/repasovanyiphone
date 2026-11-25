@@ -567,6 +567,14 @@ def model_text(ctx, m, offers):
     return "".join(t) + model_text_more(ctx, m, offers)
 
 
+# Vodafone (eHub, PPL tariff order / lead / prepaid). Text links only, no logo; click_shop event with shop=vodafone (data-go).
+VODAFONE = "https://ehub.cz/system/scripts/click.php?a_aid=052443b7&a_bid=aface625"
+
+
+def vf(text, place):
+    return f'<a href="{VODAFONE}" rel="sponsored nofollow noopener" target="_blank" data-go="vodafone" data-place="{place}">{text}</a>'
+
+
 LAST_IOS = {"iphone-7": "iOS 15", "iphone-7-plus": "iOS 15", "iphone-8": "iOS 16", "iphone-8-plus": "iOS 16", "iphone-x": "iOS 16",
             "iphone-xs": "iOS 18", "iphone-xs-max": "iOS 18", "iphone-xr": "iOS 18"}
 
@@ -660,6 +668,15 @@ def model_text_more(ctx, m, offers):
                 '<a href="/pruvodce/kontrola-imei-icloud/">Kontrola IMEI a iCloudu</a></li>')
     t.append(f'<h3>Na co si dát pozor u {E(m["name"])} z druhé ruky</h3><ul>{"".join(warn)}</ul>')
     return "".join(t)
+
+
+
+def tariff_box(m):
+    """Quiet partner box under the spec sheet: phone bought separately -> SIM-only tariff (Vodafone affiliate)."""
+    esim = " Pokud kupujete kus jen s eSIM, operátor vám ji vydá rovnou k tarifu." if m["year"] >= 2022 else ""
+    return (f'<div class="card tbox"><h2>Tarif k iPhonu</h2><p>Telefon kupujete zvlášť, takže ho nemusíte splácet operátorovi v paušálu. '
+            f'Stačí samotný tarif s daty, třeba od {vf("Vodafonu", "model-box")}.{esim}</p>'
+            '<p><a href="/pruvodce/tarif-k-iphonu/">Telefon zvlášť, tarif zvlášť: proč se to vyplatí</a></p></div>')
 
 
 def model_reading(ctx, m):
@@ -817,7 +834,8 @@ def model_faq(ctx, m, offers):
                       "Ano, u části obchodů: " + ", ".join(f"{E(s)} kód {E(c)}" for s, c in codes)
                       + ". Ceny „s kódem“ v konfigurátoru už slevu obsahují, kód zadáte v košíku obchodu."))
     if any(o["esim"] for o in rf):
-        items.append(("Co znamená „jen eSIM“?", "Verze bez slotu na fyzickou SIM kartu (typicky telefony z USA). Fungují s eSIM, kterou vydávají všichni čeští operátoři."))
+        items.append(("Co znamená „jen eSIM“?", "Verze bez slotu na fyzickou SIM kartu (typicky telefony z USA). Fungují s eSIM, kterou vydávají všichni čeští operátoři, "
+                      "třeba " + vf("Vodafone", "faq-esim") + " i k novému tarifu."))
     return items
 
 
@@ -888,7 +906,7 @@ def page_model(out, ctx, m, offers, gb=None):
 {configurator_html(ctx, m, cfg)}
 <section class="sec"><h2>Ceník podle paměti a kvality</h2><p class="muted">Nejnižší cena v každé kombinaci (všechny barvy, včetně platných slevových kódů). Sloupec „Nový“ je nejlevnější nový kus.</p>{price_table(ctx, m, offers)}</section>
 <section class="sec two"><div class="prose"><h2>Vyplatí se {E(m["name"])} z druhé ruky?</h2>{model_text(ctx, m, offers)}{storage_text(gb) if gb else ""}{chart_html(hist)}</div>
-<aside class="card"><h2>Technický list</h2>{specs_html(m)}</aside></section>
+<aside><div class="card"><h2>Technický list</h2>{specs_html(m)}</div>{tariff_box(m)}</aside></section>
 <section class="sec"><h2>Časté otázky</h2>{faq_html(items)}</section>
 {f'<section class="sec"><h2>{E(m["name"])} podle paměti</h2><ul class="chips">{gbl}</ul></section>' if gbl else ''}
 {f'<section class="sec"><h2>Kategorie</h2><ul class="chips">{cats}</ul></section>' if cats else ''}
@@ -1625,7 +1643,7 @@ def guide_html(ctx, g):
     rf = ctx["refurb"]
     rep_ = {"{{GRADE_TABLE}}": lambda: grade_table(ctx), "{{IOS_TABLE}}": lambda: ios_table(ctx), "{{SHOP_TABLE}}": lambda: shop_table(ctx),
             "{{BATTERY_STATS}}": lambda: battery_stats(ctx), "{{N_OFFERS}}": lambda: num(len(rf)), "{{N_SHOPS}}": lambda: str(len(ctx["shop_ids"])),
-            "{{LOW_PRICE}}": lambda: kc(min(o["pc"] for o in rf))}
+            "{{LOW_PRICE}}": lambda: kc(min(o["pc"] for o in rf)), "{{VF_URL}}": lambda: VODAFONE}
     h = g["html"]
     for k, f in rep_.items():
         if k in h:

@@ -449,3 +449,6 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 .pp-final{text-align:left}.pp-final h2{margin-top:0}
 @media (max-width:760px){.pp-stats{grid-template-columns:1fr 1fr}.pp .why ul,.pp-two{grid-template-columns:1fr}}
 .pp-final{margin-top:28px}
+/* model page: spec sheet + quiet tariff box stacked in the aside */
+.two>aside{display:flex;flex-direction:column;gap:14px}
+.tbox h2{font-size:1.05rem;margin:0 0 6px}.tbox p{margin:0 0 8px;font-size:.92rem;color:#3a3a3e}.tbox p:last-child{margin:0}
