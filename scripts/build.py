@@ -1903,7 +1903,10 @@ def loan_link(z, place, text="iPhone na splátky"):
 
 
 def page_loan(out, ctx):
-    """/iphone-na-splatky/: buying the iPhone comes first (models, shops with instalments at checkout), the Home Credit loan form
+    """Partner terms (eSpolupráce offer 40): every page promoting Home Credit must be approved by the advertiser
+    (podpora.espoluprace@srovnejto.cz), and wherever loan qualities (amount, term…) are described, the Home Credit brand
+    must not be named in that sentence ("Ve spolupráci s Home Credit" / "nabízí půjčky Home Credit" are fine).
+    /iphone-na-splatky/: buying the iPhone comes first (models, shops with instalments at checkout), the Home Credit loan form
     (eSpolupráce iframe, run by Elephant Orchestra / Srovnejto.cz) second. No figures about the cost of credit on our side:
     a rate, APR or instalment in an advert needs a representative example, which only the lender can give."""
     refurb = ctx["refurb"]
@@ -1920,7 +1923,7 @@ def page_loan(out, ctx):
         f'telefon pak platíte postupně přímo u obchodu.</p><a class="btn sm ghost" href="/go/{s}/?u=/" rel="sponsored nofollow noopener" target="_blank" data-go="{s}" data-sp="spl">Do obchodu</a></li>'
         for s in shops)
     items = [("Kolik si můžu půjčit na iPhone?",
-              "Formulář Home Credit přijímá žádosti od 10 000 do 250 000 Kč. Kolik vám půjčí a za jakých podmínek, uvidíte v nabídce, kterou dostanete po vyplnění žádosti."),
+              "Formulář přijímá žádosti o půjčku od 10 000 do 250 000 Kč. Kolik vám půjčí a za jakých podmínek, uvidíte v nabídce, kterou dostanete po vyplnění žádosti."),
              ("Kdo půjčku poskytuje a kdo zpracuje žádost?",
               "Nabídka je od Home Credit. Formulář provozuje Elephant Orchestra, s.r.o. (Srovnejto.cz), registrovaný zprostředkovatel spotřebitelských úvěrů, který se vám ozve "
               "a žádost s vámi dokončí. Repasovanyiphone.cz úvěry nezprostředkovává a údaje z formuláře nevidí."),
@@ -1958,7 +1961,7 @@ Podmínky půjčky a povinné informace najdete ve formuláři.</p>
 <p class="note">Home Credit je náš affiliate partner: když půjčku přes formulář sjednáte, můžeme dostat provizi. Vás to nic nestojí a srovnání iPhonů ani pořadí obchodů to neovlivňuje. <a href="/o-webu/">Jak web funguje</a></p>
 </div>"""
     out.page(LOAN, layout(ctx, path=LOAN, title="iPhone na splátky – splátky v obchodě nebo půjčka Home Credit",
-                          desc="iPhone na splátky: které obchody s repasovanými iPhony nabízejí splátky při objednávce a jak požádat o půjčku Home Credit na telefon od 10 000 Kč.",
+                          desc="iPhone na splátky: které obchody s repasovanými iPhony nabízejí splátky při objednávce a jak požádat o půjčku na telefon od 10 000 Kč.",
                           body=body, crumbs=[("/", "Repasované iPhony"), (LOAN, "iPhone na splátky")], ld=[faq_ld(items)]))
 
 
