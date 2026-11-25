@@ -517,7 +517,8 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 .loanrow:hover b{color:var(--green)}
 .hc-logo{display:inline-block;vertical-align:middle;height:auto}
 .bnote{margin:14px 0 0;font-size:.92rem;color:var(--muted)}
-.loan{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;padding-top:6px}
+.loan{padding-top:6px}
+.loan-top{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
 .loan-head .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:.4em}
 .loan-head h1{margin:0 0 .25em}
 .loan-head .lead{margin:0 0 10px}
@@ -539,4 +540,7 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 .lmodels li:last-child{border-bottom:0}
 .lmodels span{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .lmore{margin:10px 0 0;font-size:.9rem}
-@media (min-width:900px){.loan{grid-template-columns:minmax(0,1fr) 300px;column-gap:40px;align-items:start}.loan-side{position:sticky;top:110px;padding-top:62px}.loan-faq{grid-column:1/3}}
+@media (min-width:900px){.loan-top{grid-template-columns:minmax(0,1fr) 300px;column-gap:40px;align-items:start}.loan-side{position:sticky;top:110px;padding-top:62px}}
+
+.sec[id]{scroll-margin-top:84px}
+@media (max-width:900px){.sec[id]{scroll-margin-top:124px}}

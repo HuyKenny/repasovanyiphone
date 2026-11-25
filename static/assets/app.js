@@ -107,6 +107,25 @@
     window.dataLayer.push({ event: "loan_click", via: a.dataset.loan, from_path: location.pathname, transport_type: "beacon" });
   });
 
+  /* in-page anchors (#rozpocet, #modely…): sections lower on the page use content-visibility with estimated heights,
+     so a plain jump lands far off; render everything first, then scroll (same fix as the coupon reveal) */
+  var jump = function (id, smooth) {
+    var t = id && document.getElementById(id);
+    if (!t) return false;
+    document.documentElement.classList.add("cv-off");
+    requestAnimationFrame(function () { t.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" }); });
+    return true;
+  };
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute("href").length < 2 || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    if (jump(a.getAttribute("href").slice(1), true)) { e.preventDefault(); history.replaceState(null, "", a.getAttribute("href")); }
+  });
+  if (/^#[a-z][a-z0-9-]*$/.test(location.hash)) {
+    var go0 = function () { jump(location.hash.slice(1), false); };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go0); else go0();
+  }
+
   /* consent bar: Consent Mode v2 update (the default "denied" is set in the page head before GTM loads) */
   var bar = document.querySelector("[data-consentbar]");
   if (bar) {

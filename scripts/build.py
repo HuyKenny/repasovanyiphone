@@ -1145,11 +1145,11 @@ def page_home(out, ctx):
 <li><img src="/img/ui/ic-tap.webp" alt="" width="64" height="64"><b>Vyberte model</b><span>od iPhonu 7 po 18 Pro</span></li>
 <li><img src="/img/ui/ic-swatches.webp" alt="" width="64" height="64"><b>Barvu a paměť</b><span>jen to, co je skladem</span></li>
 <li><img src="/img/ui/ic-search.webp" alt="" width="64" height="64"><b>Kvalitu A, B nebo C</b><span>a máte nejlevnější obchod</span></li></ol></section>
+<section class="sec wrap" id="modely"><h2>Vyberte model</h2>{"".join(fams)}</section>
+{f'<section class="sec wrap"><h2>Slevové kódy, které teď platí</h2><p class="muted">V cenách na webu už jsou započítané. Kód zadáte v košíku obchodu.</p><ul class="cpns">{cps}</ul></section>' if cps else ''}
 <section class="sec wrap" id="rozpocet"><h2>Vyberte podle rozpočtu</h2><p class="muted">Tři tipy pro každý rozpočet z dnešních nabídek ve stavu A+, A nebo B, s tím, co za příplatek dostanete.</p>
 <div class="bgrid">{"".join(budget_html(ctx, b, u) for b, u in BUDGETS)}</div>
 <p class="bnote">Nemáte celou částku najednou? {loan_link("home", "home")} v obchodě nebo s půjčkou Home Credit.</p></section>
-<section class="sec wrap" id="modely"><h2>Vyberte model</h2>{"".join(fams)}</section>
-{f'<section class="sec wrap"><h2>Slevové kódy, které teď platí</h2><p class="muted">V cenách na webu už jsou započítané. Kód zadáte v košíku obchodu.</p><ul class="cpns">{cps}</ul></section>' if cps else ''}
 {f'<section class="sec wrap"><h2>Dnes se vyplatí</h2><p class="muted">Největší rozdíl proti nejlevnějšímu novému kusu se stejnou pamětí.</p><ul class="deals">{dl}</ul></section>' if dl else ''}
 <section class="sec wrap"><h2>Kvalita A, B, C jednoduše</h2><p class="prose">Všechny obchody převádíme na jednu stupnici, ať se nabídky dají porovnat.
 Funkčně jsou všechny telefony v pořádku, liší se vzhledem. <a href="/pruvodce/stavy/">Co přesně znamená A, B a C</a></p><ul class="grades">{grades}</ul></section>
@@ -1943,7 +1943,7 @@ def page_loan(out, ctx):
              'f.src=f.dataset.src.replace(/&amp;/g,"&")+z;if(window.iFrameResize)window.iFrameResize({checkOrigin:' + json.dumps(list(HC_ORIGINS))
              + ',heightCalculationMethod:"lowestElement",warningTimeout:0,'
              'onResized:function(d){d.iframe.style.height=(Math.ceil(+d.height)+8)+"px"}},f)})();</script>')
-    body = f"""<div class="wrap loan">
+    body = f"""<div class="wrap loan"><div class="loan-top">
 <div class="loan-main"><header class="loan-head"><p class="eyebrow">Ve spolupráci s {HC_LOGO.format(w=52, h=22)}</p><h1>iPhone na splátky</h1>
 <p class="lead">Vyplňte žádost o půjčku od 10&nbsp;000 Kč, ozvou se vám a iPhone pak koupíte, kde vyjde nejlépe.</p></header>
 <p class="hc-note">Formulář provozuje Elephant Orchestra, s.r.o., IČ 03272974 (Srovnejto.cz), registrovaný zprostředkovatel spotřebitelských úvěrů. Údaje zadáváte přímo jim, my je nevidíme.</p>
@@ -1953,7 +1953,7 @@ def page_loan(out, ctx):
 <li><b>Ozvou se vám.</b> Zprostředkovatel s vámi žádost dokončí a ukáže podmínky.</li><li><b>Koupíte iPhone.</b> V obchodě, který vyjde nejlépe, třeba podle našeho srovnání.</li></ol></section>
 {f'<section><h2>Splátky přímo v obchodě</h2><p class="muted">Tyto obchody nabízejí splátky při objednávce, podmínky uvidíte v košíku.</p><ul class="lshops">{shop_li}</ul></section>' if shop_li else ''}
 <section><h2>Ještě nemáte vybráno?</h2><ul class="lmodels">{models}</ul><p class="lmore"><a href="/levny-iphone/">Všechny iPhony</a> · <a href="/jaky-iphone-koupit/">Jaký iPhone koupit</a></p></section>
-</aside>
+</aside></div>
 <section class="sec loan-faq"><h2>Časté otázky</h2>{faq_html(items)}
 <p class="note">Home Credit je náš affiliate partner: když půjčku přes formulář sjednáte, můžeme dostat provizi. Vás to nic nestojí a srovnání iPhonů ani pořadí obchodů to neovlivňuje. <a href="/o-webu/">Jak web funguje</a></p></section>
 </div>"""
