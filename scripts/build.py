@@ -316,7 +316,7 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
 <p>Každou noc srovnáme nabídky {obchodu(len(ctx['shop_ids']))} včetně slevových kódů. Za nákup přes odkaz můžeme dostat provizi, cenu ani pořadí to nemění.
 <a href="/o-webu/">Jak web funguje</a></p></div>
 <div><h2>Modely</h2><ul>{fm}</ul></div><div><h2>Nakupujte</h2><ul>{cats}</ul></div><div><h2>Průvodce</h2><ul>{guides}</ul></div></div>
-<div class="wrap foot-legal"><a href="/o-webu/">O webu a kontakt</a><a href="/obchody/">Obchody ve srovnání</a><a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a>{'<a href="#" data-consent-open>Nastavení cookies</a>' if ga else ''}<span>© {TODAY.year} {BRAND}</span></div></footer>
+<div class="wrap foot-legal"><a href="/o-webu/">O webu a kontakt</a><a href="/obchody/">Obchody ve srovnání</a><a href="/pro-obchody/">Pro obchody</a><a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a>{'<a href="#" data-consent-open>Nastavení cookies</a>' if ga else ''}<span>© {TODAY.year} {BRAND}</span></div></footer>
 {'<div class="consent" data-consentbar role="dialog" aria-label="Souhlas s cookies" hidden><p>Smíme měřit návštěvnost (Google Analytics)? Bez souhlasu nic neukládáme. <a href="/ochrana-osobnich-udaju/">Více</a></p><div><button type="button" class="btn sm" data-consent="yes">Souhlasím</button> <button type="button" class="btn sm ghost" data-consent="no">Nesouhlasím</button></div></div>' if ga else ''}
 {cfg_tag}<script>{ctx['js']}</script>{SPECULATION}</body></html>"""
 
@@ -1688,6 +1688,83 @@ def page_guides(out, ctx):
                               crumbs=[("/", "Repasované iPhony"), ("/pruvodce/", "Průvodce"), (path, g["short"])]))
 
 
+PARTNER_MAIL = "info@repasovanyiphone.cz"   # forwarded by Cloudflare Email Routing to napis@sbalit.cz
+
+
+def page_partners(out, ctx):
+    """B2B landing for shops selling refurbished iPhones: free listing, contact by e-mail. Linked only from the footer."""
+    n_off, n_shops = len(ctx["offers"]), len(ctx["shop_ids"])
+    n_models = sum(1 for m in MODELS if ctx["by_model"].get(m["slug"]))
+    n_pages = len(out.pages)
+    mail = f'mailto:{PARTNER_MAIL}?subject=' + "Spolupr%C3%A1ce%20%E2%80%93%20n%C3%A1%C5%A1%20obchod"
+    cta = (f'<p class="pp-cta"><a class="btn big" href="{mail}">Chci se přidat</a><span class="muted">nebo napište na <a href="{mail}">{PARTNER_MAIL}</a>, '
+           'odpovídáme do dvou pracovních dnů</span></p>')
+    why = [("ic-tap", "Zákazník, který už vybírá",
+            "K vám nepřijde člověk, který „se jen dívá“. Přijde někdo, kdo si právě zvolil model, barvu, paměť i kvalitu a hledá, kde ho koupit."),
+           ("ic-search", "Přesně ten kus, který máte",
+            "Párujeme nabídky na úroveň konfigurace. Když máte iPhone 13 se 128 GB v modré v kvalitě B, ukážeme ho přesně lidem, kteří hledají tohle."),
+           ("ic-shield", "Pořadí si nikdo nekoupí",
+            "Řadíme jen podle konečné ceny. Pro vás to znamená férový souboj a pro zákazníky důvod nám věřit. A ta důvěra se přenáší na obchod, ke kterému je pošleme."),
+           ("ic-coins", "Slevový kód jako trumf",
+            "Platný kód rovnou odečteme z ceny a ukážeme ho u nabídky. Kód, který byste jinak schovávali do newsletteru, tu prodává.")]
+    why_html = "".join(f'<li><img src="/img/ui/{i}.webp" alt="" width="56" height="56" loading="lazy"><b>{E(t)}</b><span>{E(d)}</span></li>' for i, t, d in why)
+    faq = [("Je to opravdu zdarma?",
+            "Ano. Za zařazení do srovnání, za zobrazení ani za prokliky neplatíte nic a nic vám nefakturujeme. Pokud máte affiliate program v síti eHub nebo CJ, rádi se přidáme, "
+            "ale podmínkou spolupráce to není."),
+           ("Proč to děláte zadarmo?",
+            "Srovnávač je tak dobrý, kolik má obchodů. Každý další obchod znamená přesnější ceny, víc barev a pamětí skladem a víc lidí, kteří se k nám vracejí. "
+            "Na části obchodů vyděláváme provizí z affiliate sítí, srovnání jako celek se tak zaplatí samo."),
+           ("Můžu si připlatit za lepší pozici?",
+            "Ne, a to je dobře i pro vás. Řadíme jen podle ceny po slevovém kódu. Kdo má nejlepší cenu, je první, ať je to velký e-shop, nebo malý specialista."),
+           ("Nemáme XML feed. Jde to i jinak?",
+            "Většinou ano. Stačí feed pro Heureku, Zboží.cz nebo Google Nákupy, který už nejspíš máte. Když nemáte ani ten, napište, domluvíme se na exportu z vašeho systému."),
+           ("Jak rychle budeme ve srovnání?",
+            "Obvykle do několika pracovních dnů od chvíle, kdy dostaneme feed. Ceny pak aktualizujeme automaticky každou noc."),
+           ("Můžeme spolupráci kdykoli ukončit?",
+            "Kdykoli, jedním e-mailem. Nabídky ze srovnání stáhneme a žádné závazky nevznikají."),
+           ("Bereme i nové iPhony?",
+            "Ano. Srovnáváme nové, rozbalené, zánovní, repasované i použité iPhony. Příslušenství a jiné značky zatím ne.")]
+    body = f"""<div class="wrap pp"><header class="mhead"><p class="eyebrow">Pro obchody s repasovanými iPhony</p>
+<h1>Vaše iPhony před lidmi, kteří je právě vybírají. Zdarma.</h1>
+<p class="lead">Repasovanyiphone.cz srovnává repasované, zánovní, bazarové i nové iPhony z českých obchodů až na úroveň barvy, paměti a kvality.
+Prodáváte iPhony? Přidejte svou nabídku. Neplatíte za zařazení, za kliky ani za objednávky.</p>{cta}</header>
+<ul class="pp-stats"><li><b>{num(n_off)}</b><span>nabídek ve srovnání</span></li><li><b>{n_models}</b><span>modelů od iPhonu 7 po nejnovější</span></li>
+<li><b>{n_shops}</b><span>obchodů, mezi kterými se zákazník rozhoduje</span></li><li><b>{num(n_pages)}</b><span>stránek, kde se vaše nabídka může objevit</span></li></ul>
+<section class="sec why"><h2>Proč se vám to vyplatí</h2><ul>{why_html}</ul></section>
+<section class="sec prose"><h2>Jak to u nás funguje</h2>
+<p>Zákazník přijde z Googlu na dotaz jako „iPhone 13 bazar“ nebo „repasovaný iPhone 15“. V konfigurátoru si vybere barvu, paměť a kvalitu A+, A, B nebo C.
+My mu ukážeme nejlevnější obchod a pod ním další nabídky. Klikne na „Koupit“ a ocitne se přímo na produktové stránce u vás, ne na rozcestníku.</p>
+<p>Stav sjednocujeme na jednu stupnici, takže vaše „Stav A–“ nebo „Velmi dobrý+“ nikoho nezmate a srovnání je férové. Kondici baterie, pokud ji uvádíte,
+ukážeme u nabídky. To je informace, kterou zákazníci hledají nejvíc a kterou obchody uvádějí nejméně.</p>
+<p>Kromě konfigurátoru se vaše nabídky objeví v kategoriích (levné, zánovní, bazarové a nové iPhony), ve srovnáních modelů typu iPhone 13 vs. iPhone 14
+a v průvodcích, které lidé čtou před nákupem. Každý obchod má navíc vlastní stránku s popisem, logem a přehledem nabídky.</p></section>
+<section class="sec pp-two"><div class="card"><h2>Co dostanete</h2><ul class="pp-list">
+<li>zařazení všech iPhonů z feedu, nových i použitých, s denní aktualizací cen</li>
+<li>proklik přímo na produktovou stránku konkrétního kusu</li>
+<li>vlastní stránku obchodu s logem a popisem</li>
+<li>zvýrazněný slevový kód, pokud nějaký máte</li>
+<li>na přání odkazy s UTM parametry, ať v Google Analytics vidíte každou objednávku od nás</li>
+<li>to vše bez poplatku a bez smlouvy na dobu určitou</li></ul></div>
+<div class="card"><h2>Co potřebujeme od vás</h2><ul class="pp-list">
+<li>produktový feed (XML pro Heureku, Zboží.cz nebo Google Nákupy stačí)</li>
+<li>v názvu nebo parametrech model, paměť, barvu a stav</li>
+<li>cenu, dostupnost, odkaz na produkt a obrázek</li>
+<li>bonus: kondici baterie, délku záruky a platné slevové kódy</li>
+<li>pár vět o obchodě a logo</li></ul></div></section>
+<section class="sec prose"><h2>Tři kroky a jste ve srovnání</h2><ol>
+<li><strong>Napíšete nám</strong> na <a href="{mail}">{PARTNER_MAIL}</a>, kdo jste a kde najdeme feed.</li>
+<li><strong>My feed napojíme</strong>, přiřadíme modely, barvy a kvalitu a pošleme vám náhled, jak budou vaše nabídky vypadat.</li>
+<li><strong>Po vašem odsouhlasení</strong> jdete do srovnání. Ceny se od té chvíle aktualizují samy každou noc.</li></ol>
+<p>Kdo za webem stojí a jak vyděláváme, popisujeme otevřeně na stránce <a href="/o-webu/">o webu</a>.
+Obchody, které už ve srovnání jsou, najdete v přehledu <a href="/obchody/">obchodů</a>.</p></section>
+<section class="sec"><h2>Časté otázky</h2>{faq_html(faq)}</section>
+<section class="sec card pp-final"><h2>Pojďme to zkusit</h2><p>Jeden e-mail, jeden feed a o pár dní později vidí vaše iPhony lidé, kteří zrovna nakupují.
+Když to nebude fungovat, ukončíte to stejně snadno, jako jste začali.</p>{cta}</section></div>"""
+    out.page("/pro-obchody/", layout(ctx, path="/pro-obchody/", title="Pro obchody: inzerujte repasované iPhony zdarma",
+                                     desc="Prodáváte repasované nebo použité iPhony? Zařadíme vaši nabídku do srovnání zdarma, bez poplatku za kliky. Zákazníci, kteří už vybírají model, barvu a kvalitu.",
+                                     body=body, ld=[faq_ld(faq)], crumbs=[("/", "Repasované iPhony"), ("/pro-obchody/", "Pro obchody")]))
+
+
 def page_about(out, ctx):
     shops = ", ".join(SHOP[s]["name"] for s in ctx["shop_ids"])
     body = f"""<div class="wrap"><article class="prose art"><h1>O webu</h1>
@@ -1900,6 +1977,7 @@ def main():
     page_shops(out, ctx)
     page_guides(out, ctx)
     page_about(out, ctx)
+    page_partners(out, ctx)
     page_privacy(out, ctx)
     page_404(out, ctx)
     golinks.write_go(out, go_tpl, SHOP)

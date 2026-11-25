@@ -434,3 +434,18 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 @media (max-width:860px){.foot-in{grid-template-columns:1fr 1fr}.foot .about{grid-column:1/-1}.foot .about p{max-width:none}
   .foot-in>div:last-child{grid-column:1/-1}.foot-in>div:last-child ul{columns:2;column-gap:20px}.foot-legal span{margin-left:0}}
 .foot .about p a{text-decoration:underline;text-underline-offset:2px}
+/* /pro-obchody/ B2B landing */
+.pp .mhead h1{max-width:820px}
+.pp-cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:18px 0 0}
+.pp-cta .muted{font-size:.9rem}
+.pp-stats{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.pp-stats li{background:var(--soft);border-radius:var(--r-s);padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.pp-stats b{font-family:var(--display);font-size:1.7rem;letter-spacing:-.02em}
+.pp-stats span{color:var(--muted);font-size:.9rem;line-height:1.35}
+.pp .why ul{grid-template-columns:repeat(2,1fr);padding-top:14px;gap:22px 28px}
+.pp-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pp-two h2{font-size:1.25rem;margin:0 0 8px}
+.pp-list{margin:0;padding-left:1.1em}.pp-list li{margin:6px 0}
+.pp-final{text-align:left}.pp-final h2{margin-top:0}
+@media (max-width:760px){.pp-stats{grid-template-columns:1fr 1fr}.pp .why ul,.pp-two{grid-template-columns:1fr}}
+.pp-final{margin-top:28px}
