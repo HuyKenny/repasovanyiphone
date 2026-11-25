@@ -14,7 +14,7 @@
   var gbl = function (v) { return v >= 1024 ? (v / 1024) + " TB" : v + " GB"; };
   var nab = function (n) { return n + " " + (n === 1 ? "nabídka" : n >= 2 && n <= 4 ? "nabídky" : "nabídek"); };
   var colIdx = function (k) { for (var i = 0; i < C.cols.length; i++) if (C.cols[i][0] === k) return i; return -1; };
-  var go = function (r) { return /^(https?:|\/)/.test(r[5]) ? r[5] : "/go/" + r[4] + "/?u=" + r[5]; };
+  var go = function (r) { return r[5].charAt(0) === "~" ? "/go/" + r[4] + "/?u=" + r[5].slice(1) : r[5]; };
   var min = function (list) { var m = null; list.forEach(function (r) { if (m === null || r[3] < m) m = r[3]; }); return m; };
   var where = function (ci, gi, g) { return rows.filter(function (r) { return (ci < 0 || r[0] === ci) && (gi < 0 || r[1] === gi) && (!g || r[2] === g); }); };
 

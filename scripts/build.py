@@ -259,7 +259,7 @@ def cfg_data(ctx, m, offers, gb_pref=None):
     for o in sorted(offers, key=lambda o: o["p"]):
         go = o["go"]
         pre = f"/go/{o['shop']}/?u="
-        go = go[len(pre):] if go.startswith(pre) else go          # app.js puts the prefix back
+        go = "~" + go[len(pre):] if go.startswith(pre) else go    # "~" = only the shop path; app.js / go_url() put /go/<shop>/?u= back
         rows.append([ci[o["col"]], gi[o["gb"]], o["g"], o["p"], o["shop"], go, o["sg"], o["bat"] or 0, 1 if o["esim"] else 0])
     # default: the most offered storage, its most offered colour, grade A if there is one (else the cheapest grade there)
     rf = [o for o in offers if o["g"] != "novy"] or offers
@@ -339,7 +339,7 @@ def shop_mini(shops, sid, h=22):
 
 
 def go_url(r):
-    return r[5] if r[5].startswith(("http", "/")) else f"/go/{r[4]}/?u={r[5]}"
+    return f"/go/{r[4]}/?u={r[5][1:]}" if r[5].startswith("~") else r[5]
 
 
 # ---------------------------------------------------------------- texts
