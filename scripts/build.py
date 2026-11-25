@@ -560,8 +560,8 @@ def result_html(cfg, res, gb):
         lowl = (f'<a class="lowlink" href="?barva={low[0]}&amp;pamet={low[1]}&amp;kvalita={low[2]}" data-low>Nejlevnější {E(cfg["name"])} za <b>{kc(low[3])}</b>'
                 f' · stav {E(cfg["grades"][low[2]][0])}, {P.gb_label(low[1])}, {E(cname.lower())}</a>')
     cp = cps.get(best[4]) if best[8] < best[3] else None
-    cbox = (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code data-kod="{E(cp[0])}">{E(cp[0])}</code>'
-            f'<small>{E(cp[1])} · {E(cp[2])} · tlačítko kód zkopíruje, v košíku ho vložte</small></div>') if cp else ""
+    cbox = (f'<div class="cpn"><span class="cpn-k">Slevový kód</span><code>{E(cp[0])}</code><button type="button" class="cpn-copy" data-copy="{E(cp[0])}" data-shop="{best[4]}"{href_attr(go_url(best))}>Kopírovat</button>'
+            f'<small>{E(cp[1])} · {E(cp[2])} · zadejte v košíku</small></div>') if cp else ""
     per_shop = {}
     for r in res:
         per_shop.setdefault(r[4], r)
@@ -590,12 +590,12 @@ def result_html(cfg, res, gb):
                   f'<div class="pv-row">{shop_mini(sh, pr[4])}<span class="pv-p"><b>{kc(pr[8])}</b><small>o {kc(pr[8] - best[8])} víc</small></span>'
                   f'<a class="btn sm" href="{E(go_url(pr))}" rel="sponsored nofollow noopener" target="_blank" data-go="{pr[4]}" data-price="{pr[8]}" data-sp="proven"'
                   + (f' data-copy="{E(pc[0])}"' if pc else "") + f'>Do obchodu</a></div>{facts_html(F[pr[9]])}</div>')
-    cta = "Zkopírovat kód a přejít do obchodu" if cp else f"Koupit u {E(sh[best[4]][0])}"
+    cta = f"Koupit s kódem u {E(sh[best[4]][0])}" if cp else f"Koupit u {E(sh[best[4]][0])}"
     return (f'<div class="best"><div class="best-top"><span class="best-k">Nejlevněji</span>{shop_mini(sh, best[4], 26)}</div>'
             f'<p class="best-p"><span class="price">{kc(best[8])}</span>{was}{save}</p>{lowl}'
             + facts_html(F[best[9]]) + ('<p class="best-f">jen eSIM</p>' if best[7] else "") + cbox
             + f'<a class="btn big" href="{E(go_url(best))}" rel="sponsored nofollow noopener" target="_blank" data-go="{best[4]}" data-price="{best[8]}" data-sp="best"'
-            + (f' data-copy="{E(cp[0])}" data-pop="1"' if cp else "") + f'>{cta}</a>'
+            + (f' data-copy="{E(cp[0])}"' if cp else "") + f'>{cta}</a>'
             f'<p class="best-n">{nab(len(res))} v této konfiguraci</p>'
             + (f'<a class="loanrow" href="{LOAN}?z={cfg["m"]}" data-loan="card">{HC_LOGO.format(w=40, h=17)}<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>'
                if best[8] >= LOAN_MIN else "")
@@ -1733,10 +1733,10 @@ def page_shops(out, ctx):
         dist = "".join(f'<li>{grade_chip(g)} {E(GR[g]["name"])} <b>{num(gc[g])}</b></li>' for g, *_r in P.GRADES if gc.get(g))
         rows = sorted(best_per_model(ctx, lambda m, o, s=s: o["shop"] == s, grades=tuple(GR)), key=lambda r: (-r[0]["year"], r[1]["pc"]))
         cps_ = ctx["coupons"].get(s, [])
-        cbox = "".join(coupon_box(c, f"/go/{s}/?u=/", buttons=False) for c in cps_[:1])
+        cbox = "".join(coupon_box(c, f"/go/{s}/?u=/", buttons=False) for c in cps_[:1]).replace("</code>", f'</code><button type="button" class="cpn-copy" data-copy="{E(cps_[0]["code"])}" data-shop="{s}"{href_attr(f"/go/{s}/?u=/")}>Kopírovat</button>', 1) if cps_ else ""
         c0 = cps_[0] if cps_ else None
         cta = (f'<p class="shopcta"><a class="btn big" href="/go/{s}/?u=/" rel="sponsored nofollow noopener" target="_blank" data-go="{s}" data-shop="{s}" data-sp="shop"'
-               + (f' data-copy="{E(c0["code"])}" data-pop="1">Zkopírovat kód a přejít do obchodu' if c0 else f'>Přejít do obchodu {E(sh["name"])}')
+               + (f' data-copy="{E(c0["code"])}">Koupit s kódem u {E(sh["name"])}' if c0 else f'>Přejít do obchodu {E(sh["name"])}')
                + '</a><small>Konkrétní iPhone vyberete níže, ceny jsou včetně platných slevových kódů.</small></p>')
         review = shop_review(ctx, s, of) if s in REVIEW_SHOPS else ""
         body = f"""<div class="wrap"><header class="mhead shophead">{shop_logo(s, 40)}<h1>{E(sh["name"])}: iPhony a ceny</h1><p class="lead">{info.get("lead", "")}</p>{cbox}{cta}</header>

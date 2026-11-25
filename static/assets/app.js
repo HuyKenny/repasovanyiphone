@@ -26,7 +26,7 @@
     if (href && !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button)) {
       var tab = window.open(location.pathname + location.search + "#kod=" + encodeURIComponent(code) + (shop ? "&s=" + encodeURIComponent(shop) : ""), "_blank");
       if (tab) {
-        e.preventDefault();      /* "Zkopírovat kód a přejít do obchodu" link: this tab goes to the shop, the new one keeps the code */
+        e.preventDefault();      /* a link marked data-pop behaves like the copy button (not used on the site at the moment) */
         try { tab.opener = null; } catch (x) { /* ignore */ }
         window.dataLayer.push({ event: "click_shop", shop: shop, with_code: "yes", via: "copy", from_path: location.pathname, transport_type: "beacon" });
         var gone = 0, leave = function () { if (!gone) { gone = 1; location.href = href; } };
@@ -225,11 +225,11 @@
     var html = '<div class="best"><div class="best-top"><span class="best-k">Nejlevněji</span>' + shopMini(best[4], 26) + "</div>" +
       '<p class="best-p"><span class="price">' + kc(best[8]) + "</span>" + was + save + "</p>" + lowl + facts(F[best[9]]) +
       (best[7] ? '<p class="best-f">jen eSIM</p>' : "") +
-      (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code data-kod="' + esc(cp[0]) + '">' + esc(cp[0]) + "</code>" +
-        "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · tlačítko kód zkopíruje, v košíku ho vložte</small></div>" : "") +
+      (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code>' + esc(cp[0]) + '</code><button type="button" class="cpn-copy" data-copy="' + esc(cp[0]) + '" data-shop="' + best[4] + '" data-href="' + esc(go(best)) + '">Kopírovat</button>' +
+        "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · zadejte v košíku</small></div>" : "") +
       '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '" data-sp="best"' +
-      (cp ? ' data-copy="' + esc(cp[0]) + '" data-pop="1"' : "") + ">" +
-      (cp ? "Zkopírovat kód a přejít do obchodu" : "Koupit u " + esc(C.shops[best[4]][0])) + "</a>" +
+      (cp ? ' data-copy="' + esc(cp[0]) + '"' : "") + ">" +
+      (cp ? "Koupit s kódem u " : "Koupit u ") + esc(C.shops[best[4]][0]) + "</a>" +
       '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p>" +
       (best[8] >= 10000 ? '<a class="loanrow" href="/iphone-na-splatky/?z=' + C.m + '" data-loan="card"><img class="hc-logo" src="/img/partners/homecredit.svg" alt="Home Credit" width="40" height="17" loading="lazy" decoding="async">' +
         "<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>" : "") + "</div>" + proven;
