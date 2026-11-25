@@ -359,3 +359,34 @@ button{font:inherit;color:inherit}
 .catseo .tscroll{margin:10px 0 6px}
 
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* speed: skip rendering work for content below the fold until it scrolls near (big win on long pages) */
+.foot,.catseo,.faq,.why,.grades,.steps,.logos,.cpns,.deals,.fam+.fam,.ptable-wrap{content-visibility:auto;contain-intrinsic-size:auto 640px}
+.cgrid .ccard:nth-child(n+5),.mgrid li:nth-child(n+5){content-visibility:auto;contain-intrinsic-size:auto 320px}
+
+/* mobile first: touch targets >= 44 px, no overlap of the two bottom bars, menu that shows it scrolls */
+.step-help{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}
+.cfilter .pill{min-height:44px}
+.cc-foot .cchip,.cchip{min-height:44px}
+body:has(.consent:not([hidden])) .buybar{display:none}
+@media (max-width:760px){
+  .nav{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent);padding-right:40px}
+  .nav a{padding:10px 13px}
+  .consent{left:10px;right:10px;bottom:10px}
+  .consent .btn{min-height:44px}
+}
+
+/* mobile first, round 5 */
+@media (max-width:860px){
+  .hero-art{display:flex;flex-direction:column;align-items:center}
+  .note-hero{position:static;transform:rotate(-3deg);margin-top:6px;max-width:none;text-align:center}
+}
+@media (max-width:720px){
+  .tipgrid{display:grid;grid-auto-flow:column;grid-auto-columns:82%;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .tipgrid .ccard{scroll-snap-align:start}
+}
+.tscroll{position:relative}
+.ptable th:first-child,.ptable td:first-child{position:sticky;left:0;background:var(--bg);z-index:1}
+.card .ptable th:first-child,.card .ptable td:first-child{background:var(--soft)}
+@media (max-width:720px){.tscroll{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent)}}

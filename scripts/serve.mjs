@@ -12,9 +12,10 @@ const rules = []; let cur = null;
 for (const line of readFileSync(join(root, "_headers"), "utf8").split("\n")) {
   if (!line.trim() || line.startsWith("#")) continue;
   if (!/^\s/.test(line)) { cur = { re: new RegExp("^" + line.trim().replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*") + "$"), h: [] }; rules.push(cur); }
+  else if (/^\s*!/.test(line)) cur.h.push([line.trim().slice(1).trim(), null]);          // "! Name" detaches a header set by an earlier rule
   else { const i = line.indexOf(":"); cur.h.push([line.slice(0, i).trim(), line.slice(i + 1).trim()]); }
 }
-const headersFor = (p) => { const m = new Map(); for (const r of rules) if (r.re.test(p)) for (const [k, v] of r.h) m.set(k, m.has(k) ? m.get(k) + ", " + v : v); return m; };
+const headersFor = (p) => { const m = new Map(); for (const r of rules) if (r.re.test(p)) for (const [k, v] of r.h) { if (v === null) m.delete(k); else m.set(k, m.has(k) ? m.get(k) + ", " + v : v); } return m; };
 createServer((req, res) => {
   const url = new URL(req.url, "http://x"); let p = decodeURIComponent(url.pathname);
   let f = normalize(join(root, p));

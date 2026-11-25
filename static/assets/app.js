@@ -236,3 +236,9 @@
   });
   apply("");
 })();
+
+/* mobile: keep the current menu item in view inside the scrolling menu */
+(function () {
+  var a = document.querySelector(".nav a[aria-current]"), n = a && a.parentElement;
+  if (n && n.scrollWidth > n.clientWidth) n.scrollLeft = Math.max(0, a.offsetLeft - 16);
+})();

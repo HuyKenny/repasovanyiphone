@@ -203,6 +203,26 @@ class Out:
                 self.changed.append(path)
 
 
+def minify_css(css):
+    """Drop comments and needless whitespace (the CSS is inlined into every page)."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{}:;,>])\s*", r"\1", css)
+    return css.replace(";}", "}").strip()
+
+
+def csp_hashes(root):
+    """SHA-256 of every inline script that runs (not JSON / JSON-LD / speculation rules) across the built pages."""
+    import base64
+    hs = set()
+    for f in root.rglob("*.html"):
+        for attrs, code in re.findall(r"<script([^>]*)>(.*?)</script>", f.read_text(), re.S):
+            if "src=" in attrs or "application/" in attrs:        # data, not code (speculation rules are hashed too: Chrome needs it next to 'strict-dynamic')
+                continue
+            hs.add("'sha256-" + base64.b64encode(hashlib.sha256(code.encode()).digest()).decode() + "'")
+    return sorted(hs)
+
+
 def asset(src, out):
     data = (APP / "static/assets" / src).read_bytes()
     name = f"{Path(src).stem}.{hashlib.md5(data).hexdigest()[:8]}{Path(src).suffix}"
@@ -212,6 +232,14 @@ def asset(src, out):
 
 
 # ---------------------------------------------------------------- layout
+
+FONT_PRELOAD = '<link rel="preload" href="/fonts/cav-a.woff2" as="font" type="font/woff2" crossorigin>'
+# instant page changes: prerender a link when the finger/mouse starts on it, prefetch visible cards; never the affiliate redirects
+SPECULATION = ('<script type="speculationrules">' + json.dumps({
+    "prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/go/*"}}]}, "eagerness": "moderate"}],
+    "prefetch": [{"where": {"and": [{"selector_matches": ".mcard, .cc-link, .chips a, .nav a"}, {"not": {"href_matches": "/go/*"}}]}, "eagerness": "eager"}],
+}, separators=(",", ":")) + "</script>")
+
 
 def logo_mark(size=34):
     return f'<img src="/img/ui/logo.webp" alt="" width="{size}" height="{size}">'
@@ -242,12 +270,14 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
                 'gtag("consent","default",{analytics_storage:g,ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied",wait_for_update:500});'
                 'gtag("set","ads_data_redaction",true);')
         if GA4_ID.startswith("GTM-"):
-            # gtm.js is injected right after the page has loaded (keeps the main thread free for the first render; page views are still counted)
+            # gtm.js loads when the browser is idle after the page has loaded (or at the first interaction), never inside a speculative prerender
             ga = (f'<meta name="ga4" content="{GA4_ID}"><script>{boot}dataLayer.push({{"gtm.start":Date.now(),event:"gtm.js"}});'
                   f'(function(){{var d=0;function l(){{if(d)return;d=1;var s=document.createElement("script");s.async=true;'
                   f's.src="https://www.googletagmanager.com/gtm.js?id={GA4_ID}";document.head.appendChild(s)}}'
-                  f'if(document.readyState==="complete")setTimeout(l,800);else addEventListener("load",function(){{setTimeout(l,800)}});'
-                  f'["pointerdown","keydown","scroll"].forEach(function(e){{addEventListener(e,l,{{once:true,passive:true}})}})}})();</script>')
+                  f'function idle(){{(window.requestIdleCallback||function(f){{setTimeout(f,1)}})(l,{{timeout:3500}})}}'
+                  f'function go(){{if(document.readyState==="complete")setTimeout(idle,1500);else addEventListener("load",function(){{setTimeout(idle,1500)}});'
+                  f'["pointerdown","keydown","scroll","touchstart"].forEach(function(e){{addEventListener(e,l,{{once:true,passive:true}})}})}}'
+                  f'if(document.prerendering)document.addEventListener("prerenderingchange",go,{{once:true}});else go()}})();</script>')
             noscript = (f'<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GA4_ID}" height="0" width="0" '
                         'style="display:none;visibility:hidden" title="GTM"></iframe></noscript>')
         else:
@@ -264,7 +294,7 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
 <meta property="og:type" content="website"><meta property="og:locale" content="cs_CZ"><meta property="og:site_name" content="{BRAND}">
 <meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{canon}"><meta property="og:image" content="{E(og_img or SITE + '/img/ui/og.png')}">
 <meta name="twitter:card" content="summary_large_image">{preload}
-<link rel="stylesheet" href="{ctx['css']}"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32">
+<style>{ctx['css']}</style>{FONT_PRELOAD if "hand" in body else ""}<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/favicon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#FFFFFF">{ldtxt}{ga}</head><body>{noscript}
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
 <header class="top"><div class="wrap top-in"><a class="logo" href="/" aria-label="{BRAND} – úvod">{logo_mark()}<span>repasovaný <b>iPhone</b></span></a>
@@ -278,7 +308,7 @@ včetně platných slevových kódů. Ceny se během dne mohou změnit, platí �
 <div><h2>Průvodce</h2><ul>{guides}</ul><h2 class="mt">Obchody</h2><ul>{shops}</ul></div></div>
 <div class="wrap foot-legal"><a href="/o-webu/">O webu a kontakt</a><a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a>{'<a href="#" data-consent-open>Nastavení cookies</a>' if ga else ''}</div></footer>
 {'<div class="consent" data-consentbar role="dialog" aria-label="Souhlas s cookies" hidden><p>Smíme měřit návštěvnost (Google Analytics)? Bez souhlasu nic neukládáme. <a href="/ochrana-osobnich-udaju/">Více</a></p><div><button type="button" class="btn sm" data-consent="yes">Souhlasím</button> <button type="button" class="btn sm ghost" data-consent="no">Nesouhlasím</button></div></div>' if ga else ''}
-{cfg_tag}<script src="{ctx['js']}" defer></script></body></html>"""
+{cfg_tag}<script>{ctx['js']}</script>{SPECULATION}</body></html>"""
 
 
 # ---------------------------------------------------------------- components
@@ -1281,6 +1311,49 @@ def history(refurb):
     return per
 
 
+WP_ARTICLES = {
+    "/repasovany-iphone-pruvodce/": "/pruvodce/", "/co-znamena-repasovany-iphone/": "/pruvodce/",
+    "/stavy-repasovaneho-iphonu-a-b-c/": "/pruvodce/stavy/", "/jak-poznat-kvalitni-repasovany-iphone/": "/pruvodce/kontrola/",
+    "/jak-dlouho-vydrzi-repasovany-iphone/": "/pruvodce/baterie/", "/zaruka-repasovany-iphone/": "/pruvodce/zaruka/",
+    "/iphone-z-bazaru-jak-nakupovat-bezpecne/": "/pruvodce/repas-vs-bazar/", "/vyplati-se-repasovany-iphone/": "/pruvodce/repas-vs-bazar/",
+    "/kde-koupit-repasovany-iphone/": "/obchody/", "/jak-koupit-iphone-levne/": "/levny-iphone/",
+    "/nejlepsi-repasovany-iphone-2026/": "/jaky-iphone-koupit/", "/porovnat-produkty/": "/srovnani/",
+    "/kategorie-produktu/iphone/": "/", "/kategorie-produktu/nove/": "/novy-iphone/",
+}
+
+
+def wp_legacy(current):
+    """301 for URLs of the old WordPress shop that had Google impressions (data/wp-legacy-paths.json, from GSC).
+    iPhone listings/products go to the model (x storage) page; Mac/iPad/Watch/accessories stay 404 on purpose:
+    sending them to an unrelated page would only be a soft 404."""
+    f = APP / "data/wp-legacy-paths.json"
+    if not f.exists():
+        return []
+    models = sorted((p.strip("/") for p in current if re.fullmatch(r"/iphone-[a-z0-9-]+/", p)), key=len, reverse=True)
+    out = []
+    for p in json.loads(f.read_text()):
+        if p in current:
+            continue
+        to = WP_ARTICLES.get(p)
+        if not to:
+            model, rest = None, ""
+            m = re.match(r"^/kategorie-produktu/(?:iphone|nove)/([a-z0-9-]+?)(?:-iphone|-nove)?/(?:([a-z0-9-]+)/)?$", p)
+            if m and m.group(1) in models:
+                model, rest = m.group(1), (m.group(2) or "")[len(m.group(1)):]
+            m = re.match(r"^/produkt/(iphone-[a-z0-9-]+)/$", p)
+            if m:
+                model = next((x for x in models if m.group(1).startswith(x + "-")), None)
+                rest = m.group(1)[len(model or ""):]
+            if model:
+                to = f"/{model}/"
+                st = re.match(r"-(\d+)-?(gb|tb)(?:-|$)", rest)
+                if st and f"/{model}/{int(st.group(1)) * (1024 if st.group(2) == 'tb' else 1)}-gb/" in current:
+                    to = f"/{model}/{int(st.group(1)) * (1024 if st.group(2) == 'tb' else 1)}-gb/"
+        if to and to in current:
+            out.append(f"{p} {to} 301")
+    return out
+
+
 def redirects(out, current):
     """301 for every path that existed in an earlier build and is gone now (Workers static assets read dist/_redirects)."""
     kp = STATE / "known-paths.json"
@@ -1299,6 +1372,7 @@ def redirects(out, current):
             to = "/"
         lines.append(f"{p} {to} 301")
     kp.write_text(json.dumps(sorted(known | current)))
+    lines = wp_legacy(current) + lines
     out.write("_redirects", "\n".join(lines[:1900]) + "\n")
     return len(lines)
 
@@ -1366,8 +1440,8 @@ def main():
     ctx = {"offers": offers, "refurb": refurb, "new_min": new_min, "by_model": by_model, "sub_pages": sub_pages, "shop_count": shop_count,
            "shop_ids": [s["id"] for s in SHOPS if shop_count.get(s["id"])], "guides": load_guides(), "hist": history(refurb),
            "photos": have, "col_rank": col_rank, "deals": deals, "cats": CATS, "coupons": coupons}
-    ctx["css"] = asset("site.css", DIST)
-    ctx["js"] = asset("app.js", DIST)
+    ctx["css"] = minify_css((APP / "static/assets/site.css").read_text())
+    ctx["js"] = (APP / "static/assets/app.js").read_text().replace("</script", "<\\/script")
     out = Out(DIST)
     page_home(out, ctx)
     for m in MODELS:
@@ -1403,20 +1477,38 @@ def main():
     if key:
         out.write(f"{key}.txt", key)
     ga = bool(GA4_ID)
+    hashes = " ".join(csp_hashes(DIST))
+    # Strict CSP: only our own inline scripts (by hash) run; 'strict-dynamic' lets them load GTM, which loads GA4. No eval, no plugins, no framing.
+    csp = ("default-src 'self'; "
+           f"script-src 'self' {hashes} 'strict-dynamic' 'inline-speculation-rules' https:; "
+           "style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; "
+           "manifest-src 'self'; worker-src 'none'; upgrade-insecure-requests; "
+           "img-src 'self' data:" + (" https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://www.google.cz" if ga else "") + "; "
+           "connect-src 'self'" + (" https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net" if ga else "") + "; "
+           "frame-src " + ("https://www.googletagmanager.com" if ga else "'none'"))
     out.write("_headers", f"""/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Permissions-Policy: accelerometer=(), autoplay=(), bluetooth=(), browsing-topics=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), hid=(), magnetometer=(), microphone=(), midi=(), payment=(), serial=(), usb=(), xr-spatial-tracking=()
   X-Frame-Options: DENY
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:{' https://*.google-analytics.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://www.google.cz' if ga else ''}; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'{' https://www.googletagmanager.com https://*.googletagmanager.com' if ga else ''}; connect-src 'self'{' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net' if ga else ''}; frame-src{' https://www.googletagmanager.com' if ga else " 'none'"}; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  X-Permitted-Cross-Domain-Policies: none
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-site
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Content-Security-Policy: {csp}
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
 /assets/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 /fonts/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 /img/*
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+  ! Cache-Control
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 /go/*
+  ! Cache-Control
+  Cache-Control: no-store
   X-Robots-Tag: noindex, nofollow
 """)
     (STATE / "page-hashes.json").write_text(json.dumps(out.new))
