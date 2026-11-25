@@ -1,17 +1,122 @@
 {
- "_doc": "Shops in the comparison. No secrets: CJ advertiser ids and eHub a_bid are public (they are in every affiliate link). feed = public shop export; feed_key = URL with a token, kept in the FEEDS_JSON secret. refurb = how an offer is recognised as refurbished/used (all = whole feed; hint = title/description must say so, others are new phones used only as the reference price).",
+ "_doc": "Shops in the comparison. No secrets: CJ advertiser ids and eHub a_bid are public (they are in every affiliate link). feed_key = URL with a token, kept only in credentials/ and the FEEDS_JSON secret. role: refurb = refurbished/used phones (new ones from the same feed are kept as 'Nový'), new = new phones only (reference price + grade 'Nový').",
  "shops": [
-  {"id": "jabkolevne", "name": "JabkoLevně", "domain": "jabkolevne.cz", "network": "ehub", "a_bid": "85731c2c",
-   "feed": "https://www.jabkolevne.cz/heureka/export/products.xml", "refurb": "hint", "color": "#E4002B"},
-  {"id": "iphonemarket", "name": "iPhoneMarket", "domain": "iphonemarket.cz", "network": "ehub", "a_bid": "2bcd6f9d",
-   "feed_key": "eh_iphonemarket", "refurb": "all", "color": "#111111", "enabled": false},
-  {"id": "mobilegear", "name": "MobileGear", "domain": "mobilegear.cz", "network": "ehub", "a_bid": "2e8d2a50",
-   "feed_key": "eh_mobilegear", "refurb": "all", "color": "#1F6FEB", "enabled": false},
-  {"id": "aukro", "name": "Aukro", "domain": "aukro.cz", "network": "cj", "advertiser": "5078957", "keywords": ["iPhone"],
-   "refurb": "fcond", "fcond": ["Refurbished"], "color": "#F5A800"},
-  {"id": "allegro", "name": "Allegro", "domain": "allegro.cz", "network": "cj", "advertiser": "6464420", "keywords": ["iPhone"],
-   "refurb": "hint", "color": "#FF5A00"},
-  {"id": "mall", "name": "MALL.CZ", "domain": "mall.cz", "network": "cj", "advertiser": "4615486", "keywords": ["iPhone"],
-   "refurb": "hint", "color": "#E2001A"}
+  {
+   "id": "mobilegear",
+   "name": "MobileGear",
+   "domain": "mobilegear.cz",
+   "network": "ehub",
+   "a_bid": "2e8d2a50",
+   "feed_key": "eh_mobilegear",
+   "role": "refurb",
+   "color": "#1C1C1E",
+   "logo": "/img/shops/mobilegear.webp",
+   "lw": 360,
+   "lh": 100,
+   "logo_src": 22904
+  },
+  {
+   "id": "jabkolevne",
+   "name": "JabkoLevně",
+   "domain": "jabkolevne.cz",
+   "network": "ehub",
+   "a_bid": "85731c2c",
+   "role": "refurb",
+   "color": "#E4002B",
+   "logo": "/img/shops/jabkolevne.webp",
+   "lw": 305,
+   "lh": 84,
+   "logo_src": 22809,
+   "feed_key": "eh_jabkolevne"
+  },
+  {
+   "id": "smarty",
+   "name": "Smarty",
+   "domain": "smarty.cz",
+   "network": "ehub",
+   "a_bid": "1651aa06",
+   "feed_key": "eh_smarty",
+   "role": "refurb",
+   "color": "#E30613",
+   "logo": "/img/shops/smarty.webp",
+   "lw": 360,
+   "lh": 77,
+   "logo_src": 18188
+  },
+  {
+   "id": "iphonemarket",
+   "name": "iPhoneMarket",
+   "domain": "iphonemarket.cz",
+   "network": "ehub",
+   "a_bid": "2bcd6f9d",
+   "feed_key": "eh_iphonemarket",
+   "role": "refurb",
+   "color": "#0A84FF",
+   "logo": "/img/shops/iphonemarket.webp",
+   "lw": 360,
+   "lh": 99,
+   "logo_src": 22804
+  },
+  {
+   "id": "aukro",
+   "name": "Aukro",
+   "domain": "aukro.cz",
+   "network": "cj",
+   "advertiser": "5078957",
+   "keywords": [
+    "iPhone"
+   ],
+   "role": "refurb",
+   "fcond": [
+    "Refurbished"
+   ],
+   "color": "#F5A800",
+   "logo": "/img/shops/aukro.webp",
+   "lw": 348,
+   "lh": 120,
+   "logo_src": 22546
+  },
+  {
+   "id": "mall",
+   "name": "MALL.CZ",
+   "domain": "mall.cz",
+   "network": "cj",
+   "advertiser": "4615486",
+   "keywords": [
+    "iPhone"
+   ],
+   "role": "refurb",
+   "color": "#E2001A"
+  },
+  {
+   "id": "istyle",
+   "name": "iSTYLE",
+   "domain": "istyle.cz",
+   "network": "ehub",
+   "a_bid": "92ecd9a4",
+   "role": "new",
+   "color": "#000000",
+   "logo": "/img/shops/istyle.webp",
+   "lw": 352,
+   "lh": 120,
+   "logo_src": 8123,
+   "feed_key": "eh_istyle"
+  },
+  {
+   "id": "allegro",
+   "name": "Allegro",
+   "domain": "allegro.cz",
+   "network": "cj",
+   "advertiser": "6464420",
+   "keywords": [
+    "iPhone"
+   ],
+   "role": "new",
+   "color": "#FF5A00",
+   "logo": "/img/shops/allegro.webp",
+   "lw": 312,
+   "lh": 120,
+   "logo_src": 22533
+  }
  ]
 }

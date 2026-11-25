@@ -145,8 +145,11 @@ def xml_offers(shop, resp):
         if t == "SHOPITEM":
             pid, title, url, img = d.get("ITEM_ID"), d.get("PRODUCTNAME") or d.get("PRODUCT"), d.get("URL"), d.get("IMGURL")
             price, was, cat, desc = price_of(d.get("PRICE_VAT")), 0, d.get("CATEGORYTEXT", ""), d.get("DESCRIPTION", "")
-            if str(d.get("DELIVERY_DATE", "0")).strip() not in ("0", "") and shop.get("in_stock_only"):
+            if (d.get("STORE_STATUS") or "").strip().lower() in ("0", "false", "out of stock", "vyprodáno", "nedostupné", "not available"):
                 continue
+            if shop.get("in_stock_only") and str(d.get("DELIVERY_DATE", "0")).strip() not in ("0", ""):
+                continue
+            prm.setdefault("condition", d.get("CONDITION", ""))
         else:
             pid, title, url, img = d.get("id"), d.get("title"), d.get("link"), d.get("image_link")
             if (d.get("availability") or "in stock").lower().replace("_", " ") not in ("in stock", "instock"):
@@ -158,7 +161,7 @@ def xml_offers(shop, resp):
         if not (pid and title and url and price > 0) or not is_phone(title):
             continue
         url = url.replace("&amp;", "&")
-        yield {"id": pid, "t": title.strip(), "d": clean(desc), "url": url, "go": pre + quote(url, safe="") if pre else url,
+        yield {"id": pid, "grp": d.get("ITEMGROUP_ID") or d.get("item_group_id") or "", "t": title.strip(), "d": clean(desc), "url": url, "go": pre + quote(url, safe="") if pre else url,
                "img": img or "", "p": price, "was": was, "fcond": prm.get("condition", ""), "cat": html.unescape(cat),
                "prm": {k: v[:80] for k, v in prm.items() if v and len(k) < 40}}
 
@@ -178,9 +181,18 @@ def xml_shop(shop):
     import tempfile
     f = tempfile.TemporaryFile()
     req = urllib.request.Request(feed_url(shop), headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=300) as r:
+    with urllib.request.urlopen(req, timeout=300) as r:      # follows redirects (Dotidot answers 302 to a storage URL)
         while chunk := r.read(1 << 20):
             f.write(chunk)
+    f.seek(0)
+    if f.read(2) == b"\x1f\x8b":                               # gzip export
+        import gzip
+        f.seek(0)
+        g = tempfile.TemporaryFile()
+        with gzip.GzipFile(fileobj=f) as z:
+            while chunk := z.read(1 << 20):
+                g.write(chunk)
+        f = g
     f.seek(0)
     return list(xml_offers(shop, f))
 

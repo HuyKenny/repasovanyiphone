@@ -651,6 +651,40 @@
    "hz": 60,
    "old": true,
    "family": "8"
+  },
+  {
+   "slug": "iphone-7-plus",
+   "name": "iPhone 7 Plus",
+   "year": 2016,
+   "display": 5.5,
+   "chip": "A10 Fusion",
+   "storage": [
+    32,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Touch ID",
+   "hz": 60,
+   "old": true,
+   "family": "8"
+  },
+  {
+   "slug": "iphone-7",
+   "name": "iPhone 7",
+   "year": 2016,
+   "display": 4.7,
+   "chip": "A10 Fusion",
+   "storage": [
+    32,
+    128,
+    256
+   ],
+   "port": "Lightning",
+   "bio": "Touch ID",
+   "hz": 60,
+   "old": true,
+   "family": "8"
   }
  ]
 }

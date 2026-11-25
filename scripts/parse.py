@@ -1,65 +1,52 @@
-"""Turn raw shop offers into normalised iPhone offers: model, storage, condition grade, colour, battery, eSIM-only.
+"""Turn raw shop offers into normalised iPhone offers: model, storage, official colour, quality grade, battery, eSIM-only.
 
-Every shop writes condition differently (JabkoLevně "(Stav A-)", Aukro "Stav zařízení: Téměř výborný", MALL "- rozbaleno").
-They all map onto one scale of five grades so the visitor can compare across shops; the shop's own wording is kept as `sg`.
+Grades follow what people know from the shops: Nový · A+ (jako nový) · A · B · C. Every shop writes them differently
+(MobileGear "třídy Velmi dobrý+", JabkoLevně "(Stav A-)", Smarty "(Kategorie B)", Aukro "Stav zařízení: Téměř výborný"),
+so each shop has its own mapping below; the shop's own wording is kept as `sg`. Unknown wording -> the offer is skipped
+and counted in the report (never guessed).
+Colours: data/colors.json lists Apple's official colours per model; shop text is matched by regexes without diacritics.
 """
 import json
 import re
+import unicodedata
+from collections import Counter
 from pathlib import Path
 
 APP = Path(__file__).resolve().parent.parent
 MODELS = json.loads((APP / "data/models.json").read_text())["models"]
 BY_SLUG = {m["slug"]: m for m in MODELS}
+_C = json.loads((APP / "data/colors.json").read_text())
+COLORS = {slug: _C["sets"][k] for slug, k in _C["models"].items()}
 
-# grade scale (key, label, short explanation) - best first
-GRADES = [
-    ("novy", "Nový", "nerozbalený kus, plná záruka"),
-    ("jako-novy", "Jako nový", "bez viditelných stop, často rozbalený nebo krátce používaný"),
-    ("vyborny", "Výborný", "drobné stopy viditelné jen zblízka"),
-    ("velmi-dobry", "Velmi dobrý", "jemné škrábance na rámu nebo zádech"),
-    ("dobry", "Dobrý", "viditelné známky používání, plně funkční"),
+GRADES = [  # key, short label, name, what you see
+    ("novy", "Nový", "Nerozbalený", "nový kus s plnou zárukou 24 měsíců"),
+    ("aplus", "A+", "Jako nový", "bez viditelných stop, často rozbalený nebo krátce používaný"),
+    ("a", "A", "Výborný", "drobné stopy, které uvidíte jen zblízka"),
+    ("b", "B", "Velmi dobrý", "jemné škrábance na rámu nebo zádech"),
+    ("c", "C", "Dobrý", "viditelné známky používání, plně funkční"),
 ]
-GRADE = {k: (lab, ex) for k, lab, ex in GRADES}
-GRADE_ORDER = {k: i for i, (k, _, _) in enumerate(GRADES)}
+GRADE = {k: {"short": s, "name": n, "ex": e} for k, s, n, e in GRADES}
+GRADE_ORDER = {k: i for i, (k, *_r) in enumerate(GRADES)}
+
+PHONE = re.compile(r"^\s*(apple\s+)?iphone\s*(\d|se\b|x\b|xr|xs|air)", re.I)
+NOT_PHONE = re.compile(r"kryt|obal|sklo|f[óo]li|displej|lcd|bateri[ei]\b|pouzdr|kabel|nab[íi]je|\bcase\b|cover|držák|náhradní|housing|"
+                       r"deska|rámeč|čočk|magsafe battery|dock|adaptér|reprodukt|konektor|flex|šroub|tlačítk|avacom|sluchátk|motor", re.I)
+
+
+def nd(s):
+    return unicodedata.normalize("NFKD", (s or "").lower()).encode("ascii", "ignore").decode()
 
 
 def _model_rx(m):
-    n = m["name"].replace("iPhone ", "")
     if m["slug"] == "iphone-se-2022":
         return r"se\s*(\(?\s*2022\s*\)?|3\.?\s*(gen|generace)|\(?3rd|3\b)"
     if m["slug"] == "iphone-se-2020":
         return r"se\s*(\(?\s*2020\s*\)?|2\.?\s*(gen|generace)|\(?2nd|2\b)"
-    parts = n.lower().split()
-    rx = r"\s*".join(re.escape(p) for p in parts)
-    return rx + r"(?![\w+])" if not rx.endswith("e") else rx + r"(?![\w])"
+    rx = r"\s*".join(re.escape(p) for p in m["name"].replace("iPhone ", "").lower().split())
+    return rx + r"(?![\w+])"
 
 
-# longest names first so "15 Pro Max" wins over "15 Pro" and "15"
-_ORDER = sorted(MODELS, key=lambda m: -len(m["name"]))
-_RX = [(m["slug"], re.compile(r"iphone\s*" + _model_rx(m), re.I)) for m in _ORDER]
-
-COLORS = [  # (regex, Czech label) - specific titanium names first
-    (r"přírodní titan|natural titan", "přírodní titan"),
-    (r"pouštní titan|desert titan", "pouštní titan"),
-    (r"bílý titan|white titan", "bílý titan"),
-    (r"černý titan|black titan", "černý titan"),
-    (r"modrý titan|blue titan", "modrý titan"),
-    (r"vesmírně čern|space black|kosmick\w* čern|černá|černý|black|midnight|temně inkoust|grafitov|graphite|space gr[ae]y|vesmírně šed", "černá"),
-    (r"bíl[áý]|white|starlight|hvězdně bíl|cloud white", "bílá"),
-    (r"oranž|orange", "oranžová"),
-    (r"ultramarín|ultramarine", "ultramarínová"),
-    (r"modrozelen|teal", "modrozelená"),
-    (r"blankytn|sky blue|světle modr|mist blue|mlhově modr|sierra blue|pacific blue|tichomořsk", "světle modrá"),
-    (r"modr|blue", "modrá"),
-    (r"zelen|green|alpine|sage", "zelená"),
-    (r"fial|purple|lavender|levandul|deep purple", "fialová"),
-    (r"růžov|pink|blush", "růžová"),
-    (r"červen|red|\(product\)", "červená"),
-    (r"žlut|yellow", "žlutá"),
-    (r"zlat|gold", "zlatá"),
-    (r"stříbr|silver", "stříbrná"),
-]
-COLORS = [(re.compile(rx, re.I), lab) for rx, lab in COLORS]
+_RX = [(m["slug"], re.compile(r"iphone\s*" + _model_rx(m), re.I)) for m in sorted(MODELS, key=lambda m: -len(m["name"]))]
 
 
 def model_of(text):
@@ -79,12 +66,25 @@ def storage_of(text, model=None):
     return None
 
 
-def color_of(title, prm):
-    for src in (prm.get("barva") or "", title or ""):
-        for rx, lab in COLORS:
-            if rx.search(src):
-                return lab
-    return ""
+def color_of(model, *texts):
+    """Official colour key for the model, or None. The shop's colour field comes first; the longest regex match wins."""
+    for t in texts:
+        t = nd(t)
+        if not t.strip():
+            continue
+        best, blen = None, 0
+        for c in COLORS.get(model, []):
+            for rx in c["rx"]:
+                m = re.search(rx, t)
+                if m and len(m.group(0)) > blen:
+                    best, blen = c["key"], len(m.group(0))
+        if best:
+            return best
+    return None
+
+
+def color(model, key):
+    return next((c for c in COLORS.get(model, []) if c["key"] == key), None)
 
 
 def battery_of(text):
@@ -97,60 +97,102 @@ def battery_of(text):
     return None
 
 
+MG = {"premium": "aplus", "zánovní": "aplus", "výborný": "a", "velmi dobrý+": "b", "velmi dobrý": "b", "dobrý": "c", "nový": "novy"}
+JL = {"stav a": "a", "stav a-": "a", "stav a/b": "b", "stav b": "c", "stav b/c": "c", "stav c": "c", "zánovní": "aplus", "rozbaleno": "aplus",
+      "rozbalený": "aplus", "nový": "novy", "nerozbaleno": "novy", "nerozbalený": "novy"}
+IM = {"premium": "aplus", "zánovní": "aplus", "rozbaleno": "aplus", "výborný": "a", "velmi dobrý": "b", "dobrý": "c", "nerozbaleno": "novy", "nový": "novy"}
+AU = {"premium": "aplus", "zánovní": "aplus", "výborný": "a", "téměř výborný": "a", "velmi dobrý": "b", "dobrý": "c", "uspokojivý": "c"}
+
+
 def grade_of(shop, r):
-    """-> (grade key or None = not refurbished, shop wording). None means a NEW phone (reference price only)."""
-    t, d = r["t"], r.get("d", "")
-    if shop["id"] == "jabkolevne":
-        m = re.search(r"\((Stav [^)]+|Zánovní|Nový|Rozbaleno|Nerozbaleno)\)", t)
+    """-> (grade key | None = unknown wording, shop's own wording)."""
+    t, d, prm = r["t"], r.get("d", ""), r.get("prm") or {}
+    sid = shop["id"]
+    if shop.get("role") == "new":
+        if re.search(r"repasovan|obnoven|použit|rozbalen|refurb|zánovní", t, re.I):
+            return None, ""
+        return "novy", "nový"
+    if sid == "mobilegear":
+        m = re.search(r"třídy\s+(.+?)\s*$", t)
         s = m.group(1) if m else ""
-        k = {"Stav A": "vyborny", "Stav A-": "vyborny", "Stav A/B": "velmi-dobry", "Stav B": "dobry", "Stav B/C": "dobry", "Stav C": "dobry",
-             "Zánovní": "jako-novy", "Rozbaleno": "jako-novy", "Nový": None, "Nerozbaleno": None}.get(s, "velmi-dobry" if s else None)
-        return k, s
-    if shop["id"] == "aukro":
+        return MG.get(s.lower()), s
+    if sid == "jabkolevne":
+        m = re.search(r"\((Stav [^)]+|Zánovní|Nový|Rozbaleno|Rozbalený|Nerozbaleno|Nerozbalený)\)", t)
+        s = m.group(1) if m else ""
+        return JL.get(s.lower()), s
+    if sid == "smarty":
+        st = (prm.get("stav zboží") or "").lower()
+        m = re.search(r"\(Kategorie ([ABC])\)", t)
+        if m:
+            return m.group(1).lower(), f"Kategorie {m.group(1)}"
+        if "(Další)" in t:
+            return None, "Další"
+        if st == "nový":
+            return "novy", "nový"
+        if st == "rozbalený":
+            return "aplus", "rozbalený"
+        return None, st
+    if sid == "iphonemarket":
+        s = prm.get("stav produktu") or (re.search(r"Stav produktu:\s*(\S+)", t) or [None, ""])[1]
+        return IM.get(s.lower()), s
+    if sid == "aukro":
         if r.get("fcond") not in shop.get("fcond", []):
             return "skip", ""
         m = re.search(r"stav zařízení:\s*(Premium|Zánovní|Výborný|Téměř výborný|Velmi dobrý|Dobrý|Uspokojivý)", d, re.I)
-        s = m.group(1) if m else ""
-        k = {"premium": "jako-novy", "zánovní": "jako-novy", "výborný": "vyborny", "téměř výborný": "vyborny",
-             "velmi dobrý": "velmi-dobry", "dobrý": "dobry", "uspokojivý": "dobry"}.get(s.lower())
-        if not k:
-            m = re.search(r"(?:třída|stav)\s*([ABC])\b", t + " " + d)
-            k = {"A": "vyborny", "B": "velmi-dobry", "C": "dobry"}.get(m.group(1) if m else "", "velmi-dobry")
-            s = f"třída {m.group(1)}" if m else "repasovaný"
-        return k, s
-    # MALL, Allegro: a suffix or word in the title; everything else is a new phone
-    m = re.search(r"\b(rozbalen[oéý]|zánovní|použit[éýá]|repasovan[ýé]|obnoven[ýé]|refurbished)\b", t, re.I)
-    if not m:
-        return None, ""
-    w = m.group(1).lower()
-    k = "jako-novy" if w.startswith(("rozbal", "zánov")) else "velmi-dobry"
-    return k, w
+        if m:
+            return AU[m.group(1).lower()], m.group(1)
+        m = re.search(r"(?:třída|stav)\s*([ABC])\b", t + " " + d)
+        return ({"A": "a", "B": "b", "C": "c"}.get(m.group(1)) if m else None), (f"třída {m.group(1)}" if m else "")
+    if sid == "mall":
+        m = re.search(r"\b(rozbalen[oéý]|zánovní|použit[éýá])\b", t, re.I)
+        if not m:
+            return "novy", "nový"
+        w = m.group(1).lower()
+        return ("aplus" if w.startswith(("rozbal", "zánov")) else "b"), w
+    return None, ""
 
 
-def normalise(shop, r):
-    """One raw record -> normalised offer dict, or None (not an identifiable phone)."""
+def normalise(shop, r, report=None):
+    """One raw record -> normalised offer dict, or None."""
     t = r["t"]
     prm = r.get("prm") or {}
-    model = model_of(prm.get("model", "")) or model_of(t)
-    if not model:
+    if NOT_PHONE.search(t):
         return None
-    storage = storage_of(prm.get("vnitřní paměť", ""), model) or storage_of(t, model)
+    model = (model_of(prm.get("model zařízení", "")) or model_of(prm.get("model", "")) or model_of(t))
+    if not model:
+        if report is not None:
+            report["no_model"][shop["id"]] += 1
+        return None
+    storage = (storage_of(prm.get("vnitřní paměť", ""), model) or storage_of(prm.get("velikost úložiště", ""), model)
+               or storage_of(prm.get("kapacita paměti", ""), model) or storage_of(t, model))
     if not storage:
+        if report is not None:
+            report["no_storage"][shop["id"]] += 1
         return None
     g, sg = grade_of(shop, r)
     if g == "skip":
         return None
-    text = t + " " + r.get("d", "")
+    if not g:
+        if report is not None:
+            report["unknown_grade"][f'{shop["id"]}: {sg or "?"}'] += 1
+        return None
+    title_col = re.sub(r"(?i)^.*?\d+\s?(gb|tb)\b", "", t)          # colour words come after the capacity in titles
+    col = color_of(model, prm.get("barevný odstín", ""), prm.get("barva", ""), prm.get("color", ""), title_col)
+    if not col:
+        if report is not None:
+            report["unknown_color"][f"{model}: {prm.get('barva') or prm.get('barevný odstín') or title_col.strip()[:30]}"] += 1
+        return None
     esim = bool(re.search(r"\besim\b", t, re.I)) and not re.search(r"dual|nano|\+\s*e-?sim|sim\s*\+", t, re.I)
     if BY_SLUG[model].get("esim_only"):
         esim = True
-    return {"shop": shop["id"], "id": str(r["id"]), "model": model, "gb": storage, "g": g or "novy", "new": g is None, "sg": sg,
-            "col": color_of(t, prm), "bat": battery_of(text), "esim": esim, "p": int(round(r["p"])), "was": int(round(r.get("was") or 0)),
+    return {"shop": shop["id"], "id": str(r["id"]), "model": model, "gb": storage, "g": g, "sg": sg, "col": col,
+            "bat": battery_of(t + " " + r.get("d", "")), "esim": esim, "p": int(round(r["p"])), "was": int(round(r.get("was") or 0)),
             "url": r["url"], "go": r["go"], "img": r.get("img") or "", "t": t}
 
 
 def load_all(raw_dir, shops):
     offers, stats = [], {}
+    report = {"no_model": Counter(), "no_storage": Counter(), "unknown_grade": Counter(), "unknown_color": Counter()}
     for s in shops:
         f = raw_dir / f"{s['id']}.json"
         if not f.exists():
@@ -158,12 +200,12 @@ def load_all(raw_dir, shops):
         n = kept = 0
         for r in json.loads(f.read_text()):
             n += 1
-            o = normalise(s, r)
+            o = normalise(s, r, report)
             if o:
                 offers.append(o)
                 kept += 1
         stats[s["id"]] = {"raw": n, "kept": kept}
-    return offers, stats
+    return offers, stats, {k: dict(v.most_common(40)) for k, v in report.items()}
 
 
 def gb_label(v):

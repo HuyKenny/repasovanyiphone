@@ -10,10 +10,26 @@
  },
  "mall": {
   "lead": "Velký obchod s elektronikou: vedle nových iPhonů občas i rozbalené a zánovní kusy.",
-  "text": "<p>MALL.CZ prodává hlavně nové telefony. Do srovnání repasovaných bereme jen kusy označené jako <strong>rozbalené, zánovní nebo použité</strong>; nové iPhony z MALLu slouží jako srovnávací cena „nový od“.</p>"
+  "text": "<p>MALL.CZ prodává hlavně nové telefony (u nás kvalita „Nový“). Rozbalené a zánovní kusy řadíme do A+, použité do B.</p>"
  },
  "allegro": {
   "lead": "Tržiště s novými telefony; ceny nových iPhonů používáme jako srovnávací cenu.",
-  "text": "<p>Z Allegra bereme ceny nových iPhonů jako srovnání, kolik ušetříte koupí repasovaného kusu.</p>"
+  "text": "<p>Z Allegra bereme ceny nových iPhonů: ve srovnání jako kvalita „Nový“ a jako srovnávací cena pro repasy.</p>"
+ },
+ "mobilegear": {
+  "lead": "Specialista na prověřené iPhony: největší nabídka ve srovnání, od iPhonu 7 po 17 Pro.",
+  "text": "<p>MobileGear prodává použité a repasované iPhony, které prošly rukama jeho techniků. Stav píše do názvu jako „třídy Premium, Zánovní, Výborný, Velmi dobrý+, Velmi dobrý a Dobrý“; ve srovnání z toho děláme A+, A, B a C (Velmi dobrý+ řadíme do B).</p><p>Ve feedu má u každého kusu barvu, paměť i model, takže nabídky párujeme spolehlivě.</p>"
+ },
+ "smarty": {
+  "lead": "Velký český e-shop s elektronikou: nové iPhony i použité kusy v kategoriích A, B a C.",
+  "text": "<p>Smarty.cz prodává nové telefony i použité kusy označené jako <strong>Kategorie A, B a C</strong>, které přebíráme beze změny. Kusy označené „Další“ do srovnání nebereme, protože z nich nejde poznat stav.</p>"
+ },
+ "iphonemarket": {
+  "lead": "Prodejce zánovních a použitých iPhonů s diagnostikou každého kusu.",
+  "text": "<p>iPhoneMarket.cz se zaměřuje na zánovní a použité iPhony. Stav uvádí jako Premium, Zánovní, Rozbaleno a Výborný; první tři u nás odpovídají kvalitě A+, Výborný kvalitě A.</p>"
+ },
+ "istyle": {
+  "lead": "Apple Premium Partner: nové iPhony s plnou zárukou.",
+  "text": "<p>iSTYLE je autorizovaný prodejce Applu. Ve srovnání má jen nové kusy, které ukazujeme jako kvalitu „Nový“ a jako srovnávací cenu pro repasy.</p>"
  }
 }

@@ -1,0 +1,169 @@
+{
+ "_doc": "Official Apple colours per model (Czech names as Apple CZ uses them; iPhone 17e and 18 Pro from the shops' feeds). rx = regexes over the lower-case text WITHOUT diacritics (shop colour field first, then the title); the longest match wins, so 'cerny titan' beats 'cern'. hex = swatch colour (approximate finish).",
+ "sets": {
+  "x7": [
+   {"key": "temne-cerna", "name": "temně černá", "hex": "#0B0B0C", "rx": ["temne cern", "jet black"]},
+   {"key": "cerna", "name": "černá", "hex": "#2A2A2C", "rx": ["\\bcern", "\\bblack", "matne cern"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#E3E4E5", "rx": ["stribr", "silver"]},
+   {"key": "zlata", "name": "zlatá", "hex": "#F1DCC3", "rx": ["\\bzlat", "\\bgold"]},
+   {"key": "ruzove-zlata", "name": "růžově zlatá", "hex": "#F2CFC8", "rx": ["ruzove zlat", "rose gold", "ruzov"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#B3112E", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "x8": [
+   {"key": "vesmirne-seda", "name": "vesmírně šedá", "hex": "#3B3B3D", "rx": ["vesmirne sed", "space gr[ae]y", "\\bsed", "\\bcern", "\\bblack"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#E3E4E5", "rx": ["stribr", "silver", "\\bbil", "white"]},
+   {"key": "zlata", "name": "zlatá", "hex": "#F1DCC3", "rx": ["\\bzlat", "\\bgold"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#B3112E", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "x": [
+   {"key": "vesmirne-seda", "name": "vesmírně šedá", "hex": "#3B3B3D", "rx": ["vesmirne sed", "space gr[ae]y", "\\bsed", "\\bcern", "\\bblack"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#E3E4E5", "rx": ["stribr", "silver", "\\bbil", "white"]},
+   {"key": "zlata", "name": "zlatá", "hex": "#F1DCC3", "rx": ["\\bzlat", "\\bgold"]}
+  ],
+  "xr": [
+   {"key": "cerna", "name": "černá", "hex": "#1F1F21", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#F4F4F2", "rx": ["\\bbil", "white"]},
+   {"key": "modra", "name": "modrá", "hex": "#4F7FB5", "rx": ["\\bmodr", "\\bblue"]},
+   {"key": "zluta", "name": "žlutá", "hex": "#F7D95B", "rx": ["\\bzlut", "yellow"]},
+   {"key": "koralova", "name": "korálová", "hex": "#F26B5B", "rx": ["koral", "coral"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#B3112E", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "11": [
+   {"key": "cerna", "name": "černá", "hex": "#1F1F21", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#F4F4F2", "rx": ["\\bbil", "white"]},
+   {"key": "zelena", "name": "zelená", "hex": "#B9E0CE", "rx": ["zelen", "green"]},
+   {"key": "zluta", "name": "žlutá", "hex": "#F9E479", "rx": ["\\bzlut", "yellow"]},
+   {"key": "fialova", "name": "fialová", "hex": "#CDC2E3", "rx": ["fial", "purple"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#B3112E", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "11pro": [
+   {"key": "vesmirne-seda", "name": "vesmírně šedá", "hex": "#4A4A4D", "rx": ["vesmirne sed", "space gr[ae]y", "\\bsed", "\\bcern", "\\bblack"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#E6E6E3", "rx": ["stribr", "silver", "\\bbil", "white"]},
+   {"key": "zlata", "name": "zlatá", "hex": "#F5DCC0", "rx": ["\\bzlat", "\\bgold"]},
+   {"key": "pulnocne-zelena", "name": "půlnočně zelená", "hex": "#4E5851", "rx": ["pulnocne zelen", "midnight green", "zelen", "green"]}
+  ],
+  "se2": [
+   {"key": "cerna", "name": "černá", "hex": "#1F1F21", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#F4F4F2", "rx": ["\\bbil", "white"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#B3112E", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "12": [
+   {"key": "cerna", "name": "černá", "hex": "#1F1F21", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#F4F4F2", "rx": ["\\bbil", "white"]},
+   {"key": "modra", "name": "modrá", "hex": "#2F5C8A", "rx": ["\\bmodr", "\\bblue"]},
+   {"key": "zelena", "name": "zelená", "hex": "#CFE5D0", "rx": ["zelen", "green"]},
+   {"key": "fialova", "name": "fialová", "hex": "#B7AFE6", "rx": ["fial", "purple"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#B3112E", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "12pro": [
+   {"key": "grafitove-seda", "name": "grafitově šedá", "hex": "#52514F", "rx": ["grafit", "graphite", "\\bsed", "\\bcern", "\\bblack"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#E3E4E1", "rx": ["stribr", "silver", "\\bbil", "white"]},
+   {"key": "zlata", "name": "zlatá", "hex": "#F3E2C7", "rx": ["\\bzlat", "\\bgold"]},
+   {"key": "tichomorsky-modra", "name": "tichomořsky modrá", "hex": "#2D4E5C", "rx": ["tichomor", "pacific", "\\bmodr", "\\bblue"]}
+  ],
+  "13": [
+   {"key": "temne-inkoustova", "name": "temně inkoustová", "hex": "#232A31", "rx": ["temne inkoust", "inkoust", "midnight", "pulnoc", "\\bcern", "\\bblack"]},
+   {"key": "hvezdne-bila", "name": "hvězdně bílá", "hex": "#F9F3EE", "rx": ["hvezdne bil", "starlight", "\\bbil", "white"]},
+   {"key": "modra", "name": "modrá", "hex": "#276787", "rx": ["\\bmodr", "\\bblue"]},
+   {"key": "ruzova", "name": "růžová", "hex": "#FAE0D8", "rx": ["ruzov", "\\bpink"]},
+   {"key": "zelena", "name": "zelená", "hex": "#394C38", "rx": ["zelen", "green"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#BF0013", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "13pro": [
+   {"key": "grafitove-seda", "name": "grafitově šedá", "hex": "#54524F", "rx": ["grafit", "graphite", "\\bsed", "\\bcern", "\\bblack"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#F1F2ED", "rx": ["stribr", "silver", "\\bbil", "white"]},
+   {"key": "zlata", "name": "zlatá", "hex": "#FAE7CF", "rx": ["\\bzlat", "\\bgold"]},
+   {"key": "horsky-modra", "name": "horsky modrá", "hex": "#9BB5CE", "rx": ["horsk", "sierra", "\\bmodr", "\\bblue"]},
+   {"key": "alpsky-zelena", "name": "alpsky zelená", "hex": "#576856", "rx": ["alpsk", "alpine", "zelen", "green"]}
+  ],
+  "se3": [
+   {"key": "temne-inkoustova", "name": "temně inkoustová", "hex": "#232A31", "rx": ["temne inkoust", "inkoust", "midnight", "pulnoc", "\\bcern", "\\bblack"]},
+   {"key": "hvezdne-bila", "name": "hvězdně bílá", "hex": "#F9F3EE", "rx": ["hvezdne bil", "starlight", "\\bbil", "white"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#BF0013", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "14": [
+   {"key": "temne-inkoustova", "name": "temně inkoustová", "hex": "#222930", "rx": ["temne inkoust", "inkoust", "midnight", "pulnoc", "\\bcern", "\\bblack"]},
+   {"key": "hvezdne-bila", "name": "hvězdně bílá", "hex": "#F8F3ED", "rx": ["hvezdne bil", "starlight", "\\bbil", "white"]},
+   {"key": "modra", "name": "modrá", "hex": "#A0B4C7", "rx": ["\\bmodr", "\\bblue"]},
+   {"key": "fialova", "name": "fialová", "hex": "#E5DDEA", "rx": ["fial", "purple"]},
+   {"key": "zluta", "name": "žlutá", "hex": "#F9E5A0", "rx": ["\\bzlut", "yellow"]},
+   {"key": "cervena", "name": "(PRODUCT)RED", "hex": "#BF0013", "rx": ["cerven", "\\bred\\b", "product\\)?red"]}
+  ],
+  "14pro": [
+   {"key": "vesmirne-cerna", "name": "vesmírně černá", "hex": "#3B3A3C", "rx": ["vesmirne cern", "space black", "\\bcern", "\\bblack", "\\bsed"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#F0F1EC", "rx": ["stribr", "silver", "\\bbil", "white"]},
+   {"key": "zlata", "name": "zlatá", "hex": "#F4E8CE", "rx": ["\\bzlat", "\\bgold"]},
+   {"key": "temne-fialova", "name": "temně fialová", "hex": "#594F63", "rx": ["temne fial", "deep purple", "fial", "purple"]}
+  ],
+  "15": [
+   {"key": "cerna", "name": "černá", "hex": "#35393B", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "modra", "name": "modrá", "hex": "#D4E1E9", "rx": ["\\bmodr", "\\bblue"]},
+   {"key": "zelena", "name": "zelená", "hex": "#CAD4C5", "rx": ["zelen", "green"]},
+   {"key": "zluta", "name": "žlutá", "hex": "#F4E6B4", "rx": ["\\bzlut", "yellow"]},
+   {"key": "ruzova", "name": "růžová", "hex": "#F1D6D9", "rx": ["ruzov", "\\bpink"]}
+  ],
+  "15pro": [
+   {"key": "cerny-titan", "name": "černý titan", "hex": "#3A3A3C", "rx": ["cern\\w* titan", "black titan", "\\bcern", "\\bblack"]},
+   {"key": "bily-titan", "name": "bílý titan", "hex": "#F1EFEA", "rx": ["bil\\w* titan", "white titan", "\\bbil", "white"]},
+   {"key": "modry-titan", "name": "modrý titan", "hex": "#3F4A5A", "rx": ["modr\\w* titan", "blue titan", "\\bmodr", "\\bblue"]},
+   {"key": "prirodni-titan", "name": "přírodní titan", "hex": "#BDB6AA", "rx": ["prirodn\\w* titan", "natural", "prirodn", "\\bsed", "stribr"]}
+  ],
+  "16": [
+   {"key": "cerna", "name": "černá", "hex": "#3C3D3F", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#FAFAFA", "rx": ["\\bbil", "white"]},
+   {"key": "ruzova", "name": "růžová", "hex": "#F4BFD8", "rx": ["ruzov", "\\bpink"]},
+   {"key": "modrozelena", "name": "modrozelená", "hex": "#B0D4D2", "rx": ["modrozelen", "\\bteal", "zelen", "green"]},
+   {"key": "ultramarinova", "name": "ultramarínová", "hex": "#9AADF6", "rx": ["ultramarin", "\\bmodr", "\\bblue"]}
+  ],
+  "16e": [
+   {"key": "cerna", "name": "černá", "hex": "#2C2C2E", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#F5F5F3", "rx": ["\\bbil", "white"]}
+  ],
+  "16pro": [
+   {"key": "cerny-titan", "name": "černý titan", "hex": "#3C3C3D", "rx": ["cern\\w* titan", "black titan", "\\bcern", "\\bblack"]},
+   {"key": "bily-titan", "name": "bílý titan", "hex": "#F2F1ED", "rx": ["bil\\w* titan", "white titan", "\\bbil", "white"]},
+   {"key": "prirodni-titan", "name": "přírodní titan", "hex": "#C2BCB2", "rx": ["prirodn\\w* titan", "natural", "prirodn", "\\bsed", "stribr"]},
+   {"key": "poustni-titan", "name": "pouštní titan", "hex": "#BFA48F", "rx": ["poustn\\w* titan", "desert", "poustn", "\\bzlat", "\\bgold"]}
+  ],
+  "17": [
+   {"key": "cerna", "name": "černá", "hex": "#353536", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#F5F5F3", "rx": ["\\bbil", "white"]},
+   {"key": "mlhove-modra", "name": "mlhově modrá", "hex": "#A8BCD6", "rx": ["mlhov", "mist", "\\bmodr", "\\bblue"]},
+   {"key": "levandulova", "name": "levandulová", "hex": "#D9CDEB", "rx": ["levandul", "lavender", "fial", "purple"]},
+   {"key": "salvejove-zelena", "name": "šalvějově zelená", "hex": "#B8C4A6", "rx": ["salvej", "\\bsage", "zelen", "green"]}
+  ],
+  "air": [
+   {"key": "vesmirne-cerna", "name": "vesmírně černá", "hex": "#2A2A2C", "rx": ["vesmirne cern", "space black", "\\bcern", "\\bblack"]},
+   {"key": "oblacne-bila", "name": "oblačně bílá", "hex": "#F4F4F2", "rx": ["oblacn", "cloud", "\\bbil", "white"]},
+   {"key": "svetle-zlata", "name": "světle zlatá", "hex": "#EADBC0", "rx": ["svetle zlat", "light gold", "\\bzlat", "\\bgold"]},
+   {"key": "blankytne-modra", "name": "blankytně modrá", "hex": "#B9D3E8", "rx": ["blankyt", "sky blue", "\\bmodr", "\\bblue"]}
+  ],
+  "17pro": [
+   {"key": "kosmicky-oranzova", "name": "kosmicky oranžová", "hex": "#E3752D", "rx": ["kosmick\\w* oranz", "cosmic orange", "oranz", "orange"]},
+   {"key": "temne-modra", "name": "temně modrá", "hex": "#2F3B55", "rx": ["temne modr", "deep blue", "\\bmodr", "\\bblue"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#E6E6E4", "rx": ["stribr", "silver", "\\bbil", "white"]}
+  ],
+  "17e": [
+   {"key": "cerna", "name": "černá", "hex": "#2C2C2E", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "bila", "name": "bílá", "hex": "#F5F5F3", "rx": ["\\bbil", "white"]},
+   {"key": "jemne-ruzova", "name": "jemně růžová", "hex": "#F3D7DA", "rx": ["jemne ruzov", "ruzov", "\\bpink"]}
+  ],
+  "18pro": [
+   {"key": "cerna", "name": "černá", "hex": "#2B2B2D", "rx": ["\\bcern", "\\bblack"]},
+   {"key": "stribrna", "name": "stříbrná", "hex": "#E6E6E4", "rx": ["stribr", "silver"]},
+   {"key": "ledovcove-modra", "name": "ledovcově modrá", "hex": "#BCD2E0", "rx": ["ledov", "glacier", "\\bmodr", "\\bblue"]},
+   {"key": "burgundsky-cervena", "name": "burgundsky červená", "hex": "#6E1F2E", "rx": ["burgund", "cerven", "\\bred\\b"]}
+  ]
+ },
+ "models": {
+  "iphone-7": "x7", "iphone-7-plus": "x7", "iphone-8": "x8", "iphone-8-plus": "x8", "iphone-x": "x", "iphone-xs": "x", "iphone-xs-max": "x",
+  "iphone-xr": "xr", "iphone-11": "11", "iphone-11-pro": "11pro", "iphone-11-pro-max": "11pro", "iphone-se-2020": "se2",
+  "iphone-12": "12", "iphone-12-mini": "12", "iphone-12-pro": "12pro", "iphone-12-pro-max": "12pro",
+  "iphone-13": "13", "iphone-13-mini": "13", "iphone-13-pro": "13pro", "iphone-13-pro-max": "13pro", "iphone-se-2022": "se3",
+  "iphone-14": "14", "iphone-14-plus": "14", "iphone-14-pro": "14pro", "iphone-14-pro-max": "14pro",
+  "iphone-15": "15", "iphone-15-plus": "15", "iphone-15-pro": "15pro", "iphone-15-pro-max": "15pro",
+  "iphone-16": "16", "iphone-16-plus": "16", "iphone-16e": "16e", "iphone-16-pro": "16pro", "iphone-16-pro-max": "16pro",
+  "iphone-17": "17", "iphone-air": "air", "iphone-17-pro": "17pro", "iphone-17-pro-max": "17pro", "iphone-17e": "17e",
+  "iphone-18-pro": "18pro", "iphone-18-pro-max": "18pro"
+ }
+}
