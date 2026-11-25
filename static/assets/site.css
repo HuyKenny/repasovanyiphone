@@ -452,3 +452,7 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 /* model page: spec sheet + quiet tariff box stacked in the aside */
 .two>aside{display:flex;flex-direction:column;gap:14px}
 .tbox h2{font-size:1.05rem;margin:0 0 6px}.tbox p{margin:0 0 8px;font-size:.92rem;color:#3a3a3e}.tbox p:last-child{margin:0}
+/* homepage sections are "sec wrap": .sec (padding:44px 0 0) was overriding the wrap side gutters -> content touched the screen edge */
+.sec.wrap{padding-left:20px;padding-right:20px}
+@media (max-width:600px){.sec.wrap{padding-left:16px;padding-right:16px}}
+@media (max-width:600px){.mgrid{grid-template-columns:repeat(2,1fr);gap:10px}.mcard{padding:14px 8px 12px}.mcard img{width:92px;height:92px}.mcard b,.mcard .mc-n{font-size:.95rem}}
