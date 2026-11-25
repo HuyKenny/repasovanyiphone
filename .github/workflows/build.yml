@@ -43,6 +43,8 @@ jobs:
           echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  /tmp/gl.tgz" | sha256sum -c -
           tar xzf /tmp/gl.tgz -C /tmp gitleaks
           /tmp/gitleaks detect --source . --redact --no-banner --exit-code 1
+      - name: Python image library (pinned, wheels only)
+        run: python3 -m pip install --quiet --only-binary=:all: pillow==11.0.0
       - name: Restore state (encrypted)
         run: scripts/state.sh pull
         env:
