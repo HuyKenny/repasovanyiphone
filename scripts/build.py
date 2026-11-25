@@ -1587,7 +1587,7 @@ def page_shops(out, ctx):
             '<strong>jak popisuje stav</strong> (u nás ho převádíme na jednu stupnici A+ až C), jestli uvádí <strong>kondici baterie</strong> a jestli fotí konkrétní kus, nebo jen ilustrační obrázek.</p>'
             '<p>Specializované obchody (MobileGear, JabkoLevně, iPhoneMarket, Smarty) mají nejširší výběr repasů. Na Aukru a Allegru prodávají firmy i soukromníci: '
             'záruku a 14 dní na vrácení máte jen u firmy. iSTYLE prodává nové iPhony. '
-            '<a href="/pruvodce/kde-koupit-repasovany-iphone/">Podrobný návod, kde koupit repasovaný iPhone</a></p></section></div>')
+            '<a href="/pruvodce/kde-koupit-repasovany-iphone/">Podrobný návod, kde koupit repasovaný iPhone</a>. Mezinárodní specialisty a české obchody vedle sebe ukazuje <a href="/pruvodce/srovnani-obchodu-s-repasy/">srovnání Swappie, Refurbed a JabkoLevně</a>.</p></section></div>')
     out.page("/obchody/", layout(ctx, path="/obchody/", title="Obchody s repasovanými iPhony – ceny a slevové kódy",
                                  desc="Obchody s repasovanými a použitými iPhony ve srovnání: počet nabídek, nejnižší ceny, podíl nabídek s kondicí baterie a platné slevové kódy.",
                                  body=body, crumbs=[("/", "Repasované iPhony"), ("/obchody/", "Obchody")]))
