@@ -406,3 +406,20 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 @media (prefers-reduced-motion:reduce){.kod-here{animation:none}}
 .cpn-open{display:inline-flex;align-items:center;min-height:44px;font-weight:600}
 .cv-off *{content-visibility:visible!important}
+/* guides: meta line, hero photo, table of contents; model-vs-model buttons */
+.art .meta{margin:-.4em 0 1.1em;font-size:.88rem}
+.ghero{margin:0 0 1.4em}
+.ghero img{width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:var(--r);background:var(--soft)}
+.ghero figcaption{font-size:.78rem;color:var(--muted);margin-top:6px}
+.toc{background:var(--soft);border-radius:var(--r-s);padding:14px 18px;margin:0 0 1.6em}
+.toc b{display:block;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.toc ol{margin:0;padding-left:1.2em}
+.toc li{margin:0}
+.toc a{display:inline-block;padding:5px 0;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.prose h2[id]{scroll-margin-top:84px}
+.vs-cta{display:flex;flex-wrap:wrap;gap:10px}
+.vs .ptable th[scope=row]{white-space:normal}
+.vs .ptable{min-width:0}
+.vs .ptable td{text-align:left}
+@media (max-width:520px){.vs .ptable th,.vs .ptable td{padding:9px 6px;font-size:.88rem}.vs .ptable th[scope=row]{max-width:110px}}

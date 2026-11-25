@@ -245,7 +245,7 @@ def logo_mark(size=34):
     return f'<img src="/img/ui/logo.webp" alt="" width="{size}" height="{size}">'
 
 
-NAV = [("/levny-iphone/", "Levné iPhony"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
+NAV = [("/levny-iphone/", "Levné iPhony"), ("/iphone-bazar/", "Bazar"), ("/zanovni-iphone/", "Zánovní"), ("/novy-iphone/", "Nové"), ("/srovnani/", "Srovnání"),
        ("/pruvodce/", "Průvodce")]
 
 
@@ -540,7 +540,7 @@ def model_text(ctx, m, offers):
     shops = sorted({SHOP[o["shop"]]["name"] for o in rf})
     age = max(TODAY.year - m["year"], 0)
     gb_c = Counter(o["gb"] for o in rf).most_common(1)[0][0]
-    t = [f'<p>Právě teď je v nabídce <strong>{nab(len(rf))}</strong> repasovaného, zánovního nebo bazarového {E(m["name"])} '
+    t = [f'<p>Právě teď srovnáváme <strong>{nab(len(rf))}</strong> repasovaného, zánovního nebo bazarového {E(m["name"])} '
          f'z {obchodu(len(shops))} ({E(", ".join(shops))}). Nejlevnější kus stojí <strong>{kc(low)}</strong>, nejčastěji se prodává verze s {P.gb_label(gb_c)}.</p>']
     sv = sorted((ctx["new_min"][(o["model"], o["gb"])] - o["pc"]) / ctx["new_min"][(o["model"], o["gb"])]
                 for o in rf if o["g"] != "novy" and ctx["new_min"].get((o["model"], o["gb"]), 0) > o["pc"])
@@ -558,7 +558,229 @@ def model_text(ctx, m, offers):
     bats = sum(1 for o in rf if o["bat"])
     t.append(f'<p>{"Kondici baterie uvádí " + str(bats) + " z " + str(len(rf)) + " nabídek." if bats else "Kondici baterie obchody u tohoto modelu většinou neuvádějí."} '
              'Před nákupem se na ni zeptejte, pod 80 % ji Apple považuje za opotřebovanou. <a href="/pruvodce/baterie/">Jak číst kondici baterie</a></p>')
+    return "".join(t) + model_text_more(ctx, m, offers)
+
+
+LAST_IOS = {"iphone-7": "iOS 15", "iphone-7-plus": "iOS 15", "iphone-8": "iOS 16", "iphone-8-plus": "iOS 16", "iphone-x": "iOS 16",
+            "iphone-xs": "iOS 18", "iphone-xs-max": "iOS 18", "iphone-xr": "iOS 18"}
+
+
+def tier(m):
+    n = m["name"]
+    for t in ("Pro Max", "Pro", "Plus", "mini", "Air"):
+        if n.endswith(" " + t):
+            return t
+    if "SE" in n:
+        return "SE"
+    return "e" if re.search(r"\de$", n) else "base"
+
+
+def neighbours(ctx, m):
+    """Previous and next generation in the same tier that is on sale (for the 'older or newer?' paragraph)."""
+    same = [x for x in MODELS if tier(x) == tier(m) and x["slug"] != m["slug"] and ctx["by_model"].get(x["slug"])]
+    prev = max((x for x in same if x["year"] < m["year"]), key=lambda x: x["year"], default=None)
+    nxt = min((x for x in same if x["year"] > m["year"]), key=lambda x: x["year"], default=None)
+    return prev, nxt
+
+
+def spec_diffs(a, b):
+    """What model b has over a (plain Czech phrases, only from models.json)."""
+    d = []
+    if a["chip"] != b["chip"]:
+        d.append(f'čip {b["chip"]} místo {a["chip"]}')
+    if a["port"] != b["port"]:
+        d.append(f'{b["port"]} místo {a["port"]}')
+    if (b.get("hz") or 60) > (a.get("hz") or 60):
+        d.append(f'{b["hz"]}Hz displej')
+    if b.get("ai") and not a.get("ai"):
+        d.append("Apple Intelligence")
+    if b["display"] != a["display"]:
+        d.append(f'{"větší" if b["display"] > a["display"] else "menší"} displej ({str(b["display"]).replace(".", ",")}″ proti {str(a["display"]).replace(".", ",")}″)')
+    if a["bio"] != b["bio"]:
+        d.append(f'{b["bio"]} místo {a["bio"]}')
+    if ios_ok(b) and not ios_ok(a):
+        d.append("aktuální iOS")
+    return d
+
+
+def low_of(ctx, slug, grades=None):
+    of = [o for o in ctx["by_model"].get(slug, []) if (o["g"] != "novy" if grades is None else o["g"] in grades)]
+    return min((o["pc"] for o in of), default=None)
+
+
+def model_text_more(ctx, m, offers):
+    """Second half of the model text: price by quality, battery, older/newer generation, what to watch out for."""
+    rf = [o for o in offers if o["g"] != "novy"] or offers
+    t = []
+    by_g = defaultdict(list)
+    for o in rf:
+        by_g[o["g"]].append(o["pc"])
+    if len(by_g) > 1:
+        li = "".join(f'<li><strong>{E(GR[g]["name"])} ({E(GR[g]["short"])}):</strong> {nab(len(v))}, od {kc(min(v))}, '
+                     f'běžně kolem {kc(sorted(v)[len(v) // 2])}</li>' for g, v in sorted(by_g.items(), key=lambda x: P.GRADE_ORDER[x[0]]))
+        t.append(f'<h3>Kolik stojí použitý {E(m["name"])} podle kvality</h3><ul>{li}</ul>'
+                 '<p>Kvalita popisuje jen vzhled. Pokud telefon nosíte v obalu, horší kvalita ušetří peníze bez rozdílu v používání. '
+                 '<a href="/pruvodce/stavy/">Co znamenají kvality A+, A, B a C</a></p>')
+    bats = [o["bat"] for o in rf if o["bat"]]
+    if len(bats) >= 3:
+        hi = sum(1 for b in bats if b >= 90)
+        t.append(f'<p>U nabídek, které kondici baterie uvádějí, je typická hodnota <strong>{sorted(bats)[len(bats) // 2]}&nbsp;%</strong> '
+                 f'a {hi} z {len(bats)} má 90&nbsp;% a víc.</p>')
+    prev, nxt = neighbours(ctx, m)
+    for other, older in ((prev, True), (nxt, False)):
+        if not other:
+            continue
+        lo, lm = low_of(ctx, other["slug"]), low_of(ctx, m["slug"])
+        if not lo or not lm:
+            continue
+        a, b = (other, m) if older else (m, other)
+        diffs = spec_diffs(a, b)
+        dtxt = f' Novější {E(b["name"])} přináší {", ".join(diffs)}.' if diffs else ""
+        cmp_link = vs_link(a["slug"], b["slug"])
+        t.append(f'<p><strong>{"Starší" if older else "Novější"} {link_m(other, "")}</strong> ({other["year"]}) stojí z druhé ruky od {kc(lo)}, '
+                 f'tedy o {kc(abs(lo - lm))} {"méně" if lo < lm else "víc"}.{dtxt}'
+                 + (f' <a href="{cmp_link}">{E(a["name"])} vs. {E(b["name"])}: podrobné srovnání</a>' if cmp_link else "") + '</p>')
+    warn = []
+    if not ios_ok(m):
+        warn.append(f'<li><strong>Bez aktuálního iOS:</strong> poslední systém je {LAST_IOS.get(m["slug"], "starší verze")}. Bankovní a další aplikace časem přestanou fungovat. '
+                    '<a href="/pruvodce/podpora-ios/">Které iPhony mají podporu</a></li>')
+    if m["year"] >= 2022 and tier(m) != "SE":
+        warn.append('<li><strong>Verze jen s eSIM:</strong> kusy z USA nemají slot na SIM kartu. Fungují s eSIM českých operátorů, ale fyzickou kartu nevložíte.</li>')
+    if m["port"] != "USB-C":
+        warn.append("<li><strong>Lightning:</strong> nabíjí se starším kabelem Lightning, ne USB-C jako modely od iPhonu 15.</li>")
+    warn.append('<li><strong>Vyměněné díly:</strong> v Nastavení → Obecné → Informace → Díly a historie servisu uvidíte, jestli má telefon neoriginální displej nebo baterii. '
+                '<a href="/pruvodce/dily-a-historie-servisu/">Jak to číst</a></li>')
+    warn.append('<li><strong>Zámek aktivace:</strong> u kusu z bazaru trvejte na tom, aby se prodávající před vámi odhlásil z Apple ID a telefon vymazal. '
+                '<a href="/pruvodce/kontrola-imei-icloud/">Kontrola IMEI a iCloudu</a></li>')
+    t.append(f'<h3>Na co si dát pozor u {E(m["name"])} z druhé ruky</h3><ul>{"".join(warn)}</ul>')
     return "".join(t)
+
+
+def model_reading(ctx, m):
+    """Guides worth reading before buying this model + comparisons it appears in."""
+    g = [("/pruvodce/stavy/", "Co znamená kvalita A, B, C"), ("/pruvodce/baterie/", "Kondice baterie"), ("/pruvodce/kontrola/", "Kontrola po převzetí")]
+    if not ios_ok(m):
+        g.insert(0, ("/pruvodce/podpora-ios/", "Podpora iOS"))
+    g.append(("/pruvodce/iphone-z-bazaru/", "iPhone z bazaru bezpečně"))
+    have = {x["slug"] for x in ctx["guides"]}
+    gl = "".join(f'<li><a href="{u}">{E(n)}</a></li>' for u, n in g if u.split("/")[2] in have)
+    vs = "".join(f'<li><a href="/srovnani/{a}-vs-{b}/">{E(MODEL[a]["name"])} vs. {E(MODEL[b]["name"])}</a></li>' for a, b in VS_PAIRS if m["slug"] in (a, b))
+    return ((f'<section class="sec"><h2>Před nákupem si přečtěte</h2><ul class="chips">{gl}</ul></section>' if gl else "")
+            + (f'<section class="sec"><h2>Srovnání s jinými modely</h2><ul class="chips">{vs}</ul></section>' if vs else ""))
+
+
+VS_PAIRS = [("iphone-13", "iphone-14"), ("iphone-14", "iphone-15"), ("iphone-15", "iphone-16"), ("iphone-16", "iphone-17"), ("iphone-13", "iphone-15"),
+            ("iphone-15", "iphone-15-pro"), ("iphone-16", "iphone-16e"), ("iphone-se-2020", "iphone-se-2022"), ("iphone-12-mini", "iphone-13-mini"),
+            ("iphone-17", "iphone-17-pro"), ("iphone-17", "iphone-air"), ("iphone-17-pro", "iphone-17-pro-max"), ("iphone-16-pro", "iphone-17-pro"),
+            ("iphone-17", "iphone-17e"), ("iphone-15-pro", "iphone-16-pro"), ("iphone-16", "iphone-16-pro"), ("iphone-14-pro", "iphone-15-pro"),
+            ("iphone-13", "iphone-13-pro"), ("iphone-11", "iphone-12"), ("iphone-12", "iphone-13"), ("iphone-15", "iphone-16e")]
+
+
+VS_NOTES = {
+    ("iphone-13", "iphone-14"): "iPhone 14 má stejný čip A15 Bionic, ale s pětijádrovou grafikou, lepší hlavní fotoaparát, přední kameru s automatickým ostřením a detekci autonehody. Kusy z USA jsou od iPhonu 14 jen s eSIM.",
+    ("iphone-14", "iphone-15"): "iPhone 15 přidává Dynamic Island místo výřezu, 48Mpx hlavní fotoaparát a USB-C.",
+    ("iphone-15", "iphone-16"): "iPhone 16 přidává tlačítko Akce a tlačítko Ovládání fotoaparátu.",
+    ("iphone-16", "iphone-17"): "iPhone 17 má větší displej s plynulými 120 Hz a základní paměť 256 GB.",
+    ("iphone-13", "iphone-15"): "Mezi nimi jsou dvě generace: iPhone 15 má Dynamic Island, 48Mpx hlavní fotoaparát a USB-C.",
+    ("iphone-15", "iphone-15-pro"): "Verze Pro má titanový rám, teleobjektiv, tlačítko Akce a rychlejší USB-C.",
+    ("iphone-16", "iphone-16e"): "iPhone 16e je levnější varianta: má jen jeden zadní fotoaparát, výřez místo Dynamic Island a nepodporuje MagSafe. Čip A18 a Apple Intelligence má stejně jako iPhone 16.",
+    ("iphone-se-2020", "iphone-se-2022"): "SE 2022 vypadá stejně, ale má rychlejší čip A15 Bionic, 5G a delší výdrž baterie.",
+    ("iphone-12-mini", "iphone-13-mini"): "iPhone 13 mini má výrazně delší výdrž baterie, menší výřez v displeji a základní paměť 128 GB.",
+    ("iphone-17", "iphone-17-pro"): "Verze Pro má čip A19 Pro, trojitý fotoaparát s teleobjektivem a výkonnější chlazení.",
+    ("iphone-17", "iphone-air"): "iPhone Air je extrémně tenký, má jen jeden zadní fotoaparát a funguje výhradně s eSIM.",
+    ("iphone-17-pro", "iphone-17-pro-max"): "Pro Max má větší displej a delší výdrž baterie, jinak stejnou výbavu.",
+    ("iphone-16-pro", "iphone-17-pro"): "iPhone 17 Pro přechází z titanu na hliníkové tělo a má novou generaci čipu a fotoaparátů.",
+    ("iphone-15-pro", "iphone-16-pro"): "iPhone 16 Pro má větší displej, tlačítko Ovládání fotoaparátu a pětinásobný teleobjektiv i u menší verze.",
+    ("iphone-16", "iphone-16-pro"): "Verze Pro má titanový rám, teleobjektiv a displej s funkcí Always-On.",
+    ("iphone-14-pro", "iphone-15-pro"): "iPhone 15 Pro má titanový rám, tlačítko Akce a rychlejší USB-C.",
+    ("iphone-13", "iphone-13-pro"): "Verze Pro má teleobjektiv a umí makro fotografie.",
+    ("iphone-11", "iphone-12"): "iPhone 12 má OLED displej místo LCD, 5G, MagSafe a odolnější sklo Ceramic Shield.",
+    ("iphone-12", "iphone-13"): "iPhone 13 má delší výdrž baterie, menší výřez a základní paměť 128 GB místo 64 GB.",
+    ("iphone-15", "iphone-16e"): "iPhone 16e má navíc tlačítko Akce, ale jen jeden zadní fotoaparát, výřez místo Dynamic Island a nepodporuje MagSafe.",
+}
+
+
+def vs_link(a, b):
+    if (a, b) in VS_PAIRS:
+        return f"/srovnani/{a}-vs-{b}/"
+    if (b, a) in VS_PAIRS:
+        return f"/srovnani/{b}-vs-{a}/"
+    return ""
+
+
+def vs_verdict(older, newer, lo_old, lo_new, diffs):
+    years = newer["year"] - older["year"]
+    if not (lo_new and lo_old):
+        return "Jeden z modelů teď z druhé ruky není skladem, ceny se aktualizují každou noc."
+    if lo_new <= lo_old:
+        return f'{E(newer["name"])} je dnes z druhé ruky stejně drahý nebo levnější, takže je jasná volba.'
+    pct = round((lo_new - lo_old) / lo_old * 100)
+    s = f'Za {E(newer["name"])} připlatíte zhruba {pct}&nbsp;%. '
+    if years > 0:
+        s += f'Je o {years} {plural(years, "rok", "roky", "let")} mladší, takže aktualizace iOS dostane o něco déle. '
+    if pct < 15:
+        s += f'Při tak malém rozdílu se vyplatí sáhnout po {E(newer["name"])}.'
+    elif diffs:
+        s += f'Pokud nepotřebujete {", ".join(diffs[:2])}, {E(older["name"])} je rozumnější nákup.'
+    else:
+        s += f'Rozhoduje rozpočet: {E(older["name"])} je levnější, {E(newer["name"])} vydrží déle.'
+    return s
+
+
+def page_vs(out, ctx):
+    for sa, sb in VS_PAIRS:
+        a, b = MODEL[sa], MODEL[sb]
+        path = f"/srovnani/{sa}-vs-{sb}/"
+        la, lb = low_of(ctx, sa), low_of(ctx, sb)
+        newer, older = (b, a) if (b["year"], b["chip"]) >= (a["year"], a["chip"]) else (a, b)
+        diffs = spec_diffs(older, newer)
+        lo_new, lo_old = (lb, la) if newer is b else (la, lb)
+        if lo_new and lo_old:
+            gap = lo_new - lo_old
+            price_s = (f'Z druhé ruky dnes koupíte {E(older["name"])} od <strong>{kc(lo_old)}</strong> a {E(newer["name"])} od <strong>{kc(lo_new)}</strong>, '
+                       + (f'novější model je tedy dražší o {kc(gap)}.' if gap > 0 else f'novější model je dokonce levnější o {kc(-gap)}.' if gap < 0 else 'oba stojí stejně.'))
+        else:
+            price_s = "Jeden z modelů teď z druhé ruky není skladem, ceny se aktualizují každou noc."
+        note = VS_NOTES.get((sa, sb), "")
+        diff_s = ", ".join(diffs) if diffs else "stejnou velikost displeje i základní parametry"
+        intro = f'<p>{E(newer["name"])} ({newer["year"]}) má proti {E(older["name"])} ({older["year"]}) {diff_s}. {E(note)} {price_s}</p>'
+
+        def cell(m, key):
+            return {"year": str(m["year"]), "display": f'{str(m["display"]).replace(".", ",")}″', "hz": f'{m.get("hz") or 60} Hz', "chip": E(m["chip"]),
+                    "bio": E(m["bio"]), "port": m["port"], "ai": "ano" if m.get("ai") else "ne",
+                    "ios": "ano" if ios_ok(m) else f'ne ({LAST_IOS.get(m["slug"], "starší")})',
+                    "storage": ", ".join(P.gb_label(v) for v in m["storage"])}[key]
+        spec_rows = [("Rok vydání", "year"), ("Displej", "display"), ("Obnovovací frekvence", "hz"), ("Čip", "chip"), ("Odemykání", "bio"), ("Konektor", "port"),
+                     ("Apple Intelligence", "ai"), ("Aktuální iOS 26 a 27", "ios"), ("Paměti", "storage")]
+        trs = "".join(f'<tr><th scope="row">{k}</th><td>{cell(a, key)}</td><td>{cell(b, key)}</td></tr>' for k, key in spec_rows)
+        prow = []
+        for g in ("aplus", "a", "b", "c", "novy"):
+            pa, pb = low_of(ctx, sa, (g,)), low_of(ctx, sb, (g,))
+            if pa or pb:
+                prow.append(f'<tr><th scope="row">{grade_chip(g)} {E(GR[g]["name"])}</th><td class="num">{kc(pa) if pa else "–"}</td>'
+                            f'<td class="num">{kc(pb) if pb else "–"}</td></tr>')
+        verdict = vs_verdict(older, newer, lo_old, lo_new, diffs)
+        plain = lambda h: re.sub(r"<[^>]+>", "", h).replace("&nbsp;", " ")  # noqa: E731
+        faq = [(f'Co je lepší, {a["name"]} nebo {b["name"]}?', plain(verdict)),
+               (f'Jaký je rozdíl mezi {a["name"]} a {b["name"]}?', f'{newer["name"]} má proti {older["name"]} {plain(diff_s)}. {note}'.strip()),
+               (f'Kolik stojí {a["name"]} a {b["name"]} z druhé ruky?',
+                f'{a["name"]} od {kc(la) if la else "– (není skladem)"}, {b["name"]} od {kc(lb) if lb else "– (není skladem)"}; ceny včetně platných slevových kódů z {date_cz(TODAY)}.')]
+        others = "".join(f'<li><a href="/srovnani/{x}-vs-{y}/">{E(MODEL[x]["name"])} vs. {E(MODEL[y]["name"])}</a></li>' for x, y in VS_PAIRS if (x, y) != (sa, sb))
+        title = short_title(f'{a["name"]} vs {b["name"]} – rozdíly a ceny z druhé ruky')
+        low2 = min((x for x in (la, lb) if x), default=None)
+        desc = (f'{a["name"]}, nebo {b["name"]}? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů'
+                + (f' od {kc_plain(low2)}' if low2 else "") + ". Který se vyplatí víc.")
+        body = f"""<div class="wrap"><article class="prose art vs"><p class="eyebrow">Ceny z {date_cz(TODAY)}</p>
+<h1>{E(a["name"])} vs. {E(b["name"])}: rozdíly a ceny z druhé ruky</h1>{intro}
+<h2>Parametry vedle sebe</h2><div class="tscroll"><table class="ptable cmp"><thead><tr><th></th><th>{link_m(a, "")}</th><th>{link_m(b, "")}</th></tr></thead><tbody>{trs}</tbody></table></div>
+<h2>Ceny podle kvality</h2><p>Nejnižší dnešní cena v každé kvalitě (všechny paměti a barvy, se slevovými kódy).</p>
+<div class="tscroll"><table class="ptable cmp"><thead><tr><th>Kvalita</th><th>{E(a["name"])}</th><th>{E(b["name"])}</th></tr></thead><tbody>{"".join(prow)}</tbody></table></div>
+<h2>Který si vybrat?</h2><p>{verdict}</p>
+<p class="vs-cta"><a class="btn" href="/{sa}/">Ceny {E(a["name"])}</a> <a class="btn ghost" href="/{sb}/">Ceny {E(b["name"])}</a></p>
+<h2>Časté otázky</h2>{faq_html(faq)}</article>
+<section class="sec"><h2>Další srovnání</h2><ul class="chips">{others}</ul></section></div>"""
+        out.page(path, layout(ctx, path=path, title=title, desc=desc, body=body, ld=[faq_ld(faq)], active="/srovnani/",
+                              crumbs=[("/", "Repasované iPhony"), ("/srovnani/", "Srovnání"), (path, f'{a["name"]} vs. {b["name"]}')]))
 
 
 def model_faq(ctx, m, offers):
@@ -567,7 +789,16 @@ def model_faq(ctx, m, offers):
     for o in rf:
         by_g[o["g"]].append(o["pc"])
     gtxt = ", ".join(f'kvalita {GR[g]["short"]} od {kc(min(v))}' for g, v in sorted(by_g.items(), key=lambda x: P.GRADE_ORDER[x[0]]))
-    items = [(f'Kolik stojí repasovaný {m["name"]}?', f'Nejlevnější nabídka dnes stojí {kc(min(o["pc"] for o in rf))}. Podle kvality: {gtxt}. Ceny kontrolujeme každou noc.'),
+    sup = (f'{m["name"]} dostává aktuální iOS 26 i 27. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba 5–7 let od vydání, '
+           f'u modelu z roku {m["year"]} tedy odhadem do let {m["year"] + 6}–{m["year"] + 7}. Bezpečnostní opravy chodí obvykle ještě déle. '
+           '<a href="/pruvodce/podpora-ios/">Podpora iOS u všech modelů</a>') if ios_ok(m) else (
+           f'Aktuální iOS 26 a 27 už nedostává, posledním systémem je {LAST_IOS.get(m["slug"], "starší verze iOS")}. Telefon funguje dál, ale nové funkce a postupně '
+           'i některé aplikace mu chybí. <a href="/pruvodce/podpora-ios/">Podpora iOS u všech modelů</a>')
+    age = max(TODAY.year - m["year"], 0)
+    items = [(f'Kolik stojí repasovaný a použitý {m["name"]}?', f'Nejlevnější nabídka dnes stojí {kc(min(o["pc"] for o in rf))}. Podle kvality: {gtxt}. Ceny kontrolujeme každou noc.'),
+             (f'Kdy vyšel {m["name"]}?', f'{m["name"]} Apple představil v roce {m["year"]}' + (f', dnes je mu {age} {plural(age, "rok", "roky", "let")}' if age else '')
+              + f'. Má čip {m["chip"]}, displej {str(m["display"]).replace(".", ",")}″ a konektor {m["port"]}.'),
+             (f'Jak dlouho bude {m["name"]} podporovaný?', sup),
              ("Co znamená kvalita A, B a C?",
               "Kvalita popisuje vzhled, ne funkčnost: A+ je jako nový, A má stopy viditelné jen zblízka, B jemné škrábance na rámu nebo zádech a C viditelné známky "
               'používání. Všechny obchody převádíme na tuhle jednu stupnici. <a href="/pruvodce/stavy/">Co přesně jednotlivé kvality znamenají</a>'),
@@ -628,10 +859,12 @@ def page_model(out, ctx, m, offers, gb=None):
     lab = f'{m["name"]} {P.gb_label(gb)}' if gb else m["name"]
     only_new = all(o["g"] == "novy" for o in offers)
     cfg = cfg_data(ctx, m, offers, gb)
-    title = short_title(f"{lab} bazar i repasovaný od {kc_plain(low)} – {n_shops} {plural(n_shops, 'obchod', 'obchody', 'obchodů')}" if not only_new
+    title = short_title(f"{lab} bazar, použitý i repasovaný od {kc_plain(low)}" if not only_new
                         else f"{lab} nejlevněji od {kc_plain(low)} – srovnání {n_shops} {plural(n_shops, 'obchodu', 'obchodů', 'obchodů')}")
-    desc = (f"{'Repasovaný a zánovní' if not only_new else 'Nový'} {lab}: {nab(len(scope))} od {kc(low)}. Vyberte barvu, paměť a kvalitu A, B nebo C, "
-            "ukážeme nejlevnější obchod i slevové kódy.").replace(" ", " ")
+    desc = (f"{'Repasovaný, použitý i bazarový' if not only_new else 'Nový'} {lab}: {nab(len(scope))} od {kc(low)} z {obchodu(n_shops)}. "
+            "Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.").replace(" ", " ")
+    if len(desc) > 158:
+        desc = desc.replace(f" z {obchodu(n_shops)}".replace("\u00a0", " "), "")
     ph600 = cfg["cols"][next(i for i, c in enumerate(cfg["cols"]) if c[0] == cfg["def"][0])][3]
     preload = f'<link rel="preload" as="image" href="{ph600}" fetchpriority="high">' if ph600 else ""
     hist = ctx["hist"].get(slug if gb is None else f"{slug}|{gb}", [])
@@ -642,10 +875,10 @@ def page_model(out, ctx, m, offers, gb=None):
                   if (slug, g) in ctx["sub_pages"] and g != gb)
     cats = "".join(f'<li><a href="{u}">{E(n)}</a></li>' for u, n in model_cats(ctx, m, offers))
     items = model_faq(ctx, m, offers)
-    h1 = f"Repasovaný {E(lab)}" if not only_new else E(lab)
+    h1 = f"Repasovaný a použitý {E(lab)}" if not only_new else E(lab)
     body = f"""<div class="wrap">
 <header class="mhead"><p class="eyebrow">Ceny z {date_cz(TODAY)} · {nab(len(scope))} z {obchodu(n_shops)}</p>
-<h1>{h1}</h1><p class="lead">{'Bazarové, zánovní i nové kusy' if not only_new else 'Nové kusy'} od <strong>{kc(low)}</strong>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.</p></header>
+<h1>{h1}</h1><p class="lead">{'Repasované, zánovní, bazarové i nové kusy' if not only_new else 'Nové kusy'} od <strong>{kc(low)}</strong>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.</p></header>
 {configurator_html(ctx, m, cfg)}
 <section class="sec"><h2>Ceník podle paměti a kvality</h2><p class="muted">Nejnižší cena v každé kombinaci (všechny barvy, včetně platných slevových kódů). Sloupec „Nový“ je nejlevnější nový kus.</p>{price_table(ctx, m, offers)}</section>
 <section class="sec two"><div class="prose"><h2>Vyplatí se {E(m["name"])} z druhé ruky?</h2>{model_text(ctx, m, offers)}{storage_text(gb) if gb else ""}{chart_html(hist)}</div>
@@ -654,6 +887,7 @@ def page_model(out, ctx, m, offers, gb=None):
 {f'<section class="sec"><h2>{E(m["name"])} podle paměti</h2><ul class="chips">{gbl}</ul></section>' if gbl else ''}
 {f'<section class="sec"><h2>Kategorie</h2><ul class="chips">{cats}</ul></section>' if cats else ''}
 {f'<section class="sec"><h2>Podobné modely</h2><ul class="chips">{rel}</ul></section>' if rel else ''}
+{model_reading(ctx, m)}
 </div>
 <div class="buybar" data-buybar hidden><div class="wrap buybar-in"><span class="bb-t" data-bb-t></span><a class="btn" data-bb-a href="/{slug}/" rel="sponsored nofollow noopener" target="_blank">Koupit</a></div></div>"""
     crumbs = [("/", "Repasované iPhony"), (f"/{slug}/", m["name"])] + ([(path, P.gb_label(gb))] if gb else [])
@@ -763,13 +997,23 @@ Funkčně jsou všechny telefony v pořádku, liší se vzhledem. <a href="/pruv
 <li><img src="/img/ui/ic-battery.webp" alt="" width="56" height="56" loading="lazy"><b>Baterie pod kontrolou</b><span>kde ji obchod uvádí, ukážeme kondici</span></li>
 <li><img src="/img/ui/ic-eco.webp" alt="" width="56" height="56" loading="lazy"><b>Šetrnější volba</b><span>telefon, který už jednou vyrobili</span></li></ul></section>
 <section class="sec wrap"><h2>Obchody ve srovnání</h2><ul class="logos">{logos}</ul></section>
+<section class="sec wrap prose catseo"><h2>Repasovaný, zánovní, nebo z bazaru?</h2>
+<p><strong>Repasovaný iPhone</strong> je použitý telefon, který obchod vyčistil, otestoval a podle potřeby opravil, nejčastěji vyměnil baterii. Prodává ho se zárukou
+nejméně 12 měsíců. <strong>Zánovní</strong> a rozbalené kusy jsou prakticky nové (u nás kvalita A+), <strong>bazarový</strong> telefon od soukromníka bývá nejlevnější,
+ale bez záruky a bez možnosti vrácení.</p>
+<p>Ve srovnání máme dnes {nab(len(rf))} z {obchodu(shops)}. Nejlevnější iPhone stojí {kc(low)}, rozumná volba s aktuálním iOS a dlouhou podporou začíná u iPhonu 13.
+Rozdíly mezi typy prodejců rozebíráme v článku <a href="/pruvodce/co-znamena-repasovany-iphone/">co znamená repasovaný iPhone</a>, použité kusy se zárukou najdete
+v sekci <a href="/iphone-bazar/">iPhone bazar</a>.</p>
+<h2>Jak vybíráme nejlevnější obchod</h2>
+<p>Každou noc projdeme nabídky obchodů, z názvu a parametrů rozpoznáme model, paměť, oficiální barvu, kvalitu a kondici baterie a připočteme platné slevové kódy.
+Řadíme jen podle konečné ceny, provize od obchodů pořadí neovlivňuje. <a href="/o-webu/">Jak web funguje</a></p></section>
 <section class="sec wrap"><h2>Časté otázky</h2>{faq_html(items)}</section>"""
     ld = [{"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE + "/", "inLanguage": "cs"},
           {"@context": "https://schema.org", "@type": "Organization", "name": BRAND, "url": SITE + "/", "logo": SITE + "/favicon-512.png",
            "email": "info@repasovanyiphone.cz"}, faq_ld(items),
           {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [
               {"@type": "ListItem", "position": i + 1, "url": f'{SITE}/{m["slug"]}/', "name": m["name"]} for i, m in enumerate(pop)]}]
-    title = f"Repasovaný iPhone a iPhone bazar – srovnání cen z {shops} obchodů"
+    title = f"Repasovaný iPhone – ceny z {shops} obchodů od {kc_plain(low)}"
     desc = (f"{nab(len(rf)).capitalize()} repasovaných, zánovních a bazarových iPhonů od {kc(low)}. Vyberte model, barvu, paměť a kvalitu A, B nebo C, "
             "ukážeme nejlevnější obchod i slevové kódy.").replace(" ", " ")
     out.page("/", layout(ctx, path="/", title=title, desc=desc, body=body, ld=ld,
@@ -810,6 +1054,9 @@ def cat_rows(ctx, rows, limit=40):
 
 
 CATS = [
+    {"path": "/iphone-bazar/", "short": "iPhone bazar", "h1": "iPhone bazar: použité iPhony se zárukou",
+     "title": "iPhone bazar – použité iPhony od {low} se zárukou",
+     "lead": "Použité a bazarové iPhony z obchodů a od firem na Aukru a Allegru, se zárukou a kvalitou na jedné stupnici."},
     {"path": "/levny-iphone/", "short": "Levné iPhony", "h1": "Levný iPhone: nejlevnější iPhony dnes",
      "title": "Levný iPhone – nejlevnější iPhony dnes od {low}",
      "lead": "Nejlevnější kus každého modelu, seřazený od nejnižší ceny včetně slevových kódů. Modely bez aktuálního iOS jsou až na konci."},
@@ -862,6 +1109,8 @@ def cat_content(ctx, c):
                       '<li><a href="/iphone-pro-deti/">iPhone pro děti</a></li><li><a href="/maly-iphone/">Malé iPhony</a></li></ul>')
     if p == "/novy-iphone/":
         return sorted(best_per_model(ctx, lambda m, o: True, grades=("novy",)), key=newest), ""
+    if p == "/iphone-bazar/":
+        return sorted(best_per_model(ctx, lambda m, o: True, grades=("a", "b", "c")), key=newest), ""
     if p == "/zanovni-iphone/":
         return sorted(best_per_model(ctx, lambda m, o: True, grades=("aplus",)), key=newest), ""
     if p == "/maly-iphone/":
@@ -1055,6 +1304,67 @@ ušetří víc s <a href="/levny-iphone/">levným repasem</a> v kvalitě B nebo 
     return lead, tips, sec, faq
 
 
+
+def seo_bazar(ctx, rows):
+    used = offers_of(ctx, lambda m, o: True, ("a", "b", "c"))
+    ok = [o for o in used if ios_ok(MODEL[o["model"]])]
+    M = lambda o: MODEL[o["model"]]  # noqa: E731
+    cheapest = min(ok or used, key=lambda o: o["pc"])
+    usbc = min((o for o in used if M(o)["port"] == "USB-C"), key=lambda o: o["pc"], default=None)
+    pro120 = min((o for o in used if M(o).get("hz") == 120), key=lambda o: o["pc"], default=None)
+    tips = [(cheapest, "Nejlevnější použitý iPhone s aktuálním iOS"), (usbc, "Nejlevnější s USB-C"), (pro120, "Nejlevnější se 120Hz displejem")]
+    tips = [(o, r) for o, r in tips if o]
+    pr = saving_pct(ctx, used)
+    tr = []
+    for m in [m for m in MODELS if ctx["by_model"].get(m["slug"]) and ios_ok(m)][:22]:
+        bc = low_of(ctx, m["slug"], ("b", "c"))
+        a_ = low_of(ctx, m["slug"], ("a",))
+        nw = low_of(ctx, m["slug"], ("novy",))
+        if bc or a_:
+            tr.append(f'<tr><th scope="row">{link_m(m, "")}</th><td class="num">{kc(bc) if bc else "–"}</td><td class="num">{kc(a_) if a_ else "–"}</td>'
+                      f'<td class="num newp">{kc(nw) if nw else "–"}</td></tr>')
+    n_mp = sum(1 for o in used if o["shop"] in ("aukro", "allegro"))
+    lead = (f'{nab(len(used)).capitalize()} použitých iPhonů z {obchodu(len({o["shop"] for o in used}))} od <strong>{kc(cheapest["pc"])}</strong>. '
+            f'Na rozdíl od inzerátů mají záruku a stav na jedné stupnici A, B, C. Proti novému ušetříte typicky <strong>{pr}&nbsp;%</strong>.')
+    sec = f"""<h2>iPhone z bazaru, ale se zárukou</h2>
+<p>Hledání „iPhone bazar“ obvykle končí na Bazoši nebo Sbazaru: levné inzeráty, ale bez záruky, bez možnosti vrácení a s rizikem zamčeného iCloudu.
+Tady najdete <strong>použité iPhony od obchodů</strong> (MobileGear, Smarty, JabkoLevně, iPhoneMarket) a od firemních prodejců na Aukru a Allegru ({nab(n_mp)}).
+Každý kus má záruku nejméně 12 měsíců a při nákupu přes internet 14 dní na vrácení bez udání důvodu.</p>
+<p>Stav sjednocujeme na jednu stupnici: <strong>A</strong> stopy jen zblízka, <strong>B</strong> jemné škrábance, <strong>C</strong> viditelné stopy používání.
+Funkčně jsou všechny v pořádku. <a href="/pruvodce/stavy/">Co přesně jednotlivé kvality znamenají</a></p>
+<h2>Kolik stojí použitý iPhone</h2><p>Nejnižší dnešní cena každého modelu s aktuálním iOS. Ceny se přepočítávají každou noc a obsahují platné slevové kódy.</p>
+<div class="tscroll"><table class="ptable cmp"><thead><tr><th>Model</th><th>Kvalita B/C od</th><th>Kvalita A od</th><th>Nový od</th></tr></thead><tbody>{"".join(tr)}</tbody></table></div>
+<h2>Bazoš, Aukro, nebo obchod?</h2>
+<div class="tscroll"><table class="ptable cmp"><thead><tr><th></th><th>Inzerát (Bazoš, Sbazar)</th><th>Aukro, Allegro</th><th>Obchod s repasy</th></tr></thead><tbody>
+<tr><th scope="row">Záruka</th><td>žádná</td><td>od firmy ano, od soukromníka ne</td><td>12–24 měsíců</td></tr>
+<tr><th scope="row">Vrácení do 14 dnů</th><td>ne</td><td>od firmy ano</td><td>ano</td></tr>
+<tr><th scope="row">Kontrola telefonu</th><td>sami při předání</td><td>podle prodejce</td><td>otestovaný, často nová baterie</td></tr>
+<tr><th scope="row">Riziko zámku iCloudu</th><td>vysoké</td><td>nízké u firem</td><td>minimální</td></tr>
+<tr><th scope="row">Cena</th><td>nejnižší</td><td>nízká</td><td>o něco vyšší</td></tr></tbody></table></div>
+<p>Rozdíl mezi inzerátem a obchodem bývá jen pár set korun, za které dostanete záruku a jistotu. Pokud přece jen kupujete od soukromníka,
+projděte si <a href="/pruvodce/iphone-z-bazaru/">jak koupit iPhone z bazaru bezpečně</a>.</p>
+<h2>Jak koupit použitý iPhone a nenaletět</h2><ol>
+<li><strong>Model s aktuálním iOS:</strong> iPhone 11 a novější nebo SE 2. generace. Starší kusy jsou levné, ale přicházejí o aplikace. <a href="/pruvodce/podpora-ios/">Podpora iOS</a></li>
+<li><strong>Kondice baterie:</strong> pod 80&nbsp;% ji Apple považuje za opotřebovanou, výměna stojí stovky až tisíce korun. <a href="/pruvodce/baterie/">Jak číst kondici baterie</a></li>
+<li><strong>Zámek aktivace:</strong> telefon musí být odhlášený z Apple ID a vymazaný. <a href="/pruvodce/kontrola-imei-icloud/">Kontrola IMEI a iCloudu</a></li>
+<li><strong>Vyměněné díly:</strong> Nastavení → Obecné → Informace → Díly a historie servisu. <a href="/pruvodce/dily-a-historie-servisu/">Co znamená neoriginální díl</a></li>
+<li><strong>Kontrola po převzetí:</strong> displej, Face ID, fotoaparáty, nabíjení. <a href="/pruvodce/kontrola/">Kontrolní seznam</a></li></ol>
+<h2>Které použité iPhony se vyplatí</h2>
+<p>Nejlevnější rozumný kus s aktuálním iOS je dnes {link_m(M(cheapest), "")} za {kc(cheapest["pc"])}.
+{f'USB-C a modernější čip má nejlevněji {link_m(M(usbc), "")} za {kc(usbc["pc"])}. ' if usbc else ''}{f'Plynulý 120Hz displej seženete nejlevněji u {link_m(M(pro120), "")} za {kc(pro120["pc"])}.' if pro120 else ''}
+Podrobně podle rozpočtu v článku <a href="/jaky-iphone-koupit/">jaký iPhone koupit</a>, podle ceny v sekci <a href="/levny-iphone/">levné iPhony</a>.</p>"""
+    faq = [("Kde koupit použitý iPhone?",
+            'Nejbezpečněji v obchodě s repasy nebo od firmy na Aukru či Allegru: dostanete záruku a 14 dní na vrácení. Na Bazoši je cena nejnižší, ale bez záruky. '
+            '<a href="/pruvodce/kde-koupit-repasovany-iphone/">Kde koupit repasovaný iPhone</a>'),
+           ("Kolik stojí použitý iPhone?", f'Nejlevnější použitý iPhone s aktuálním iOS stojí dnes {kc(cheapest["pc"])}. Ceny všech modelů jsou v tabulce výše.'),
+           ("Má použitý iPhone záruku?", "Od obchodu nebo firmy ano, nejméně 12 měsíců (zákonných 24 měsíců smí prodejce u použitého zboží zkrátit na 12). Od soukromé osoby záruka není."),
+           ("Jak poznat, že iPhone z bazaru není kradený nebo zamčený?",
+            'Prodávající se musí před vámi odhlásit z Apple ID a telefon vymazat. Telefon, který se po resetu hlásí k cizímu účtu, nekupujte. '
+            '<a href="/pruvodce/kontrola-imei-icloud/">Kontrola IMEI a iCloudu</a>'),
+           ("Jaký použitý iPhone koupit?", "iPhone 11 a novější kvůli podpoře iOS, ideálně 13 nebo novější. USB-C mají modely od iPhonu 15, Apple Intelligence iPhone 15 Pro a novější.")]
+    return lead, tips, sec, faq
+
+
 def seo_novy(ctx, rows):
     news = offers_of(ctx, lambda m, o: True, ("novy",))
     cheapest = min(news, key=lambda o: o["pc"])
@@ -1112,8 +1422,10 @@ Ceny se mezi obchody liší i o tisíce korun, proto u každého modelu ukazujem
     return lead, tips, sec, faq
 
 
-CAT_SEO = {"/levny-iphone/": ("price", seo_levny), "/zanovni-iphone/": ("fam", seo_zanovni), "/novy-iphone/": ("cur", seo_novy)}
+CAT_SEO = {"/iphone-bazar/": ("fam", seo_bazar), "/levny-iphone/": ("price", seo_levny), "/zanovni-iphone/": ("fam", seo_zanovni), "/novy-iphone/": ("cur", seo_novy)}
 CAT_META = {
+    "/iphone-bazar/": ("iPhone bazar – použité iPhony od {low} se zárukou",
+                       "Použité a bazarové iPhony od {low} z obchodů i od firem na Aukru a Allegru, se zárukou a kvalitou A, B, C. Kolik stojí použitý iPhone a jak ho koupit bezpečně."),
     "/levny-iphone/": ("Levný iPhone – nejlevnější iPhony dnes od {low}",
                        "Nejlevnější iPhony dnes od {low}: repasované, zánovní i nové, ceny včetně slevových kódů. Který levný iPhone se vyplatí a kde koupit iPhone levně."),
     "/zanovni-iphone/": ("Zánovní iPhone a rozbalené iPhony od {low}",
@@ -1169,7 +1481,8 @@ def page_compare(out, ctx):
 <th>Apple Intelligence</th><th>Cena od</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div></div>
 <section class="sec prose"><h2>Jak tabulku číst</h2><p><strong>iOS 26/27</strong>: Apple aktuální systém vydává pro iPhone 11 a novější a pro SE 2. generace. Starší modely fungují dál,
 ale nové funkce a časem i některé aplikace jim chybí. <strong>Apple Intelligence</strong> mají iPhony 15 Pro, celá řada 16 a novější. <strong>USB-C</strong> mají modely od iPhonu 15.</p>
-<p>Nevíte, který vybrat? <a href="/jaky-iphone-koupit/">Doporučení podle rozpočtu</a></p></section></div>"""
+<p>Nevíte, který vybrat? <a href="/jaky-iphone-koupit/">Doporučení podle rozpočtu</a></p></section>
+<section class="sec"><h2>Srovnání dvou modelů</h2><ul class="chips">{"".join(f'<li><a href="/srovnani/{a}-vs-{b}/">{E(MODEL[a]["name"])} vs. {E(MODEL[b]["name"])}</a></li>' for a, b in VS_PAIRS)}</ul></section></div>"""
     out.page("/srovnani/", layout(ctx, path="/srovnani/", title="Srovnání iPhonů – parametry a ceny z druhé ruky",
                                   desc="Všechny iPhony z druhé ruky v jedné tabulce: rok, displej, čip, konektor, podpora iOS 26 a 27 a nejnižší cena.",
                                   body=body, crumbs=[("/", "Repasované iPhony"), ("/srovnani/", "Srovnání")], active="/srovnani/"))
@@ -1197,8 +1510,17 @@ def page_buy(out, ctx):
 def page_shops(out, ctx):
     li = "".join(f'<li><a class="shopc" href="/obchody/{s}/">{shop_logo(s, 30)}<span>{nab(ctx["shop_count"][s])}'
                  f'{" · slevový kód" if ctx["coupons"].get(s) else ""}</span></a></li>' for s in ctx["shop_ids"])
-    body = f'<div class="wrap"><header class="mhead"><h1>Obchody ve srovnání</h1><p class="lead">Odkud bereme nabídky, kolik jich má který obchod a jaké slevové kódy platí.</p></header><ul class="shopgrid">{li}</ul></div>'
-    out.page("/obchody/", layout(ctx, path="/obchody/", title="Obchody s repasovanými iPhony ve srovnání", desc="Přehled obchodů s repasovanými, zánovními a novými iPhony a jejich slevové kódy.",
+    body = (f'<div class="wrap"><header class="mhead"><h1>Obchody s repasovanými iPhony ve srovnání</h1><p class="lead">Odkud bereme nabídky, kolik jich má který obchod, '
+            f'za kolik nejlevněji prodává a jaké slevové kódy platí. Data z {date_cz(TODAY)}.</p></header><ul class="shopgrid">{li}</ul>'
+            f'<section class="sec"><h2>Obchody v číslech</h2>{shop_table(ctx)}</section>'
+            '<section class="sec prose catseo"><h2>Jak vybrat obchod s repasovanými iPhony</h2>'
+            '<p>Cena je jen polovina rozhodnutí. Před nákupem si u obchodu ověřte <strong>délku záruky</strong> (u použitého zboží smí být 12 měsíců, některé obchody dávají 24), '
+            '<strong>jak popisuje stav</strong> (u nás ho převádíme na jednu stupnici A+ až C), jestli uvádí <strong>kondici baterie</strong> a jestli fotí konkrétní kus, nebo jen ilustrační obrázek.</p>'
+            '<p>Specializované obchody (MobileGear, JabkoLevně, iPhoneMarket, Smarty) mají nejširší výběr repasů. Na Aukru a Allegru prodávají firmy i soukromníci: '
+            'záruku a 14 dní na vrácení máte jen u firmy. iSTYLE prodává nové iPhony. '
+            '<a href="/pruvodce/kde-koupit-repasovany-iphone/">Podrobný návod, kde koupit repasovaný iPhone</a></p></section></div>')
+    out.page("/obchody/", layout(ctx, path="/obchody/", title="Obchody s repasovanými iPhony – ceny a slevové kódy",
+                                 desc="Obchody s repasovanými a použitými iPhony ve srovnání: počet nabídek, nejnižší ceny, podíl nabídek s kondicí baterie a platné slevové kódy.",
                                  body=body, crumbs=[("/", "Repasované iPhony"), ("/obchody/", "Obchody")]))
     for s in ctx["shop_ids"]:
         sh, of = SHOP[s], [o for o in ctx["offers"] if o["shop"] == s]
@@ -1217,13 +1539,55 @@ def page_shops(out, ctx):
                  index=len(of) >= 5)
 
 
+def shop_table(ctx):
+    rows = []
+    for s in ctx["shop_ids"]:
+        of = [o for o in ctx["offers"] if o["shop"] == s]
+        if not of:
+            continue
+        ref = [o for o in of if o["g"] != "novy"]
+        bat = sum(1 for o in of if o["bat"])
+        code = ", ".join(c["code"] for c in ctx["coupons"].get(s, [])) or "–"
+        rows.append(f'<tr><th scope="row"><a href="/obchody/{s}/">{E(SHOP[s]["name"])}</a></th><td class="num">{num(len(of))}</td>'
+                    f'<td class="num">{kc(min(o["pc"] for o in ref)) if ref else "–"}</td><td class="num">{kc(min(o["pc"] for o in of if o["g"] == "novy")) if any(o["g"] == "novy" for o in of) else "–"}</td>'
+                    f'<td class="num">{round(bat / len(of) * 100)}&nbsp;%</td><td>{E(code)}</td></tr>')
+    return ('<div class="tscroll"><table class="ptable cmp"><thead><tr><th>Obchod</th><th>Nabídek</th><th>Použitý od</th><th>Nový od</th>'
+            '<th>Uvádí baterii</th><th>Slevový kód</th></tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>')
+
+
+def battery_stats(ctx):
+    rf = [o for o in ctx["offers"] if o["g"] != "novy"]
+    bats = sorted(o["bat"] for o in rf if o["bat"])
+    if not bats:
+        return "<p>Kondici baterie obchody v exportech teď neuvádějí.</p>"
+    bands = [("95–100 %", 95, 101), ("90–94 %", 90, 95), ("85–89 %", 85, 90), ("80–84 %", 80, 85), ("pod 80 %", 0, 80)]
+    tr = "".join(f'<tr><th scope="row">{lab}</th><td class="num">{num(sum(1 for b in bats if lo <= b < hi))}</td>'
+                 f'<td class="num">{round(sum(1 for b in bats if lo <= b < hi) / len(bats) * 100)}&nbsp;%</td></tr>' for lab, lo, hi in bands)
+    return (f'<p>Ze {num(len(rf))} repasovaných a použitých nabídek ve srovnání uvádí kondici baterie {num(len(bats))} ({round(len(bats) / len(rf) * 100)}&nbsp;%). '
+            f'Typická hodnota je {bats[len(bats) // 2]}&nbsp;%. Rozložení k {date_cz(TODAY)}:</p>'
+            f'<div class="tscroll"><table class="ptable cmp"><thead><tr><th>Kondice</th><th>Nabídek</th><th>Podíl</th></tr></thead><tbody>{tr}</tbody></table></div>')
+
+
+def ios_table(ctx):
+    tr = []
+    for m in MODELS:
+        lo = low_of(ctx, m["slug"])
+        tr.append(f'<tr><th scope="row">{link_m(m, "") if ctx["by_model"].get(m["slug"]) else E(m["name"])}</th><td>{m["year"]}</td>'
+                  f'<td>{"ano" if ios_ok(m) else "ne, poslední " + LAST_IOS.get(m["slug"], "starší")}</td><td class="num">{kc(lo) if lo else "–"}</td></tr>')
+    return ('<div class="tscroll"><table class="ptable cmp"><thead><tr><th>Model</th><th>Rok</th><th>iOS 26 a 27</th><th>Z druhé ruky od</th></tr></thead><tbody>'
+            + "".join(tr) + "</tbody></table></div>")
+
+
 def load_guides():
+    pf = APP / "content/guides/photos.json"
+    photos = json.loads(pf.read_text()) if pf.exists() else {}   # featured photos (Pexels), downloaded once to static/img/guides/
     gs = []
     for f in sorted((APP / "content/guides").glob("*.html")):
         txt = f.read_text()
         m = re.match(r"<!--(.*?)-->\s*", txt, re.S)
         meta = json.loads(m.group(1))
         meta["html"], meta["slug"] = txt[m.end():], f.stem
+        meta.setdefault("photo", photos.get(f.stem, {}))
         gs.append(meta)
     return sorted(gs, key=lambda g: g.get("order", 99))
 
@@ -1241,23 +1605,80 @@ def grade_table(ctx):
     return f'<table><thead><tr><th>Kvalita u nás</th><th>Jak ji píšou obchody</th></tr></thead><tbody>{"".join(rows)}</tbody></table>'
 
 
+def slugify(t):
+    import unicodedata
+    t = unicodedata.normalize("NFKD", t.lower())
+    return re.sub(r"[^a-z0-9]+", "-", "".join(c for c in t if not unicodedata.combining(c))).strip("-")
+
+
+GUIDE_ICON = {"tag": "coins", "refresh": "return", "phone": "tools", "box": "bag"}   # guide icon names -> files in static/img/ui
+GUIDE_GROUPS = [("zaklady", "Než začnete"), ("vyber", "Jak vybrat"), ("kontrola", "Kontrola a bezpečnost"), ("po", "Po nákupu")]
+
+
+def guide_html(ctx, g):
+    rf = ctx["refurb"]
+    rep_ = {"{{GRADE_TABLE}}": lambda: grade_table(ctx), "{{IOS_TABLE}}": lambda: ios_table(ctx), "{{SHOP_TABLE}}": lambda: shop_table(ctx),
+            "{{BATTERY_STATS}}": lambda: battery_stats(ctx), "{{N_OFFERS}}": lambda: num(len(rf)), "{{N_SHOPS}}": lambda: str(len(ctx["shop_ids"])),
+            "{{LOW_PRICE}}": lambda: kc(min(o["pc"] for o in rf))}
+    h = g["html"]
+    for k, f in rep_.items():
+        if k in h:
+            h = h.replace(f"<p>{k}</p>", k).replace(k, f())
+    toc, seen = [], set()
+
+    def anchor(mo):
+        txt = re.sub(r"<[^>]+>", "", mo.group(2))
+        a = slugify(txt)[:48] or f"s{len(toc)}"
+        while a in seen:
+            a += "-2"
+        seen.add(a)
+        toc.append((a, txt))
+        return f'<h2{mo.group(1)} id="{a}">{mo.group(2)}</h2>'
+    h = re.sub(r"<h2([^>]*)>(.*?)</h2>", anchor, h)
+    return h, toc
+
+
 def page_guides(out, ctx):
-    li = "".join(f'<li><a href="/pruvodce/{g["slug"]}/"><img src="/img/ui/ic-{g.get("icon", "search")}.webp" alt="" width="56" height="56" loading="lazy">'
-                 f'<b>{E(g["h1"])}</b><span>{E(g["desc"])}</span></a></li>' for g in ctx["guides"])
-    out.page("/pruvodce/", layout(ctx, path="/pruvodce/", title="Průvodce nákupem iPhonu z druhé ruky",
-                                  desc="Kvalita A, B, C, baterie, záruka a kontrola po převzetí: co vědět před nákupem repasovaného iPhonu.",
-                                  body=f'<div class="wrap"><header class="mhead"><h1>Průvodce nákupem</h1><p class="lead">Krátce a k věci: co znamená kvalita, jak číst baterii a jaká máte práva.</p></header><ul class="glist">{li}</ul></div>',
-                                  crumbs=[("/", "Repasované iPhony"), ("/pruvodce/", "Průvodce")], active="/pruvodce/"))
+    groups = []
+    for key, name in GUIDE_GROUPS:
+        gs = [g for g in ctx["guides"] if g.get("group", "zaklady") == key]
+        if gs:
+            li = "".join(f'<li><a href="/pruvodce/{g["slug"]}/"><img src="/img/ui/ic-{GUIDE_ICON.get(g.get("icon"), g.get("icon", "search"))}.webp" alt="" width="56" height="56" loading="lazy">'
+                         f'<b>{E(g["h1"])}</b><span>{E(g["desc"])}</span></a></li>' for g in gs)
+            groups.append(f'<section class="sec"><h2>{E(name)}</h2><ul class="glist">{li}</ul></section>')
+    hub_ld = [{"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "url": f'{SITE}/pruvodce/{g["slug"]}/', "name": g["h1"]} for i, g in enumerate(ctx["guides"])]}]
+    out.page("/pruvodce/", layout(ctx, path="/pruvodce/", title="Průvodce nákupem repasovaného a použitého iPhonu",
+                                  desc="Co znamená repasovaný iPhone, kvalita A, B, C, kondice baterie, podpora iOS, kontrola IMEI a iCloudu, záruka a nákup z bazaru. Návody krok za krokem.",
+                                  body=f'<div class="wrap"><header class="mhead"><h1>Průvodce nákupem iPhonu z druhé ruky</h1><p class="lead">Všechno, co potřebujete vědět před nákupem '
+                                       f'repasovaného, zánovního nebo bazarového iPhonu: jak vybrat model a kvalitu, co zkontrolovat při převzetí a jaká máte práva. '
+                                       f'Čísla v článcích se každou noc přepočítávají z {nab(len(ctx["refurb"]))}.</p></header>{"".join(groups)}</div>',
+                                  ld=hub_ld, crumbs=[("/", "Repasované iPhony"), ("/pruvodce/", "Průvodce")], active="/pruvodce/"))
     for g in ctx["guides"]:
         path = f'/pruvodce/{g["slug"]}/'
-        html_ = g["html"].replace("{{GRADE_TABLE}}", grade_table(ctx))
-        others = "".join(f'<li><a href="/pruvodce/{x["slug"]}/">{E(x["short"])}</a></li>' for x in ctx["guides"] if x is not g)
-        body = f'<div class="wrap"><article class="prose art"><h1>{E(g["h1"])}</h1>{html_}</article><section class="sec"><h2>Další průvodci</h2><ul class="chips">{others}</ul></section></div>'
-        ld = [{"@context": "https://schema.org", "@type": "Article", "headline": g["h1"], "description": g["desc"], "inLanguage": "cs",
-               "datePublished": "2026-11-25", "dateModified": g.get("updated", TODAY.isoformat()),
+        html_, toc = guide_html(ctx, g)
+        toc_html = ('<nav class="toc" aria-label="Obsah článku"><b>Obsah</b><ol>' + "".join(f'<li><a href="#{a}">{E(t)}</a></li>' for a, t in toc) + "</ol></nav>") if len(toc) >= 3 else ""
+        faq = [tuple(x) for x in g.get("faq", [])]
+        same = [x for x in ctx["guides"] if x is not g and x.get("group") == g.get("group")]
+        rest = [x for x in ctx["guides"] if x is not g and x not in same]
+        others = "".join(f'<li><a href="/pruvodce/{x["slug"]}/">{E(x["short"])}</a></li>' for x in same + rest)
+        photo = g.get("photo") or {}
+        hero = (f'<figure class="ghero"><img src="{photo["src"]}" alt="{E(photo.get("alt", ""))}" width="1200" height="630" fetchpriority="high">'
+                f'<figcaption>Foto: {E(photo.get("by", ""))}, {E(photo.get("site", "Pexels"))}</figcaption></figure>') if photo.get("src") else ""
+        upd = g.get("updated", TODAY.isoformat())
+        body = (f'<div class="wrap"><article class="prose art"><h1>{E(g["h1"])}</h1><p class="meta muted">Aktualizováno {date_cz(dt.date.fromisoformat(upd))} · '
+                f'ceny a počty z {date_cz(TODAY)}</p>{hero}{toc_html}{html_}'
+                + (f'<h2 id="caste-otazky">Časté otázky</h2>{faq_html(faq)}' if faq else "")
+                + f'</article><section class="sec"><h2>Další průvodci</h2><ul class="chips">{others}</ul></section></div>')
+        art = {"@context": "https://schema.org", "@type": "Article", "headline": g["h1"], "description": g["desc"], "inLanguage": "cs",
+               "datePublished": g.get("published", "2026-11-25"), "dateModified": upd, "mainEntityOfPage": SITE + path,
                "author": {"@type": "Organization", "name": BRAND, "url": SITE + "/o-webu/"},
-               "publisher": {"@type": "Organization", "name": BRAND, "logo": {"@type": "ImageObject", "url": SITE + "/favicon-512.png"}}}]
+               "publisher": {"@type": "Organization", "name": BRAND, "logo": {"@type": "ImageObject", "url": SITE + "/favicon-512.png"}}}
+        if photo.get("src"):
+            art["image"] = SITE + photo["src"]
+        ld = [art] + ([faq_ld(faq)] if faq else [])
         out.page(path, layout(ctx, path=path, title=short_title(g["title"]), desc=g["desc"], body=body, ld=ld, active="/pruvodce/",
+                              og_img=SITE + photo["src"] if photo.get("src") else "",
                               crumbs=[("/", "Repasované iPhony"), ("/pruvodce/", "Průvodce"), (path, g["short"])]))
 
 
@@ -1324,11 +1745,11 @@ def history(refurb):
 
 
 WP_ARTICLES = {
-    "/repasovany-iphone-pruvodce/": "/pruvodce/", "/co-znamena-repasovany-iphone/": "/pruvodce/",
+    "/repasovany-iphone-pruvodce/": "/pruvodce/", "/co-znamena-repasovany-iphone/": "/pruvodce/co-znamena-repasovany-iphone/",
     "/stavy-repasovaneho-iphonu-a-b-c/": "/pruvodce/stavy/", "/jak-poznat-kvalitni-repasovany-iphone/": "/pruvodce/kontrola/",
-    "/jak-dlouho-vydrzi-repasovany-iphone/": "/pruvodce/baterie/", "/zaruka-repasovany-iphone/": "/pruvodce/zaruka/",
-    "/iphone-z-bazaru-jak-nakupovat-bezpecne/": "/pruvodce/repas-vs-bazar/", "/vyplati-se-repasovany-iphone/": "/pruvodce/repas-vs-bazar/",
-    "/kde-koupit-repasovany-iphone/": "/obchody/", "/jak-koupit-iphone-levne/": "/levny-iphone/",
+    "/jak-dlouho-vydrzi-repasovany-iphone/": "/pruvodce/jak-dlouho-vydrzi-repasovany-iphone/", "/zaruka-repasovany-iphone/": "/pruvodce/zaruka/",
+    "/iphone-z-bazaru-jak-nakupovat-bezpecne/": "/pruvodce/iphone-z-bazaru/", "/vyplati-se-repasovany-iphone/": "/pruvodce/vyplati-se-repasovany-iphone/",
+    "/kde-koupit-repasovany-iphone/": "/pruvodce/kde-koupit-repasovany-iphone/", "/jak-koupit-iphone-levne/": "/levny-iphone/",
     "/nejlepsi-repasovany-iphone-2026/": "/jaky-iphone-koupit/", "/porovnat-produkty/": "/srovnani/",
     "/kategorie-produktu/iphone/": "/", "/kategorie-produktu/nove/": "/novy-iphone/",
 }
@@ -1468,6 +1889,7 @@ def main():
                 page_model(out, ctx, m, of, gb)
     page_cats(out, ctx)
     page_compare(out, ctx)
+    page_vs(out, ctx)
     page_buy(out, ctx)
     page_shops(out, ctx)
     page_guides(out, ctx)
