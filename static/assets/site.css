@@ -73,7 +73,7 @@ button{font:inherit;color:inherit}
 .save{color:var(--green);font-weight:700}
 .gchip,.gl{display:inline-grid;place-items:center;min-width:1.9em;height:1.6em;padding:0 .45em;border-radius:999px;color:#fff;font-weight:800;font-size:.82rem;letter-spacing:.01em}
 .g-novy{background:var(--g-novy)}.g-aplus{background:var(--g-aplus)}.g-a{background:var(--g-a)}.g-b{background:var(--g-b)}.g-c{background:var(--g-c)}
-.slogo{height:22px;width:auto;object-fit:contain;display:inline-block;vertical-align:middle}
+.slogo{height:22px;width:auto;object-fit:contain;display:inline-block;vertical-align:middle;border-radius:4px}
 .stext{display:inline-block;font-weight:800;font-size:.9rem;color:var(--c,#333);border:1.5px solid currentColor;border-radius:6px;padding:0 6px;line-height:1.5}
 .dot{display:block;width:30px;height:30px;border-radius:50%;background:var(--h);box-shadow:inset 0 0 0 1px rgba(0,0,0,.14),inset 0 -6px 10px rgba(0,0,0,.06)}
 .dot.xs{width:14px;height:14px;display:inline-block}

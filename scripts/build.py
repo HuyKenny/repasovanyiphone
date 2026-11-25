@@ -337,10 +337,15 @@ def logo_w(sid, h):
     return round(w * h / hh) if hh else 0
 
 
+def logo_src(sid):
+    """Shop logo URL with a content hash: /img/* is cached for 30 days, a changed logo must not show the old file."""
+    f = APP / "static/img/shops" / f"{sid}.webp"
+    return f"/img/shops/{sid}.webp?v={hashlib.sha256(f.read_bytes()).hexdigest()[:8]}"
+
 def shop_logo(sid, h=22):
     s = SHOP[sid]
     if (APP / "static/img/shops" / f"{sid}.webp").exists():
-        return f'<img class="slogo" src="/img/shops/{sid}.webp" alt="{E(s["name"])}" width="{logo_w(sid, h)}" height="{h}" loading="lazy" decoding="async">'
+        return f'<img class="slogo" src="{logo_src(sid)}" alt="{E(s["name"])}" width="{logo_w(sid, h)}" height="{h}" loading="lazy" decoding="async">'
     return f'<span class="slogo stext" style="--c:{s["color"]}">{E(s["name"])}</span>'
 
 
@@ -501,7 +506,7 @@ def cfg_data(ctx, m, offers, gb_pref=None):
     here = [o for o in offers if o["gb"] == dgb and o["col"] == dcol]
     gs = {o["g"] for o in here}
     dg = "a" if "a" in gs else min(here, key=lambda o: o["pc"])["g"]
-    shop_meta = {s: [SHOP[s]["name"], f"/img/shops/{s}.webp" if (APP / "static/img/shops" / f"{s}.webp").exists() else "", SHOP[s]["color"], logo_w(s, 22) / 22] for s in shops}
+    shop_meta = {s: [SHOP[s]["name"], logo_src(s) if (APP / "static/img/shops" / f"{s}.webp").exists() else "", SHOP[s]["color"], logo_w(s, 22) / 22] for s in shops}
     cps = {}
     for s in shops:
         for c in ctx["coupons"].get(s, []):
