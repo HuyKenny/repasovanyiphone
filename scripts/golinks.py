@@ -24,7 +24,7 @@ try{d=JSON.parse(b.d);sd=JSON.parse(b.sd||"[]")}catch(e){}
 function inn(h,l){return l.some(function(n){return h===n||h.slice(-n.length-1)==="."+n})}
 function ok(x){try{var p=new URL(x);return p.protocol==="https:"&&inn(p.hostname,d)}catch(e){return false}}
 function nested(x){var m=decodeURIComponent(x).match(/https?:\/\/[^&?#"' ]+/g)||[];return m.slice(1).every(function(y){try{return inn(new URL(y).hostname,sd.length?sd:d)}catch(e){return false}})}
-if(g){if(ok(g)&&nested(g))to=g}else if(u){var t=/^https?:\/\//.test(u)?u:b.h+u;if(ok(t))to=b.p+(b.m==="e"?encodeURIComponent(t):t)+b.s}
+if(g){if(ok(g)&&nested(g))to=g}else if(u){var t=/^https?:\/\//.test(u)?u:b.h+u;if(ok(t))to=b.p+(b.m==="e"?encodeURIComponent(t):t)+b.s}else if(b.x&&ok(b.x))to=b.x
 var a=document.getElementById("go");if(to){a.href=to;location.replace(to)}})();
 """
 
@@ -130,15 +130,16 @@ def local_go(products):
     return tpl, dict(st)
 
 
-def go_page(sid, t, name, js_name):
+def go_page(sid, t, name, js_name, default="", label="do obchodu"):
+    """default: fixed target used when the page is opened without ?u=/?g= (partner links such as /go/vodafone/, written at build time)."""
     dom = t["d"]
-    home = t["h"] or (f"https://{dom[0]}" if dom else "/")
+    home = default or t["h"] or (f"https://{dom[0]}" if dom else "/")
     return ('<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<meta name="robots" content="noindex,nofollow"><title>Přesměrování do obchodu ' + E(name) + '</title>'
+            '<meta name="robots" content="noindex,nofollow"><title>Přesměrování ' + E(label) + ' ' + E(name) + '</title>'
             '<style>body{font:16px/1.5 system-ui,sans-serif;margin:0;display:grid;place-items:center;min-height:90vh;background:#f6f6f8;color:#1b1b24}'
             'a{color:#b5301f;font-weight:700}</style></head>'
-            f'<body data-p="{E(t["p"])}" data-s="{E(t["s"])}" data-m="{t["m"]}" data-h="{E(t["h"])}" data-d="{E(json.dumps(dom))}" data-sd="{E(json.dumps(t.get("sd", [])))}">'
-            f'<p>Přesměrováváme vás do obchodu <b>{E(name)}</b>… <a id="go" href="{E(home)}" rel="sponsored nofollow">Pokračovat</a></p>'
+            f'<body data-p="{E(t["p"])}" data-s="{E(t["s"])}" data-m="{t["m"]}" data-h="{E(t["h"])}" data-d="{E(json.dumps(dom))}" data-sd="{E(json.dumps(t.get("sd", [])))}"' + (f' data-x="{E(default)}"' if default else '') + '>'
+            f'<p>Přesměrováváme vás {E(label)} <b>{E(name)}</b>… <a id="go" href="{E(home)}" rel="sponsored nofollow">Pokračovat</a></p>'
             f'<script>{js_name}</script></body></html>')
 
 

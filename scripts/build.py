@@ -568,7 +568,8 @@ def model_text(ctx, m, offers):
 
 
 # Vodafone (eHub, PPL tariff order / lead / prepaid). Text links only, no logo; click_shop event with shop=vodafone (data-go).
-VODAFONE = "https://ehub.cz/system/scripts/click.php?a_aid=052443b7&a_bid=aface625"
+VODAFONE_AFF = "https://ehub.cz/system/scripts/click.php?a_aid=052443b7&a_bid=aface625"
+VODAFONE = "/go/vodafone/"    # the affiliate URL lives only in go/vodafone/index.html
 
 
 def vf(text, place):
@@ -1999,6 +2000,8 @@ def main():
     page_privacy(out, ctx)
     page_404(out, ctx)
     golinks.write_go(out, go_tpl, SHOP)
+    out.write("go/vodafone/index.html", golinks.go_page("vodafone", {"p": "", "s": "", "m": "r", "h": "", "d": ["ehub.cz"], "sd": []}, "Vodafone",
+                                                         golinks.GO_JS, default=VODAFONE_AFF, label="na"))
     n_redir = redirects(out, {p for p, _ in out.pages})
 
     idx = [p for p, i in out.pages if i]
