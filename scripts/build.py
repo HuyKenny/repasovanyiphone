@@ -249,6 +249,10 @@ NAV = [("/levny-iphone/", "Levné iPhony"), ("/zanovni-iphone/", "Zánovní"), (
        ("/pruvodce/", "Průvodce")]
 
 
+# Seznam Webmaster ownership tag (public by design, homepage only; Kenny 25. 11. 2026)
+SEZNAM_WMT = '<meta name="seznam-wmt" content="aVqd5hujvnUVu19cMEtJuIQ4shXRjLgr">'
+
+
 def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, active=None, og_img="", cfg=None, preload=""):
     canon = SITE + path
     robots = "noindex,follow" if (not index or STAGING) else "index,follow,max-image-preview:large"
@@ -293,7 +297,7 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
 <title>{E(title)}</title><meta name="description" content="{E(desc)}"><link rel="canonical" href="{canon}"><meta name="robots" content="{robots}">
 <meta property="og:type" content="website"><meta property="og:locale" content="cs_CZ"><meta property="og:site_name" content="{BRAND}">
 <meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{canon}"><meta property="og:image" content="{E(og_img or SITE + '/img/ui/og.png')}">
-<meta name="twitter:card" content="summary_large_image">{preload}
+<meta name="twitter:card" content="summary_large_image">{SEZNAM_WMT if path == "/" else ""}{preload}
 <style>{ctx['css']}</style>{FONT_PRELOAD if "hand" in body else ""}<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/favicon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#FFFFFF">{ldtxt}{ga}</head><body>{noscript}
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
