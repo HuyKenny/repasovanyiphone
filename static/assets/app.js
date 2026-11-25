@@ -190,7 +190,8 @@
 
   function shopMini(sid, h) {
     var s = C.shops[sid];
-    return s[1] ? '<img class="slogo" src="' + s[1] + '" alt="' + esc(s[0]) + '" width="' + Math.round(s[3] * (h || 22)) + '" height="' + (h || 22) + '" decoding="async">'
+    var hk = Math.round((h || 22) * (s[4] || 1));
+    return s[1] ? '<img class="slogo" src="' + s[1] + '" alt="' + esc(s[0]) + '" width="' + Math.round(s[3] * hk) + '" height="' + hk + '" style="--k:' + (s[4] || 1) + '" decoding="async">'
       : '<span class="slogo stext" style="--c:' + s[2] + '">' + esc(s[0]) + "</span>";
   }
 

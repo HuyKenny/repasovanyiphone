@@ -337,6 +337,38 @@ def logo_w(sid, h):
     return round(w * h / hh) if hh else 0
 
 
+LOGO_RATIO = 3.6   # typical width/height of a shop logo
+_LOGO_INK = {}
+
+
+def _ink(sid):
+    """(width/height, share of opaque pixels) of a logo file; a solid badge (MobileGear) counts as a wordmark (cap 0.45)."""
+    if sid not in _LOGO_INK:
+        from PIL import Image
+        f = APP / "static/img/shops" / f"{sid}.webp"
+        if not f.exists():
+            _LOGO_INK[sid] = None
+        else:
+            im = Image.open(f).convert("RGBA")
+            w, h = im.size
+            _LOGO_INK[sid] = (w / h, min(0.45, sum(im.getchannel("A").getdata()) / 255 / (w * h)))
+    return _LOGO_INK[sid]
+
+
+def logo_k(sid):
+    """Optical size factor so all shop logos look about equally big at the same nominal height: the geometric mean of
+    equal bounding-box area (h ~ 1/sqrt(w/h)) and equal ink (h ~ 1/sqrt(w/h * opaque share), against the median logo).
+    Thin wordmarks (iPhoneMarket) grow, wide or heavy ones (Smarty, iSTYLE) shrink. Clamped to 0.75-1.2."""
+    me = _ink(sid)
+    if not me:
+        return 1.0
+    allv = sorted(r * d for r, d in filter(None, (_ink(f.stem) for f in (APP / "static/img/shops").glob("*.webp"))))
+    med = allv[len(allv) // 2]
+    r, d = me
+    k = ((LOGO_RATIO / r) ** 0.5 * (med / (r * d)) ** 0.5) ** 0.5
+    return round(min(1.2, max(0.75, k)), 3)
+
+
 def logo_src(sid):
     """Shop logo URL with a content hash: /img/* is cached for 30 days, a changed logo must not show the old file."""
     f = APP / "static/img/shops" / f"{sid}.webp"
@@ -345,7 +377,9 @@ def logo_src(sid):
 def shop_logo(sid, h=22):
     s = SHOP[sid]
     if (APP / "static/img/shops" / f"{sid}.webp").exists():
-        return f'<img class="slogo" src="{logo_src(sid)}" alt="{E(s["name"])}" width="{logo_w(sid, h)}" height="{h}" loading="lazy" decoding="async">'
+        k = logo_k(sid)
+        return (f'<img class="slogo" src="{logo_src(sid)}" alt="{E(s["name"])}" width="{logo_w(sid, round(h * k))}" height="{round(h * k)}" '
+                f'style="--k:{k}" loading="lazy" decoding="async">')
     return f'<span class="slogo stext" style="--c:{s["color"]}">{E(s["name"])}</span>'
 
 
@@ -506,7 +540,8 @@ def cfg_data(ctx, m, offers, gb_pref=None):
     here = [o for o in offers if o["gb"] == dgb and o["col"] == dcol]
     gs = {o["g"] for o in here}
     dg = "a" if "a" in gs else min(here, key=lambda o: o["pc"])["g"]
-    shop_meta = {s: [SHOP[s]["name"], logo_src(s) if (APP / "static/img/shops" / f"{s}.webp").exists() else "", SHOP[s]["color"], logo_w(s, 22) / 22] for s in shops}
+    shop_meta = {s: [SHOP[s]["name"], logo_src(s) if (APP / "static/img/shops" / f"{s}.webp").exists() else "", SHOP[s]["color"], logo_w(s, 22) / 22,
+                     logo_k(s)] for s in shops}
     cps = {}
     for s in shops:
         for c in ctx["coupons"].get(s, []):
@@ -613,9 +648,10 @@ COPY_ICON = ('<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"
 
 
 def shop_mini(shops, sid, h=22):
-    name, logo, color, ratio = shops[sid]
+    name, logo, color, ratio, k = shops[sid]
     if logo:
-        return f'<img class="slogo" src="{logo}" alt="{E(name)}" width="{round(ratio * h)}" height="{h}" loading="lazy" decoding="async">'
+        hk = round(h * k)
+        return f'<img class="slogo" src="{logo}" alt="{E(name)}" width="{round(ratio * hk)}" height="{hk}" style="--k:{k}" loading="lazy" decoding="async">'
     return f'<span class="slogo stext" style="--c:{color}">{E(name)}</span>'
 
 
