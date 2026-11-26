@@ -1651,8 +1651,9 @@ def page_zanovni_model(out, ctx, slug):
 {configurator_html(ctx, m, cfg)}
 <div class="sec">{zan_trust(of)}</div>
 <section class="sec"><h2>Ceník podle paměti</h2><p class="muted">Nejnižší cena zánovního a rozbaleného kusu v každé paměti (všechny barvy, se slevovými kódy). Sloupec „Nový“ je nejlevnější nový kus.</p>{zan_price_table(ctx, slug, of)}</section>
-<section class="sec prose catseo"><h2>Zánovní {E(m["name"])} dnes</h2><p>{" ".join(facts)}</p>
-<p>Co znamená zánovní a rozbalený a proč tu nejsou kusy „Premium“, vysvětlujeme v přehledu <a href="/zanovni-iphone/">zánovní iPhony</a>.</p></section>
+<section class="sec two"><div class="prose"><h2>Zánovní {E(m["name"])} dnes</h2><p>{" ".join(facts)}</p>
+<p>Co znamená zánovní a rozbalený a proč tu nejsou kusy „Premium“, vysvětlujeme v přehledu <a href="/zanovni-iphone/">zánovní iPhony</a>.</p></div>
+<aside><div class="card"><h2>Technický list</h2>{specs_html(m)}</div>{tariff_box(m)}</aside></section>
 <section class="sec"><h2>Časté otázky</h2>{faq_html(faq)}</section>
 {f'<section class="sec"><h2>Další zánovní iPhony</h2><ul class="chips">{others}</ul></section>' if others else ''}
 </div>
