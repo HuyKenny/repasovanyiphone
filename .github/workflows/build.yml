@@ -4,7 +4,10 @@ name: build
 # PUBLIC repo: logs are public. Scripts print only shop ids and counts; feed URLs are masked; no `set -x` anywhere.
 on:
   schedule:
-    - cron: "10 0 * * *"      # 01:10 CET every night (heavy work only at night)
+    # GitHub delays scheduled runs at busy times (26. 11. the 00:10 UTC run started 8 h late), so: an off-peak minute
+    # plus a fallback that only builds when no scheduled build has succeeded in the last 6 hours (gate job below).
+    - cron: "47 23 * * *"     # 00:47 CET (01:47 CEST)
+    - cron: "33 3 * * *"      # 04:33 CET fallback
   workflow_dispatch:
     inputs:
       quick:
@@ -17,7 +20,30 @@ concurrency:
 permissions:
   contents: read
 jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      actions: read
+    outputs:
+      run: ${{ steps.g.outputs.run }}
+    steps:
+      - id: g
+        run: |
+          if [ "$EVENT" = "schedule" ] && [ "$CRON" = "33 3 * * *" ]; then
+            since=$(date -u -d '-6 hours' +%Y-%m-%dT%H:%M:%SZ)
+            n=$(gh run list -R "$REPO" --workflow build.yml --event schedule --status success --created ">=$since" --json databaseId --jq length)
+            [ "$n" -gt 0 ] && { echo "nightly build already done ($n) - fallback skipped"; echo "run=false" >> "$GITHUB_OUTPUT"; exit 0; }
+          fi
+          echo "run=true" >> "$GITHUB_OUTPUT"
+        env:
+          EVENT: ${{ github.event_name }}
+          CRON: ${{ github.event.schedule }}
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
   build:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: production
