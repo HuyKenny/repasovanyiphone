@@ -514,11 +514,12 @@ def facts_html(f):
     return f'<ul class="ofacts">{"".join(li)}</ul>'
 
 
-def cfg_data(ctx, m, offers, gb_pref=None):
+def cfg_data(ctx, m, offers, gb_pref=None, gkey=None):
     """Compact JSON for app.js. Rows: [colour i, storage i, grade, shop price, shop, go, battery, eSIM, price after code, facts i]; sorted by price after code.
     "f": distinct offer facts (offer_facts()), "low": cheapest refurbished combination of the page (set by page_model).
     No shop wording: quality is our scale only."""
     slug = m["slug"]
+    gk = gkey or (lambda o: o["g"])     # the zánovní configurator passes its own step 3 (rozbalený / zánovní)
     cols = [c for c in P.COLORS.get(slug, []) if any(o["col"] == c["key"] for o in offers)]
     gbs = sorted({o["gb"] for o in offers})
     ci = {c["key"]: i for i, c in enumerate(cols)}
@@ -532,14 +533,14 @@ def cfg_data(ctx, m, offers, gb_pref=None):
         f = offer_facts(o)
         if f not in fidx:
             fidx[f] = len(fidx)
-        rows.append([ci[o["col"]], gi[o["gb"]], o["g"], o["p"], o["shop"], go, o["bat"] or 0, 1 if o["esim"] else 0, o["pc"], fidx[f]])
+        rows.append([ci[o["col"]], gi[o["gb"]], gk(o), o["p"], o["shop"], go, o["bat"] or 0, 1 if o["esim"] else 0, o["pc"], fidx[f]])
     rf = [o for o in offers if o["g"] != "novy"] or offers
     dgb = gb_pref if gb_pref in gi else Counter(o["gb"] for o in rf).most_common(1)[0][0]
     pool = [o for o in rf if o["gb"] == dgb] or [o for o in offers if o["gb"] == dgb]
     dcol = Counter(o["col"] for o in pool).most_common(1)[0][0]
     here = [o for o in offers if o["gb"] == dgb and o["col"] == dcol]
-    gs = {o["g"] for o in here}
-    dg = "a" if "a" in gs else min(here, key=lambda o: o["pc"])["g"]
+    gs = {gk(o) for o in here}
+    dg = "a" if "a" in gs else gk(min(here, key=lambda o: o["pc"]))
     shop_meta = {s: [SHOP[s]["name"], logo_src(s) if (APP / "static/img/shops" / f"{s}.webp").exists() else "", SHOP[s]["color"], logo_w(s, 22) / 22,
                      logo_k(s)] for s in shops}
     cps = {}
@@ -565,20 +566,23 @@ def configurator_html(ctx, m, cfg):
     pills = "".join(f'<button type="button" class="pill{" on" if g == dgb else ""}" data-gb="{g}" aria-pressed="{str(g == dgb).lower()}">{P.gb_label(g)}</button>' for g in gbs)
     here = [r for r in rows if r[0] == ci and r[1] == gi]
     gcards = []
-    for g, *_r in P.GRADES:
+    G = cfg["grades"]
+    for g in cfg.get("order") or [k for k, *_r in P.GRADES]:
         ps = [r[8] for r in here if r[2] == g]
         gcards.append(f'<button type="button" class="gcard{" on" if g == dg else ""}{"" if ps else " off"}" data-g="{g}" aria-pressed="{str(g == dg).lower()}"{"" if ps else " disabled"}>'
-                      f'<span class="gl g-{g}">{E(GR[g]["short"])}</span><span class="gn">{E(GR[g]["name"])}</span>'
+                      f'<span class="gl g-{g}">{E(G[g][0])}</span><span class="gn">{E(G[g][1])}</span>'
                       f'<span class="gp">{"od " + kc(min(ps)) if ps else "není skladem"}</span></button>')
     res = [r for r in here if r[2] == dg]
+    s3 = cfg.get("step3") or ("Kvalita", "/pruvodce/stavy/", "co znamená A, B, C?")
+    gimg = cfg["gimg"]
     alt = f"{m['name']} v barvě {cols[ci][1]}"
     return f"""<section class="cfg" data-cfg aria-label="Výběr iPhonu">
 <div class="cfg-photo"><div class="ph"><img src="{E(cols[ci][3])}" alt="{E(alt)}" width="600" height="600" fetchpriority="high" data-photo></div></div>
 <div class="cfg-steps">
 <div class="step"><h2 class="step-h"><span class="n">1</span>Barva <span class="step-v" data-v-col>{E(cols[ci][1])}</span></h2><div class="sws" data-cols>{sw}</div></div>
 <div class="step"><h2 class="step-h"><span class="n">2</span>Paměť</h2><div class="pills" data-gbs>{pills}</div></div>
-<div class="step"><h2 class="step-h"><span class="n">3</span>Kvalita <a class="step-help" href="/pruvodce/stavy/">co znamená A, B, C?</a></h2>
-<div class="gcards" data-grades>{"".join(gcards)}</div><p class="ghint"><img data-gimg src="/img/ui/grade-{dg if dg in GIMG else "a"}.webp" alt="" width="64" height="64"{"" if dg in GIMG else " hidden"}><span data-ghint>{E(GR[dg]["ex"]).capitalize()}.</span></p></div>
+<div class="step"><h2 class="step-h"><span class="n">3</span>{E(s3[0])} <a class="step-help" href="{s3[1]}">{E(s3[2])}</a></h2>
+<div class="gcards{" two" if cfg.get("order") and len(cfg["order"]) == 2 else ""}" data-grades>{"".join(gcards)}</div><p class="ghint"><img data-gimg src="/img/ui/grade-{dg if dg in gimg else "a"}.webp" alt="" width="64" height="64"{"" if dg in gimg else " hidden"}><span data-ghint>{E(G[dg][2]).capitalize()}.</span></p></div>
 <div class="result" data-result aria-live="polite">{result_html(cfg, res, dgb)}</div>
 </div></section>"""
 
@@ -1484,38 +1488,6 @@ def zan_path(slug):
     return f"/zanovni-iphone/{slug}/"
 
 
-def zan_buy(o, sp, label=None):
-    cp = o["cp"] if o["pc"] < o["p"] else None
-    name = SHOP[o["shop"]]["name"]
-    txt = label or (f"Koupit s kódem u {E(name)}" if cp else f"Koupit u {E(name)}")
-    return (f'<a class="btn sm zbuy" href="{E(o["go"])}" rel="sponsored nofollow noopener" target="_blank" data-go="{o["shop"]}" data-shop="{o["shop"]}" '
-            f'data-price="{o["pc"]}" data-sp="{sp}"' + (f' data-copy="{E(cp["code"])}"' if cp else "") + f'>{txt}</a>')
-
-
-def zan_chip(o, sp):
-    cp = o["cp"] if o["pc"] < o["p"] else None
-    return (f'<button type="button" class="cchip" data-copy="{E(cp["code"])}" data-shop="{o["shop"]}" data-sp="{sp}"{href_attr(o["go"])} '
-            f'aria-label="Kopírovat slevový kód {E(cp["code"])}"><span>{E(cp["code"])}</span>{COPY_ICON}</button>') if cp else ""
-
-
-def zan_row(ctx, o, sp):
-    """One zánovní offer: colour photo, storage + colour, the shop's wording, battery/warranty in short, shop, price, buy button."""
-    m = MODEL[o["model"]]
-    cn = color_name(o["model"], o["col"])
-    t = zan_typ(o)
-    nw = ctx["new_min"].get((o["model"], o["gb"]))
-    save = f'<span class="zr-save">o {kc(nw - o["pc"])} levněji než nový</span>' if nw and nw > o["pc"] else ""
-    was = f'<s>{kc(o["p"])}</s>' if o["pc"] < o["p"] else ""
-    alt = m["name"] + " v barvě " + cn
-    return (f'<li class="zrow" data-typ="{t}" data-gb="{o["gb"]}" data-p="{o["pc"]}">{pic(ctx, o["model"], o["col"], 56, alt=alt)}'
-            f'<span class="zr-i"><b>{P.gb_label(o["gb"])} · {E(cn)}</b><span class="ztag {t}">{"Rozbalený" if t == "r" else "Zánovní"}</span>'
-            + ('<span class="ztag e">jen eSIM</span>' if o.get("esim") else "")
-            + f'<span class="o-f">{E(offer_facts(o)[7])}</span></span>'
-            f'<span class="zr-s">{shop_logo(o["shop"], 18)}{zan_chip(o, sp)}</span>'
-            f'<span class="zr-p"><b>{kc(o["pc"])}</b>{was}{save}</span>'
-            f'{zan_buy(o, sp, "Koupit")}</li>')
-
-
 def zan_trust(offs):
     wars = sorted({offer_facts(o)[2] for o in offs})
     ws = [int(re.search(r"\d+", w).group()) for w in wars if re.search(r"\d+", w)]
@@ -1564,7 +1536,7 @@ def page_zanovni(out, ctx):
     cheapest = min(zan, key=lambda o: o["pc"])
     lead = (f'Rozbalené a jako nové iPhony se zárukou od <strong>{kc(low)}</strong>, proti novému typicky o {pa}&nbsp;% levněji. '
             'Vyberte model a uvidíte všechny jeho zánovní kusy.')
-    sec = f"""<h2>Co je zánovní a rozbalený iPhone</h2>
+    sec = f"""<h2 id="co-je">Co je zánovní a rozbalený iPhone</h2>
 <p><strong>Rozbalený</strong> iPhone někdo koupil a v zákonné lhůtě 14 dnů vrátil, takže je prakticky nový. <strong>Zánovní</strong> telefon byl používaný jen krátce
 a nemá viditelné stopy. Na stránce jsou jen nabídky, které obchod takto sám označuje.</p>
 <h2>Proč tu nejsou kusy „Premium“</h2>
@@ -1606,6 +1578,37 @@ každého modelu je najdete spolu se zánovními ve stavu <strong>A+</strong>. S
                           body=body, ld=ld, active=path, crumbs=[("/", "Repasované iPhony"), (path, "Zánovní iPhony")]))
 
 
+ZAN_GRADES = {"r": ["Rozbalený", "Prakticky nový", "vrácený do 14 dnů od nákupu, prakticky nepoužívaný"],
+              "z": ["Zánovní", "Krátce používaný", "krátce používaný, bez viditelných stop"]}
+
+
+def zan_cfg(ctx, m, of):
+    """The model configurator over the zánovní offers only; step 3 is the shop's wording (rozbalený / zánovní) instead of quality A+…C."""
+    cfg = cfg_data(ctx, m, of, gkey=zan_typ)
+    cfg.update({"grades": ZAN_GRADES, "order": ["r", "z"], "gimg": [], "glab": "jako",
+                "step3": ("Stav", "/zanovni-iphone/#co-je", "rozbalený, nebo zánovní?")})
+    lo = min(of, key=lambda o: (o["pc"], o["p"]))
+    cfg["low"] = [lo["col"], lo["gb"], zan_typ(lo), lo["pc"]]
+    return cfg, lo
+
+
+def zan_price_table(ctx, slug, of):
+    gbs = sorted({o["gb"] for o in of})
+    ts = [t for t in ("r", "z") if any(zan_typ(o) == t for o in of)]
+    rows = []
+    for gb in gbs:
+        here = [o for o in of if o["gb"] == gb]
+        low = min(o["pc"] for o in here)
+        cells = []
+        for t in ts:
+            ps = [o["pc"] for o in here if zan_typ(o) == t]
+            cells.append(f'<td class="num{" low" if ps and min(ps) == low else ""}">{kc(min(ps))}</td>' if ps else '<td class="na">–</td>')
+        nw = ctx["new_min"].get((slug, gb))
+        rows.append(f'<tr><th scope="row">{P.gb_label(gb)}</th>{"".join(cells)}<td class="num newp">{kc(nw) if nw else "–"}</td></tr>')
+    head = "".join(f"<th>{ZAN_GRADES[t][0]}</th>" for t in ts)
+    return f'<div class="tscroll"><table class="ptable"><thead><tr><th>Paměť</th>{head}<th>Nový</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
+
+
 def page_zanovni_model(out, ctx, slug):
     m, of = MODEL[slug], zan_by_model(ctx)[slug]
     path = zan_path(slug)
@@ -1616,17 +1619,13 @@ def page_zanovni_model(out, ctx, slug):
     gbs = sorted({o["gb"] for o in of})
     cols = sorted({color_name(slug, o["col"]) for o in of})
     nr = sum(1 for o in of if zan_typ(o) == "r")
-    sv = [(ctx["new_min"][(o["model"], o["gb"])] - o["pc"], o) for o in of if ctx["new_min"].get((o["model"], o["gb"]), 0) > o["pc"]]
-    best_sv = max(sv, key=lambda x: x[0]) if sv else None
-    lead = (f'{"Zánovní a rozbalené" if nr else "Zánovní"} kusy od <strong>{kc(lo)}</strong>' + (f' do {kc(hi)}' if hi > lo else "")
-            + (f', proti novému ušetříte až <strong>{kc(best_sv[0])}</strong>.' if best_sv else ".") + " Kód je už v ceně, nakoupíte přímo v obchodě.")
-    gfilt = ""
-    if len(gbs) > 1:
-        gfilt = ('<div class="cfilter" data-cfilter="gb" role="group" aria-label="Paměť"><button type="button" class="pill on" data-v="" aria-pressed="true">Všechny paměti</button>'
-                 + "".join(f'<button type="button" class="pill" data-v="{g}" aria-pressed="false">{P.gb_label(g)}</button>' for g in gbs)
-                 + '<span class="cf-n" data-cf-n aria-live="polite"></span></div>')
+    cfg, olow = zan_cfg(ctx, m, of)
+    low_href = f'?barva={olow["col"]}&amp;pamet={olow["gb"]}&amp;kvalita={zan_typ(olow)}'
+    lead = (f'{"Rozbalené a zánovní" if nr else "Zánovní"} kusy bez stop používání od <a href="{low_href}" data-low><strong>{kc(lo)}</strong></a>. '
+            "Vyberte barvu, paměť a stav, ukážeme nejlevnější obchod se zárukou.")
     facts = []
-    facts.append(f'Zánovní {E(m["name"])} je dnes v {plural(len(gbs), "paměti", "pamětech", "pamětech")} {", ".join(P.gb_label(g) for g in gbs)} a {plural(len(cols), "barvě", "barvách", "barvách")} {E(", ".join(c.lower() for c in cols))}.')
+    facts.append(f'Zánovní {E(m["name"])} je dnes v {plural(len(gbs), "paměti", "pamětech", "pamětech")} {", ".join(P.gb_label(g) for g in gbs)} a {plural(len(cols), "barvě", "barvách", "barvách")} {E(", ".join(c.lower() for c in cols))}'
+                 + (f', cena od {kc(lo)} do {kc(hi)}.' if hi > lo else "."))
     if nw_low:
         facts.append(f'Nový {E(m["name"])} stojí v obchodech v našem srovnání od {kc(nw_low)}.')
     if rep_a and rep_a < lo:
@@ -1645,19 +1644,28 @@ def page_zanovni_model(out, ctx, slug):
            (f"Vyplatí se zánovní, nebo nový {m['name']}?",
             (f"Nový stojí od {kc(nw_low)}, zánovní od {kc(lo)}. " if nw_low else "") + "Zánovní kus vypadá jako nový a má záruku od obchodu, rozdíl je hlavně v ceně a v délce záruky."),
            (f"Jakou záruku má zánovní {m['name']}?", "Podle nabídky: " + ", ".join(w.lower() for w in wars) + ". U každé nabídky ji uvádíme.")]
-    body = f"""<div class="wrap"><header class="mhead zhero zhead"><div class="zh-in">{pic(ctx, slug, of[0]["col"], 96, alt=m["name"], eager=True)}<div><p class="eyebrow">Ceny z {date_cz(TODAY)} · {nab(len(of))}</p>
-<h1>Zánovní {E(m["name"])}</h1></div></div><p class="lead">{lead}</p>{zan_trust(of)}</header>
-<section class="sec"><h2 class="sr">Nabídky</h2>{gfilt}<ul class="zrows zall" data-cgrid data-word="nab">{"".join(zan_row(ctx, o, "zanm") for o in of)}</ul></section>
+    others = "".join(f'<li><a href="{zan_path(s)}">{E(MODEL[s]["name"])}</a></li>' for s in sorted(ctx["zan_all"], key=lambda s: -MODEL[s]["year"]) if s != slug)
+    body = f"""<div class="wrap">
+<header class="mhead"><p class="eyebrow">Ceny z {date_cz(TODAY)} · {nab(len(of))}</p>
+<h1>Zánovní {E(m["name"])}</h1><p class="lead">{lead}</p></header>
+{configurator_html(ctx, m, cfg)}
+<div class="sec">{zan_trust(of)}</div>
+<section class="sec"><h2>Ceník podle paměti</h2><p class="muted">Nejnižší cena zánovního a rozbaleného kusu v každé paměti (všechny barvy, se slevovými kódy). Sloupec „Nový“ je nejlevnější nový kus.</p>{zan_price_table(ctx, slug, of)}</section>
 <section class="sec prose catseo"><h2>Zánovní {E(m["name"])} dnes</h2><p>{" ".join(facts)}</p>
 <p>Co znamená zánovní a rozbalený a proč tu nejsou kusy „Premium“, vysvětlujeme v přehledu <a href="/zanovni-iphone/">zánovní iPhony</a>.</p></section>
 <section class="sec"><h2>Časté otázky</h2>{faq_html(faq)}</section>
-<section class="sec"><h2>Další zánovní iPhony</h2><ul class="chips">{"".join(f'<li><a href="{zan_path(s)}">{E(MODEL[s]["name"])}</a></li>' for s in sorted(ctx["zan_all"], key=lambda s: -MODEL[s]["year"]) if s != slug)}</ul></section></div>"""
-    img = photo(ctx, slug, of[0]["col"], 600)
-    ld = [product_ld(f'{m["name"]} zánovní', path, of, SITE + img if img else ""), faq_ld(faq)]
+{f'<section class="sec"><h2>Další zánovní iPhony</h2><ul class="chips">{others}</ul></section>' if others else ''}
+</div>
+<div class="buybar" data-buybar hidden><div class="wrap buybar-in"><span class="bb-t" data-bb-t></span><a class="btn" data-bb-a data-sp="bar" href="{path}" rel="sponsored nofollow noopener" target="_blank">Koupit</a></div></div>"""
+    ph600 = cfg["cols"][next(i for i, c in enumerate(cfg["cols"]) if c[0] == cfg["def"][0])][3]
+    preload = f'<link rel="preload" as="image" href="{ph600}" fetchpriority="high">' if ph600 else ""
+    abs_img = SITE + ph600 if ph600 else ""
+    ld = [product_ld(f'{m["name"]} zánovní', path, of, abs_img), faq_ld(faq)]
+    idx = slug in ctx["zan_sub"]
     out.page(path, layout(ctx, path=path, title=short_title(f'{m["name"]} zánovní a rozbalený od {kc_plain(lo)} – ceny dnes'),
-                          desc=(f'Zánovní a rozbalený {m["name"]} od {kc_plain(lo)}: {nab(len(of))} se zárukou. Baterie a záruka u každé nabídky, ceny dnes po slevovém kódu.').replace(" ", " "),
-                          body=body, ld=ld, active="/zanovni-iphone/", index=slug in ctx["zan_sub"],
-                          crumbs=[("/", "Repasované iPhony"), ("/zanovni-iphone/", "Zánovní iPhony"), (path, m["name"])]), index=slug in ctx["zan_sub"])
+                          desc=(f'Zánovní a rozbalený {m["name"]} od {kc_plain(lo)}: vyberte barvu, paměť a stav, ukážeme nejlevnější obchod. Záruka a baterie u každé nabídky.').replace(" ", " "),
+                          body=body, ld=ld, active="/zanovni-iphone/", index=idx, og_img=abs_img, cfg=cfg, preload=preload,
+                          crumbs=[("/", "Repasované iPhony"), ("/zanovni-iphone/", "Zánovní iPhony"), (path, m["name"])]), index=idx)
 
 
 def seo_bazar(ctx, rows):

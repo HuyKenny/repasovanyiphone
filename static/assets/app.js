@@ -149,7 +149,7 @@
   var root = document.querySelector("[data-cfg]");
   if (!el || !root) return;
   var C = JSON.parse(el.textContent);
-  var ORDER = ["novy", "aplus", "a", "b", "c"];
+  var ORDER = C.order || ["novy", "aplus", "a", "b", "c"];
   var rows = C.o;
   var q = function (s) { return root.querySelector(s); };
   var kc = function (v) { return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Kč"; };
@@ -259,7 +259,7 @@
     var lower = ORDER.slice(ORDER.indexOf(S.g) + 1);
     for (var i = 0; i < lower.length; i++) {
       var lg = where(S.c, S.gi, lower[i])[0];
-      if (lg && lg[8] < best[8] - 200) { tips.push('<button type="button" class="tip" data-set-g="' + lower[i] + '">v kvalitě ' + C.grades[lower[i]][0] + " za " + kc(lg[8]) + "</button>"); break; }
+      if (lg && lg[8] < best[8] - 200) { tips.push('<button type="button" class="tip" data-set-g="' + lower[i] + '">' + (C.glab || "v kvalitě") + " " + C.grades[lower[i]][0] + " za " + kc(lg[8]) + "</button>"); break; }
     }
     if (tips.length) html += '<div class="tips"><span class="hand">Levněji:</span>' + tips.join("") + "</div>";
     return html;
@@ -295,7 +295,7 @@
     var best = where(S.c, S.gi, S.g)[0], bb = document.querySelector("[data-buybar]");
     if (bb && best) {
       var cp = code(best);
-      bb.querySelector("[data-bb-t]").innerHTML = "<b>" + kc(best[8]) + "</b> " + esc(C.name) + " " + gbl(C.gbs[S.gi]) + ", " + (S.g === "novy" ? "nový" : "stav " + C.grades[S.g][0]) + (cp ? ", s kódem" : "");
+      bb.querySelector("[data-bb-t]").innerHTML = "<b>" + kc(best[8]) + "</b> " + esc(C.name) + " " + gbl(C.gbs[S.gi]) + ", " + (S.g === "novy" ? "nový" : C.order ? C.grades[S.g][0].toLowerCase() : "stav " + C.grades[S.g][0]) + (cp ? ", s kódem" : "");
       var a = bb.querySelector("[data-bb-a]");
       a.href = go(best);
       a.textContent = "Koupit u " + C.shops[best[4]][0];
