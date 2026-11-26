@@ -988,7 +988,7 @@ def model_cats(ctx, m, offers):
         out.append(("/iphone-do-10000-kc/", "iPhone do 10 000 Kč"))
     elif low <= 15000:
         out.append(("/iphone-do-15000-kc/", "iPhone do 15 000 Kč"))
-    if m["slug"] in ctx["zan_sub"]:
+    if m["slug"] in ctx["zan_all"]:
         zl = min(o["pc"] for o in ctx["zan"] if o["model"] == m["slug"])
         out.append((zan_path(m["slug"]), f'Zánovní {m["name"]} od {kc(zl)}'))
     elif any(zan_typ(o) for o in offers):
@@ -1524,19 +1524,15 @@ def zan_trust(offs):
     return '<ul class="ztrust">' + "".join(f"<li>{E(x)}</li>" for x in items) + "</ul>"
 
 
-def zan_card(ctx, o, reason, sp="zan"):
-    m = MODEL[o["model"]]
-    cn = color_name(o["model"], o["col"])
-    nw = ctx["new_min"].get((o["model"], o["gb"]))
-    save = f'<span class="cc-save">o {kc(nw - o["pc"])} levněji než nový</span>' if nw and nw > o["pc"] else ""
-    was = f'<s>{kc(o["p"])}</s>' if o["pc"] < o["p"] else ""
-    alt = m["name"] + " v barvě " + cn
-    sub = zan_path(o["model"]) if o["model"] in ctx["zan_sub"] else f'/{o["model"]}/?barva={o["col"]}&pamet={o["gb"]}&kvalita=aplus'
-    return (f'<li class="ccard zcard"><p class="cc-why">{E(reason)}</p><a class="cc-link" href="{E(sub)}">{pic(ctx, o["model"], o["col"], 160, alt=alt)}'
-            f'<span class="cc-n">{E(m["name"])}</span><span class="cc-sub">{P.gb_label(o["gb"])} · {E(cn)} · {"rozbalený" if zan_typ(o) == "r" else "zánovní"}</span>'
-            f'<span class="cc-p">{kc(o["pc"])}{was}</span>{save}'
-            f'<span class="o-f">{E(offer_facts(o)[7])}</span></a>'
-            f'<div class="cc-foot">{shop_logo(o["shop"], 18)}{zan_chip(o, sp)}</div><div class="zc-buy">{zan_buy(o, sp)}</div></li>')
+def zan_model_card(ctx, s, of):
+    """Model card like on the homepage, but price, count and colour dots from the zánovní offers only; opens the zánovní sub-page."""
+    m = MODEL[s]
+    seen = {o["col"] for o in of}
+    cols = [c for c in P.COLORS.get(s, []) if c["key"] in seen]
+    dots = "".join(f'<span class="dot xs" style="--h:{c["hex"]}" title="{E(c["name"])}"></span>' for c in cols)
+    return (f'<li><a class="mcard" href="{zan_path(s)}">{pic(ctx, s, of[0]["col"], 120, alt="Zánovní " + m["name"])}<span class="mc-n">{E(m["name"])}</span>'
+            f'<span class="mc-dots">{dots}</span><span class="mc-p">od <b>{kc(of[0]["pc"])}</b></span>'
+            f'<span class="mc-c">{nab(len(of))}{"" if ios_ok(m) else " · starší iOS"}</span></a></li>')
 
 
 def zan_by_model(ctx):
@@ -1559,48 +1555,15 @@ def page_zanovni(out, ctx):
     path = "/zanovni-iphone/"
     pa, pr = zan_texts(ctx)
     low = min(o["pc"] for o in zan)
-    models = sorted(by, key=lambda s: (not ios_ok(MODEL[s]), -MODEL[s]["year"], by[s][0]["pc"]))
-    # tips: cheapest with current iOS, cheapest of the newest generation, cheapest Pro of the last 3 years
-    ok = [o for o in zan if ios_ok(MODEL[o["model"]])]
-    tips, used = [], set()
-
-    def add(cands, why):
-        c = [o for o in cands if o["model"] not in used]
-        if c:
-            o = min(c, key=lambda o: o["pc"])
-            used.add(o["model"])
-            tips.append((o, why))
-    add(ok, "Nejlevnější zánovní s aktuálním iOS")
-    ny = max(MODEL[o["model"]]["year"] for o in zan)
-    add([o for o in zan if MODEL[o["model"]]["year"] == ny], f"Nejnovější řada ({ny}) jako nová")
-    add([o for o in ok if "Pro" in MODEL[o["model"]]["name"] and MODEL[o["model"]]["year"] >= TODAY.year - 3], "Řada Pro za nejméně")
-    tip_html = "".join(zan_card(ctx, o, r) for o, r in tips)
-    # quick picks by family (link to the model sub-landings)
-    chips = []
-    for s in sorted(ctx["zan_sub"], key=lambda s: (-MODEL[s]["year"], by[s][0]["pc"]))[:9]:
-        chips.append(f'<li><a href="{zan_path(s)}">{E(MODEL[s]["name"])} <span>od {kc(by[s][0]["pc"])}</span></a></li>')
-    blocks = []
-    for s in models:
-        m, of = MODEL[s], by[s]
-        show = of[:3]
-        rb = next((o for o in of if zan_typ(o) == "r"), None)
-        if rb and rb not in show:
-            show.append(rb)
-        nw = [ctx["new_min"][(o["model"], o["gb"])] - o["pc"] for o in of if ctx["new_min"].get((o["model"], o["gb"]), 0) > o["pc"]]
-        more = zan_path(s) if s in ctx["zan_sub"] else f"/{s}/?kvalita=aplus"
-        typs = " ".join(sorted({zan_typ(o) for o in of}))
-        blocks.append(f'<li class="zmodel" data-fam="{fam_key(m)}" data-typ="{typs}"><div class="zm-h">'
-                      f'<h3><a href="{more}">{E(m["name"])}</a></h3><p class="muted">od <b>{kc(of[0]["pc"])}</b> · {nab(len(of))}'
-                      + (f' · až o {kc(max(nw))} levněji než nový' if nw else "") + ("" if ios_ok(m) else " · bez aktuálního iOS") + '</p></div>'
-                      f'<ul class="zrows">{"".join(zan_row(ctx, o, "zan") for o in show)}</ul>'
-                      + (f'<a class="zm-more" href="{more}">Všech {nab(len(of))} na zánovní {E(m["name"])} →</a>' if len(of) > len(show) else "")
-                      + "</li>")
-    filt = (cat_filters("fam")
-            + '<div class="cfilter" data-cfilter="typ" role="group" aria-label="Typ"><button type="button" class="pill on" data-v="" aria-pressed="true">Zánovní i rozbalené</button>'
-              '<button type="button" class="pill" data-v="z" aria-pressed="false">Zánovní</button><button type="button" class="pill" data-v="r" aria-pressed="false">Rozbalené</button></div>')
+    models = sorted(by, key=lambda s: (-MODEL[s]["year"], by[s][0]["pc"]))
+    fams = []
+    for fk, fname in FAMILIES:
+        ms = [m for m in MODELS if m["family"] == fk and m["slug"] in by]
+        if ms:
+            fams.append(f'<div class="fam"><h3>{E(fname)}</h3><ul class="mgrid">{"".join(zan_model_card(ctx, m["slug"], by[m["slug"]]) for m in ms)}</ul></div>')
     cheapest = min(zan, key=lambda o: o["pc"])
-    lead = (f'{nab(len(zan)).capitalize()} telefonů bez stop používání ({len(by)} {plural(len(by), "model", "modely", "modelů")}) od <strong>{kc(low)}</strong>. '
-            f'Jen kusy, které obchod sám označuje jako zánovní nebo rozbalené. Proti novému ušetříte typicky <strong>{pa}&nbsp;%</strong>, nakoupíte rovnou z přehledu.')
+    lead = (f'Rozbalené a jako nové iPhony se zárukou od <strong>{kc(low)}</strong>, proti novému typicky o {pa}&nbsp;% levněji. '
+            'Vyberte model a uvidíte všechny jeho zánovní kusy.')
     sec = f"""<h2>Co je zánovní a rozbalený iPhone</h2>
 <p><strong>Rozbalený</strong> iPhone někdo koupil a v zákonné lhůtě 14 dnů vrátil, takže je prakticky nový. <strong>Zánovní</strong> telefon byl používaný jen krátce
 a nemá viditelné stopy. Na stránce jsou jen nabídky, které obchod takto sám označuje.</p>
@@ -1627,16 +1590,13 @@ každého modelu je najdete spolu se zánovními ve stavu <strong>A+</strong>. S
            ("Kolik ušetřím za zánovní iPhone?", f"Proti nejlevnějšímu novému kusu se stejnou pamětí typicky {pa} %. Nejlevnější zánovní iPhone dnes stojí {kc(cheapest['pc'])} ({E(MODEL[cheapest['model']]['name'])})."),
            ("Proč tu nejsou iPhony ve stavu Premium?", "Premium je nejvyšší třída repasovaných telefonů, ne krátce používaný kus. Najdete je u každého modelu ve stavu A+.")]
     body = f"""<div class="wrap"><header class="mhead zhero"><p class="eyebrow">Ceny z {date_cz(TODAY)} · aktualizace každou noc</p>
-<h1>Zánovní iPhone: rozbalené a jako nové kusy se zárukou</h1><p class="lead">{lead}</p>{zan_trust(zan)}
-{f'<ul class="pk-chips zpick">{"".join(chips)}<li><a href="#nabidky" class="zall-l">Všechny modely ↓</a></li></ul>' if chips else ''}</header>
-<section class="sec ctips"><h2 class="sr">Naše tipy</h2><ul class="cgrid tipgrid">{tip_html}</ul></section>
-<section class="sec" id="nabidky"><h2>Zánovní iPhony podle modelu</h2><p class="muted">Až tři nejlevnější kusy u každého modelu, s kódem už v ceně. Kliknutím na „Koupit“ přejdete do obchodu.</p>
-<div class="zfilt">{filt}</div><ul class="zmodels" data-cgrid>{"".join(blocks)}</ul></section>
+<h1>Zánovní iPhone</h1><p class="lead">{lead}</p>{zan_trust(zan)}</header>
+<section class="sec" id="modely"><h2>Vyberte model</h2>{"".join(fams)}</section>
 <section class="sec prose catseo">{sec}</section>
 <section class="sec"><h2>Časté otázky</h2>{faq_html(faq)}</section></div>"""
     items = []
     for i, s in enumerate(models[:30]):
-        pl = product_ld(f'{MODEL[s]["name"]} zánovní', zan_path(s) if s in ctx["zan_sub"] else f"/{s}/", by[s])
+        pl = product_ld(f'{MODEL[s]["name"]} zánovní', zan_path(s), by[s])
         pl.pop("@context", None)
         items.append({"@type": "ListItem", "position": i + 1, "item": pl})
     ld = [{"@context": "https://schema.org", "@type": "ItemList", "name": "Zánovní a rozbalené iPhony", "itemListElement": items}, faq_ld(faq)]
@@ -1658,10 +1618,8 @@ def page_zanovni_model(out, ctx, slug):
     nr = sum(1 for o in of if zan_typ(o) == "r")
     sv = [(ctx["new_min"][(o["model"], o["gb"])] - o["pc"], o) for o in of if ctx["new_min"].get((o["model"], o["gb"]), 0) > o["pc"]]
     best_sv = max(sv, key=lambda x: x[0]) if sv else None
-    lead = (f'{nab(len(of)).capitalize()} zánovních{" a rozbalených" if nr else ""} {E(m["name"])} od <strong>{kc(lo)}</strong>'
-            + (f' do {kc(hi)}' if hi > lo else "") + "."
-            + (f' Proti novému kusu se stejnou pamětí ušetříte až <strong>{kc(best_sv[0])}</strong>.' if best_sv else "")
-            + " Jen kusy, které obchod označuje jako zánovní nebo rozbalené.")
+    lead = (f'{"Zánovní a rozbalené" if nr else "Zánovní"} kusy od <strong>{kc(lo)}</strong>' + (f' do {kc(hi)}' if hi > lo else "")
+            + (f', proti novému ušetříte až <strong>{kc(best_sv[0])}</strong>.' if best_sv else ".") + " Kód je už v ceně, nakoupíte přímo v obchodě.")
     gfilt = ""
     if len(gbs) > 1:
         gfilt = ('<div class="cfilter" data-cfilter="gb" role="group" aria-label="Paměť"><button type="button" class="pill on" data-v="" aria-pressed="true">Všechny paměti</button>'
@@ -1687,19 +1645,19 @@ def page_zanovni_model(out, ctx, slug):
            (f"Vyplatí se zánovní, nebo nový {m['name']}?",
             (f"Nový stojí od {kc(nw_low)}, zánovní od {kc(lo)}. " if nw_low else "") + "Zánovní kus vypadá jako nový a má záruku od obchodu, rozdíl je hlavně v ceně a v délce záruky."),
            (f"Jakou záruku má zánovní {m['name']}?", "Podle nabídky: " + ", ".join(w.lower() for w in wars) + ". U každé nabídky ji uvádíme.")]
-    body = f"""<div class="wrap"><header class="mhead zhero"><p class="eyebrow">Ceny z {date_cz(TODAY)} · {nab(len(of))}</p>
-<h1>Zánovní a rozbalený {E(m["name"])}</h1><p class="lead">{lead}</p>{zan_trust(of)}</header>
+    body = f"""<div class="wrap"><header class="mhead zhero zhead"><div class="zh-in">{pic(ctx, slug, of[0]["col"], 96, alt=m["name"], eager=True)}<div><p class="eyebrow">Ceny z {date_cz(TODAY)} · {nab(len(of))}</p>
+<h1>Zánovní {E(m["name"])}</h1></div></div><p class="lead">{lead}</p>{zan_trust(of)}</header>
 <section class="sec"><h2 class="sr">Nabídky</h2>{gfilt}<ul class="zrows zall" data-cgrid data-word="nab">{"".join(zan_row(ctx, o, "zanm") for o in of)}</ul></section>
 <section class="sec prose catseo"><h2>Zánovní {E(m["name"])} dnes</h2><p>{" ".join(facts)}</p>
 <p>Co znamená zánovní a rozbalený a proč tu nejsou kusy „Premium“, vysvětlujeme v přehledu <a href="/zanovni-iphone/">zánovní iPhony</a>.</p></section>
 <section class="sec"><h2>Časté otázky</h2>{faq_html(faq)}</section>
-<section class="sec"><h2>Další zánovní iPhony</h2><ul class="chips">{"".join(f'<li><a href="{zan_path(s)}">{E(MODEL[s]["name"])}</a></li>' for s in sorted(ctx["zan_sub"], key=lambda s: -MODEL[s]["year"]) if s != slug)}</ul></section></div>"""
+<section class="sec"><h2>Další zánovní iPhony</h2><ul class="chips">{"".join(f'<li><a href="{zan_path(s)}">{E(MODEL[s]["name"])}</a></li>' for s in sorted(ctx["zan_all"], key=lambda s: -MODEL[s]["year"]) if s != slug)}</ul></section></div>"""
     img = photo(ctx, slug, of[0]["col"], 600)
     ld = [product_ld(f'{m["name"]} zánovní', path, of, SITE + img if img else ""), faq_ld(faq)]
     out.page(path, layout(ctx, path=path, title=short_title(f'{m["name"]} zánovní a rozbalený od {kc_plain(lo)} – ceny dnes'),
                           desc=(f'Zánovní a rozbalený {m["name"]} od {kc_plain(lo)}: {nab(len(of))} se zárukou. Baterie a záruka u každé nabídky, ceny dnes po slevovém kódu.').replace(" ", " "),
-                          body=body, ld=ld, active="/zanovni-iphone/",
-                          crumbs=[("/", "Repasované iPhony"), ("/zanovni-iphone/", "Zánovní iPhony"), (path, m["name"])]))
+                          body=body, ld=ld, active="/zanovni-iphone/", index=slug in ctx["zan_sub"],
+                          crumbs=[("/", "Repasované iPhony"), ("/zanovni-iphone/", "Zánovní iPhony"), (path, m["name"])]), index=slug in ctx["zan_sub"])
 
 
 def seo_bazar(ctx, rows):
@@ -2662,7 +2620,8 @@ def main():
            "photos": have, "col_rank": col_rank, "deals": deals, "cats": CATS, "coupons": coupons}
     ctx["zan"] = [o for o in offers if zan_typ(o)]
     zc = Counter(o["model"] for o in ctx["zan"])
-    ctx["zan_sub"] = {s for s, n in zc.items() if n >= ZAN_SUB_MIN} if len(ctx["zan"]) >= 20 else set()
+    ctx["zan_all"] = set(zc) if len(ctx["zan"]) >= 20 else set()
+    ctx["zan_sub"] = {s for s in ctx["zan_all"] if zc[s] >= ZAN_SUB_MIN}
     ctx["css"] = minify_css((APP / "static/assets/site.css").read_text())
     ctx["js"] = (APP / "static/assets/app.js").read_text().replace("</script", "<\\/script")
     out = Out(DIST)
@@ -2680,7 +2639,7 @@ def main():
     page_cats(out, ctx)
     if ctx["zan"]:
         page_zanovni(out, ctx)
-        for s in sorted(ctx["zan_sub"]):
+        for s in sorted(ctx["zan_all"]):
             page_zanovni_model(out, ctx, s)
     page_compare(out, ctx)
     page_vs(out, ctx)
