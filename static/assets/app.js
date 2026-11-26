@@ -201,6 +201,16 @@
     return '<ul class="ofacts">' + li + "</ul>";
   }
 
+  function repup(best) {
+    /* zánovní configurator only: the same phone as an ordinary refurb (A, else B/C), if it is clearly cheaper */
+    var r = C.rep && C.rep[S.c + "," + S.gi];
+    if (!r || r[3] > best[8] - 300) return "";
+    var gb = C.gbs[S.gi];
+    var u = "/" + C.m + "/?barva=" + r[0] + "&amp;pamet=" + gb + "&amp;kvalita=" + r[2];
+    return '<a class="repup" href="' + u + '"><span><b>Chcete ušetřit víc?</b> Repasovaný ' + esc(C.name) + " " + gbl(gb) + ", " +
+      esc(r[1].toLowerCase()) + " ve stavu " + esc(C.rgr[r[2]]) + " od <b>" + kc(r[3]) + "</b> · o " + kc(best[8] - r[3]) + ' méně</span><span class="repup-a" aria-hidden="true">→</span></a>';
+  }
+
   function result() {
     var res = where(S.c, S.gi, S.g);
     if (!res.length) return '<p class="empty">Tahle kombinace teď není skladem. Zkuste jinou barvu nebo kvalitu.</p>';
@@ -233,7 +243,7 @@
       (cp ? "Koupit s kódem u " : "Koupit u ") + esc(C.shops[best[4]][0]) + "</a>" +
       '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p>" +
       (best[8] >= 10000 ? '<a class="loanrow" href="/iphone-na-splatky/?z=' + C.m + '" data-loan="card"><img class="hc-logo" src="/img/partners/homecredit.svg" alt="Home Credit" width="40" height="17" loading="lazy" decoding="async">' +
-        "<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>" : "") + "</div>" + proven;
+        "<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>" : "") + "</div>" + repup(best) + proven;
     var ICON = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>' +
       '<path d="M5 15V6a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     var chip = function (r) {

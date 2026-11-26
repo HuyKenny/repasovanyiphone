@@ -589,3 +589,11 @@ body:has(.consent:not([hidden])) .buybar{display:none}
 .gl.g-r{background:#3340A8}
 .gl.g-z{background:var(--green)}
 .gcards.two .gl{padding:0 .8em}
+/* zánovní → "want to save more?" link to the ordinary refurb of the same phone */
+.repup{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;margin:12px 0 0;padding:12px 14px;border:1px solid var(--line);
+  border-radius:var(--r-s);background:var(--soft);color:var(--ink);text-decoration:none;font-size:.9rem;line-height:1.4}
+.repup:hover{border-color:#bdbdb6;color:var(--ink)}
+.repup b{font-weight:700}
+.repup-a{font-size:1.2rem;flex:0 0 auto}
+.repband{display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;margin:8px 0 0;padding:20px 22px;background:var(--soft);border-radius:var(--r)}
+.repband p{margin:0;max-width:62ch}

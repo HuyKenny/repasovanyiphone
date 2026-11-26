@@ -643,7 +643,7 @@ def result_html(cfg, res, gb):
             f'<p class="best-n">{nab(len(res))} v této konfiguraci</p>'
             + (f'<a class="loanrow" href="{LOAN}?z={cfg["m"]}" data-loan="card">{HC_LOGO.format(w=40, h=17)}<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>'
                if best[8] >= LOAN_MIN else "")
-            + '</div>' + proven + hint
+            + '</div>' + repup_html(cfg, best, best[0], best[1]) + proven + hint
             + (f'<div class="alts"><h3>Další obchody</h3><ul>{olist}</ul></div>' if olist else ""))
 
 
@@ -1564,6 +1564,8 @@ každého modelu je najdete spolu se zánovními ve stavu <strong>A+</strong>. S
     body = f"""<div class="wrap"><header class="mhead zhero"><p class="eyebrow">Ceny z {date_cz(TODAY)} · aktualizace každou noc</p>
 <h1>Zánovní iPhone</h1><p class="lead">{lead}</p>{zan_trust(zan)}</header>
 <section class="sec" id="modely"><h2>Vyberte model</h2>{"".join(fams)}</section>
+<aside class="repband"><p><b>Chcete ušetřit ještě víc?</b> Repasované iPhony ve stavu A mají jen drobné stopy viditelné zblízka a proti novým stojí typicky o {pr}&nbsp;% méně.</p>
+<a class="btn ghost" href="/#modely">Vybrat repasovaný iPhone</a></aside>
 <section class="sec prose catseo">{sec}</section>
 <section class="sec"><h2>Časté otázky</h2>{faq_html(faq)}</section></div>"""
     items = []
@@ -1589,7 +1591,35 @@ def zan_cfg(ctx, m, of):
                 "step3": ("Stav", "/zanovni-iphone/#co-je", "rozbalený, nebo zánovní?")})
     lo = min(of, key=lambda o: (o["pc"], o["p"]))
     cfg["low"] = [lo["col"], lo["gb"], zan_typ(lo), lo["pc"]]
+    cfg["rep"] = zan_repas(ctx, m, cfg)
+    cfg["rgr"] = {g: GR[g]["short"] for g in ("a", "b", "c")}
     return cfg, lo
+
+
+def zan_repas(ctx, m, cfg):
+    """"Want to save more?": for every colour × storage of the zánovní configurator the cheapest ordinary refurb (A first, else B/C; never A+,
+    which holds the Premium refurbs). Same colour if there is one, else any colour in that storage. {"ci,gi": [colour key, colour name, grade, price]}"""
+    rf = [o for o in ctx["by_model"].get(m["slug"], []) if o["g"] in ("a", "b", "c")]
+    pick = lambda c: min(c, key=lambda o: (o["g"] != "a", o["pc"])) if c else None   # noqa: E731
+    out = {}
+    for gi, gb in enumerate(cfg["gbs"]):
+        same_gb = [o for o in rf if o["gb"] == gb]
+        for ci, c in enumerate(cfg["cols"]):
+            o = pick([o for o in same_gb if o["col"] == c[0]]) or pick(same_gb)
+            if o:
+                out[f"{ci},{gi}"] = [o["col"], color_name(m["slug"], o["col"]), o["g"], o["pc"]]
+    return out
+
+
+def repup_html(cfg, best, ci, gi):
+    """Same markup as repup() in app.js."""
+    r = (cfg.get("rep") or {}).get(f"{ci},{gi}")
+    if not r or r[3] > best[8] - 300:
+        return ""
+    gb = cfg["gbs"][gi]
+    return (f'<a class="repup" href="/{cfg["m"]}/?barva={r[0]}&amp;pamet={gb}&amp;kvalita={r[2]}"><span><b>Chcete ušetřit víc?</b> '
+            f'Repasovaný {E(cfg["name"])} {P.gb_label(gb)}, {E(r[1].lower())} ve stavu {GR[r[2]]["short"]} od <b>{kc(r[3])}</b>'
+            f' · o {kc(best[8] - r[3])} méně</span><span class="repup-a" aria-hidden="true">→</span></a>')
 
 
 def zan_price_table(ctx, slug, of):
@@ -1604,9 +1634,14 @@ def zan_price_table(ctx, slug, of):
             ps = [o["pc"] for o in here if zan_typ(o) == t]
             cells.append(f'<td class="num{" low" if ps and min(ps) == low else ""}">{kc(min(ps))}</td>' if ps else '<td class="na">–</td>')
         nw = ctx["new_min"].get((slug, gb))
-        rows.append(f'<tr><th scope="row">{P.gb_label(gb)}</th>{"".join(cells)}<td class="num newp">{kc(nw) if nw else "–"}</td></tr>')
+        rp = [o for o in ctx["by_model"].get(slug, []) if o["gb"] == gb and o["g"] in ("a", "b", "c")]
+        r = min(rp, key=lambda o: o["pc"]) if rp else None
+        rc = (f'<td class="num"><a href="/{slug}/?pamet={gb}&amp;kvalita={r["g"]}">{kc(r["pc"])}</a> <span class="muted">({GR[r["g"]]["short"]})</span></td>'
+              if r else '<td class="na">–</td>')
+        rows.append(f'<tr><th scope="row">{P.gb_label(gb)}</th>{"".join(cells)}{rc}<td class="num newp">{kc(nw) if nw else "–"}</td></tr>')
     head = "".join(f"<th>{ZAN_GRADES[t][0]}</th>" for t in ts)
-    return f'<div class="tscroll"><table class="ptable"><thead><tr><th>Paměť</th>{head}<th>Nový</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
+    return (f'<div class="tscroll"><table class="ptable"><thead><tr><th>Paměť</th>{head}<th>Repasovaný</th><th>Nový</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div>')
 
 
 def page_zanovni_model(out, ctx, slug):
@@ -1650,7 +1685,7 @@ def page_zanovni_model(out, ctx, slug):
 <h1>Zánovní {E(m["name"])}</h1><p class="lead">{lead}</p></header>
 {configurator_html(ctx, m, cfg)}
 <div class="sec">{zan_trust(of)}</div>
-<section class="sec"><h2>Ceník podle paměti</h2><p class="muted">Nejnižší cena zánovního a rozbaleného kusu v každé paměti (všechny barvy, se slevovými kódy). Sloupec „Nový“ je nejlevnější nový kus.</p>{zan_price_table(ctx, slug, of)}</section>
+<section class="sec"><h2>Ceník podle paměti</h2><p class="muted">Nejnižší cena v každé paměti (všechny barvy, se slevovými kódy). „Repasovaný“ je nejlevnější kus ve stavu A, B nebo C, pokud chcete ušetřit víc, „Nový“ nejlevnější nový.</p>{zan_price_table(ctx, slug, of)}</section>
 <section class="sec two"><div class="prose"><h2>Zánovní {E(m["name"])} dnes</h2><p>{" ".join(facts)}</p>
 <p>Co znamená zánovní a rozbalený a proč tu nejsou kusy „Premium“, vysvětlujeme v přehledu <a href="/zanovni-iphone/">zánovní iPhony</a>.</p></div>
 <aside><div class="card"><h2>Technický list</h2>{specs_html(m)}</div>{tariff_box(m)}</aside></section>
