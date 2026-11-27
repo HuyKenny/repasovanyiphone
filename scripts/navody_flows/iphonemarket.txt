@@ -1,0 +1,70 @@
+# iPhoneMarket (Shoptet): product -> cookies -> variant + Vložit do košíku -> cart (gift, coupon) -> krok-1 -> krok-2 (never submitted)
+goto:https://www.iphonemarket.cz/iphone-14-128gb-red/?variantId=25059
+mark:sel:[data-testid=buttonCookiesAccept]|=Nastavení
+shot:01-cookies
+unmark
+clicksel:[data-testid=buttonCookiesAccept]
+wait:1500
+top:=Varianta
+clean
+mark:Premium 9 490 Kč|Výborný 8 490 Kč|=VLOŽIT DO KOŠÍKU
+shot:02-produkt
+unmark
+click:=VLOŽIT DO KOŠÍKU
+wait:2500
+clean
+shot:03-pridano
+goto:https://www.iphonemarket.cz/kosik/
+top:=Nákupní košík
+clean
+mark:sel:input[name=amount]|sel:[data-testid=buttonDeleteItem]
+shot:04-kosik
+unmark
+fill:#discountCouponCode=SLEVA
+top:=Dárky a slevy
+clean
+mark:Nabíjecí kabel USB|Mám slevový kód|sel:#discountCouponCode|sel:#discountCouponCode ~ button, form:has(#discountCouponCode) button[type=submit]
+shot:05-kupon
+unmark
+center:sel:#continue-order-button
+clean
+mark:sel:#continue-order-button
+shot:06-pokracovat
+unmark
+goto:https://www.iphonemarket.cz/objednavka/krok-1/
+top:=Zvolte způsob dopravy
+clean
+mark:PPL - Expresní doručení|PPL - Výdejní místo|Zásilkovna - Výdejní místo|Zásilkovna - Doručení domů|Vyzvednutí na prodejně
+shot:07-doprava
+unmark
+top:=Zvolte způsob platby
+clean
+mark:sel:#name-billingId-63|sel:#name-billingId-5|sel:#name-billingId-123|sel:#name-billingId-3
+shot:08-platba
+unmark
+click:PPL - Expresní doručení
+click:Kartou / online bankovním převodem
+center:sel:#orderFormButton
+clean
+mark:sel:#orderFormButton
+shot:09-pokracovat
+unmark
+clicksel:#orderFormButton
+wait:2500
+goto:https://www.iphonemarket.cz/objednavka/krok-2/
+wait:2000
+set:#billFullName=Olena Kovalenko
+set:#email=olena@repasovanyiphone.cz
+set:#phone=600 000 000
+set:#billStreet=Vodičkova 1
+set:#billCity=Praha
+set:#billZip=110 00
+top:=Osobní údaje
+clean
+mark:sel:#billFullName|sel:#email|sel:#phone|sel:#billStreet|sel:#billCity|sel:#billZip
+shot:10-udaje
+unmark
+center:sel:#submit-order
+clean
+mark:sel:#submit-order
+shot:11-odeslat

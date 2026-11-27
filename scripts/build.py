@@ -188,11 +188,22 @@ class Out:
         self.lpages = []                       # (lang, prefix, cs path, indexable)
         self.js_keys = []
         self.share = {}                        # "/ua/…" -> share of untranslated words
+        self.native = []                       # (url, indexable, {lang: url}) pages that exist only in a language version
 
     def write(self, rel, text):
         p = self.root / rel
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text, encoding="utf-8")
+
+    def page_native(self, lang, url, text, index, alts):
+        """A page written directly in Ukrainian/Russian: only the Czech chrome (menu, footer) goes through the translation."""
+        tr = next(t for t in self.trs if t.lang == lang)
+        cs_path = url[len(tr.pfx):]
+        lt, li, _ = tr.translate(text, cs_path, SITE, index and not STAGING, self.js_keys)
+        lt = navod_menu(lt, lang)
+        self.write(url.strip("/") + "/index.html", lt)
+        self.native.append((url, li, alts))
+        self.lastmod.setdefault(url, TODAY.isoformat())
 
     def page(self, path, text, index=True):
         rel = path.strip("/") + "/index.html" if path != "/" else "index.html"
@@ -201,7 +212,11 @@ class Out:
         for tr in self.trs:
             lt, li, sh = tr.translate(text, path, SITE, index and not STAGING, self.js_keys)
             note = I18N_NOTE.get(tr.lang, "") if ('id="cfg"' in text or path == "/") else ""
+            m = re.match(r"^/obchody/([a-z0-9-]+)/$", path)
+            if m and m.group(1) in NAVOD_SHOPS:
+                note = navod_box(tr.lang, m.group(1))
             lt = lt.replace("<!--l10n-note-->", note, 1)
+            lt = navod_menu(lt, tr.lang)
             self.write(tr.pfx.strip("/") + "/" + rel, lt)
             self.lpages.append((tr.lang, tr.pfx, path, li))
             self.share[tr.pfx + path] = round(sh, 3)
@@ -284,11 +299,43 @@ LANG_AUTO = ('(function(){var d=document.documentElement;if(d.lang!=="cs")return
 I18N_NOTE = {lang: ((APP / f"content/i18n/note-{lang}.html").read_text() if (APP / f"content/i18n/note-{lang}.html").exists() else "") for lang in i18n.LANGS}
 
 
+# step-by-step buying guides for Ukrainian/Russian readers (written in the language, screenshots of the real checkouts)
+NAVOD_BASE = {"uk": "/ua/yak-kupyty/", "ru": "/ru/kak-kupit/"}
+NAVOD_SHOPS = ["mobilegear", "jabkolevne", "smarty", "iphonemarket", "aukro", "istyle", "allegro"]
+NAVOD_LABEL = {"uk": ("Як купити", "Як купити в {0}? Покроково →", "Покроковий посібник з фото: як купити в {0}"),
+               "ru": ("Как купить", "Как купить в {0}? Пошагово →", "Пошаговая инструкция с фото: как купить в {0}")}
+
+
+def navod_have(lang, shop=None):
+    f = APP / f"content/navody/{lang}/{shop or '_hub'}.json"
+    return f.exists()
+
+
+def navod_menu(html, lang):
+    """Menu item to the guides, only in the language versions."""
+    if not navod_have(lang):
+        return html
+    i = html.find('<nav class="nav"')
+    j = html.find("</a>", i) if i >= 0 else -1
+    if j < 0:
+        return html
+    return html[:j + 4] + f'<a href="{NAVOD_BASE[lang]}">{NAVOD_LABEL[lang][0]}</a>' + html[j + 4:]
+
+
+def navod_box(lang, shop):
+    if not navod_have(lang, shop):
+        return ""
+    name = next((s["name"] for s in SHOPS if s["id"] == shop), shop)
+    return (f'<div class="wrap"><section class="sec l10n-note"><div class="box"><p><a class="btn" href="{NAVOD_BASE[lang]}{shop}/">'
+            f'{E(NAVOD_LABEL[lang][2].format(name))}</a></p></div></section></div>')
+
+
 # Seznam Webmaster ownership tag (public by design, homepage only; Kenny 25. 11. 2026)
 SEZNAM_WMT = '<meta name="seznam-wmt" content="aVqd5hujvnUVu19cMEtJuIQ4shXRjLgr">'
 
 
-def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, active=None, og_img="", cfg=None, preload=""):
+def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, active=None, og_img="", cfg=None, preload="", native=None):
+    """native: {"uk": url, "ru": url} for a page that exists only in the language versions (no Czech original)."""
     canon = SITE + path
     robots = "noindex,follow" if (not index or STAGING) else "index,follow,max-image-preview:large"
     lds = list(ld or [])
@@ -333,6 +380,9 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
     alt = ("".join(f'<link rel="alternate" hreflang="{HREFLANG[h]}" href="{SITE}{p}{path}">' for h, p in LANG_ALT) +
            f'<link rel="alternate" hreflang="x-default" href="{SITE}{path}">') if i18n.ACTIVE else ""
     langs = "".join(f'<a href="{p}{path}" hreflang="{h}" lang="{h}" data-lang="{h}">{n}</a>' for h, p, n in LANG_SW)
+    if native:
+        alt = "".join(f'<link rel="alternate" hreflang="{HREFLANG[h]}" href="{SITE}{u}">' for h, u in native.items())
+        langs = "".join(f'<a href="{native.get(h, "/")}" hreflang="{h}" lang="{h}" data-lang="{h}">{n}</a>' for h, p, n in LANG_SW)
     cfg_tag = f'<script type="application/json" id="cfg">{json.dumps(cfg, ensure_ascii=False, separators=(",", ":"))}</script>' if cfg else ""
     return f"""<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}"><link rel="canonical" href="{canon}"><meta name="robots" content="{robots}">
@@ -2634,6 +2684,59 @@ def redirects(out, current):
     return len(lines)
 
 
+def navod_img(shop, n, alt):
+    from PIL import Image
+    f = APP / f"static/img/navody/{shop}-{n}.webp"
+    if not f.exists():
+        return ""
+    w, h = Image.open(f).size
+    return (f'<figure class="nshot"><img src="/img/navody/{shop}-{n}.webp?v={hashlib.md5(f.read_bytes()).hexdigest()[:6]}" alt="{E(alt)}" '
+            f'width="{w // 2}" height="{h // 2}" loading="lazy" decoding="async"></figure>')
+
+
+def page_navody(out, ctx):
+    """/ua/yak-kupyty/ and /ru/kak-kupit/: hub + one guide per shop, content/navody/<lang>/*.json (written in the language)."""
+    for lang in i18n.ACTIVE:
+        if not navod_have(lang):
+            continue
+        hub = json.loads((APP / f"content/navody/{lang}/_hub.json").read_text())
+        base = NAVOD_BASE[lang]
+        alts = {lg: NAVOD_BASE[lg] for lg in i18n.ACTIVE if navod_have(lg)}
+        shops = [s for s in NAVOD_SHOPS if navod_have(lang, s)]
+        names = {s["id"]: s["name"] for s in SHOPS}
+        cards = "".join(f'<li><a href="{base}{s}/">{shop_logo(s, 26)}<span>{E(hub["card"].format(names.get(s, s)))}</span></a></li>' for s in shops)
+        gl = "".join(f"<tr><td lang=\"cs\">{E(a)}</td><td>{E(b)}</td><td>{E(c)}</td></tr>" for a, b, c in hub["glossary"])
+        tips = "".join(f"<li>{t}</li>" for t in hub["tips"])
+        body = (f'<div class="wrap"><!--native--><article class="navod"><header class="mhead"><p class="eyebrow">{E(hub["eyebrow"])}</p><h1>{E(hub["h1"])}</h1>'
+                f'<p class="lead">{hub["lead"]}</p></header><section class="sec"><h2>{E(hub["h_shops"])}</h2><ul class="ncards">{cards}</ul></section>'
+                f'<section class="sec"><h2 id="slovnyk">{E(hub["h_glossary"])}</h2><p>{hub["glossary_lead"]}</p><div class="tbl"><table class="ngloss"><thead><tr>'
+                + "".join(f"<th>{E(x)}</th>" for x in hub["glossary_head"]) + f'</tr></thead><tbody>{gl}</tbody></table></div></section>'
+                f'<section class="sec"><h2>{E(hub["h_tips"])}</h2><ul class="ntips">{tips}</ul></section></article><!--/native--></div>')
+        url = base
+        html = layout(ctx, path=url[3:], title=hub["title"], desc=hub["desc"], body=body, native=alts, crumbs=None)
+        out.page_native(lang, url, html, True, alts)
+        for s in shops:
+            g = json.loads((APP / f"content/navody/{lang}/{s}.json").read_text())
+            steps = ""
+            for i, st in enumerate(g["steps"], 1):
+                legend = "".join(f"<li>{x}</li>" for x in st.get("items", []))
+                steps += (f'<li class="nstep"><h2><span class="nn">{i}</span>{E(st["h"])}</h2>{st.get("text", "")}'
+                          + (navod_img(s, st["img"], st["h"]) if st.get("img") else "")
+                          + (f'<ol class="nlegend">{legend}</ol>' if legend else "")
+                          + (f'<p class="ntip">{st["tip"]}</p>' if st.get("tip") else "") + "</li>")
+            others = "".join(f'<li><a href="{base}{x}/">{E(names.get(x, x))}</a></li>' for x in shops if x != s)
+            body = (f'<div class="wrap"><!--native--><article class="navod"><header class="mhead"><p class="eyebrow"><a href="{base}">{E(hub["eyebrow"])}</a></p>'
+                    f'<h1>{E(g["h1"])}</h1><p class="lead">{g["lead"]}</p><p class="ndate">{E(g["date"])}</p></header>'
+                    f'<ol class="nsteps">{steps}</ol>'
+                    + (f'<section class="sec"><h2>{E(g["h_after"])}</h2>{g["after"]}</section>' if g.get("after") else "")
+                    + f'<section class="sec"><p><a href="{base}#slovnyk">{E(hub["to_glossary"])}</a></p><h2>{E(hub["h_others"])}</h2><ul class="chips">{others}</ul></section>'
+                    f'</article><!--/native--></div>')
+            url = base + s + "/"
+            alts_s = {lg: NAVOD_BASE[lg] + s + "/" for lg in i18n.ACTIVE if navod_have(lg, s)}
+            html = layout(ctx, path=url[3:], title=g["title"], desc=g["desc"], body=body, native=alts_s)
+            out.page_native(lang, url, html, True, alts_s)
+
+
 def main():
     STATE.mkdir(parents=True, exist_ok=True)
     offers, stats, report = P.load_all(APP / "data/raw", SHOPS)
@@ -2731,6 +2834,7 @@ def main():
     page_loan(out, ctx)
     page_partners(out, ctx)
     page_privacy(out, ctx)
+    page_navody(out, ctx)
     page_404(out, ctx)
     golinks.write_go(out, go_tpl, SHOP)
     out.write("go/vodafone/index.html", golinks.go_page("vodafone", {"p": "", "s": "", "m": "r", "h": "", "d": ["ehub.cz"], "sd": [], "n": "ehub"}, "Vodafone",
@@ -2748,6 +2852,10 @@ def main():
         for h, pf in LANG_ALT:
             if not pf or (pf, p) in lidx:
                 sm.append(f"<url><loc>{SITE}{pf}{p}</loc><lastmod>{lm}</lastmod>{alts}{imgs if not pf else ''}</url>")
+    for u, i, alts in out.native:
+        if i:
+            al = "".join(f'<xhtml:link rel="alternate" hreflang="{HREFLANG[h]}" href="{SITE}{x}"/>' for h, x in alts.items())
+            sm.append(f"<url><loc>{SITE}{u}</loc><lastmod>{out.lastmod.get(u, TODAY.isoformat())}</lastmod>{al}</url>")
     out.write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
                              'xmlns:xhtml="http://www.w3.org/1999/xhtml" '
                              f'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">{"".join(sm)}</urlset>')

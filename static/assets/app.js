@@ -224,6 +224,13 @@ var rpI = (function () {
     return '<ul class="ofacts">' + li + "</ul>";
   }
 
+  function howto(shop) {
+    /* Ukrainian/Russian pages: step-by-step guide with screenshots for buying in this (Czech) shop */
+    if (!rpI.lp || ["mobilegear", "jabkolevne", "smarty", "iphonemarket", "aukro", "istyle", "allegro"].indexOf(shop) < 0) return "";
+    var u = (rpI.lp === "/ua" ? "/ua/yak-kupyty/" : "/ru/kak-kupit/") + shop + "/";
+    return '<a class="howto" href="' + u + '">' + T("Jak nakoupit v {0}? Krok za krokem →", esc(C.shops[shop][0])) + "</a>";
+  }
+
   function repup(best) {
     /* zánovní configurator only: the same phone as an ordinary refurb (A, else B/C), if it is clearly cheaper */
     var r = C.rep && C.rep[S.c + "," + S.gi];
@@ -263,7 +270,7 @@ var rpI = (function () {
         "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · " + T("zadejte v košíku") + "</small></div>" : "") +
       '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '" data-sp="best"' +
       (cp ? ' data-copy="' + esc(cp[0]) + '"' : "") + ">" +
-      (cp ? T("Koupit s kódem u {0}", esc(C.shops[best[4]][0])) : T("Koupit u {0}", esc(C.shops[best[4]][0]))) + "</a>" +
+      (cp ? T("Koupit s kódem u {0}", esc(C.shops[best[4]][0])) : T("Koupit u {0}", esc(C.shops[best[4]][0]))) + "</a>" + howto(best[4]) +
       '<p class="best-n">' + T("{0} v této konfiguraci", nab(res.length)) + "</p>" +
       (best[8] >= 10000 ? '<a class="loanrow" href="' + rpI.lp + "/iphone-na-splatky/?z=" + C.m + '" data-loan="card"><img class="hc-logo" src="/img/partners/homecredit.svg" alt="Home Credit" width="40" height="17" loading="lazy" decoding="async">' +
         "<span>" + T("Chcete platit postupně? <b>iPhone na splátky</b>") + "</span></a>" : "") + "</div>" + repup(best) + proven;

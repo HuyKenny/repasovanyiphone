@@ -1,0 +1,28 @@
+# Aukro public part: cookies -> offer (Kup teď) -> Koupit -> login needed -> registration (logged-in steps: Kenny's Chrome)
+goto:https://aukro.cz/apple-iphone-13-mini-512gb-cerny-7132829363
+wait:1500
+mark:sel:#didomi-notice-agree-button|sel:#didomi-notice-disagree-button
+shot:01-cookies
+unmark
+clicksel:#didomi-notice-agree-button
+wait:1000
+top:=Kup teď
+clean
+mark:=Kup teď|sel:select|=Koupit|=Nabídnout cenu|14 dní na vrácení zboží
+shot:02-produkt
+unmark
+top:=Stav zboží
+clean
+mark:=Stav zboží|Záruka:|ověřeného prodejce
+shot:03-stav
+unmark
+top:=Kup teď
+click:=Koupit
+wait:900
+mark:Tento produkt se dá koupit jen pomocí
+shot:04-prihlasit
+unmark
+goto:https://aukro.cz/registrace
+wait:2500
+mark:=Registrace|sel:input[type=email]|sel:input[type=password]|=Pokračovat
+shot:05-registrace

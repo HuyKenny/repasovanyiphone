@@ -1,0 +1,70 @@
+# JabkoLevně: product -> cookies -> Do košíku -> added popup -> cart + coupon -> krok-1 doprava/platba -> krok-2 údaje (never submitted)
+goto:https://www.jabkolevne.cz/iphone-13-128gb/iphone-13-128gb--stav-a--cervena/
+mark:sel:[data-testid=buttonCookiesAccept]|=Nastavení
+shot:01-cookies
+unmark
+clicksel:[data-testid=buttonCookiesAccept]
+wait:1500
+center:=Do košíku
+clean
+mark:sel:h1|=Do košíku
+shot:02-produkt
+unmark
+click:=Do košíku
+wait:2500
+mark:Přidali jste do košíku|1 KS|=Pokračovat do košíku
+shot:03-pridano
+unmark
+goto:https://www.jabkolevne.cz/kosik/
+top:=Nákupní košík
+clean
+mark:sel:input[name=amount]|sel:[data-testid=buttonDeleteItem]|Tvrzené 3D sklo
+shot:04-kosik
+unmark
+fill:#discountCouponCode=SLEVA
+center:sel:#discountCouponCode
+clean
+mark:sel:#discountCouponCode|sel:#discountCouponCode ~ button, form:has(#discountCouponCode) button[type=submit]|sel:#continue-order-button
+shot:05-kupon
+unmark
+goto:https://www.jabkolevne.cz/objednavka/krok-1/
+top:=Objednávka - platba a doprava
+clean
+mark:sel:#deliveryCountryId|sel:label[for=shippingId-155]|sel:label[for=shippingId-137]|sel:label[for=shippingId-719]|sel:label[for=shippingId-722]|sel:label[for=shippingId-66]
+shot:06-doprava
+unmark
+top:=Zvolte způsob platby
+clean
+mark:sel:#name-billingId-547|sel:#name-billingId-42|sel:#name-billingId-5|sel:#name-billingId-164
+shot:07-platba
+unmark
+clicksel:label[for=shippingId-155]
+clicksel:label#name-billingId-547
+center:sel:#orderFormButton
+clean
+mark:sel:#orderFormButton
+shot:08-pokracovat
+unmark
+clicksel:#orderFormButton
+wait:2500
+goto:https://www.jabkolevne.cz/objednavka/krok-2/
+set:#billFullName=Olena Kovalenko
+set:#email=olena@repasovanyiphone.cz
+set:#phone=600 000 000
+set:#billStreet=Vodičkova 1
+set:#billCity=Praha
+set:#billZip=110 00
+top:=Osobní údaje
+clean
+mark:sel:#billFullName|sel:#email|sel:#phone|sel:#billStreet|sel:#billCity|sel:#billZip
+shot:09-udaje
+unmark
+top:=Doručit na jinou adresu
+clean
+mark:=Doručit na jinou adresu|=Zadat poznámku pro prodejce|=Nepřeji si odebírat newslettery|=Chci se registrovat v e-shopu
+shot:10-volby
+unmark
+center:sel:#submit-order
+clean
+mark:sel:#submit-order
+shot:11-odeslat

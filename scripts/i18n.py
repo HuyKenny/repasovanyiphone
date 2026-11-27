@@ -83,7 +83,9 @@ def load(lang):
 
 
 def needs(text):
-    """Anything worth translating: a word of 2+ letters that is not a model/brand/unit token."""
+    """Anything worth translating: a word of 2+ letters that is not a model/brand/unit token (text already in Cyrillic is not)."""
+    if re.search(r"[а-яёіїєґ]{2}", text, re.I):
+        return False
     return any(w.lower() not in KEEP for w in WORD.findall(text))
 
 
@@ -342,6 +344,7 @@ class Tr:
         def keep(m):
             stash.append(m.group(0))
             return f"\x00{len(stash) - 1}\x00"
+        src = re.sub(r"<!--native-->.*?<!--/native-->", keep, src, flags=re.S)     # written in the target language already
         src = re.sub(r"<(script|style|svg|textarea|noscript)\b.*?</\1>", lambda m: self._script(m.group(0), stash), src, flags=re.S | re.I)
         src = re.sub(r"<code\b[^>]*>.*?</code>", keep, src, flags=re.S)
         out, run = [], []
@@ -394,7 +397,7 @@ class Tr:
         out = self.translate_body(html)
         # a title with nothing to translate ("iPhone SE (2020) vs iPhone SE (2022)") would repeat the Czech one
         tc = re.search(r"<title>(.*?)</title>", html, re.S)
-        if tc and tc.group(0) in out:
+        if tc and tc.group(0) in out and not re.search(r"[а-яёіїєґ]", tc.group(1), re.I):
             out = out.replace(tc.group(0), f"<title>{tc.group(1)} – {TITLE_TAG[self.lang]}</title>", 1)
         url = site + self.pfx + path
         out = out.replace('<html lang="cs"', f'<html lang="{self.lang}"', 1)

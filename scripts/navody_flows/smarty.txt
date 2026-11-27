@@ -1,0 +1,76 @@
+# Smarty: product -> cookies -> Vložit do košíku -> added page -> cart -> doprava -> platba -> údaje (never submitted)
+goto:https://www.smarty.cz/Apple-iPhone-13-128GB-PRODUCT-RED--4p4032-B
+wait:1500
+mark:sel:#consent-banner-agree
+shot:01-cookies
+unmark
+clicksel:#consent-banner-agree
+wait:1500
+center:=Vložit do košíku
+clean
+mark:Apple iPhone 13 128GB PRODUCT|=Vložit do košíku
+shot:02-produkt
+unmark
+click:=Vložit do košíku
+wait:3000
+top:=Zboží jsme vložili do košíku
+clean
+mark:=Zboží jsme vložili do košíku|=Přejít do košíku|=Pokračovat v nákupu
+shot:03-pridano
+unmark
+click:=Přejít do košíku
+wait:3000
+top:=Obsah košíku
+clean
+mark:sel:button[aria-label^="Odebrat z košíku"], button[title^="Odebrat"]|FlexZáruka STANDARD|FlexZáruka PREMIUM
+shot:04-kosik
+unmark
+center:=Pokračovat na dopravu a platbu
+clean
+mark:=Pokračovat na dopravu a platbu
+shot:05-pokracovat
+unmark
+goto:https://www.smarty.cz/Objednavka/Doprava-platba
+top:=Doprava
+clean
+mark:Osobní odběr na prodejny|Výdejní boxy a odběrná místa|sel:label[for=showAddressDeliveryMethods]
+shot:06-doprava
+unmark
+click:=Doručení na adresu
+wait:1500
+clicksel:label[for=del26]
+wait:2000
+top:=Platba
+clean
+mark:sel:label[for=pay53]|sel:label[for=pay45]|sel:label[for=pay24]|sel:label[for=pay15]
+shot:07-platba
+unmark
+clicksel:label[for=pay15]
+clicksel:label[for=tipProducts0]
+wait:1000
+click:=Pokračovat na osobní údaje
+wait:3000
+goto:https://www.smarty.cz/Objednavka/Dodaci-udaje
+set:#UserEmail=priklad@example.com
+set:#UserPhone=+420600000000
+set:#UserFirstName=Olena
+set:#UserLastName=Kovalenko
+setq:#InvoiceStreet=Vodičkova 1
+setq:#InvoiceCity=Praha
+setq:#InvoicePostCode=11000
+vh:1000
+top:=Kontaktní údaje
+clean
+mark:sel:#UserEmail|sel:#UserPhone|sel:#UserFirstName|sel:#UserLastName|sel:#InvoiceStreet|sel:#InvoiceCity|sel:#InvoicePostCode|sel:select[name=InvoiceCountry]
+shot:09-udaje
+unmark
+vh:844
+top:=Nakupuji na firmu
+clean
+mark:=Nakupuji na firmu|=Dodací údaje jsou jiné než fakturační|=Chci vytvořit účet
+shot:10-volby
+unmark
+center:sel:#finishButton
+clean
+mark:sel:#finishButton
+shot:11-odeslat

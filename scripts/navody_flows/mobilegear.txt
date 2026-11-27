@@ -1,0 +1,74 @@
+# MobileGear: product -> cookies -> Koupit -> popups -> cart -> coupon -> checkout (never submitted)
+goto:https://mobilegear.cz/produkt/iphone-13-128gb/iphone-13-128gb-temne-inkoustova?class=B
+mark:=Souhlasím se všemi cookies|=Odmítám všechny cookies
+shot:01-cookies
+unmark
+click:=Souhlasím se všemi cookies
+wait:1500
+clean
+center:=Koupit
+clean
+mark:Kondice baterie|=Koupit
+shot:02-produkt
+unmark
+click:=Koupit
+wait:3000
+mark:sel:.modal.show .btn-close, .modal.show button.close, .modal.show [aria-label=Close]
+shot:03-okno
+unmark
+goto:https://mobilegear.cz/kosik
+top:Košík (1 položka)
+clean
+mark:sel:h3|sel:input[name=quantity]|Odebrat položku z košíku
+shot:04-kosik
+unmark
+clicksel:h4[data-bs-toggle=collapse]
+wait:1000
+fill:#discount-code1=SLEVA
+top:sel:h4[data-bs-toggle=collapse]
+clean
+mark:sel:h4[data-bs-toggle=collapse]|sel:#discount-code1|=Uplatnit kupón|=Přejít k pokladně
+shot:05-kupon
+unmark
+goto:https://mobilegear.cz/objednavka
+fill:#app_order_form_firstName=Olena
+fill:#app_order_form_lastName=Kovalenko
+fill:#app_order_form_email_first=priklad@example.com
+fill:#app_order_form_email_second=priklad@example.com
+fill:#app_order_form_phone=600 000 000
+fill:#app_order_form_city=Praha
+fill:#app_order_form_street=Vodičkova 1
+fill:#app_order_form_postalCode=110 00
+vh:1000
+top:=Fakturační údaje
+clean
+mark:sel:#app_order_form_firstName|sel:#app_order_form_lastName|sel:#app_order_form_email_first|sel:#app_order_form_email_second|sel:#app_order_form_phone|sel:#app_order_form_country|sel:#app_order_form_city|sel:#app_order_form_street|sel:#app_order_form_postalCode
+shot:06-udaje
+unmark
+vh:844
+top:sel:#app_order_form_createAccount
+clean
+mark:=Vytvořit účet|=Nakupuji na firmu|=Doručit na jinou adresu?
+shot:07-volby
+unmark
+y:1700
+clean
+mark:Vyzvednutí na prodejně|Doručení na adresu|Doručení na výdejní místo
+shot:08-doprava
+unmark
+click:Doručení na výdejní místo
+wait:1200
+top:Doručení na výdejní místo
+clean
+mark:Zásilkovna pobočky|DPD výdejní místa|PPL výdejní místa
+shot:09-vydejni
+unmark
+top:Zvolte způsob platby
+clean
+mark:Platba na účet QR kódem|Platba kartou online|Odložená - Twisto|Home Credit - na splátky|Na prodejně (Hotově
+shot:10-platba
+unmark
+center:=Objednat s povinností platby
+clean
+mark:sel:#app_order_form_confirm|=Objednat s povinností platby
+shot:11-odeslat

@@ -1,0 +1,29 @@
+# iSTYLE (Shopify): product (colour, storage) -> Přidat do košíku -> cart (checkout blocks headless browsers: described in text)
+goto:https://istyle.cz/products/iphone-16e-md1r4sx-a
+wait:1500
+mark:sel:#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll|sel:#CybotCookiebotDialogBodyLevelButtonCustomize
+shot:01-cookies
+unmark
+clicksel:#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll
+wait:1500
+top:sel:label[for$="Barva-0"]
+clean
+mark:sel:label[for$="Barva-0"]|sel:label[for$="Barva-1"]|sel:label[for$="Úložiště-0"]
+shot:02-produkt
+unmark
+clean
+mark:sel:#footer-atc
+shot:03-pridat
+unmark
+clicksel:#footer-atc
+wait:3000
+goto:https://istyle.cz/cart
+top:=Váš Košík
+clean
+hide:cart-drawer, .cart__footer-sticky, [class*=sticky]
+shot:04-kosik
+unmark
+center:sel:#checkout-block
+clean
+mark:sel:#checkout-block
+shot:05-pokladna
