@@ -62,6 +62,14 @@ def main():
                 soft["img without alt"].append(path)
             if "width=" not in im or "height=" not in im:
                 soft["img without size"].append(path)
+    # language versions: every hreflang points to an existing page that points back
+    for path, h in pages.items():
+        for lang, u in re.findall(r'<link rel="alternate" hreflang="([a-z-]+)" href="([^"]+)">', h):
+            q = u.replace(SITE, "")
+            if q not in pages:
+                hard["hreflang to missing page"].append(f"{path} -> {q}")
+            elif f'href="{SITE}{path}"' not in pages[q]:
+                hard["hreflang not reciprocal"].append(f"{path} -> {q}")
     for t, n in titles.items():
         if n > 1:
             hard["duplicate title"].append(t)

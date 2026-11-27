@@ -8,6 +8,7 @@ and is reported in data/state/i18n-missing.json. JSON-LD and the configurator JS
 
     python3 scripts/i18n.py missing [lang]     # untranslated segments of the last build (data/state/i18n-missing.json)
     python3 scripts/i18n.py check              # placeholders of every translation match its key
+    python3 scripts/i18n.py merge out-*.json   # add translated batches to content/i18n/<lang>.json
 """
 import html as H
 import json
@@ -22,6 +23,7 @@ LANGS = {"uk": "ua", "ru": "ru"}                  # html lang / hreflang -> URL 
 # a language goes live only once its dictionary is in the repo (no half-Czech /ua/ pages from the nightly build)
 ACTIVE = [lang for lang in LANGS if (Path(__file__).resolve().parent.parent / f"content/i18n/{lang}.json").exists()]
 LOCALE = {"uk": "uk_UA", "ru": "ru_RU"}
+TITLE_TAG = {"uk": "порівняння і ціни", "ru": "сравнение и цены"}
 NOINDEX_SHARE = 0.10                              # a translated page with more untranslated text than this stays noindex
 
 INLINE = {"a", "b", "strong", "i", "em", "span", "small", "s", "sup", "sub", "abbr", "mark", "time", "u", "img", "br", "wbr",
@@ -282,6 +284,10 @@ class Tr:
         """Whole page -> (html of the language version, indexable?)."""
         self.page, self.words_all, self.words_miss = path, 0, 0
         out = self.translate_body(html)
+        # a title with nothing to translate ("iPhone SE (2020) vs iPhone SE (2022)") would repeat the Czech one
+        tc = re.search(r"<title>(.*?)</title>", html, re.S)
+        if tc and tc.group(0) in out:
+            out = out.replace(tc.group(0), f"<title>{tc.group(1)} – {TITLE_TAG[self.lang]}</title>", 1)
         url = site + self.pfx + path
         out = out.replace('<html lang="cs"', f'<html lang="{self.lang}"', 1)
         out = out.replace('<meta property="og:locale" content="cs_CZ">', f'<meta property="og:locale" content="{LOCALE[self.lang]}">', 1)
@@ -322,14 +328,34 @@ def check():
             if pk != pv or not nv <= nk:
                 bad += 1
                 print(f"{lang}: placeholders differ\n  {k}\n  {v}")
-            if re.search(r"[ěščřžůťďň]", v, re.I) and not re.search(r"jabkolevn|[A-Z][a-z]*ě", v):
+            if re.search(r"[ěščřžůťďň]", v.replace("Kč", ""), re.I) and not re.search(r"jabkolevn|[A-Z][a-z]*ě|Slevový kód", v):
                 print(f"{lang}: Czech letters left\n  {v}")
     print("bad", bad)
     return bad
 
 
+def merge(files):
+    """Add translated batches ({"uk": {...}, "ru": {...}}) to content/i18n/<lang>.json; placeholder mismatches are skipped."""
+    for lang in LANGS:
+        f = I18N / f"{lang}.json"
+        d = json.loads(f.read_text()) if f.exists() else {}
+        n = bad = 0
+        for b in files:
+            for k, v in json.loads(Path(b).read_text()).get(lang, {}).items():
+                if set(re.findall(r"</?\d+/?>", k)) != set(re.findall(r"</?\d+/?>", v)) or not set(re.findall(r"\{\d+\}", v)) <= set(re.findall(r"\{\d+\}", k)):
+                    bad += 1
+                    continue
+                d[k] = v
+                n += 1
+        f.write_text(json.dumps(dict(sorted(d.items())), ensure_ascii=False, indent=0) + "\n")
+        print(lang, "added", n, "skipped", bad, "total", len(d))
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "missing"
+    if cmd == "merge":
+        merge(sys.argv[2:])
+        sys.exit(0)
     if cmd == "check":
         sys.exit(1 if check() else 0)
     if cmd == "missing":
