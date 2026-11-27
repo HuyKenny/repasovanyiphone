@@ -2,6 +2,7 @@
    swatches, hand-drawn Canva icons and handwritten notes (Caveat). No gradients, no glow, no blobs. */
 @font-face{font-family:"Hand";src:url(/fonts/cav-a.woff2) format("woff2");font-weight:600;font-display:swap;unicode-range:U+0000-00FF,U+2013-2026}
 @font-face{font-family:"Hand";src:url(/fonts/cav-b.woff2) format("woff2");font-weight:600;font-display:swap;unicode-range:U+0100-017F}
+@font-face{font-family:"Hand";src:url(/fonts/cav-c.woff2) format("woff2");font-weight:600;font-display:swap;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 :root{
   --bg:#FFFFFF;--soft:#F5F5F2;--soft2:#ECECE7;--line:#E4E4DE;--ink:#18181A;--muted:#66666C;
   --green:#18703F;--green-hi:#2BA35F;--green-soft:#E6F4EB;--note:#B83F17;
@@ -41,7 +42,16 @@ button{font:inherit;color:inherit}
 .nav::-webkit-scrollbar{display:none}
 .nav a{text-decoration:none;padding:8px 13px;border-radius:999px;font-size:.95rem;font-weight:500;white-space:nowrap;color:#3a3a3e}
 .nav a:hover,.nav a[aria-current]{background:var(--soft);color:var(--ink)}
-@media (max-width:760px){.top-in{flex-wrap:wrap;gap:0;padding-top:8px}.nav{width:calc(100% + 32px);margin:2px -16px 0;padding:0 10px 8px}}
+.langs{display:flex;gap:0;margin-left:6px;border:1px solid var(--line);border-radius:999px;padding:2px;flex:none}
+.langs a{text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.02em;color:var(--muted);padding:5px 8px;border-radius:999px;min-width:32px;text-align:center}
+.langs a:hover{color:var(--ink)}
+html[lang=cs] .langs a[data-lang=cs],html[lang=uk] .langs a[data-lang=uk],html[lang=ru] .langs a[data-lang=ru]{background:var(--ink);color:#fff}
+.l10n-note{margin-top:28px}
+.l10n-note .box{background:var(--soft);border-radius:18px;padding:20px 22px}
+.l10n-note h2{font-size:1.25rem}
+.l10n-note ol{margin:.4em 0 0;padding-left:1.2em}
+.l10n-note li{margin:.3em 0}
+@media (max-width:760px){.top-in{flex-wrap:wrap;gap:0;padding-top:8px}.langs{margin-left:auto;order:2}.top-in .logo{order:1}.nav{order:3}.nav{width:calc(100% + 32px);margin:2px -16px 0;padding:0 10px 8px}}
 
 .crumbs{font-size:.86rem;color:var(--muted);padding-top:18px}
 .crumbs a{color:var(--muted);text-decoration:none}

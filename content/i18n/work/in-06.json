@@ -1,0 +1,1911 @@
+[
+{
+"k": "<1>IMEI:</1> vytočte *#{0}# a porovnejte s Nastavením, krabicí a dokladem.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Jas:</1> nastavte maximum a podívejte se na displej u okna. Výrazně tmavší obraz nebo žlutý nádech bývá znakem náhradního displeje.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Kabel:</1> konektor musí držet pevně a telefon začít nabíjet hned. Chvíli s kabelem pohýbejte, nabíjení se nesmí přerušovat.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Maximální kapacita:</1> Nastavení → Baterie → Stav baterie a nabíjení. Porovnejte s hodnotou v nabídce. Pod {0} % Apple baterii označí za opotřebovanou a doporučí výměnu.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Mezera mezi displejem a rámem:</1> displej musí sedět rovně po celém obvodu. Nadzvednutý okraj často znamená nafouklou baterii a takový telefon nepoužívejte.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Model a paměť:</1> Nastavení → Obecné → Informace. Název modelu a kapacita musí odpovídat nabídce.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Po {0} dnech:</1> vadu reklamujte písemně. Obchod ji musí vyřídit do {1} dnů. Postup je v článku <2>záruka na repasovaný iPhone</2>.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Port a šuplík SIM:</1> podívejte se svítilnou, jestli v portu není koroze. U modelů se šuplíkem bývá ve slotu indikátor kontaktu s kapalinou, který po zatečení zčervená.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Počet cyklů:</1> u iPhonu {0} a novějších v Nastavení → Obecné → Informace. Telefon s nízkou kapacitou a málo cykly, nebo naopak, si zaslouží otázku.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Přední a zadní mikrofon:</1> natočte krátké video přední i zadní kamerou a poslechněte si zvuk.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Reproduktory:</1> přepněte hovor na hlasitý odposlech a pusťte hudbu na plnou hlasitost. Nesmí chrčet ani praskat a zvuk má jít z obou konců telefonu.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Rámeček a záda:</1> škrábance a oťukané rohy porovnejte s kvalitou z nabídky (A+, A, B, C, viz <2>co znamenají stavy</2>). Prasklé zadní sklo do kvality B nepatří.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>SIM a eSIM:</1> vložte SIM, zavolejte, pošlete SMS a zapněte mobilní data. Pokud chcete eSIM, zkontrolujte v Nastavení → Mobilní data, že jde přidat.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Senzor přiblížení:</1> při hovoru dejte telefon k uchu. Displej musí zhasnout a po oddálení se rozsvítit.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Sklíčka fotoaparátů:</1> i drobná prasklina rozostří fotky a do telefonu se přes ni dostane prach.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Sluchátko:</1> zavolejte na druhý telefon a mluvte s telefonem u ucha. Ověřte, že slyšíte vy i druhá strana.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Spodní mikrofon:</1> nahrajte hlasovou poznámku v Diktafonu a přehrajte ji.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Správa zařízení:</1> Nastavení → Obecné → Správa VPN a zařízení. Nesmí tam být profil firmy nebo školy.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>True Tone:</1> otevřete Ovládací centrum a podržte posuvník jasu. Tlačítko True Tone tam musí být a musí jít zapnout. Když chybí, displej byl s velkou pravděpodobností měněný.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Vypálení:</1> na šedé ploše při plném jasu hledejte stín klávesnice nebo horní lišty. Týká se modelů s OLED displejem.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Wi-Fi a Bluetooth:</1> připojte se k síti a spárujte sluchátka.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Zámek operátora:</1> v Obecné → Informace má být „Bez omezení SIM“.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Šroubky u nabíjecího portu:</1> poškrábané hlavičky napovídají, že telefon byl otevřený.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Co dělat, když něco nesedí",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Co dělat, když repasovaný iPhone nefunguje správně?",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Co si připravit",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Co čísla u baterie znamenají v praxi, vysvětluje článek <1>kondice baterie iPhonu</1>, jednotlivé stavy dílů <2>Díly a historie servisu</2>.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Jak poznat, že iPhone byl v opravě?",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Jak zjistit stav baterie iPhonu?",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Jak zkontrolovat iPhone před koupí: kontrolní seznam",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Jak zkontrolovat iPhone před koupí?",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Kontrola displeje iPhonu na zeleném testovacím obrázku",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Kontrolní seznam pro použitý i repasovaný iPhone: účet a IMEI, baterie, díly, displej, Face ID, fotoaparáty, mikrofony a síť. Krok za krokem asi za {0} minut.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Nastavení → Baterie → Stav baterie a nabíjení → Maximální kapacita. Pod {0} % ji Apple označí za opotřebovanou. Počet cyklů najdete u iPhonu {1} a novějších v Nastavení → Obecné → Informace.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Nastavte Face ID (Nastavení → Face ID a kód) nebo otisk prstu u modelů s tlačítkem plochy a několikrát telefon odemkněte. Hláška, že Face ID není k dispozici nebo že se na telefonu zjistil problém s Face ID, je vada. Bývá to následek pádu, vody nebo neodborné opravy a levně se neopravuje.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Natočte krátké video a během něj s telefonem jemně hýbejte. Cvakání, bzučení nebo chvějící se obraz ukazují na vadnou stabilizaci.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Otevřete Nastavení → Obecné → Informace → Díly a historie servisu. Položka se objeví jen u telefonu s vyměněným sledovaným dílem. U starších modelů, které díly nesledují, napoví poškrábané šroubky u portu, chybějící True Tone nebo nerovná mezera mezi displejem a rámem.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Použitý nebo repasovaný iPhone zkontrolujete ve čtyřech krocích: <1>účet a identita</1> (model, IMEI, odhlášené Apple ID, žádný profil správy), <2>baterie a díly</2>, <3>displej a vzhled</3> a nakonec <4>funkce</4> od Face ID po nabíjení. Celé to zabere asi {0} minut. U bazaru to udělejte před zaplacením, u telefonu z e-shopu hned po převzetí, dokud běží {1}denní lhůta na vrácení.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Projděte čtyři oblasti: účet a identitu (model, IMEI, odhlášené Apple ID, žádný profil správy), baterii a vyměněné díly v Nastavení, displej a vzhled a nakonec funkce: Face ID nebo Touch ID, fotoaparáty, mikrofony, reproduktory, nabíjení, síť a tlačítka. Zabere to asi {0} minut.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Proč a jak to dělat správně, rozebírá článek <1>kontrola IMEI a iCloudu</1>.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Přepněte všechny objektivy ({0}×, {1}× a teleobjektiv, pokud ho model má) a vyfoťte něco blízko i daleko. Obraz musí zaostřit.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Přepínač ztlumení, nebo u novějších modelů tlačítko Akce, přepněte do tichého režimu. Telefon musí zavibrovat.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Při nákupu přes internet můžete telefon do {0} dnů od převzetí vrátit bez udání důvodu. Později vadu reklamujte písemně u obchodu, který ji musí vyřídit do {1} dnů. Postup je v článku <1>záruka a reklamace</1>.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Při nákupu přes internet můžete telefon do {0} dnů od převzetí vrátit bez udání důvodu. Později vadu reklamujte písemně u obchodu, který ji musí vyřídit do {1} dnů. Postup je v článku záruka a reklamace.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Telefon repasovaný přímo Applem má číslo modelu začínající písmenem F. Repasy od obchodů číslo modelu nemění, vyměněné díly ale ukáže položka <1>Díly a historie servisu</1>.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Telefon repasovaný přímo Applem má číslo modelu začínající písmenem F. Repasy od obchodů číslo modelu nemění, vyměněné díly ale ukáže položka Díly a historie servisu.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Tlačítka hlasitosti a boční tlačítko musí mít jasný klik, nesmí se zasekávat ani viklat.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "U modelů s tlačítkem Ovládání fotoaparátu zkontrolujte, že otevře fotoaparát a reaguje na posun prstu.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Vadu vždy zdokumentujte: natočte video, uložte snímky obrazovky se stavem baterie nebo dílů. Telefon sami neotvírejte ani nenechávejte opravit v cizím servisu, mohli byste přijít o nárok na reklamaci. Před odesláním se odhlaste z Apple ID a telefon vymažte.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Vyfoťte bílou zeď. Tmavé skvrny na stejném místě na všech fotkách znamenají prach nebo nečistotu uvnitř modulu.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Wi-Fi nebo hotspot z vlastního telefonu,",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Začněte tím, co rozhoduje, jestli telefon vůbec můžete používat.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Zkontrolujte verzi iOS a nabídku aktualizace v Nastavení → Obecné → Aktualizace softwaru. Telefon by se během testu neměl sám restartovat ani nápadně hřát. Pokročilejší kontrola: Nastavení → Soukromí a zabezpečení → Analýza a vylepšení → Data analýzy. Hodně záznamů začínajících „panic-full“ s nedávnými daty ukazuje na hardwarový problém.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "Zkuste přední kameru, blesk a svítilnu.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "iPhone má několik mikrofonů a každý se testuje jinak:",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "nabíjecí kabel s adaptérem, ideálně i bezdrátovou nabíječku,",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "sluchátka s Bluetooth a druhý telefon na zkušební hovor.",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "svou SIM kartu a jehlu na šuplík (u telefonu jen s eSIM přístup k aplikaci operátora),",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Baterie a díly",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Displej",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Face ID nebo Touch ID",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Fotoaparáty",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Mikrofony a reproduktory",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Nabíjení, síť a polohové služby",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Systém a stabilita",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Tlačítka a vibrace",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Vzhled a tělo telefonu",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "{0}. Účet, IMEI a správa zařízení",
+"p": [
+"/pruvodce/kontrola/"
+]
+},
+{
+"k": "<1>Chybí v seznamu:</1> telefon patří k jinému Apple ID, nebo je funkce Najít iPhone vypnutá. Zkontrolujte, že se přihlašujete správným účtem.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "<1>Je vypnutý nebo bez internetu:</1> uvidíte poslední známou polohu. Zapnete-li <2>Upozornit při nalezení</2>, přijde vám e-mail, jakmile se telefon objeví v síti Najít.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "<1>Najít iPhone</1> je funkce, která ukáže polohu ztraceného telefonu, umí zobrazit ztracený režim a po vymazání telefon dál chrání zámkem aktivace. Zapnete ji v <2>Nastavení → vaše jméno → Najít → Najít iPhone</2>. Když telefon prodáváte nebo kupujete z druhé ruky, je klíčové opačné: funkce musí být <3>vypnutá a telefon odhlášený z Apple ID</3>, jinak ho nikdo nová neaktivuje.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "<1>Poloha je nepřesná:</1> poloha se aktualizuje přes Wi-Fi, mobilní síť a GPS. V budovách bývá odchylka desítky metrů.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "<1>Zálohujte</1> data nebo je přeneste do nového telefonu. <2>Jak přesunout data</2>",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Aktuální polohu ne, ale telefon může být dohledatelný přes síť Najít (okolní zařízení Apple), pokud je funkce zapnutá, a ukáže se poslední známá poloha. Novější iPhony se dají najít i krátce po vypnutí. Kdyby telefon neměl internet ani zařízení kolem sebe, uvidíte jen poslední známou polohu.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Až když máte jistotu, že telefon nezískáte zpět, použijte <1>Smazat toto zařízení</1>. Smaže data, a protože zůstává zámek aktivace, nikdo ho nebude moct používat bez vašeho hesla. Po smazání ale telefon už nenajdete.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Co dělat, když telefon nejde najít",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Co je zámek aktivace?",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Dá se Najít iPhone obejít, když koupím telefon se zámkem?",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Foto: Brett Jordan, Pexels",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Funguje Najít iPhone, když je telefon vypnutý?",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Ikona Nastavení na displeji iPhonu",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Jak Najít iPhone vypnout před prodejem",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Jak Najít iPhone zapnout",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Jak funguje Najít iPhone: zapnutí, hledání ztraceného telefonu, ztracený režim, vzdálené smazání a vypnutí před prodejem nebo koupí použitého iPhonu.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Jak najdu ztracený iPhone?",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Jak najít ztracený iPhone",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Jak vypnu Najít iPhone před prodejem?",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Na počítači nebo cizím telefonu otevřete <1>icloud.com/find</1> a přihlaste se svým Apple ID, nebo použijte aplikaci <2>Najít</2> na jiném zařízení Apple (iPad, Mac, iPhone člena rodiny ve Sdílení v rodině).",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Nahoře v Nastavení nesmí být jméno a fotka původního majitele.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Najít iPhone a zámek aktivace",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Najít iPhone: jak ho najít a vypnout před prodejem",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Ne. Zámek může sejmout jen původní majitel svým účtem, případně Apple při doložení původní koupě. Telefon se zámkem aktivace nekupujte.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Nechte prodávajícího odhlásit se před vámi a telefon vymazat. Pak ho aktivujte se svým účtem a teprve potom platte.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Nejlépe odhlášením z Apple ID: Nastavení → vaše jméno → Odhlásit se, zadáte heslo. Tím se vypne Najít iPhone i zámek aktivace. Pak telefon vymažte.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Ochrana, která po zapnutí funkce Najít iPhone váže telefon na Apple ID majitele. Bez jeho hesla nejde telefon po vymazání znovu aktivovat. Právě proto se u použitého iPhonu kontroluje, že je prodávající odhlášený.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Otevřete <1>Nastavení → vaše jméno</1>, sjeďte dolů a zvolte <2>Odhlásit se</2>. Zadejte heslo k Apple ID. Tím vypnete Najít iPhone i zámek aktivace.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Otevřete <1>Nastavení</1> a klepněte nahoře na své jméno.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Pak telefon <1>vymažte</1>: <2>jak vymazat iPhone</2>.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Po vymazání se telefon při aktivaci nesmí ptát na cizí Apple ID.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Podrobný postup včetně firemních telefonů a profilů správy najdete v článku <1>kontrola IMEI a iCloudu</1>. U telefonu z obchodu tohle řešit nemusíte, obchody telefony před prodejem odhlašují a mají záruku. Nabídky se zárukou najdete v sekci <2>iPhone bazar</2>.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Pokud je daleko, zapněte <1>Ztracený režim</1>: telefon se uzamkne, zobrazí vaše telefonní číslo a zprávu pro nálezce a pozastaví platby kartou v Apple Pay.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Pokud je telefon poblíž, zvolte <1>Přehrát zvuk</1>. Zazní i při vypnutém zvuku.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Pokud telefon ztratíte nebo vám ho někdo ukradne, kromě vzdáleného zamčení požádejte o zablokování SIM karty u operátora a ztrátu nahlaste policii. IMEI a sériové číslo najdete na krabici nebo v účtu Apple. <1>Kde IMEI zjistit</1>",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Pokud už telefon nemáte po ruce (prodali jste ho a zapomněli odhlásit), můžete ho odebrat z účtu na icloud.com/find: vyberte zařízení a zvolte <1>Odebrat z účtu</1>. Funguje to ale, jen když je telefon offline.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Poloha musí být zapnutá (Nastavení → Soukromí a zabezpečení → Polohové služby). Funkce nic nestojí a běží na pozadí.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Pro kupující: jak poznat, že je zámek vypnutý",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Přihlaste se na icloud.com/find nebo otevřete aplikaci Najít na jiném zařízení Apple pod svým Apple ID a vyberte ztracený telefon. Uvidíte jeho poslední polohu, můžete přehrát zvuk, zapnout ztracený režim nebo telefon na dálku smazat.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "V seznamu zařízení na <1>account.apple.com</1> zkontrolujte, že telefon z účtu zmizel.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "V seznamu zařízení vyberte ztracený iPhone. Uvidíte ho na mapě.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Zapnutá funkce Najít iPhone zapíná <1>zámek aktivace</1>. Telefon se po vymazání zeptá na Apple ID a heslo původního majitele. Bez nich nejde dokončit nastavení. Pro koupi z druhé ruky z toho plyne jednoduché pravidlo: <2>telefon s cizím zámkem aktivace nekupujte</2>, a to ani když je „vymazaný“. Zámek může sejmout jen původní majitel svým účtem.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Zapněte <1>Najít iPhone</1>. Doporučené je zapnout i <2>Síť Najít</2> (dohledání přes okolní zařízení Apple, i když je telefon offline) a <3>Odeslat poslední polohu</3> (telefon pošle polohu těsně před vybitím).",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Zrušte spárování <1>Apple Watch</1>, pokud je máte.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "Zvolte <1>Najít</1> a pak <2>Najít iPhone</2>.",
+"p": [
+"/pruvodce/najit-iphone/"
+]
+},
+{
+"k": "<1>Aplikace odcházejí postupně.</1> Vývojáři nastavují minimální verzi iOS a zhruba po roce až dvou ji zvedají. Nejdřív to bývá znát u bankovních aplikací, komunikátorů a aplikací, které pracují s platbami nebo doklady.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Bezpečnostní opravy ještě chvíli.</1> Apple pro starší verze iOS opravy vydává, ale nezaručuje je a plnou ochranu má jen aktuální verze. S každým rokem jich chodí méně.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Každá generace navíc znamená zhruba rok podpory navíc.</1> Když váháte mezi dvěma sousedními modely a rozdíl v ceně je malý, berte novější.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Kdo chce Apple Intelligence</1> a co nejdelší podporu, ať vybírá od iPhonu {0} Pro nebo z řady {1} a novější.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Na {0} a víc let</1> míří iPhone {1}, {2} nebo novější. iPhone {3} má navíc USB-C, stejně jako všechny novější modely.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Na {0}–{1} roky</1> stačí iPhone {2} nebo {3}. Levně, s aktuálním systémem, ale s blížícím se koncem podpory.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Prohlížeč stárne se systémem.</1> Safari se aktualizuje spolu s iOS, takže některé weby na starém systému časem nefungují správně.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Starší verze aplikací.</1> App Store vám u nepodporovaného systému často nabídne stáhnout poslední kompatibilní verzi aplikace. Ta ale nedostává opravy a dřív nebo později může přestat fungovat úplně.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Žádné nové funkce.</1> Nové verze iOS přinášejí funkce, které na starším modelu nebudou.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Aktualizaci najdete v <1>Nastavení → Obecné → Aktualizace softwaru</1>. Telefon připojte k Wi-Fi a k nabíječce.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Aktuální iOS ještě neznamená všechny funkce. Apple Intelligence funguje jen na iPhonu {0} Pro a Pro Max, celé řadě {1} včetně {2}e, řadě {3}, Air a novějších. Starší modely dostanou systém, ale bez těchto funkcí.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Apple konec podpory dopředu neoznamuje. Pokud se zopakuje historie, kdy iPhony dostávaly nové verze iOS zhruba {0}–{1} let, poslední velkou verzi iOS by iPhone {2} z roku {3} mohl dostat kolem let {4}–{5}. Bezpečnostní opravy obvykle chodí ještě nějakou dobu potom.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Apple žádnou pevnou délku podpory neslibuje. Podívejte se ale, jak dopadly modely, které už nové verze nedostávají:",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Bílý iPhone na pracovním stole",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Cenový rozdíl proti iPhonu {0} nebo SE {1} bývá u repasů malý. Porovnejte ceny v tabulce výše nebo v přehledu <1>levných iPhonů</1>. Za malý příplatek tak obvykle získáte několik let aktuálního systému navíc.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Co se stane, když iPhone přestane dostávat aktualizace?",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Co znamená konec podpory iOS v praxi",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Foto: Karolina Grabowska www.kaboompics.com, Pexels",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Jak dlouho Apple podporuje iPhony: co ukazuje historie",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Jak dlouho bude podporovaný iPhone {0}?",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Jak zjistit a aktualizovat verzi iOS",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Jak zjistit verzi iOS na iPhonu?",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Jaký iPhone koupit, aby vydržel co nejdéle",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "K odhadu připočtěte rok až dva bezpečnostních oprav a fungujících aplikací. iPhone {0} koupený dnes tak rozumně poslouží nejspíš do let {1}–{2}, iPhone {3} o dva roky déle.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Kdy skončí podpora iPhonu {0}, {1}, {2}, {3}, {4} a {5} (odhad)",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Koupit je má smysl jen pro opravdu nenáročné použití na krátkou dobu: záložní telefon do šuplíku, přehrávač hudby, ovladač domácnosti nebo telefon na volání pro někoho, kdo nepoužívá bankovnictví ani sociální sítě. Pro dítě nebo jako hlavní telefon ne.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Které iPhony dostávají iOS {0} a iOS {1}",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Které iPhony podporují iOS {0}?",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Let nových verzí",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Modely s aktuálním iOS najdete v přehledu levných iPhonů i v doporučeních podle rozpočtu.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Má iOS {0}",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Nastavení → Obecné → Informace, řádek Verze iOS. Dostupné aktualizace najdete v Nastavení → Obecné → Aktualizace softwaru.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Následující tabulka ukazuje modely, které dnes srovnáváme, jestli běží na aktuálním iOS a od kolika se dají koupit:",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Podpora iOS u iPhonů: iOS {0} a konec podpory modelů",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Podpora systému je jen polovina odpovědi. Jak dlouho telefon reálně vydrží, záleží i na baterii a stavu. Víc v článcích <1>jak dlouho vydrží repasovaný iPhone</1> a <2>kondice baterie</2>.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Pokud chybí místo, uvolněte pár GB nebo aktualizujte přes počítač.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Pokud vás mate číslování: po iOS {0} přešel Apple na číslování podle roku, takže následovala verze iOS {1}. Verze {2} až {3} neexistují. iPhone, který má iOS {4}, tedy není „o osm verzí pozadu“, je jen o jednu nebo dvě.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Poslední velká verze",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Poslední velká verze iOS (odhad)",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "První iOS",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Seznam podporovaných modelů je pro obě verze stejný:",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Tabulka je <1>odhad</1> postavený na historii ({0}–{1} let nových verzí iOS). Apple může podporu prodloužit, jako to udělal u iPhonu {2}, nebo ji ukončit dřív.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Telefon funguje dál, jen nedostává nové funkce a postupně ani bezpečnostní opravy. Během dalších let přestávají fungovat nebo se aktualizovat některé aplikace, typicky bankovní a komunikační.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Telefon se nevypne a nepřestane fungovat. Mění se ale tohle:",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Trend je mírně rostoucí: novější modely vydržely s aktuálním systémem déle. Po poslední velké verzi navíc Apple obvykle ještě nějakou dobu vydává bezpečnostní opravy, takže telefon zůstává rozumně bezpečný o něco déle, než napovídá tabulka.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Tyhle modely aktuální iOS nedostávají. iPhone {0} a X skončily u iOS {1}, XS a XR u iOS {2}. Bezpečnostní opravy chodí jen občas a aplikací, které na nich fungují, bude rok od roku méně.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "U repasu z obchodu je dobré aktualizaci spustit hned po převzetí. Ověříte tím, že telefon na nejnovější verzi opravdu jde, a máte aktuální bezpečnostní opravy.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "V praxi tak telefon po poslední velké aktualizaci slouží ještě rok až dva bez větších potíží. Pak začnou chybět aplikace, které potřebujete.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "Verzi zjistíte v <1>Nastavení → Obecné → Informace</1>, řádek Verze iOS.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "celá řada iPhone {0}, {1}, {2}, {3} a {4} včetně {5}e,",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iOS {0} a {1} běží na iPhonu {2} a novějších a na SE {3}. Odhad konce podpory pro iPhone {4} až {5} podle historie a co konec podpory znamená v praxi.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iOS {0} běží na iPhonu {1} a všech novějších modelech včetně iPhonu SE {2}. generace ({3}) a SE {4}. generace ({5}). iPhone XS, XS Max, XR a starší ho nedostanou.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iOS {0} i letošní iOS {1} podporují <1>iPhone {2} a všechny novější modely</1> a k tomu iPhone SE {3}. generace z roku {4}. iPhone XS, XS Max, XR, X, {5} a starší už aktuální systém nedostávají. Apple konec podpory dopředu neoznamuje, z historie ale vychází, že iPhony dostávají nové verze iOS zhruba {6}–{7} let od uvedení na trh.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iPhone SE {0}. generace ({1}) a SE {2}. generace ({3}),",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iPhone SE {0}. generace má stejný čip jako iPhone {1} a zatím dostává stejné verze iOS, i když vyšel o půl roku později. Počítejte s tím, že podpora u obou skončí zároveň. U SE {2}. generace z roku {3} se dá čekat podobná délka podpory jako u iPhonu {4}, protože má stejný čip, ale jistota to není.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iPhone X, XS, XR a {0}: kdy je ještě koupit",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iPhone {0} z roku {1} dostal i iOS {2}, tedy už osmou velkou verzi systému. Patří k nejstarším podporovaným modelům, takže je pravděpodobné, že bude mezi prvními, které další verzi iOS nedostanou.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "iPhone {0}, {1} Pro, Air a všechny novější modely.",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "kdykoli, iOS {0} může být poslední",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "kolem let {0}–{1}",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "kolem let {0}–{1} a později",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "zatím iOS {0} ({1})",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "{0} a víc",
+"p": [
+"/pruvodce/podpora-ios/"
+]
+},
+{
+"k": "<1>Aktualizujte starý iPhone</1> na nejnovější dostupný iOS (Nastavení → Obecné → Aktualizace softwaru).",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Bankovní aplikace</1> se po převodu většinou musí znovu aktivovat. Připravte si přihlašovací údaje a počítejte s ověřením přes SMS nebo pobočku.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Dvoufázové ověření</1> (Google Authenticator a podobné) přeneste podle návodu aplikace, jinak můžete přijít o přístup k účtům.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Heslo k Apple ID</1> mějte po ruce, budete ho zadávat.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Nabíječky a Wi-Fi.</1> Oba telefony mějte nabité nebo na nabíječce a na stejné Wi-Fi.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Repasovaný telefon zkontrolujte</1> ještě před přenosem: že je vymazaný, není přihlášený k cizímu účtu a všechno funguje. <2>Kontrola po převzetí</2>",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Signal a další šifrované komunikátory</1> mají vlastní převod, obvykle přímo mezi telefony. Projděte nastavení aplikace ještě na starém telefonu.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>WhatsApp:</1> před převodem spusťte ručně zálohu chatů (WhatsApp → Nastavení → Chaty → Záloha chatů). Při převodu z iPhonu na iPhone se chaty obnoví z iCloudu po přihlášení stejným číslem.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Zálohujte</1> do iCloudu (Nastavení → jméno → iCloud → Záloha na iCloudu → Zálohovat) nebo do počítače. I když budete přenášet přímo, záloha je pojistka.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Ano, obnova ze zálohy vyžaduje stejnou nebo novější verzi iOS. Repasovaný telefon proto nejdřív aktualizujte, pokud vás o to průvodce nastavením požádá.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Ano, při přímém přenosu a ze zálohy iCloudu. Při záloze do počítače jen tehdy, když zálohu zašifrujete heslem.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Aplikace se nepřenášejí, ty si stáhnete z App Storu. WhatsApp z Androidu lze přenést během nastavení iPhonu, pokud to aplikace Přesun do iOS nabídne.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Apple Watch a AirPods",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Data ze starého iPhonu do nového přenesete nejsnáz přes <1>Rychlý start</1>: oba telefony položíte vedle sebe, nový zapnete a starý nabídne jeho nastavení. Přenese se všechno, aplikace, fotky, zprávy, hesla i nastavení. Funguje to stejně u nového i repasovaného iPhonu. Alternativou je obnova ze zálohy v iCloudu nebo v počítači.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Dva iPhony v rukou při přenosu dat",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Foto: kaboompics, Pexels",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Fyzickou SIM jen přendáte do nového telefonu. <1>eSIM</1> se dá při nastavení přenést z iPhonu na iPhone přímo, pokud to váš operátor podporuje; jinak si u operátora vyžádáte novou eSIM přes aplikaci nebo zákaznickou linku. iPhony z USA od řady {0} fungují jen s eSIM, s fyzickou SIM je nepoužijete.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Heslo k šifrované záloze si zapište. Bez něj zálohu neobnovíte.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Hodinky Apple Watch se při přenosu přes Rychlý start nebo ze zálohy obvykle nabídnou k převedení na nový telefon. Pokud ne, zrušte jejich spárování se starým iPhonem (data se zálohují) a spárujte je znovu s novým. AirPods se k novému telefonu připojí samy po přihlášení stejným Apple ID.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Hodí se, když starý telefon nemáte po ruce, je rozbitý nebo jste ho už prodali.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Jak dlouho trvá převod dat do nového iPhonu?",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Jak přesunout data ze starého iPhonu do nového",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Jak přesunout starý iPhone do nového?",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Jak za starý telefon dostat co nejvíc, popisuje článek <1>kde prodat starý iPhone</1>. Pokud nový iPhone teprve vybíráte, porovnejte modely na stránce <2>srovnání iPhonů</2> nebo podle rozpočtu v článku <3>jaký iPhone koupit</3>. Na nový telefon se vyplatí i dostatečná paměť, viz <4>kolik paměti stačí</4>.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Kód zadejte v aplikaci na Androidu a vyberte, co přenést: kontakty, zprávy, fotky, kalendáře, e-mailové účty.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Možnost {0}: Obnova ze zálohy iCloudu",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Možnost {0}: Rychlý start (přímý přenos)",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Možnost {0}: Záloha v počítači",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Musí mít nový iPhone stejnou nebo novější verzi iOS?",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Na Androidu nainstalujte aplikaci <1>Přesun do iOS</1> (Move to iOS) z Obchodu Play.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Na novém iPhonu projděte úvodní nastavení až k obrazovce <1>Přenos aplikací a dat</1>.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Na novém iPhonu při nastavení zvolte <1>Z Androidu</1> a zobrazí se kód.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Na novém telefonu se ukáže animace, naskenujte ji fotoaparátem starého iPhonu.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Na novém zadejte kód starého telefonu a nastavte Face ID nebo Touch ID.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Na starém se objeví nabídka <1>Nastavit nový iPhone</1>. Potvrďte ji a zkontrolujte, že je v ní vaše Apple ID.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Nejjednodušší je Rychlý start: položte oba telefony vedle sebe, nový zapněte, starý nabídne nastavení nového iPhonu. Data se přenesou přímo nebo z iCloudu. Oba telefony nechte na nabíječce a na Wi-Fi.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Než starý telefon prodáte nebo dáte dál, zkontrolujte, že nový funguje a všechno je přenesené. Pak na starém:",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Od desítek minut po několik hodin podle množství dat a rychlosti Wi-Fi. Fotky z iCloudu se po převodu dál stahují na pozadí.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Po převodu: co se starým telefonem",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Pokud s novým telefonem měníte i operátora nebo tarif, eSIM dostanete rovnou k nové smlouvě, třeba u <1>Vodafonu</1>. Číslo si můžete převést, nový telefon ani starou SIM k tomu nepotřebujete. Proč je výhodné kupovat telefon a tarif zvlášť, vysvětluje průvodce <2>telefon zvlášť, tarif zvlášť</2>.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Přechod z Androidu na iPhone",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Přenese se i WhatsApp?",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Přenesou se hesla a data ze Zdraví?",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Převod dat do nového nebo repasovaného iPhonu: Rychlý start, záloha v iCloudu, záloha v počítači, WhatsApp, eSIM a přechod z Androidu. Krok za krokem.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Při přenosu z iPhonu na iPhone přes Rychlý start nebo zálohu iCloudu ano, pokud máte ve WhatsAppu zapnutou zálohu chatů do iCloudu. Pro jistotu si ji před převodem spusťte ručně v nastavení WhatsAppu.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Připojte nový iPhone, na úvodní obrazovce zvolte obnovu z Macu nebo PC a vyberte zálohu.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Přímý přenos je rychlý, nepotřebuje místo v iCloudu a přenese i data, která v iCloudu nemáte. Během převodu ale nemůžete používat ani jeden telefon.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "SIM karta a eSIM",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Spusťte zálohu a počkejte, až doběhne.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Starý iPhone připojte kabelem k Macu (Finder) nebo k počítači s Windows (aplikace Apple Devices nebo iTunes).",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Vhodné, když nemáte dost místa v iCloudu nebo chcete přenést hodně dat bez internetu.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Vyberte nejnovější zálohu podle data a velikosti.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "WhatsApp, Signal a další aplikace",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Zapněte nový iPhone a položte ho vedle starého.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Zaškrtněte <1>Šifrovat místní zálohu</1> a zvolte heslo. Bez šifrování se nezálohují hesla, data ze Zdraví a z aplikace Aktivita.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Zvolte <1>Přenést z iPhonu</1>. Telefony musí zůstat vedle sebe, dokud přenos nedoběhne.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Zvolte <1>Ze zálohy na iCloudu</1> a přihlaste se svým Apple ID.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Záloha v iCloudu nezahrnuje to, co je v iCloudu synchronizované zvlášť (fotky s funkcí Fotky na iCloudu, kontakty, kalendáře, poznámky). Ty se po přihlášení stáhnou samy.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "Zůstaňte na Wi-Fi, dokud obnova neskončí. Fotky a aplikace se pak ještě nějakou dobu dostahovávají na pozadí.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "odhlaste se z Apple ID (Nastavení → jméno → Odhlásit se), tím vypnete i Najít iPhone a zámek aktivace,",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "vymažte telefon (Nastavení → Obecné → Přenést nebo resetovat iPhone → Smazat data a nastavení),",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "vyndejte SIM kartu, u eSIM ji při mazání odstraňte.",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "zrušte spárování Apple Watch,",
+"p": [
+"/pruvodce/prevod-dat/"
+]
+},
+{
+"k": "<1>Aktivační zámek.</1> Veřejná webová kontrola od Applu neexistuje. Správný postup je, že se prodávající před vámi odhlásí z Apple ID a telefon vymaže (Nastavení → Obecné → Přenést nebo obnovit iPhone → Smazat data a nastavení). Pak ho aktivujete se svým účtem. Telefon „zamčený na iCloud, ale jinak funkční“ nekupujte. Víc v článku <2>kontrola IMEI a iCloudu</2>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Baterie</1>: Nastavení → Baterie → Stav baterie a nabíjení → Maximální kapacita.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Doklad.</1> Vezměte si od prodávajícího alespoň jednoduchou kupní smlouvu s IMEI, jménem a datem.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Funkce</1>: Face ID nebo Touch ID, všechny fotoaparáty, reproduktory, mikrofon při hovoru, nabíjení, displej na bílé i černé ploše. Celý seznam je v průvodci <2>kontrola po převzetí</2>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>IMEI.</1> Vytočte *#{0}# a porovnejte číslo s údajem v Nastavení → Obecné → Informace a na krabici či dokladu.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Jako dárek</1>, kde potřebujete jistotu, že telefon bude v pořádku a půjde případně vrátit.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Když je rozdíl v ceně malý.</1> Pár stovek za záruku a {0} dní na vrácení se vyplatí vždy.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Když nechcete telefon technicky kontrolovat</1> nebo nevíte, kde co v Nastavení hledat.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Když nemůžete telefon vidět osobně</1> a kupujete na dálku.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Neplaťte předem</1> neznámému prodávajícímu. Nejbezpečnější je osobní předání a platba až po kontrole telefonu.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Od soukromé osoby</1> nic z toho nemáte. Pokud telefon za týden přestane nabíjet, můžete se s prodávajícím jen dohodnout, případně řešit skrytou vadu, kterou vám zamlčel, a to je zdlouhavé. Podrobně o lhůtách a reklamaci v průvodci <2>záruka a vrácení</2>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>U novějších a dražších modelů.</1> Čím vyšší cena, tím víc ztratíte, když se něco pokazí. U iPhonu {0} a novějších se příplatek za záruku proti bazaru obvykle vyplatí.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "<1>Vyměněné díly</1>: Nastavení → Obecné → Informace → Díly a historie servisu.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Aktivační zámek",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Aukro a Allegro: rozhoduje, kdo prodává",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Bazar od soukromníka (Bazoš, Sbazar)",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Bazar od soukromníka není špatná volba, jen vyžaduje víc práce. Vyplatí se, když platí většina z těchto bodů:",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Celkové riziko",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Co vám zákon dává u obchodu a co u soukromníka",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Do našeho srovnání bereme z <1>Aukra</1> jen nabídky, které prodejce označil jako repasované, a vynecháváme dražby a běžné bazarové inzeráty. Z Allegra používáme ceny nových iPhonů jako srovnávací cenu.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Foto: Skyler Ewing, Pexels",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Hlavně na Aktivační zámek: prodávající se musí před vámi odhlásit z Apple ID a telefon vymazat. Dále zkontrolujte kondici baterie, Díly a historii servisu a shodu IMEI. Celý postup je v průvodci <1>iPhone z bazaru</1>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Hlavně na Aktivační zámek: prodávající se musí před vámi odhlásit z Apple ID a telefon vymazat. Dále zkontrolujte kondici baterie, Díly a historii servisu a shodu IMEI. Celý postup je v průvodci iPhone z bazaru.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Hromada starších iPhonů a telefonů",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Inzeráty soukromníků do srovnání nebereme, protože u nich nejde ověřit stav ani záruku. Všechny nabídky ve srovnání jsou od obchodů.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Jak koupit iPhone z bazaru bezpečně",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Jak poznat, jestli na Aukru prodává firma, nebo soukromník?",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Jak to poznat: otevřete u nabídky profil prodejce. Firma uvádí obchodní název, IČO, adresu a vlastní podmínky prodeje a reklamací. Tržiště mívají i vlastní programy ochrany kupujících, jejich podmínky si přečtěte přímo u nich.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Je lepší repasovaný, nebo bazarový iPhone?",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Kdy dává smysl Bazoš nebo Sbazar",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Kdy je lepší koupit v obchodě",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Když kupujete jako spotřebitel <1>od podnikatele</1>, máte práva z vadného plnění {0} měsíců od převzetí. U použitého zboží smí obchod tuto dobu dohodou zkrátit, nejvýš ale na {1} měsíců. Vada, která se projeví v prvním roce, se navíc považuje za vadu, kterou telefon měl už při převzetí. Při nákupu přes internet můžete do {2} dnů od smlouvy odstoupit bez udání důvodu.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Když po tomto přičtení vyjde bazar jen o málo levněji, berte repas. Ceny použitých iPhonů od obchodů, tedy s právy kupujícího, porovnáváme v přehledu <1>iPhone bazar</1>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Ke ceně bazarového telefonu si v duchu připočtěte to, co u repasu platí obchod:",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Kolik je bazarový iPhone levnější než repasovaný?",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Kontrola stavu",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Má iPhone z bazaru záruku?",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Na tržištích prodávají vedle sebe firmy i soukromníci a stejný model může mít úplně jiné podmínky podle toho, od koho ho koupíte. <1>Firma</1> má stejné povinnosti jako e-shop: záruku, {0} dní na vrácení při nákupu na dálku a obchodní podmínky. <2>Soukromník</2> žádné spotřebitelské povinnosti nemá.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Od soukromé osoby ne. Zákonná záruka a {0} dní na vrácení platí jen při nákupu od podnikatele. Pokud bazarový telefon prodává firma (bazarová sekce e-shopu, firemní prodejce na Aukru), práva máte stejná jako u repasu.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Použité iPhony od obchodů mají záruku a {0} dní na vrácení při nákupu online.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Pro většinu lidí repasovaný z obchodu: má záruku, online {0} dní na vrácení a kontrolu technika. Bazar od soukromníka dává smysl, jen když telefon vidíte osobně, umíte ho zkontrolovat a cenový rozdíl je velký.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Prodávající",
+"p": [
+"/pruvodce/repas-vs-bazar/",
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Repasovaný iPhone kupujete <1>od obchodu</1>: se zárukou, s kontrolou technika a při nákupu online se {0} dny na vrácení bez udání důvodu. Bazarový iPhone od soukromníka bývá levnější, ale <2>celé riziko nesete vy</2>, záruka ani vrácení se na něj nevztahují. Bazar dává smysl, když telefon vidíte osobně, umíte ho zkontrolovat a cenový rozdíl je opravdu velký.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Repasovaný iPhone z obchodu, nebo bazar z Bazoše či Aukra? Srovnání záruky, vrácení, kontroly a ceny a jak koupit z bazaru bez Aktivačního zámku.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Repasovaný nebo bazarový iPhone: záruka, cena, riziko",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Repasovaný vs. bazarový iPhone: srovnání",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Repasovaný z obchodu",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Rozdíl tedy není v tom, jak starý telefon je, ale <1>kdo za něj ručí</1>. Slovo „bazar“ navíc neznamená vždy soukromníka: bazarové sekce velkých e-shopů a firmy prodávající použité telefony jsou podnikatelé a máte vůči nim stejná práva jako u repasu. Co znamenají další označení (zánovní, rozbalený, výstavní), vysvětluje článek <2>co znamená repasovaný iPhone</2>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Rozšířený postup včetně toho, jak poznat podezřelý inzerát, najdete v průvodci <1>jak koupit iPhone z bazaru</1>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "U nabídky otevřete profil prodejce. Firma uvádí název, IČO a obchodní podmínky, soukromník ne. Spotřebitelská práva máte jen vůči firmě.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Vrácení bez důvodu",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Vyplatí se úspora na bazaru?",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Záleží na modelu a stavu. Rozdíl odpovídá tomu, že u bazaru nesete riziko sami. Když je malý, vyplatí se repas. Aktuální ceny použitých kusů od obchodů ukazuje přehled <1>iPhone bazar</1>.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "Záleží na modelu a stavu. Rozdíl odpovídá tomu, že u bazaru nesete riziko sami. Když je malý, vyplatí se repas. Aktuální ceny použitých kusů od obchodů ukazuje přehled iPhone bazar.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "co řekne prodávající, ověříte jen osobně",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "firma",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "firma, nebo soukromník; zjistíte v profilu prodejce",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "hlavní riziko, kontrolujete sami",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "jen slovo prodávajícího a vaše vlastní kontrola",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "kondici často uvádí, někdy mění",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "kupujete <1>starší, levnější model</1>, u kterého je případná ztráta menší,",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "mezi oběma",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "nízké",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "nízké u firmy, vysoké u soukromníka",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "obchod ručí, že telefon půjde nastavit",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "od firmy jako v obchodě, od soukromníka žádná",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "prodávající má doklad o koupi a ochotně ukáže vše, o co požádáte,",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "případnou <1>výměnu baterie</1>, pokud má kondici kolem {0} %,",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "riziko, že zjistíte <1>neoriginální displej</1> nebo jinou vadu, kterou nikdo neuhradí,",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "rozdíl proti repasu stejného modelu a kvality je <1>tak velký</1>, že pokryje i případnou výměnu baterie,",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "technik obchodu, kvalita podle stupnice",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "telefon si můžete <1>prohlédnout a vyzkoušet osobně</1> před zaplacením,",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "u firmy ručí prodejce",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "vyšší",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "víte, co v Nastavení kontrolovat.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "{0} dní při nákupu online",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "{0} měsíců, u použitého zboží dohodou nejméně {1}",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "čas na cestu, kontrolu a vyjednávání.",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+},
+{
+"k": "žádná ze zákona",
+"p": [
+"/pruvodce/repas-vs-bazar/"
+]
+}
+]

@@ -1,0 +1,1758 @@
+[
+{
+"k": "Odstoupení do {0} dnů neplatí při nákupu v kamenné prodejně. Tam záleží na dobré vůli obchodu.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Pokud obchod reklamaci zamítne a vy s tím nesouhlasíte, chtějte zamítnutí písemně a s odůvodněním. Pomoct může nezávislý znalecký posudek na váš náklad (při uznání vady vám ho obchod proplatí) nebo mimosoudní řešení sporu přes Českou obchodní inspekci, které je pro spotřebitele zdarma.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Pokud opravu nebo výměnu nejde provést, obchod odmítne vadu odstranit, vada se opakuje nebo je podstatná, máte nárok na přiměřenou slevu, nebo můžete od smlouvy odstoupit a dostat peníze zpět.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Pošlete obchodu odstoupení písemně, e-mail stačí. Většina obchodů má formulář, použít ho ale nemusíte.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Prodloužená záruka a pojištění",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Při nákupu na dálku (e-shop, telefon, e-mail) od obchodníka můžete do <1>{0} dnů od převzetí</1> od smlouvy odstoupit. Nemusíte říkat proč, stačí, že se vám telefon nelíbí.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Repasovaný iPhone od obchodu má stejnou zákonnou ochranu jako nový telefon: <1>{0} měsíců</1> na vady a při nákupu přes internet <2>{1} dní na vrácení</2> bez udání důvodu. Jediný rozdíl je, že u použitého zboží smí obchod záruku dohodou zkrátit, nejvýš ale na {2} měsíců. Od soukromníka z bazaru žádnou z těchto ochran nemáte.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Servisní technik u mikroskopu",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Soukromník na tržišti",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Telefon odešlete zpět do {0} dnů od odstoupení. Poštovné zpět platíte vy, pokud vás o tom obchod předem informoval.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Telefon smíte vyzkoušet tak, jako byste to udělali v prodejně: zapnout, projít nastavení, vyfotit pár snímků, zkontrolovat baterii. Pokud ho ale dva týdny běžně používáte a vrátíte poškrábaný, obchod může snížit vrácenou částku o snížení hodnoty. Před odesláním se odhlaste z Apple ID a telefon vymažte.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Text je obecné shrnutí práv spotřebitele v Česku, nejde o právní radu. Konkrétní lhůty a podmínky najdete v obchodních podmínkách obchodu.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "U levnějšího repasu v kvalitě B nebo C se pojištění často nevyplatí: oprava displeje může stát podobně jako rozdíl mezi kvalitami. Porovnejte si ceny u <1>levných iPhonů</1>.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "U nabídek na tržišti vždy zkontrolujte, kdo prodává. Firma má v profilu IČO a obchodní podmínky. Proto do srovnání bereme z tržišť jen nabídky označené jako repasované. Rozdíly obou cest rozebírá článek <1>repasovaný, nebo bazarový iPhone</1>, bezpečný nákup od soukromníka popisuje <2>iPhone z bazaru</2>.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "U nabídek ukazujeme záruku, kterou obchod uvádí, nebo že ji neuvádí.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Vada není to, co odpovídá popsané kvalitě. Pokud jste kupovali iPhone v kvalitě C s viditelnými škrábanci, škrábance reklamovat nemůžete. Pokud ale nabídka slibovala kvalitu A a dorazí telefon s ťuknutým rámem, jde o vadu už při převzetí. <1>Co přesně znamenají kvality A+, A, B a C</1>",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Vrácení do {0} dnů bez udání důvodu",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Vztahuje se záruka na baterii?",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Zákonná doba pro uplatnění vad (lidově záruka) je u spotřebitele {0} měsíců od převzetí. Repasovaný telefon je ale <1>použité zboží</1> a u něj zákon dovoluje dobu zkrátit. Musí to být dohodnuté předem, typicky v obchodních podmínkách nebo přímo v popisu produktu, a kratší než {1} měsíců být nesmí.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Zánovní a rozbalené kusy (u nás kvalita A+) bývají prodávané s plnými {0} měsíci, běžné repasy v kvalitě A až C často s {1}. Délku si u konkrétní nabídky ověřte v podmínkách obchodu, mění se a liší i mezi produkty jednoho obchodu.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "Záruka na repasovaný iPhone: {0} nebo {1} měsíců",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "dohodou, bez nároku",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "jakou má spoluúčast a jestli se platí za odvoz do servisu,",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "jestli kryje baterii, nebo jen ostatní díly,",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "jestli kryje pád a vodu, nebo jen vady,",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "jestli platí jen u konkrétního obchodu.",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "obchodu",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "prodejci",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "stejně jako e-shop",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "{0} měsíců, nebo {1}? Co platí u repasu",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "{0} měsíců, u použitého zboží nejméně {1}",
+"p": [
+"/pruvodce/zaruka/"
+]
+},
+{
+"k": "<1>iOS {0}/{1}</1>: Apple aktuální systém vydává pro iPhone {2} a novější a pro SE {3}. generace. Starší modely fungují dál, ale nové funkce a časem i některé aplikace jim chybí. <2>Apple Intelligence</2> mají iPhony {4} Pro, celá řada {5} a novější. <3>USB-C</3> mají modely od iPhonu {6}.",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "Jak tabulku číst",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "Nevíte, který vybrat? <1>Doporučení podle rozpočtu</1>",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "Srovnání dvou modelů",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "Srovnání iPhonů z druhé ruky",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "Srovnání iPhonů – parametry a ceny z druhé ruky",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "Všechny iPhony z druhé ruky v jedné tabulce: rok, displej, čip, konektor, podpora iOS {0} a {1} a nejnižší cena.",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "Všechny modely, které se dnes dají koupit, v jedné tabulce: rok, displej, čip, konektor, podpora aktuálního iOS a nejnižší cena.",
+"p": [
+"/srovnani/"
+]
+},
+{
+"k": "<1>A+</1> Jako nový",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "<1>A</1> Výborný",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "<1>B</1> Velmi dobrý",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "<1>C</1> Dobrý",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "<1>Nový</1> Nerozbalený",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "<1>Vybrat iPhone {0} od {1} Kč</1> <2>Vybrat iPhone {2} od {3} Kč</2>",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "Ceny podle kvality",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Ceny z {0}. listopadu {1}",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Co je lepší, iPhone {0} nebo iPhone {1}?",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "Další srovnání",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone {0} a iPhone {1}?",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} a iPhone {1} z druhé ruky?",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "Který si vybrat?",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Nejnižší dnešní cena v každé kvalitě (všechny paměti a barvy, se slevovými kódy).",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Obnovovací frekvence",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Paměti",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Parametry vedle sebe",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Rok vydání",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Za iPhone {0} připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Při tak malém rozdílu se vyplatí sáhnout po iPhone {3}.",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/"
+]
+},
+{
+"k": "iPhone {0} ({1}) má proti iPhone {2} ({3}) čip A{4} Bionic místo A{5} Bionic. iPhone {6} má OLED displej místo LCD, {7}G, MagSafe a odolnější sklo Ceramic Shield. Z druhé ruky dnes koupíte iPhone {8} od <1>{9} Kč</1> a iPhone {10} od <2>{11} Kč</2>, novější model je tedy dražší o {12} Kč.",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/"
+]
+},
+{
+"k": "iPhone {0} má proti iPhone {1} čip A{2} Bionic místo A{3} Bionic. iPhone {4} má OLED displej místo LCD, {5}G, MagSafe a odolnější sklo Ceramic Shield.",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/"
+]
+},
+{
+"k": "iPhone {0} od {1} Kč, iPhone {2} od {3} Kč; ceny včetně platných slevových kódů z {4}. listopadu {5}.",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "iPhone {0} vs iPhone {1} – rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone {1}: rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "iPhone {0}, nebo iPhone {1}? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {2} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "{0} Hz",
+"p": [
+"/srovnani/iphone-11-vs-iphone-12/",
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>Srovnání</3><4>›</4><5>iPhone {0} mini vs. iPhone {1} mini</5>",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "<1>Vybrat iPhone {0} mini od {1} Kč</1> <2>Vybrat iPhone {2} mini od {3} Kč</2>",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Co je lepší, iPhone {0} mini nebo iPhone {1} mini?",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone {0} mini a iPhone {1} mini?",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} mini a iPhone {1} mini z druhé ruky?",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Za iPhone {0} mini připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Bionic místo A{4} Bionic, iPhone {5} mini je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} mini ({1}) má proti iPhone {2} mini ({3}) čip A{4} Bionic místo A{5} Bionic. iPhone {6} mini má výrazně delší výdrž baterie, menší výřez v displeji a základní paměť {7} GB. Z druhé ruky dnes koupíte iPhone {8} mini od <1>{9} Kč</1> a iPhone {10} mini od <2>{11} Kč</2>, novější model je tedy dražší o {12} Kč.",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} mini má proti iPhone {1} mini čip A{2} Bionic místo A{3} Bionic. iPhone {4} mini má výrazně delší výdrž baterie, menší výřez v displeji a základní paměť {5} GB.",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} mini od {1} Kč, iPhone {2} mini od {3} Kč; ceny včetně platných slevových kódů z {4}. listopadu {5}.",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} mini vs iPhone {1} mini – rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} mini vs. iPhone {1} mini: rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} mini, nebo iPhone {1} mini? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {2} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-12-mini-vs-iphone-13-mini/"
+]
+},
+{
+"k": "Za iPhone {0} připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Bionic místo A{4} Bionic, iPhone {5} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "iPhone {0} ({1}) má proti iPhone {2} ({3}) čip A{4} Bionic místo A{5} Bionic. iPhone {6} má delší výdrž baterie, menší výřez a základní paměť {7} GB místo {8} GB. Z druhé ruky dnes koupíte iPhone {9} od <1>{10} Kč</1> a iPhone {11} od <2>{12} Kč</2>, novější model je tedy dražší o {13} Kč.",
+"p": [
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "iPhone {0} má proti iPhone {1} čip A{2} Bionic místo A{3} Bionic. iPhone {4} má delší výdrž baterie, menší výřez a základní paměť {5} GB místo {6} GB.",
+"p": [
+"/srovnani/iphone-12-vs-iphone-13/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>Srovnání</3><4>›</4><5>iPhone {0} vs. iPhone {1} Pro</5>",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "<1>Vybrat iPhone {0} od {1} Kč</1> <2>Vybrat iPhone {2} Pro od {3} Kč</2>",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "Co je lepší, iPhone {0} nebo iPhone {1} Pro?",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone {0} a iPhone {1} Pro?",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} a iPhone {1} Pro z druhé ruky?",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "Za iPhone {0} Pro připlatíte zhruba {1} %. Pokud nepotřebujete {2}Hz displej, iPhone {3} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro ({1}) má proti iPhone {2} ({3}) {4}Hz displej. Verze Pro má teleobjektiv a umí makro fotografie. Z druhé ruky dnes koupíte iPhone {5} od <1>{6} Kč</1> a iPhone {7} Pro od <2>{8} Kč</2>, novější model je tedy dražší o {9} Kč.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro má proti iPhone {1}Hz displej. Verze Pro má teleobjektiv a umí makro fotografie.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/"
+]
+},
+{
+"k": "iPhone {0} od {1} Kč, iPhone {2} Pro od {3} Kč; ceny včetně platných slevových kódů z {4}. listopadu {5}.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0} vs iPhone {1} Pro – rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone {1} Pro: rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0}, nebo iPhone {1} Pro? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {2} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-13-pro/",
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "Za iPhone {0} připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Rozhoduje rozpočet: iPhone {3} je levnější, iPhone {4} vydrží déle.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-14/"
+]
+},
+{
+"k": "iPhone {0} ({1}) má proti iPhone {2} ({3}) stejnou velikost displeje i základní parametry. iPhone {4} má stejný čip A{5} Bionic, ale s pětijádrovou grafikou, lepší hlavní fotoaparát, přední kameru s automatickým ostřením a detekci autonehody. Kusy z USA jsou od iPhonu {6} jen s eSIM. Z druhé ruky dnes koupíte iPhone {7} od <1>{8} Kč</1> a iPhone {9} od <2>{10} Kč</2>, novější model je tedy dražší o {11} Kč.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-14/"
+]
+},
+{
+"k": "iPhone {0} má proti iPhone {1} stejnou velikost displeje i základní parametry. iPhone {2} má stejný čip A{3} Bionic, ale s pětijádrovou grafikou, lepší hlavní fotoaparát, přední kameru s automatickým ostřením a detekci autonehody. Kusy z USA jsou od iPhonu {4} jen s eSIM.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-14/"
+]
+},
+{
+"k": "Za iPhone {0} připlatíte zhruba {1} %. Je o {2} roky mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Bionic místo A{4} Bionic, USB-C místo Lightning, iPhone {5} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-15/"
+]
+},
+{
+"k": "iPhone {0} ({1}) má proti iPhone {2} ({3}) čip A{4} Bionic místo A{5} Bionic, USB-C místo Lightning. Mezi nimi jsou dvě generace: iPhone {6} má Dynamic Island, {7}Mpx hlavní fotoaparát a USB-C. Z druhé ruky dnes koupíte iPhone {8} od <1>{9} Kč</1> a iPhone {10} od <2>{11} Kč</2>, novější model je tedy dražší o {12} Kč.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-15/"
+]
+},
+{
+"k": "iPhone {0} má proti iPhone {1} čip A{2} Bionic místo A{3} Bionic, USB-C místo Lightning. Mezi nimi jsou dvě generace: iPhone {4} má Dynamic Island, {5}Mpx hlavní fotoaparát a USB-C.",
+"p": [
+"/srovnani/iphone-13-vs-iphone-15/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>Srovnání</3><4>›</4><5>iPhone {0} Pro vs. iPhone {1} Pro</5>",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "<1>Vybrat iPhone {0} Pro od {1} Kč</1> <2>Vybrat iPhone {2} Pro od {3} Kč</2>",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "Co je lepší, iPhone {0} Pro nebo iPhone {1} Pro?",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone {0} Pro a iPhone {1} Pro?",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} Pro a iPhone {1} Pro z druhé ruky?",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "Za iPhone {0} Pro připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Pro místo A{4} Bionic, USB-C místo Lightning, iPhone {5} Pro je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro ({1}) má proti iPhone {2} Pro ({3}) čip A{4} Pro místo A{5} Bionic, USB-C místo Lightning, Apple Intelligence. iPhone {6} Pro má titanový rám, tlačítko Akce a rychlejší USB-C. Z druhé ruky dnes koupíte iPhone {7} Pro od <1>{8} Kč</1> a iPhone {9} Pro od <2>{10} Kč</2>, novější model je tedy dražší o {11} Kč.",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro má proti iPhone {1} Pro čip A{2} Pro místo A{3} Bionic, USB-C místo Lightning, Apple Intelligence. iPhone {4} Pro má titanový rám, tlačítko Akce a rychlejší USB-C.",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro od {1} Kč, iPhone {2} Pro od {3} Kč; ceny včetně platných slevových kódů z {4}. listopadu {5}.",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro vs iPhone {1} Pro – rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro vs. iPhone {1} Pro: rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro, nebo iPhone {1} Pro? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {2} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-14-pro-vs-iphone-15-pro/",
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "Za iPhone {0} připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Bionic místo A{4} Bionic, USB-C místo Lightning, iPhone {5} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-14-vs-iphone-15/"
+]
+},
+{
+"k": "iPhone {0} ({1}) má proti iPhone {2} ({3}) čip A{4} Bionic místo A{5} Bionic, USB-C místo Lightning. iPhone {6} přidává Dynamic Island místo výřezu, {7}Mpx hlavní fotoaparát a USB-C. Z druhé ruky dnes koupíte iPhone {8} od <1>{9} Kč</1> a iPhone {10} od <2>{11} Kč</2>, novější model je tedy dražší o {12} Kč.",
+"p": [
+"/srovnani/iphone-14-vs-iphone-15/"
+]
+},
+{
+"k": "iPhone {0} má proti iPhone {1} čip A{2} Bionic místo A{3} Bionic, USB-C místo Lightning. iPhone {4} přidává Dynamic Island místo výřezu, {5}Mpx hlavní fotoaparát a USB-C.",
+"p": [
+"/srovnani/iphone-14-vs-iphone-15/"
+]
+},
+{
+"k": "Za iPhone {0} Pro připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Pro místo A{4} Pro, větší displej ({5}″ proti {6}″), iPhone {7} Pro je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro ({1}) má proti iPhone {2} Pro ({3}) čip A{4} Pro místo A{5} Pro, větší displej ({6}″ proti {7}″). iPhone {8} Pro má větší displej, tlačítko Ovládání fotoaparátu a pětinásobný teleobjektiv i u menší verze. Z druhé ruky dnes koupíte iPhone {9} Pro od <1>{10} Kč</1> a iPhone {11} Pro od <2>{12} Kč</2>, novější model je tedy dražší o {13} Kč.",
+"p": [
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro má proti iPhone {1} Pro čip A{2} Pro místo A{3} Pro, větší displej ({4}″ proti {5}″). iPhone {6} Pro má větší displej, tlačítko Ovládání fotoaparátu a pětinásobný teleobjektiv i u menší verze.",
+"p": [
+"/srovnani/iphone-15-pro-vs-iphone-16-pro/"
+]
+},
+{
+"k": "Za iPhone {0} Pro připlatíte zhruba {1} %. Pokud nepotřebujete čip A{2} Pro místo A{3} Bionic, {4}Hz displej, iPhone {5} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro ({1}) má proti iPhone {2} ({3}) čip A{4} Pro místo A{5} Bionic, {6}Hz displej, Apple Intelligence. Verze Pro má titanový rám, teleobjektiv, tlačítko Akce a rychlejší USB-C. Z druhé ruky dnes koupíte iPhone {7} od <1>{8} Kč</1> a iPhone {9} Pro od <2>{10} Kč</2>, novější model je tedy dražší o {11} Kč.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro má proti iPhone {1} čip A{2} Pro místo A{3} Bionic, {4}Hz displej, Apple Intelligence. Verze Pro má titanový rám, teleobjektiv, tlačítko Akce a rychlejší USB-C.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-15-pro/"
+]
+},
+{
+"k": "Za iPhone {0} připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} místo A{4} Bionic, Apple Intelligence, iPhone {5} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16/"
+]
+},
+{
+"k": "iPhone {0} ({1}) má proti iPhone {2} ({3}) čip A{4} místo A{5} Bionic, Apple Intelligence. iPhone {6} přidává tlačítko Akce a tlačítko Ovládání fotoaparátu. Z druhé ruky dnes koupíte iPhone {7} od <1>{8} Kč</1> a iPhone {9} od <2>{10} Kč</2>, novější model je tedy dražší o {11} Kč.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16/"
+]
+},
+{
+"k": "iPhone {0} má proti iPhone {1} čip A{2} místo A{3} Bionic, Apple Intelligence. iPhone {4} přidává tlačítko Akce a tlačítko Ovládání fotoaparátu.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16/"
+]
+},
+{
+"k": "<1>Vybrat iPhone {0} od {1} Kč</1> <2>Vybrat iPhone {2}e od {3} Kč</2>",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "Co je lepší, iPhone {0} nebo iPhone {1}e?",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone {0} a iPhone {1}e?",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} a iPhone {1}e z druhé ruky?",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0} od {1} Kč, iPhone {2}e od {3} Kč; ceny včetně platných slevových kódů z {4}. listopadu {5}.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0} vs iPhone {1}e – rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone {1}e: rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0}, nebo iPhone {1}e? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {2} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0}e ({1}) má proti iPhone {2} ({3}) čip A{4} místo A{5} Bionic, Apple Intelligence. iPhone {6}e má navíc tlačítko Akce, ale jen jeden zadní fotoaparát, výřez místo Dynamic Island a nepodporuje MagSafe. Z druhé ruky dnes koupíte iPhone {7} od <1>{8} Kč</1> a iPhone {9}e od <2>{10} Kč</2>, novější model je dokonce levnější o {11} Kč.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0}e je dnes z druhé ruky stejně drahý nebo levnější, takže je jasná volba.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/",
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0}e má proti iPhone {1} čip A{2} místo A{3} Bionic, Apple Intelligence. iPhone {4}e má navíc tlačítko Akce, ale jen jeden zadní fotoaparát, výřez místo Dynamic Island a nepodporuje MagSafe.",
+"p": [
+"/srovnani/iphone-15-vs-iphone-16e/"
+]
+},
+{
+"k": "Za iPhone {0} Pro připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Pro místo A{4} Pro, iPhone {5} Pro je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-16-pro-vs-iphone-17-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro ({1}) má proti iPhone {2} Pro ({3}) čip A{4} Pro místo A{5} Pro. iPhone {6} Pro přechází z titanu na hliníkové tělo a má novou generaci čipu a fotoaparátů. Z druhé ruky dnes koupíte iPhone {7} Pro od <1>{8} Kč</1> a iPhone {9} Pro od <2>{10} Kč</2>, novější model je tedy dražší o {11} Kč.",
+"p": [
+"/srovnani/iphone-16-pro-vs-iphone-17-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro má proti iPhone {1} Pro čip A{2} Pro místo A{3} Pro. iPhone {4} Pro přechází z titanu na hliníkové tělo a má novou generaci čipu a fotoaparátů.",
+"p": [
+"/srovnani/iphone-16-pro-vs-iphone-17-pro/"
+]
+},
+{
+"k": "Za iPhone {0} Pro připlatíte zhruba {1} %. Pokud nepotřebujete čip A{2} Pro místo A{3}, {4}Hz displej, iPhone {5} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro ({1}) má proti iPhone {2} ({3}) čip A{4} Pro místo A{5}, {6}Hz displej, větší displej ({7}″ proti {8}″). Verze Pro má titanový rám, teleobjektiv a displej s funkcí Always-On. Z druhé ruky dnes koupíte iPhone {9} od <1>{10} Kč</1> a iPhone {11} Pro od <2>{12} Kč</2>, novější model je tedy dražší o {13} Kč.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro má proti iPhone {1} čip A{2} Pro místo A{3}, {4}Hz displej, větší displej ({5}″ proti {6}″). Verze Pro má titanový rám, teleobjektiv a displej s funkcí Always-On.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-16-pro/"
+]
+},
+{
+"k": "iPhone {0}e ({1}) má proti iPhone {2} ({3}) stejnou velikost displeje i základní parametry. iPhone {4}e je levnější varianta: má jen jeden zadní fotoaparát, výřez místo Dynamic Island a nepodporuje MagSafe. Čip A{5} a Apple Intelligence má stejně jako iPhone {6}. Z druhé ruky dnes koupíte iPhone {7} od <1>{8} Kč</1> a iPhone {9}e od <2>{10} Kč</2>, novější model je dokonce levnější o {11} Kč.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "iPhone {0}e má proti iPhone {1} stejnou velikost displeje i základní parametry. iPhone {2}e je levnější varianta: má jen jeden zadní fotoaparát, výřez místo Dynamic Island a nepodporuje MagSafe. Čip A{3} a Apple Intelligence má stejně jako iPhone {4}.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-16e/"
+]
+},
+{
+"k": "Za iPhone {0} připlatíte zhruba {1} %. Je o {2} rok mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} místo A{4}, {5}Hz displej, iPhone {6} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-17/"
+]
+},
+{
+"k": "iPhone {0} ({1}) má proti iPhone {2} ({3}) čip A{4} místo A{5}, {6}Hz displej, větší displej ({7}″ proti {8}″). iPhone {9} má větší displej s plynulými {10} Hz a základní paměť {11} GB. Z druhé ruky dnes koupíte iPhone {12} od <1>{13} Kč</1> a iPhone {14} od <2>{15} Kč</2>, novější model je tedy dražší o {16} Kč.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-17/"
+]
+},
+{
+"k": "iPhone {0} má proti iPhone {1} čip A{2} místo A{3}, {4}Hz displej, větší displej ({5}″ proti {6}″). iPhone {7} má větší displej s plynulými {8} Hz a základní paměť {9} GB.",
+"p": [
+"/srovnani/iphone-16-vs-iphone-17/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>Srovnání</3><4>›</4><5>iPhone {0} Pro vs. iPhone {1} Pro Max</5>",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "<1>Vybrat iPhone {0} Pro od {1} Kč</1> <2>Vybrat iPhone {2} Pro Max od {3} Kč</2>",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "Co je lepší, iPhone {0} Pro nebo iPhone {1} Pro Max?",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone {0} Pro a iPhone {1} Pro Max?",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} Pro a iPhone {1} Pro Max z druhé ruky?",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "Za iPhone {0} Pro Max připlatíte zhruba {1} %. Pokud nepotřebujete větší displej ({2}″ proti {3}″), iPhone {4} Pro je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro Max ({1}) má proti iPhone {2} Pro ({3}) větší displej ({4}″ proti {5}″). Pro Max má větší displej a delší výdrž baterie, jinak stejnou výbavu. Z druhé ruky dnes koupíte iPhone {6} Pro od <1>{7} Kč</1> a iPhone {8} Pro Max od <2>{9} Kč</2>, novější model je tedy dražší o {10} Kč.",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro Max má proti iPhone {1} Pro větší displej ({2}″ proti {3}″). Pro Max má větší displej a delší výdrž baterie, jinak stejnou výbavu.",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro od {1} Kč, iPhone {2} Pro Max od {3} Kč; ceny včetně platných slevových kódů z {4}. listopadu {5}.",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro vs iPhone {1} Pro Max – rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro vs. iPhone {1} Pro Max: rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro, nebo iPhone {1} Pro Max? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {2} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-17-pro-vs-iphone-17-pro-max/"
+]
+},
+{
+"k": "Za iPhone {0} Pro připlatíte zhruba {1} %. Pokud nepotřebujete čip A{2} Pro místo A{3}, iPhone {4} je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-17-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro ({1}) má proti iPhone {2} ({3}) čip A{4} Pro místo A{5}. Verze Pro má čip A{6} Pro, trojitý fotoaparát s teleobjektivem a výkonnější chlazení. Z druhé ruky dnes koupíte iPhone {7} od <1>{8} Kč</1> a iPhone {9} Pro od <2>{10} Kč</2>, novější model je tedy dražší o {11} Kč.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-17-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro má proti iPhone {1} čip A{2} Pro místo A{3}. Verze Pro má čip A{4} Pro, trojitý fotoaparát s teleobjektivem a výkonnější chlazení.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-17-pro/"
+]
+},
+{
+"k": "iPhone {0}e ({1}) má proti iPhone {2} ({3}) menší displej ({4}″ proti {5}″). Z druhé ruky dnes koupíte iPhone {6} od <1>{7} Kč</1> a iPhone {8}e od <2>{9} Kč</2>, novější model je dokonce levnější o {10} Kč.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-17e/"
+]
+},
+{
+"k": "iPhone {0}e má proti iPhone {1} menší displej ({2}″ proti {3}″).",
+"p": [
+"/srovnani/iphone-17-vs-iphone-17e/"
+]
+},
+{
+"k": "<1>Vybrat iPhone {0} od {1} Kč</1> <2>Vybrat iPhone Air od {2} Kč</2>",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "Co je lepší, iPhone {0} nebo iPhone Air?",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone {0} a iPhone Air?",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} a iPhone Air z druhé ruky?",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "iPhone Air ({0}) má proti iPhone {1} ({2}) čip A{3} Pro místo A{4}, větší displej ({5}″ proti {6}″). iPhone Air je extrémně tenký, má jen jeden zadní fotoaparát a funguje výhradně s eSIM. Z druhé ruky dnes koupíte iPhone {7} od <1>{8} Kč</1> a iPhone Air od <2>{9} Kč</2>, novější model je dokonce levnější o {10} Kč.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "iPhone Air je dnes z druhé ruky stejně drahý nebo levnější, takže je jasná volba.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "iPhone Air má proti iPhone {0} čip A{1} Pro místo A{2}, větší displej ({3}″ proti {4}″). iPhone Air je extrémně tenký, má jen jeden zadní fotoaparát a funguje výhradně s eSIM.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "iPhone {0} od {1} Kč, iPhone Air od {2} Kč; ceny včetně platných slevových kódů z {3}. listopadu {4}.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "iPhone {0} vs iPhone Air – rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone Air: rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "iPhone {0}, nebo iPhone Air? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {1} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-17-vs-iphone-air/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>Srovnání</3><4>›</4><5>iPhone SE ({0}) vs. iPhone SE ({1})</5>",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "<1>Vybrat iPhone SE ({0}) od {1} Kč</1> <2>Vybrat iPhone SE ({2}) od {3} Kč</2>",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "Co je lepší, iPhone SE ({0}) nebo iPhone SE ({1})?",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "Jaký je rozdíl mezi iPhone SE ({0}) a iPhone SE ({1})?",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "Kolik stojí iPhone SE ({0}) a iPhone SE ({1}) z druhé ruky?",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "Za iPhone SE ({0}) připlatíte zhruba {1} %. Je o {2} roky mladší, takže aktualizace iOS dostane o něco déle. Pokud nepotřebujete čip A{3} Bionic místo A{4} Bionic, iPhone SE ({5}) je rozumnější nákup.",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "iPhone SE ({0}) ({1}) má proti iPhone SE ({2}) ({3}) čip A{4} Bionic místo A{5} Bionic. SE {6} vypadá stejně, ale má rychlejší čip A{7} Bionic, {8}G a delší výdrž baterie. Z druhé ruky dnes koupíte iPhone SE ({9}) od <1>{10} Kč</1> a iPhone SE ({11}) od <2>{12} Kč</2>, novější model je tedy dražší o {13} Kč.",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "iPhone SE ({0}) má proti iPhone SE ({1}) čip A{2} Bionic místo A{3} Bionic. SE {4} vypadá stejně, ale má rychlejší čip A{5} Bionic, {6}G a delší výdrž baterie.",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "iPhone SE ({0}) od {1} Kč, iPhone SE ({2}) od {3} Kč; ceny včetně platných slevových kódů z {4}. listopadu {5}.",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "iPhone SE ({0}) vs iPhone SE ({1})",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "iPhone SE ({0}) vs. iPhone SE ({1}): rozdíly a ceny z druhé ruky",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "iPhone SE ({0}), nebo iPhone SE ({1})? Displej, čip, konektor, podpora iOS a dnešní ceny repasovaných kusů od {2} Kč. Který se vyplatí víc.",
+"p": [
+"/srovnani/iphone-se-2020-vs-iphone-se-2022/"
+]
+},
+{
+"k": "<1>Inzerát:</1> soukromý kupující čeká slevu proti obchodu, protože nemá záruku. Cena kousek pod nejlevnějším repasem ve stejné kvalitě je realistická.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Kondice baterie.</1> Pod {0} % musí výkup počítat s výměnou baterie. <2>Kondice baterie</2>",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Model a stáří.</1> Největší rozdíl dělá podpora iOS. Modely bez aktuálního systému (X, XS, XR, {0}) mají nízkou hodnotu, telefony od iPhonu {1} drží cenu líp. <2>Které iPhony mají podporu iOS</2>",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Nedávejte kupujícímu svůj kód ani Apple ID</1>, telefon předávejte až vymazaný.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Neklikejte na odkazy na „platbu přes dopravce“</1> nebo „bezpečnou platbu“ poslané v chatu či SMS. Jde o častý podvod, kdy po vás chtějí údaje karty. Peníze za prodej nikdy nemusíte „přijímat“ zadáním čísla karty.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Neposílejte telefon předem</1> neznámému kupujícímu, který slibuje zaplatit po doručení.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Odeberte telefon ze seznamu zařízení</1> na account.apple.com, pokud tam zůstal.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Odhlaste se z Apple ID:</1> Nastavení → vaše jméno → Odhlásit se. Tím vypnete Najít iPhone i zámek aktivace. Bez toho telefon nikdo nemůže používat a seriózní výkup ho nevezme.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Paměť.</1> Vyšší paměť cenu zvedá, ale méně, než kolik stála při nákupu.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Platba v hotovosti</1> při předání, nebo převodem, který vidíte připsaný ve svém bankovnictví. Snímek obrazovky „odeslané platby“ není platba.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Předávejte osobně</1>, na veřejném místě, nejlépe přes den.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Příslušenství a doklad.</1> Krabice a doklad o koupi pomáhají hlavně při prodeji přes inzerát, kupující má jistotu původu.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Stav.</1> Prasklý displej nebo záda srazí cenu o cenu opravy. Škrábance na rámu méně. Výkup obvykle třídí podobně jako obchody s repasy, do kategorií A až C. <2>Co znamenají kvality A, B, C</2>",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Strop:</1> za kolik se stejný model, paměť a kvalita prodává v obchodech s repasy. Ceny všech modelů vidíte v přehledu <2>levné iPhony</2> nebo na stránce konkrétního modelu, třeba <3>iPhone {0}</3> či <4>iPhone {1}</4>.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Vymažte telefon:</1> Nastavení → Obecné → Přenést nebo resetovat iPhone → Smazat data a nastavení. <2>Podrobný návod</2>",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Vyměněné díly.</1> Neoriginální displej nebo „Neznámý díl“ v nastavení cenu snižují. <2>Díly a historie servisu</2>",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Vyndejte SIM kartu</1>, eSIM při mazání odstraňte.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Vyčistěte ho</1> a připravte krabici, kabel a doklad, pokud je máte.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Výkup:</1> nabídky porovnejte aspoň u dvou až tří výkupů, rozdíly bývají znatelné.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Výkup</1> se hodí, když chcete mít věc vyřízenou hned. Obchod telefon zkontroluje, nabídne cenu a zaplatí. <2>Protiúčet</2> funguje podobně, jen výkupní cenu odečte obchod od nového nebo repasovaného telefonu. <3>Inzerát</3> vynese nejvíc, protože prodáváte přímo koncovému kupujícímu, ale musíte si poradit se smlouváním, schůzkami a bezpečnou platbou.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Zrušte spárování Apple Watch</1> v aplikaci Watch.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Zálohujte</1> do iCloudu nebo počítače, případně data rovnou přeneste do nového telefonu. <2>Jak přesunout data</2>",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Bezpečný prodej přes inzerát",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Co ovlivňuje výkupní cenu",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Co udělat s iPhonem před prodejem?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Dnešní nejnižší ceny repasů podle modelu, tedy strop pro výkup i inzerát:",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Foto: saravut vanset, Pexels",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Jak bezpečně prodat iPhone přes Bazoš?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Jak iPhone před prodejem připravit",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Kde iPhone vykoupí obchody ze srovnání",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Kde prodat iPhone nejvýhodněji?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Kolik dostanete",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Kolik dostanu za starý iPhone ve výkupu?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Kolik si říct: strop je cena repasu",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Které obchody vykupují iPhony?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Kupujete místo starého telefonu repas?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Mnoho výkupů bere i telefony s prasklým displejem nebo slabou baterií, cenu ale sníží o opravu. Zamčený telefon s cizím Apple ID nevykoupí nikdo seriózní.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Na prodejně telefon zkontroluje technik zhruba za {0} minut, jde to i na dálku. Umí protiúčet, doplatek jen v hotovosti.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Nejnižší cena repasovaného kusu v obchodech v našem srovnání, {0}. listopadu {1}, po započtení platného slevového kódu. Ceny se aktualizují každou noc. Výkupní ceny obchodů neuvádíme, každý výkup je určuje sám podle kontroly telefonu.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Nejvíc obvykle dostanete prodejem soukromé osobě přes inzerát, nejpohodlnější je výkup v obchodě nebo protiúčet při koupi nového telefonu. Rozdíl je v čase, riziku a jistotě platby.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Online odhad ceny, telefon pošlete zdarma poštou, nebo ho přinesete na prodejnu.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Orientační cenu ukáže kalkulačka, finální určí kontrola. K vybraným novým zařízením přidává bonus k výkupu. Firmám nevykupuje.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Peníze z prodeje často pokryjí velkou část repasovaného telefonu o dvě až tři generace novějšího. Porovnejte nabídky v sekci <1>použité iPhony se zárukou</1> nebo podle rozpočtu v článku <2>jaký iPhone koupit</2>. Rozdíly mezi sousedními modely ukazují srovnání, třeba <3>iPhone {0} vs. iPhone {1}</3>.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Peníze z výkupu často pokryjí velkou část repasu o dvě až tři generace novějšího. Dnešní ceny:",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Podle stránek obchodů k {0}. listopadu {1}. Postup i podmínky se můžou změnit, platí to, co obchod uvádí při výkupu.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Pokud kupující chce telefon vidět zapnutý, předveďte ho před vymazáním a vymažte ho až při předání, před jeho očima. Kupující tak má jistotu, že telefon není zamčený.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Prodej soukromé osobě není podnikání, takže kupujícímu nedáváte zákonnou záruku. Popište ale stav pravdivě (baterie, vyměněné díly, škrábance), předejdete sporům.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Protiúčet",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Práce",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Předávejte osobně, nejlépe na veřejném místě, a peníze přijměte v hotovosti nebo převodem, který vidíte připsaný na účtu. Neklikejte na odkazy na „platbu přes dopravce“ a neposílejte telefon předem.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Přepravní štítek přijde e-mailem. Když vám nabídka nesedí, telefon vrátí zdarma. Jde to i na pobočce.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Rychlost",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Starý iPhone můžete prodat ve <1>výkupu</1> (obchod nebo servis zaplatí hned), dát ho na <2>protiúčet</2> při koupi nového telefonu, nebo ho prodat sami přes <3>inzerát</3>. Výkup a protiúčet jsou pohodlné a bez rizika, inzerát obvykle vynese víc, ale stojí čas a pozornost. Kolik dostanete, určuje hlavně model, paměť, stav a kondice baterie.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Stav A / A+",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Stav B",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Stav C",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Telefon s prasklým displejem nebo slabou baterií výkupy často berou, cenu sníží o opravu. Telefon, který nejde zapnout nebo je zamčený cizím Apple ID, většina výkupů nevezme. Zda váš kus vezmou, ukáže odhad u konkrétního výkupu.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Tržiště (Aukro)",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Tyto obchody v našem srovnání iPhony i vykupují. Cenu určí každý sám po kontrole telefonu, poptejte proto víc výkupů najednou.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Vykupují obchody i rozbitý iPhone?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Vykupují obchody iPhone na díly?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup JabkoLevně",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup MobileGear",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup iPhoneMarket",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup iPhonu – kde prodat starý iPhone a za kolik ({0})",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup iPhonu, protiúčet, nebo inzerát? Které obchody iPhony vykupují, kolik si říct podle dnešních cen repasů, jak telefon připravit a prodat bezpečně.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup iSTYLE",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup musí telefon zkontrolovat, případně opravit, dát na něj záruku a ještě vydělat. Proto vždy nabídne výrazně méně, než za kolik stejný telefon prodává jako repas. Užitečná orientace:",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup platí méně, než za kolik stejný telefon prodává jako repas, protože musí pokrýt kontrolu, opravy, záruku a marži. Jako strop vám poslouží cena stejného modelu a kvality v našem srovnání, rozumná nabídka výkupu bývá výrazně pod ní.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup v obchodě",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Výkup, protiúčet, nebo inzerát?",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Ze srovnávaných obchodů vykupují iPhony MobileGear, JabkoLevně, iPhoneMarket a iSTYLE. Každý určí cenu až po kontrole telefonu, proto se vyplatí poptat víc výkupů najednou.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Zálohovat data, zrušit spárování Apple Watch, odhlásit se z Apple ID, vymazat telefon (Smazat data a nastavení) a vyndat SIM kartu. Bez odhlášení z Apple ID telefon nikdo nemůže aktivovat.",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "dny",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "dny až týdny",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "fotky, inzerát, schůzky",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "fotky, popis, odeslání",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "hodně, minus poplatky",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "na počkání nebo do pár dní",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "nejméně",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "nejvíc",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "podobně jako výkup, někdy bonus",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "podvodné platby, smlouvání",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "při nákupu",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "reklamace kupujícího, poplatky",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Žena s telefonem a notebookem prodává starý iPhone",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "žádné",
+"p": [
+"/vykup-iphonu/"
+]
+},
+{
+"k": "<1>Baterie:</1> u zánovního kusu čekejte vysokou kondici, ověřte ale údaj u konkrétní nabídky. <2>Kondice baterie</2>",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Chcete ušetřit ještě víc?</1> Repasované iPhony ve stavu A mají jen drobné stopy viditelné zblízka a proti novým stojí typicky o {0} % méně.",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Generace:</1> USB-C mají modely od iPhonu {0}, Apple Intelligence iPhone {1} Pro a novější. Aktuální iOS dostávají všechny od iPhonu {2}.",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Jen eSIM:</1> verze z USA nemají slot na SIM kartu, u nabídek je označujeme.",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Paměť:</1> {0} GB stačí většině lidí, kdo hodně fotí a natáčí, ať sáhne po {1} GB. <2>Kolik paměti stačí</2>",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Po převzetí:</1> v Nastavení → Obecné → Informace zkontrolujte díly a historii servisu. <2>Kontrola po převzetí</2>",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Rozbalený</1> iPhone někdo koupil a v zákonné lhůtě {0} dnů vrátil, takže je prakticky nový. <2>Zánovní</2> telefon byl používaný jen krátce a nemá viditelné stopy. Na stránce jsou jen nabídky, které obchod takto sám označuje.",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Vybrat repasovaný iPhone</1>",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "<1>Záruka:</1> u rozbaleného kusu bývá plných {0} měsíců, u zánovního ji obchod smí zkrátit na {1}. U každé nabídky ji vypisujeme. <2>Záruka a vrácení</2>",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "Baterie a záruka u každé nabídky",
+"p": [
+"/zanovni-iphone/",
+"/zanovni-iphone/iphone-11-pro-max/"
+]
+},
+{
+"k": "Bazar od soukromníka",
+"p": [
+"/zanovni-iphone/"
+]
+},
+{
+"k": "Ceny po slevovém kódu",
+"p": [
+"/zanovni-iphone/",
+"/zanovni-iphone/iphone-11-pro-max/"
+]
+},
+{
+"k": "Ceny z {0}. listopadu {1} · aktualizace každou noc",
+"p": [
+"/zanovni-iphone/"
+]
+}
+]

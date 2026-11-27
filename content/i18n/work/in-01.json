@@ -1,0 +1,2124 @@
+[
+{
+"k": "Chcete platit postupně?",
+"p": [
+"/iphone-13-pro-max/1024-gb/",
+"/iphone-13-pro-max/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} TB, grafitově šedá",
+"p": [
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Pro Max {1} TB",
+"p": [
+"/iphone-13-pro-max/1024-gb/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro Max {1} TB: {2} nabídek od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-13-pro-max/1024-gb/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max {1} TB (repasovaný)",
+"p": [
+"/iphone-13-pro-max/1024-gb/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max {1} TB: cena, bazar a repasovaný od {2} Kč",
+"p": [
+"/iphone-13-pro-max/1024-gb/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0} Kč</1><2>{1} Kč v obchodě</2><3>o {2} Kč levněji než nový</3>",
+"p": [
+"/iphone-13-pro-max/256-gb/",
+"/iphone-13/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} GB, grafitově šedá",
+"p": [
+"/iphone-13-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro přináší čip A{5} Bionic místo A{6} Bionic.",
+"p": [
+"/iphone-13-pro/",
+"/iphone-13-pro/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro přináší čip A{5} Bionic místo A{6} Bionic, {7}Hz displej.",
+"p": [
+"/iphone-13-pro/",
+"/iphone-13-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav B, {2} GB, horsky modrá",
+"p": [
+"/iphone-13-pro/",
+"/iphone-13-pro/512-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro stojí dnes od {1} Kč. Podle kvality: kvalita A od {2} Kč, kvalita B od {3} Kč, kvalita C od {4} Kč. Nový kus stojí od {5} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-13-pro/",
+"/iphone-13-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě horsky modrá",
+"p": [
+"/iphone-13-pro/",
+"/iphone-13-pro/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-13-pro/",
+"/iphone-13-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone {1} Pro",
+"p": [
+"/iphone-13-pro/",
+"/iphone-13-pro/1024-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Pro</3><4>›</4><5>{1} TB</5>",
+"p": [
+"/iphone-13-pro/1024-gb/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} TB, grafitově šedá",
+"p": [
+"/iphone-13-pro/1024-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Pro {1} TB",
+"p": [
+"/iphone-13-pro/1024-gb/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro {1} TB: {2} nabídek od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-13-pro/1024-gb/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro {1} TB (repasovaný)",
+"p": [
+"/iphone-13-pro/1024-gb/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro {1} TB: cena, bazar a repasovaný od {2} Kč",
+"p": [
+"/iphone-13-pro/1024-gb/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} GB, horsky modrá",
+"p": [
+"/iphone-13-pro/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. <3>iPhone {4} vs. iPhone {5}: podrobné srovnání</3>",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>temně inkoustová</2>",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "Baterie v průměru {0} % (údaj prodejce pro tento stav)",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav C, {2} GB, temně inkoustová",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} z obchodů Aukro, JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "Stav A+ (jako nový), u prodejce „Premium“",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "Stav C (dobrý), nabídka z tržiště Aukro",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "baterie ø {0} % · záruka {1} měs.",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "iPhone {0} v barvě temně inkoustová",
+"p": [
+"/iphone-13/",
+"/iphone-13/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav C, {2} GB, růžová",
+"p": [
+"/iphone-13/512-gb/",
+"/iphone-15/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Plus přináší čip A{5} Bionic místo A{6} Bionic, USB-C místo Lightning.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Plus</3>",
+"p": [
+"/iphone-14-plus/",
+"/iphone-15-plus/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Plus přináší čip A{5} Bionic místo A{6} Bionic, větší displej ({7}″ proti {8}″), Face ID místo Touch ID, aktuální iOS.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "<1>Verze jen s eSIM:</1> kusy z USA nemají slot na SIM kartu. Fungují s eSIM českých operátorů, ale fyzickou kartu nevložíte.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Kdy skončí podpora iPhone {0} Plus?",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Kdy vyšel iPhone {0} Plus?",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} Plus?",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Kolik stojí použitý iPhone {0} Plus podle kvality",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Na co si dát pozor u iPhone {0} Plus z druhé ruky",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav C, {2} GB, hvězdně bílá",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Plus z obchodů MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Plus",
+"p": [
+"/iphone-14-plus/",
+"/iphone-15-plus/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Plus stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč, kvalita C od {5} Kč. Nový kus stojí od {6} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Plus: {1} nabídek od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-15-plus/"
+]
+},
+{
+"k": "Telefon kupujete zvlášť, takže ho nemusíte splácet operátorovi v paušálu. Stačí samotný tarif s daty, třeba od <1>Vodafonu</1>. Pokud kupujete kus jen s eSIM, operátor vám ji vydá rovnou k tarifu.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Vyplatí se iPhone {0} Plus z druhé ruky?",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "Zánovní iPhone {0} Plus od {1} Kč",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus (repasovaný)",
+"p": [
+"/iphone-14-plus/",
+"/iphone-15-plus/"
+]
+},
+{
+"k": "iPhone {0} Plus Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. <1>Podpora iOS u všech modelů</1>",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. Podpora iOS u všech modelů",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus podle paměti",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus v barvě temně inkoustová",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus vyšel v roce {1} s čipem A{2} Bionic, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning.",
+"p": [
+"/iphone-14-plus/",
+"/iphone-14-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus: cena, bazar a repasovaný od {1} Kč",
+"p": [
+"/iphone-14-plus/",
+"/iphone-15-plus/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Plus</3><4>›</4><5>{1} GB</5>",
+"p": [
+"/iphone-14-plus/128-gb/",
+"/iphone-14-plus/256-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Plus {1} GB",
+"p": [
+"/iphone-14-plus/128-gb/",
+"/iphone-14-plus/256-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Plus {1} GB: {2} nabídek od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-14-plus/128-gb/",
+"/iphone-14-plus/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus {1} GB (repasovaný)",
+"p": [
+"/iphone-14-plus/128-gb/",
+"/iphone-14-plus/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus {1} GB: cena, bazar a repasovaný od {2} Kč",
+"p": [
+"/iphone-14-plus/128-gb/",
+"/iphone-14-plus/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav C, {2} GB, fialová",
+"p": [
+"/iphone-14-plus/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>(PRODUCT)RED</2>",
+"p": [
+"/iphone-14-plus/512-gb/",
+"/iphone-se-2020/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav C, {2} GB, (product)red",
+"p": [
+"/iphone-14-plus/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus v barvě (PRODUCT)RED",
+"p": [
+"/iphone-14-plus/512-gb/",
+"/zanovni-iphone/iphone-14-plus/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro Max přináší čip A{5} Pro místo A{6} Bionic, USB-C místo Lightning, Apple Intelligence.",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro Max přináší čip A{5} Bionic místo A{6} Bionic.",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>temně fialová</2>",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/128-gb/"
+]
+},
+{
+"k": "Co znamená „jen eSIM“?",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} GB, temně fialová",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/128-gb/"
+]
+},
+{
+"k": "Verze bez slotu na fyzickou SIM kartu (typicky telefony z USA). Fungují s eSIM, kterou vydávají všichni čeští operátoři, třeba <1>Vodafone</1> i k novému tarifu.",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "Verze bez slotu na fyzickou SIM kartu (typicky telefony z USA). Fungují s eSIM, kterou vydávají všichni čeští operátoři, třeba Vodafone i k novému tarifu.",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě temně fialová",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max vyšel v roce {1} s čipem A{2} Bionic, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-14-pro-max/",
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>vesmírně černá</2>",
+"p": [
+"/iphone-14-pro-max/1024-gb/",
+"/iphone-14-pro/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} TB, vesmírně černá",
+"p": [
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě vesmírně černá",
+"p": [
+"/iphone-14-pro-max/1024-gb/"
+]
+},
+{
+"k": "jen eSIM",
+"p": [
+"/iphone-14-pro-max/1024-gb/",
+"/iphone-14-pro/512-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} GB, vesmírně černá",
+"p": [
+"/iphone-14-pro-max/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Bionic, USB-C místo Lightning, Apple Intelligence. <3>iPhone {7} Pro vs. iPhone {8} Pro: podrobné srovnání</3>",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro přináší čip A{5} Bionic místo A{6} Bionic.",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} GB, zlatá",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro z obchodů Aukro, JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě vesmírně černá",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vs. iPhone {1} Pro",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vyšel v roce {1} s čipem A{2} Bionic, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-14-pro/",
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} TB, vesmírně černá",
+"p": [
+"/iphone-14-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav B, {2} GB, temně fialová",
+"p": [
+"/iphone-14-pro/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav B, {2} GB, vesmírně černá",
+"p": [
+"/iphone-14-pro/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} přináší čip A{5} Bionic místo A{6} Bionic, USB-C místo Lightning. <3>iPhone {7} vs. iPhone {8}: podrobné srovnání</3>",
+"p": [
+"/iphone-14/",
+"/iphone-14/128-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. <3>iPhone {4} vs. iPhone {5}: podrobné srovnání</3>",
+"p": [
+"/iphone-14/",
+"/iphone-14/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-14/",
+"/iphone-14/128-gb/"
+]
+},
+{
+"k": "iPhone {0} vyšel v roce {1} s čipem A{2} Bionic, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning.",
+"p": [
+"/iphone-14/",
+"/iphone-14/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav C, {2} GB, fialová",
+"p": [
+"/iphone-14/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Plus přináší čip A{5} místo A{6} Bionic, Apple Intelligence.",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Plus přináší čip A{5} Bionic místo A{6} Bionic, USB-C místo Lightning.",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "Ano, u části obchodů: iPhoneMarket kód SLEVA{0}. Ceny „s kódem“ v konfigurátoru už slevu obsahují, kód zadáte v košíku obchodu.",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav C, {2} GB, modrá",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Plus z obchodů Aukro, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Bionic, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus v barvě modrá",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus vyšel v roce {1} s čipem A{2} Bionic, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C.",
+"p": [
+"/iphone-15-plus/",
+"/iphone-15-plus/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>zelená</2>",
+"p": [
+"/iphone-15-plus/256-gb/",
+"/iphone-15-plus/512-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav C, {2} GB, žlutá",
+"p": [
+"/iphone-15-plus/256-gb/",
+"/iphone-15-plus/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus v barvě zelená",
+"p": [
+"/iphone-15-plus/256-gb/",
+"/iphone-15-plus/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro Max přináší čip A{5} Pro místo A{6} Pro, větší displej ({7}″ proti {8}″).",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro Max přináší čip A{5} Pro místo A{6} Bionic, USB-C místo Lightning, Apple Intelligence.",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>bílý titan</2>",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} GB, modrý titan",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/256-gb/"
+]
+},
+{
+"k": "Nový, nerozbalený kus",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro Max z obchodů Aukro, JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Pro, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě bílý titan",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max vyšel v roce {1} s čipem A{2} Pro, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "nový kus · záruka {0} měs.",
+"p": [
+"/iphone-15-pro-max/",
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>modrý titan</2>",
+"p": [
+"/iphone-15-pro-max/1024-gb/",
+"/iphone-15-pro-max/512-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} TB, modrý titan",
+"p": [
+"/iphone-15-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě modrý titan",
+"p": [
+"/iphone-15-pro-max/1024-gb/",
+"/iphone-15-pro-max/512-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} GB, přírodní titan",
+"p": [
+"/iphone-15-pro-max/512-gb/",
+"/iphone-16-pro-max/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Pro, větší displej ({7}″ proti {8}″). <3>iPhone {9} Pro vs. iPhone {10} Pro: podrobné srovnání</3>",
+"p": [
+"/iphone-15-pro/",
+"/iphone-15-pro/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Bionic, USB-C místo Lightning, Apple Intelligence. <3>iPhone {7} Pro vs. iPhone {8} Pro: podrobné srovnání</3>",
+"p": [
+"/iphone-15-pro/",
+"/iphone-15-pro/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>přírodní titan</2>",
+"p": [
+"/iphone-15-pro/",
+"/iphone-15-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} GB, modrý titan",
+"p": [
+"/iphone-15-pro/",
+"/iphone-15-pro/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Pro, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-15-pro/",
+"/iphone-15-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě přírodní titan",
+"p": [
+"/iphone-15-pro/",
+"/iphone-15-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vyšel v roce {1} s čipem A{2} Pro, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-15-pro/",
+"/iphone-15-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} TB, černý titan",
+"p": [
+"/iphone-15-pro/1024-gb/"
+]
+},
+{
+"k": "<1><2/><3>baterie ø {0}–{1} % · záruka {2} měs.</3></1><4><5><6>SLEVA{3}</6>",
+"p": [
+"/iphone-15-pro/256-gb/",
+"/zanovni-iphone/iphone-16-pro-max/"
+]
+},
+{
+"k": "Kopírovat slevový kód SLEVA{0}",
+"p": [
+"/iphone-15-pro/256-gb/",
+"/levny-iphone/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě bílý titan",
+"p": [
+"/iphone-15-pro/512-gb/",
+"/iphone-16-pro/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} přináší čip A{5} místo A{6} Bionic, Apple Intelligence. <3>iPhone {7} vs. iPhone {8}: podrobné srovnání</3>",
+"p": [
+"/iphone-15/",
+"/iphone-15/128-gb/"
+]
+},
+{
+"k": "<1>Slevový kód</1><2/><3>Kopírovat</3><4>−{0} Kč při nákupu nad {1} Kč · platí do {2}. {3}. {4} · zadejte v košíku</4>",
+"p": [
+"/iphone-15/",
+"/iphone-15/128-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} přináší čip A{5} Bionic místo A{6} Bionic, USB-C místo Lightning. <3>iPhone {7} vs. iPhone {8}: podrobné srovnání</3>",
+"p": [
+"/iphone-15/",
+"/iphone-15/128-gb/"
+]
+},
+{
+"k": "Koupit s kódem u iPhoneMarket",
+"p": [
+"/iphone-15/",
+"/iphone-15/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3} Bionic, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-15/",
+"/iphone-15/128-gb/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone {1}e",
+"p": [
+"/iphone-15/",
+"/iphone-15/128-gb/"
+]
+},
+{
+"k": "iPhone {0} vyšel v roce {1} s čipem A{2} Bionic, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C.",
+"p": [
+"/iphone-15/",
+"/iphone-15/128-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Plus přináší čip A{5} místo A{6} Bionic, Apple Intelligence.",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav C, {2} GB, růžová",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Plus z obchodů Aukro, JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "iPhone Air bazar",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3}, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus v barvě černá",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus vyšel v roce {1} s čipem A{2}, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence.",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "iPhone {0}e bazar",
+"p": [
+"/iphone-16-plus/",
+"/iphone-16-plus/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav C, {2} GB, bílá",
+"p": [
+"/iphone-16-plus/256-gb/",
+"/iphone-16-plus/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro Max přináší čip A{5} Pro místo A{6} Pro.",
+"p": [
+"/iphone-16-pro-max/",
+"/iphone-16-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro Max přináší čip A{5} Pro místo A{6} Pro, větší displej ({7}″ proti {8}″).",
+"p": [
+"/iphone-16-pro-max/",
+"/iphone-16-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>pouštní titan</2>",
+"p": [
+"/iphone-16-pro-max/",
+"/iphone-16-pro-max/1024-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro Max z obchodů JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-16-pro-max/",
+"/iphone-16-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě pouštní titan",
+"p": [
+"/iphone-16-pro-max/",
+"/iphone-16-pro-max/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} TB, černý titan",
+"p": [
+"/iphone-16-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Pro. <3>iPhone {7} Pro vs. iPhone {8} Pro: podrobné srovnání</3>",
+"p": [
+"/iphone-16-pro/",
+"/iphone-16-pro/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Pro, větší displej ({7}″ proti {8}″). <3>iPhone {9} Pro vs. iPhone {10} Pro: podrobné srovnání</3>",
+"p": [
+"/iphone-16-pro/",
+"/iphone-16-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} GB, černý titan",
+"p": [
+"/iphone-16-pro/",
+"/iphone-16-pro/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě pouštní titan",
+"p": [
+"/iphone-16-pro/",
+"/iphone-16-pro/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>černý titan</2>",
+"p": [
+"/iphone-16-pro/1024-gb/",
+"/iphone-16-pro/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} TB, pouštní titan",
+"p": [
+"/iphone-16-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě černý titan",
+"p": [
+"/iphone-16-pro/1024-gb/",
+"/iphone-16-pro/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} GB, pouštní titan",
+"p": [
+"/iphone-16-pro/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} GB, přírodní titan",
+"p": [
+"/iphone-16-pro/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} přináší čip A{5} místo A{6}, {7}Hz displej, větší displej ({8}″ proti {9}″). <3>iPhone {10} vs. iPhone {11}: podrobné srovnání</3>",
+"p": [
+"/iphone-16/",
+"/iphone-16/128-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} přináší čip A{5} místo A{6} Bionic, Apple Intelligence. <3>iPhone {7} vs. iPhone {8}: podrobné srovnání</3>",
+"p": [
+"/iphone-16/",
+"/iphone-16/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav B, {2} GB, ultramarínová",
+"p": [
+"/iphone-16/",
+"/iphone-16/128-gb/"
+]
+},
+{
+"k": "Stav A+ (jako nový), u prodejce „Rozbaleno“",
+"p": [
+"/iphone-16/",
+"/iphone-16/128-gb/"
+]
+},
+{
+"k": "Stav C (dobrý), u prodejce „třída C“, nabídka z tržiště Aukro",
+"p": [
+"/iphone-16/",
+"/iphone-16/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Apple představil v roce {1}, dnes je mu {2} roky. Má čip A{3}, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-16/",
+"/iphone-16/128-gb/"
+]
+},
+{
+"k": "iPhone {0} vyšel v roce {1} s čipem A{2}, je mu {3} roky. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence.",
+"p": [
+"/iphone-16/",
+"/iphone-16/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>ultramarínová</2>",
+"p": [
+"/iphone-16/256-gb/",
+"/zanovni-iphone/iphone-16/"
+]
+},
+{
+"k": "iPhone {0} v barvě ultramarínová",
+"p": [
+"/iphone-16/256-gb/",
+"/iphone-bazar/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>růžová</2>",
+"p": [
+"/iphone-16/512-gb/",
+"/zanovni-iphone/iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} v barvě růžová",
+"p": [
+"/iphone-16/512-gb/",
+"/novy-iphone/"
+]
+},
+{
+"k": "<1>Dobrý (C):</1> {0} nabídky, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0}e</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4}e přináší čip A{5} místo A{6}.",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0}e</3>",
+"p": [
+"/iphone-16e/",
+"/iphone-17e/"
+]
+},
+{
+"k": "Kdy skončí podpora iPhone {0}e?",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Kdy vyšel iPhone {0}e?",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0}e?",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Kolik stojí použitý iPhone {0}e podle kvality",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Na co si dát pozor u iPhone {0}e z druhé ruky",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0}e za <1>{1} Kč</1> · stav B, {2} GB, černá",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1}e z obchodů Aukro, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0}e",
+"p": [
+"/iphone-16e/",
+"/iphone-17e/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0}e stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč, kvalita C od {5} Kč. Nový kus stojí od {6} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0}e: {1} nabídek od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-16e/",
+"/iphone-17e/"
+]
+},
+{
+"k": "Vyplatí se iPhone {0}e z druhé ruky?",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "Zánovní iPhone {0}e od {1} Kč",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "iPhone {0}e (repasovaný)",
+"p": [
+"/iphone-16e/",
+"/iphone-17e/"
+]
+},
+{
+"k": "iPhone {0}e Apple představil v roce {1}, dnes je mu {2} rok. Má čip A{3}, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "iPhone {0}e dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. <1>Podpora iOS u všech modelů</1>",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "iPhone {0}e dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. Podpora iOS u všech modelů",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "iPhone {0}e podle paměti",
+"p": [
+"/iphone-16e/",
+"/iphone-17e/"
+]
+},
+{
+"k": "iPhone {0}e v barvě černá",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "iPhone {0}e vyšel v roce {1} s čipem A{2}, je mu {3} rok. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence.",
+"p": [
+"/iphone-16e/",
+"/iphone-16e/128-gb/"
+]
+},
+{
+"k": "iPhone {0}e: cena, bazar a repasovaný od {1} Kč",
+"p": [
+"/iphone-16e/",
+"/iphone-17e/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0}e</3><4>›</4><5>{1} GB</5>",
+"p": [
+"/iphone-16e/128-gb/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0}e {1} GB",
+"p": [
+"/iphone-16e/128-gb/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0}e {1} GB: {2} nabídek od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-16e/128-gb/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "iPhone {0}e {1} GB (repasovaný)",
+"p": [
+"/iphone-16e/128-gb/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "iPhone {0}e {1} GB: cena, bazar a repasovaný od {2} Kč",
+"p": [
+"/iphone-16e/128-gb/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro Max přináší čip A{5} Pro místo A{6} Pro.",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>temně modrá</2>",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/2048-gb/"
+]
+},
+{
+"k": "Baterie {0} % podle prodejce",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} GB, stříbrná",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/256-gb/"
+]
+},
+{
+"k": "baterie {0} % · záruka {1} měs.",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max Apple představil v roce {1}, dnes je mu {2} rok. Má čip A{3} Pro, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě temně modrá",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/2048-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max vyšel v roce {1} s čipem A{2} Pro, je mu {3} rok. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vs. iPhone {1} Pro Max",
+"p": [
+"/iphone-17-pro-max/",
+"/iphone-17-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>kosmicky oranžová</2>",
+"p": [
+"/iphone-17-pro-max/1024-gb/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "Bez viditelných stop, často rozbalený nebo krátce používaný.",
+"p": [
+"/iphone-17-pro-max/1024-gb/",
+"/iphone-18-pro-max/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} TB, temně modrá",
+"p": [
+"/iphone-17-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě kosmicky oranžová",
+"p": [
+"/iphone-17-pro-max/1024-gb/",
+"/novy-iphone/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} TB, temně modrá",
+"p": [
+"/iphone-17-pro-max/2048-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>stříbrná</2>",
+"p": [
+"/iphone-17-pro-max/256-gb/",
+"/iphone-x/64-gb/"
+]
+},
+{
+"k": "JabkoLevně s kódem",
+"p": [
+"/iphone-17-pro-max/256-gb/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "Radši se slevovým kódem?",
+"p": [
+"/iphone-17-pro-max/256-gb/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě stříbrná",
+"p": [
+"/iphone-17-pro-max/256-gb/",
+"/iphone-bazar/"
+]
+},
+{
+"k": "sleva{0}",
+"p": [
+"/iphone-17-pro-max/256-gb/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "za {0} Kč (jen o {1} Kč víc)",
+"p": [
+"/iphone-17-pro-max/256-gb/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} GB, temně modrá",
+"p": [
+"/iphone-17-pro-max/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Pro.",
+"p": [
+"/iphone-17-pro/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Pro. <3>iPhone {7} Pro vs. iPhone {8} Pro: podrobné srovnání</3>",
+"p": [
+"/iphone-17-pro/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} GB, stříbrná",
+"p": [
+"/iphone-17-pro/",
+"/iphone-17-pro/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro z obchodů JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-17-pro/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Apple představil v roce {1}, dnes je mu {2} rok. Má čip A{3} Pro, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-17-pro/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě temně modrá",
+"p": [
+"/iphone-17-pro/",
+"/iphone-17-pro/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vyšel v roce {1} s čipem A{2} Pro, je mu {3} rok. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-17-pro/",
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav C, {2} TB, temně modrá",
+"p": [
+"/iphone-17-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě kosmicky oranžová",
+"p": [
+"/iphone-17-pro/1024-gb/",
+"/iphone-17-pro/256-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} přináší čip A{5} místo A{6}, {7}Hz displej, větší displej ({8}″ proti {9}″). <3>iPhone {10} vs. iPhone {11}: podrobné srovnání</3>",
+"p": [
+"/iphone-17/",
+"/iphone-17/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} z obchodů JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-17/",
+"/iphone-17/256-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč. Nový kus stojí od {5} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-17/",
+"/iphone-17/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Apple představil v roce {1}, dnes je mu {2} rok. Má čip A{3}, displej {4}″ a konektor USB-C.",
+"p": [
+"/iphone-17/",
+"/iphone-17/256-gb/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone Air",
+"p": [
+"/iphone-17/",
+"/iphone-17/256-gb/"
+]
+},
+{
+"k": "iPhone {0} vyšel v roce {1} s čipem A{2}, je mu {3} rok. Telefon dostává aktuální iOS {4} i {5}, nabíjí se přes USB-C, podporuje Apple Intelligence, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-17/",
+"/iphone-17/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>levandulová</2>",
+"p": [
+"/iphone-17/512-gb/"
+]
+},
+{
+"k": "iPhone {0} v barvě levandulová",
+"p": [
+"/iphone-17/512-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0}e</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4}e přináší čip A{5} místo A{6}.",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "<1>Výborný (A):</1> {0} nabídky, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>jemně růžová</2>",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Baterie tohoto kusu {0} %",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Kondici baterie uvádí {0} z {1} nabídek. Před nákupem se na ni zeptejte, pod {2} % ji Apple považuje za opotřebovanou. <1>Jak číst kondici baterie</1>",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0}e za <1>{1} Kč</1> · stav A+, {2} GB, jemně růžová",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1}e z obchodů Aukro, JabkoLevně. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Repasované, zánovní, bazarové i nové kusy od <1><2>{0} Kč</2> (stav A+)</1>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0}e stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč. Nový kus stojí od {4} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Stav A+ (jako nový), u prodejce „Premium“, nabídka z tržiště Aukro",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "U nabídek, které kondici baterie uvádějí, je typická hodnota <1>{0} %</1> a {1} z {2} má {3} % a víc.",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "baterie {0} % · záruka neuvedena",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "iPhone {0}e Apple představil v roce {1}. Má čip A{2}, displej {3}″ a konektor USB-C.",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "iPhone {0}e v barvě jemně růžová",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "iPhone {0}e vyšel v roce {1} s čipem A{2}. Telefon dostává aktuální iOS {3} i {4}, nabíjí se přes USB-C, podporuje Apple Intelligence.",
+"p": [
+"/iphone-17e/",
+"/iphone-17e/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro Max z obchodů JabkoLevně, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-18-pro-max/",
+"/iphone-18-pro-max/256-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro Max stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč. Nový kus stojí od {4} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-18-pro-max/",
+"/iphone-18-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max Apple představil v roce {1}. Má čip A{2} Pro, displej {3}″ a konektor USB-C.",
+"p": [
+"/iphone-18-pro-max/",
+"/iphone-18-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě černá",
+"p": [
+"/iphone-18-pro-max/",
+"/iphone-18-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max vyšel v roce {1} s čipem A{2} Pro. Telefon dostává aktuální iOS {3} i {4}, nabíjí se přes USB-C, podporuje Apple Intelligence, má plynulý {5}Hz displej.",
+"p": [
+"/iphone-18-pro-max/",
+"/iphone-18-pro-max/256-gb/"
+]
+},
+{
+"k": "Ceny z {0}. listopadu {1} · {2} nabídky",
+"p": [
+"/iphone-18-pro-max/256-gb/",
+"/iphone-18-pro/512-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro Max {1} GB: {2} nabídky od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-18-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro přináší čip A{5} Pro místo A{6} Pro.",
+"p": [
+"/iphone-18-pro/",
+"/iphone-18-pro/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>ledovcově modrá</2>",
+"p": [
+"/iphone-18-pro/",
+"/iphone-18-pro/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro z obchodů JabkoLevně, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-18-pro/",
+"/iphone-18-pro/256-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč. Nový kus stojí od {4} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-18-pro/",
+"/iphone-18-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Apple představil v roce {1}. Má čip A{2} Pro, displej {3}″ a konektor USB-C.",
+"p": [
+"/iphone-18-pro/",
+"/iphone-18-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě ledovcově modrá",
+"p": [
+"/iphone-18-pro/",
+"/iphone-18-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vyšel v roce {1} s čipem A{2} Pro. Telefon dostává aktuální iOS {3} i {4}, nabíjí se přes USB-C, podporuje Apple Intelligence, má plynulý {5}Hz displej.",
+"p": [
+"/iphone-18-pro/",
+"/iphone-18-pro/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav A+, {2} GB, ledovcově modrá",
+"p": [
+"/iphone-18-pro/512-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro {1} GB: {2} nabídky od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-18-pro/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě černá",
+"p": [
+"/iphone-18-pro/512-gb/",
+"/iphone-bazar/"
+]
+},
+{
+"k": "<1>Bez aktuálního iOS:</1> poslední systém je iOS {0}. Bankovní a další aplikace časem přestanou fungovat. <2>Které iPhony mají podporu</2>",
+"p": [
+"/iphone-7-plus/",
+"/iphone-7/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Plus přináší čip A{5} Bionic místo A{6} Fusion.",
+"p": [
+"/iphone-7-plus/"
+]
+},
+{
+"k": "Aktuální iOS {0} a {1} už nedostává, posledním systémem je iOS {2}. Telefon funguje dál, ale nové funkce a postupně i některé aplikace mu chybí. <1>Podpora iOS u všech modelů</1>",
+"p": [
+"/iphone-7-plus/",
+"/iphone-7/"
+]
+},
+{
+"k": "Aktuální iOS {0} a {1} už nedostává, posledním systémem je iOS {2}. Telefon funguje dál, ale nové funkce a postupně i některé aplikace mu chybí. Podpora iOS u všech modelů",
+"p": [
+"/iphone-7-plus/",
+"/iphone-7/"
+]
+},
+{
+"k": "A{0} Fusion",
+"p": [
+"/iphone-7-plus/",
+"/iphone-7/"
+]
+},
+{
+"k": "Ceny z {0}. listopadu {1} · {2} nabídka",
+"p": [
+"/iphone-7-plus/",
+"/zanovni-iphone/iphone-11-pro/"
+]
+},
+{
+"k": "Dostává iPhone {0} Plus ještě aktualizace iOS?",
+"p": [
+"/iphone-7-plus/",
+"/iphone-8-plus/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídka</1> repasovaného, zánovního nebo bazarového iPhone {1} Plus z obchodu MobileGear. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-7-plus/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Plus stojí dnes od {1} Kč. Podle kvality: kvalita B od {2} Kč. Nový kus stojí od {3} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-7-plus/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Plus: {1} nabídka od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-7-plus/"
+]
+},
+{
+"k": "iPhone X bazar",
+"p": [
+"/iphone-7-plus/",
+"/iphone-7/"
+]
+},
+{
+"k": "iPhone {0} Plus Apple představil v roce {1}, dnes je mu {2} let. Má čip A{3} Fusion, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-7-plus/"
+]
+},
+{
+"k": "iPhone {0} Plus vyšel v roce {1} s čipem A{2} Fusion, je mu {3} let. Telefon <1>už nedostává aktuální iOS</1> (iOS {4} a {5} začínají u iPhonu {6}), časem přijde o část aplikací, má ještě konektor Lightning.",
+"p": [
+"/iphone-7-plus/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone X</2></1> ({0}) stojí z druhé ruky od {1} Kč, tedy o {2} Kč víc. Novější iPhone X přináší čip A{3} Bionic místo A{4} Fusion, větší displej ({5}″ proti {6}″), Face ID místo Touch ID.",
+"p": [
+"/iphone-7/",
+"/iphone-7/32-gb/"
+]
+},
+{
+"k": "Dostává iPhone {0} ještě aktualizace iOS?",
+"p": [
+"/iphone-7/",
+"/iphone-7/32-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} z obchodu MobileGear. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-7/",
+"/iphone-7/32-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} stojí dnes od {1} Kč. Podle kvality: kvalita B od {2} Kč. Nový kus stojí od {3} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-7/",
+"/iphone-7/32-gb/"
+]
+},
+{
+"k": "iPhone {0} Apple představil v roce {1}, dnes je mu {2} let. Má čip A{3} Fusion, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-7/",
+"/iphone-7/32-gb/"
+]
+},
+{
+"k": "iPhone {0} vyšel v roce {1} s čipem A{2} Fusion, je mu {3} let. Telefon <1>už nedostává aktuální iOS</1> (iOS {4} a {5} začínají u iPhonu {6}), časem přijde o část aplikací, má ještě konektor Lightning.",
+"p": [
+"/iphone-7/",
+"/iphone-7/32-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} GB: {1} nabídky od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-7/32-gb/",
+"/iphone-8/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Plus přináší čip A{5} Bionic místo A{6} Bionic, větší displej ({7}″ proti {8}″), Face ID místo Touch ID, aktuální iOS.",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Plus</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Plus přináší čip A{5} Bionic místo A{6} Fusion.",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Plus za <1>{1} Kč</1> · stav B, {2} GB, vesmírně šedá",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Plus z obchodu MobileGear. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Plus stojí dnes od {1} Kč. Podle kvality: kvalita A od {2} Kč, kvalita B od {3} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus Apple představil v roce {1}, dnes je mu {2} let. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus v barvě vesmírně šedá",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon <1>už nedostává aktuální iOS</1> (iOS {4} a {5} začínají u iPhonu {6}), časem přijde o část aplikací, má ještě konektor Lightning.",
+"p": [
+"/iphone-8-plus/",
+"/iphone-8-plus/64-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone XS Max</2></1> ({0}) stojí z druhé ruky od {1} Kč, tedy o {2} Kč víc. Novější iPhone XS Max přináší čip A{3} Bionic místo A{4} Bionic, větší displej ({5}″ proti {6}″), Face ID místo Touch ID.",
+"p": [
+"/iphone-8/",
+"/iphone-8/256-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} přináší čip A{5} Bionic místo A{6} Fusion.",
+"p": [
+"/iphone-8/",
+"/iphone-8/256-gb/"
+]
+},
+{
+"k": "<1>Velmi dobrý (B):</1> {0} nabídky, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-8/",
+"/iphone-8/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav B, {2} GB, vesmírně šedá",
+"p": [
+"/iphone-8/",
+"/iphone-8/64-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} stojí dnes od {1} Kč. Podle kvality: kvalita A od {2} Kč, kvalita B od {3} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-8/",
+"/iphone-8/256-gb/"
+]
+},
+{
+"k": "iPhone {0} v barvě vesmírně šedá",
+"p": [
+"/iphone-8/",
+"/iphone-8/256-gb/"
+]
+},
+{
+"k": "iPhone {0} vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon <1>už nedostává aktuální iOS</1> (iOS {4} a {5} začínají u iPhonu {6}), časem přijde o část aplikací, má ještě konektor Lightning.",
+"p": [
+"/iphone-8/",
+"/iphone-8/256-gb/"
+]
+}
+]

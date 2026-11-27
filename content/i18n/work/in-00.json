@@ -1,0 +1,3489 @@
+[
+{
+"k": "Slevový kód",
+"p": [
+"/obchody/",
+"/pruvodce/kde-koupit-repasovany-iphone/"
+]
+},
+{
+"k": " (jen o {0} víc)",
+"p": [
+"app.js"
+]
+},
+{
+"k": " · zkuste jiný filtr",
+"p": [
+"app.js"
+]
+},
+{
+"k": ", od {0}",
+"p": [
+"app.js"
+]
+},
+{
+"k": ", s kódem",
+"p": [
+"app.js"
+]
+},
+{
+"k": ", v jiné paměti",
+"p": [
+"app.js"
+]
+},
+{
+"k": "<b>Chcete ušetřit víc?</b> Repasovaný {0} {1}, {2} ve stavu {3} od <b>{4}</b> · o {5} méně",
+"p": [
+"app.js"
+]
+},
+{
+"k": "<span class=\"hand\">Radši se slevovým kódem?</span> {0} s kódem {1} za {2}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Chcete platit postupně? <b>iPhone na splátky</b>",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Kopírovat",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Kopírovat slevový kód {0}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Kopírovat znovu",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Koupit s kódem u {0}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Koupit u {0}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Kód {0} máte zkopírovaný. Obchod se otevřel v původní kartě, kód vložte v košíku.",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Levněji:",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Nejlevnější {0} za <b>{1}</b> · stav {2}, {3}, {4}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Otevřít obchod s kódem",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Tahle kombinace teď není skladem. Zkuste jinou barvu nebo kvalitu.",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Zavřít",
+"p": [
+"app.js"
+]
+},
+{
+"k": "Zkopírováno ✓",
+"p": [
+"app.js"
+]
+},
+{
+"k": "jako {0} za {1}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "jiná barva",
+"p": [
+"app.js"
+]
+},
+{
+"k": "model|modely|modelů",
+"p": [
+"app.js"
+]
+},
+{
+"k": "nabídka|nabídky|nabídek",
+"p": [
+"app.js"
+]
+},
+{
+"k": "nový",
+"p": [
+"app.js"
+]
+},
+{
+"k": "o {0} levněji než nový",
+"p": [
+"app.js"
+]
+},
+{
+"k": "o {0} víc",
+"p": [
+"app.js"
+]
+},
+{
+"k": "od {0}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "stav {0}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "v barvě {0} za {1}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "v kvalitě {0} za {1}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "zadejte v košíku",
+"p": [
+"app.js"
+]
+},
+{
+"k": "{0} v barvě {1}",
+"p": [
+"app.js"
+]
+},
+{
+"k": "{0} v obchodě",
+"p": [
+"app.js"
+]
+},
+{
+"k": "{0} v této konfiguraci",
+"p": [
+"app.js"
+]
+},
+{
+"k": "(PRODUCT)RED",
+"p": [
+"/",
+"/iphone-11/"
+]
+},
+{
+"k": "<1>A+</1><2>Jako nový</2><3>bez viditelných stop, často rozbalený nebo krátce používaný</3>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>A</1><2>Výborný</2><3>drobné stopy, které uvidíte jen zblízka</3>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>B</1><2>Velmi dobrý</2><3>jemné škrábance na rámu nebo zádech</3>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Barvu a paměť</1><2>jen to, co je skladem</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Baterie pod kontrolou</1><2>kde ji obchod uvádí, ukážeme kondici</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>C</1><2>Dobrý</2><3>viditelné známky používání, plně funkční</3>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Kvalitu A, B nebo C</1><2>a máte nejlevnější obchod</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Nejlevnější s aktuálním iOS</1><2><3>iPhone SE ({0})</3> <4>{1} GB, stav B</4></2><5>{2} Kč</5><6>{3}, {4}″, Lightning, aktuální iOS</6>",
+"p": [
+"/",
+"/iphone-do-5000-kc/"
+]
+},
+{
+"k": "<1>Nejlevnější s aktuálním iOS</1><2><3>iPhone {0} Pro</3> <4>{1} GB, stav A</4></2><5>{2} Kč</5><6>{3}, {4}″, Lightning, aktuální iOS</6>",
+"p": [
+"/",
+"/iphone-do-10000-kc/"
+]
+},
+{
+"k": "<1>Nejlevnější s aktuálním iOS</1><2><3>iPhone {0}</3> <4>{1} GB, stav A</4></2><5>{2} Kč</5><6>{3}, {4}″, Lightning, aktuální iOS</6>",
+"p": [
+"/",
+"/iphone-do-15000-kc/"
+]
+},
+{
+"k": "<1>Nejnovější</1><2><3>iPhone SE ({0})</3> <4>{1} GB, stav B</4></2><5>{2} Kč</5><6>čip A{3} Bionic místo A{4} Bionic, o {5} Kč dráž</6>",
+"p": [
+"/",
+"/iphone-do-5000-kc/"
+]
+},
+{
+"k": "<1>Nejnovější</1><2><3>iPhone {0}e</3> <4>{1} GB, stav A</4></2><5>{2} Kč</5><6>čip A{3} místo A{4} Bionic, USB-C místo Lightning, o {5} Kč dráž</6>",
+"p": [
+"/",
+"/iphone-do-15000-kc/"
+]
+},
+{
+"k": "<1>Nejnovější</1><2><3>iPhone {0}e</3> <4>{1} GB, stav B</4></2><5>{2} Kč</5><6>čip A{3} místo A{4} Bionic, USB-C místo Lightning, o {5} Kč dráž</6>",
+"p": [
+"/",
+"/iphone-do-10000-kc/"
+]
+},
+{
+"k": "<1>Nejvíc telefonu</1><2><3>iPhone {0} Pro Max</3> <4>{1} GB, stav B</4></2><5>{2} Kč</5><6>větší displej ({3}″ proti {4}″), Face ID místo Touch ID, o {5} Kč dráž</6>",
+"p": [
+"/",
+"/iphone-do-5000-kc/"
+]
+},
+{
+"k": "<1>Nejvíc telefonu</1><2><3>iPhone {0} Pro Max</3> <4>{1} GB, stav B</4></2><5>{2} Kč</5><6>čip A{3} Bionic místo A{4} Bionic, {5}Hz displej, o {6} Kč dráž</6>",
+"p": [
+"/",
+"/iphone-do-10000-kc/"
+]
+},
+{
+"k": "<1>Přeskočit na obsah</1>",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>Repasovaný iPhone</1> je použitý telefon, který obchod vyčistil, otestoval a podle potřeby opravil, nejčastěji vyměnil baterii. Prodává ho se zárukou nejméně {0} měsíců. <2>Zánovní</2> a rozbalené kusy jsou prakticky nové (u nás kvalita A+), <3>bazarový</3> telefon od soukromníka bývá nejlevnější, ale bez záruky a bez možnosti vrácení.",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Slevový kód</1><2/><3>Kopírovat</3><4>Do obchodu</4><5>−{0} Kč při nákupu nad {1} Kč · platí do {2}. {3}. {4} · zadejte v košíku</5>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Slevový kód</1><2/><3>Kopírovat</3><4>Do obchodu</4><5>−{0} Kč · platí do {1}. {2}. {3} · zadejte v košíku</5>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Vyberte model</1><2>od iPhonu {0} po {1} Pro</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Vybrat model</1><2>Vybrat podle rozpočtu</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Záruka od obchodu</1><2>nejméně {0} měsíců u repasu, {1} u nového</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>{0} dní na vrácení</1><2>při nákupu přes internet bez udání důvodu</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "<1>Šetrnější volba</1><2>telefon, který už jednou vyrobili</2>",
+"p": [
+"/"
+]
+},
+{
+"k": "Bazar",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Co je repasovaný iPhone",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Co je repasovaný iPhone?",
+"p": [
+"/"
+]
+},
+{
+"k": "Dnes se vyplatí",
+"p": [
+"/"
+]
+},
+{
+"k": "Do {0} Kč",
+"p": [
+"/",
+"/iphone-do-10000-kc/"
+]
+},
+{
+"k": "Hlavní",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Jak to funguje",
+"p": [
+"/"
+]
+},
+{
+"k": "Jak vybíráme nejlevnější obchod",
+"p": [
+"/"
+]
+},
+{
+"k": "Jakou záruku má repasovaný iPhone?",
+"p": [
+"/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "Jaký iPhone koupit",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Jazyk",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Každou noc projdeme nabídky obchodů, z názvu a parametrů rozpoznáme model, paměť, oficiální barvu, kvalitu a kondici baterie a připočteme platné slevové kódy. Řadíme jen podle konečné ceny, provize od obchodů pořadí neovlivňuje. <1>Jak web funguje</1>",
+"p": [
+"/"
+]
+},
+{
+"k": "Každou noc srovnáme nabídky obchodů s repasovanými iPhony včetně slevových kódů. Za nákup přes odkaz můžeme dostat provizi, cenu ani pořadí to nemění. <1>Jak web funguje</1>",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Kondice baterie",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Kvalita A, B, C",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Kvalita A, B, C jednoduše",
+"p": [
+"/"
+]
+},
+{
+"k": "Levné iPhony",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Modely",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Nakupujte",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Největší rozdíl proti nejlevnějšímu novému kusu se stejnou pamětí.",
+"p": [
+"/"
+]
+},
+{
+"k": "Nemáte celou částku najednou? <1>iPhone na splátky</1> v obchodě nebo s půjčkou Home Credit.",
+"p": [
+"/"
+]
+},
+{
+"k": "Nové",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Nové iPhony",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "O webu a kontakt",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Obchody ve srovnání",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Ochrana osobních údajů",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Od obchodníka minimálně {0} měsíců a {1} dní na vrácení při nákupu přes internet. <1>Podrobně o záruce</1>",
+"p": [
+"/"
+]
+},
+{
+"k": "Od obchodníka minimálně {0} měsíců a {1} dní na vrácení při nákupu přes internet. Podrobně o záruce",
+"p": [
+"/"
+]
+},
+{
+"k": "Odkud jsou ceny?",
+"p": [
+"/"
+]
+},
+{
+"k": "Podpora iOS",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Použitý nebo vrácený telefon, který obchod vyčistil, otestoval a případně opravil (nejčastěji baterii nebo displej) a prodává ho se zárukou. Od bazarového kusu od soukromníka se liší zárukou a kontrolou. <1>Repas, bazar, zánovní a rozbalený</1>",
+"p": [
+"/"
+]
+},
+{
+"k": "Použitý nebo vrácený telefon, který obchod vyčistil, otestoval a případně opravil (nejčastěji baterii nebo displej) a prodává ho se zárukou. Od bazarového kusu od soukromníka se liší zárukou a kontrolou. Repas, bazar, zánovní a rozbalený",
+"p": [
+"/"
+]
+},
+{
+"k": "Pro obchody",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Průvodce",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Repasovaný iPhone",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Repasovaný iPhone za cenu, která dává smysl",
+"p": [
+"/"
+]
+},
+{
+"k": "Repasovaný iPhone – srovnání cen obchodů od {0} Kč",
+"p": [
+"/"
+]
+},
+{
+"k": "Repasovaný iPhone – úvod",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Repasovaný, zánovní, nebo z bazaru?",
+"p": [
+"/"
+]
+},
+{
+"k": "Ruka s telefonem, ze kterého padají mince do druhé dlaně",
+"p": [
+"/"
+]
+},
+{
+"k": "Slevové kódy, které teď platí",
+"p": [
+"/"
+]
+},
+{
+"k": "Srovnání",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Srovnání modelů",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Tři tipy pro každý rozpočet z dnešních nabídek ve stavu A+, A nebo B, s tím, co za příplatek dostanete.",
+"p": [
+"/"
+]
+},
+{
+"k": "V cenách na webu už jsou započítané. Kód zadáte v košíku obchodu.",
+"p": [
+"/"
+]
+},
+{
+"k": "Ve srovnání máme dnes {0} nabídek z obchodů s repasy i z tržišť. Nejlevnější iPhone stojí {1} Kč, rozumná volba s aktuálním iOS a dlouhou podporou začíná u iPhonu {2}. Rozdíly mezi typy prodejců rozebíráme v článku <1>co znamená repasovaný iPhone</1>, použité kusy se zárukou najdete v sekci <2>iPhone bazar</2>.",
+"p": [
+"/"
+]
+},
+{
+"k": "Velmi dobrý",
+"p": [
+"/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "Vyberete model, barvu, paměť a kvalitu. My projdeme obchody s repasy i bazarové nabídky, započítáme slevové kódy a ukážeme, kde je to nejlevnější. Od <1>{0} Kč</1>.",
+"p": [
+"/"
+]
+},
+{
+"k": "Vyberte model",
+"p": [
+"/",
+"/zanovni-iphone/"
+]
+},
+{
+"k": "Vyberte podle rozpočtu",
+"p": [
+"/"
+]
+},
+{
+"k": "Vyplatí se koupit repasovaný iPhone?",
+"p": [
+"/"
+]
+},
+{
+"k": "Výkup iPhonu",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Vývoj cen",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Většinou ano: stejný model stojí o pětinu až polovinu méně než nový. Vybírejte iPhone {0} nebo novější (dostávají aktuální iOS) a hlídejte kondici baterie.",
+"p": [
+"/"
+]
+},
+{
+"k": "Všechny iPhony do {0} Kč",
+"p": [
+"/"
+]
+},
+{
+"k": "Všechny modely →",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Všechny obchody převádíme na jednu stupnici, ať se nabídky dají porovnat. Funkčně jsou všechny telefony v pořádku, liší se vzhledem. <1>Co přesně znamená A, B a C</1>",
+"p": [
+"/"
+]
+},
+{
+"k": "Všichni průvodci →",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Z produktových exportů obchodů s iPhony, které stahujeme každou noc, a platných slevových kódů z affiliate sítě eHub. Nakupujete vždy přímo v obchodě.",
+"p": [
+"/"
+]
+},
+{
+"k": "Zánovní",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Zánovní iPhony",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "alpsky zelená",
+"p": [
+"/",
+"/iphone-13-pro-max/"
+]
+},
+{
+"k": "blankytně modrá",
+"p": [
+"/",
+"/iphone-air/"
+]
+},
+{
+"k": "burgundsky červená",
+"p": [
+"/",
+"/iphone-18-pro-max/"
+]
+},
+{
+"k": "bílá",
+"p": [
+"/",
+"/iphone-11/"
+]
+},
+{
+"k": "bílý titan",
+"p": [
+"/",
+"/iphone-15-pro-max/"
+]
+},
+{
+"k": "fialová",
+"p": [
+"/",
+"/iphone-11/"
+]
+},
+{
+"k": "fialová ·",
+"p": [
+"/"
+]
+},
+{
+"k": "grafitově šedá",
+"p": [
+"/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "grafitově šedá ·",
+"p": [
+"/"
+]
+},
+{
+"k": "horsky modrá",
+"p": [
+"/",
+"/iphone-13-pro-max/"
+]
+},
+{
+"k": "hvězdně bílá",
+"p": [
+"/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "iPhone SE ({0}) v barvě černá",
+"p": [
+"/",
+"/iphone-bazar/"
+]
+},
+{
+"k": "iPhone bazar",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "iPhone na splátky",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "iPhone z bazaru",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě grafitově šedá",
+"p": [
+"/",
+"/iphone-12-pro-max/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě zlatá",
+"p": [
+"/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě grafitově šedá",
+"p": [
+"/",
+"/iphone-13-pro/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} o {1} Kč levněji než nový",
+"p": [
+"/"
+]
+},
+{
+"k": "iPhone {0} v barvě fialová",
+"p": [
+"/",
+"/iphone-bazar/"
+]
+},
+{
+"k": "iPhone {0} v barvě černá",
+"p": [
+"/",
+"/iphone-11/"
+]
+},
+{
+"k": "jemně růžová",
+"p": [
+"/",
+"/iphone-17e/"
+]
+},
+{
+"k": "korálová",
+"p": [
+"/",
+"/iphone-xr/"
+]
+},
+{
+"k": "kosmicky oranžová",
+"p": [
+"/",
+"/iphone-17-pro-max/"
+]
+},
+{
+"k": "ledovcově modrá",
+"p": [
+"/",
+"/iphone-18-pro-max/"
+]
+},
+{
+"k": "levandulová",
+"p": [
+"/",
+"/iphone-17/"
+]
+},
+{
+"k": "mlhově modrá",
+"p": [
+"/",
+"/iphone-17/"
+]
+},
+{
+"k": "modrozelená",
+"p": [
+"/",
+"/iphone-16-plus/"
+]
+},
+{
+"k": "modrá",
+"p": [
+"/",
+"/iphone-12-mini/"
+]
+},
+{
+"k": "modrý titan",
+"p": [
+"/",
+"/iphone-15-pro-max/"
+]
+},
+{
+"k": "oblačně bílá",
+"p": [
+"/",
+"/iphone-air/"
+]
+},
+{
+"k": "od",
+"p": [
+"/",
+"/zanovni-iphone/"
+]
+},
+{
+"k": "pouštní titan",
+"p": [
+"/",
+"/iphone-16-pro-max/"
+]
+},
+{
+"k": "přírodní titan",
+"p": [
+"/",
+"/iphone-15-pro-max/"
+]
+},
+{
+"k": "půlnočně zelená",
+"p": [
+"/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "repasovaný",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "růžová",
+"p": [
+"/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "růžově zlatá",
+"p": [
+"/",
+"/iphone-7/"
+]
+},
+{
+"k": "stříbrná",
+"p": [
+"/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "světle zlatá",
+"p": [
+"/",
+"/iphone-air/"
+]
+},
+{
+"k": "temně fialová",
+"p": [
+"/",
+"/iphone-14-pro-max/"
+]
+},
+{
+"k": "temně inkoustová",
+"p": [
+"/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "temně modrá",
+"p": [
+"/",
+"/iphone-17-pro-max/"
+]
+},
+{
+"k": "temně černá",
+"p": [
+"/",
+"/iphone-7/"
+]
+},
+{
+"k": "tichomořsky modrá",
+"p": [
+"/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "ultramarínová",
+"p": [
+"/",
+"/iphone-16-plus/"
+]
+},
+{
+"k": "vesmírně černá",
+"p": [
+"/",
+"/iphone-14-pro-max/"
+]
+},
+{
+"k": "vesmírně šedá",
+"p": [
+"/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "zelená",
+"p": [
+"/",
+"/iphone-11/"
+]
+},
+{
+"k": "zlatá",
+"p": [
+"/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "zlatá ·",
+"p": [
+"/"
+]
+},
+{
+"k": "{0} nabídek",
+"p": [
+"/",
+"/iphone-bazar/"
+]
+},
+{
+"k": "{0} nabídek repasovaných, zánovních a bazarových iPhonů od {1} Kč. Vyberte model, barvu, paměť a kvalitu A, B nebo C, ukážeme nejlevnější obchod i slevové kódy.",
+"p": [
+"/"
+]
+},
+{
+"k": "{0} nabídek · ceny z dnešní noci",
+"p": [
+"/"
+]
+},
+{
+"k": "{0} nabídek · s kódem",
+"p": [
+"/"
+]
+},
+{
+"k": "{0} nabídka",
+"p": [
+"/",
+"/iphone-bazar/"
+]
+},
+{
+"k": "© {0} Repasovaný iPhone",
+"p": [
+"/",
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Časté otázky",
+"p": [
+"/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "černá",
+"p": [
+"/",
+"/iphone-11/"
+]
+},
+{
+"k": "černá ·",
+"p": [
+"/"
+]
+},
+{
+"k": "černý titan",
+"p": [
+"/",
+"/iphone-15-pro-max/"
+]
+},
+{
+"k": "šalvějově zelená",
+"p": [
+"/",
+"/iphone-17/"
+]
+},
+{
+"k": "žlutá",
+"p": [
+"/",
+"/iphone-11/"
+]
+},
+{
+"k": "<1>Cena:</1> po odečtení platného slevového kódu, pokud jde jednoznačně uplatnit. Doprava není započtená.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>Co počítáme:</1> u každé kombinace modelu, paměti a kvality nejnižší cenu, medián a počet nabídek. Barvy slučujeme.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>Kvalita:</1> označení obchodů převádíme na Nový, A+, A, B a C. Nabídky, které neumíme spolehlivě zařadit, vynecháváme.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>Měříme od {0}. listopadu {1}.</1> Starší historii nemáme a nedopočítáváme.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>Zdroj:</1> produktové exporty obchodů v našem srovnání (MobileGear, JabkoLevně, Smarty, iPhoneMarket, Aukro, iSTYLE, Allegro), stažené každou noc kolem {0}. hodiny.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>iPhone SE ({0})</1> <2>{1} GB, stav A</2>",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>iPhone {0} Pro</1> <2>{1} GB, stav A</2>",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>iPhone {0} mini</1> <2>{1} GB, stav A</2>",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1>iPhone {0}</1> <2>{1} GB, stav A</2>",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Cena po započtení platného slevového kódu, u každého modelu jeho nejčastější paměť. Každý graf má vlastní rozsah osy, porovnávejte vývoj, ne výšku křivek. Najetím na bod zobrazíte datum a cenu.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Ceny repasovaných iPhonů v Česku (sledované nabídky)",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Ceny ukládáme každou noc od {0}. listopadu {1}. Křivky se tu ukážou po prvním týdnu měření, zatím máme {2} den. CSV níže je kompletní od prvního dne.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Data ke stažení",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Data · aktualizace každou noc",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Denní nejnižší a mediánové ceny repasovaných, použitých a nových iPhonů podle modelu, paměti a kvality z nabídek českých obchodů a tržišť. Jde o sledované nabídky obchodů a tržišť v našem srovnání, ne o prodeje ani o celý český trh. Nabídka, která zmizí, mohla být prodaná, stažená nebo přeceněná, to z dat nepoznáme.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Dnešní ceny podle kvality",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Drobečková navigace",
+"p": [
+"/ceny-iphonu/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "Jak se mění ceny repasovaných iPhonů: nejlevnější kus ve stavu A u šesti modelů, dnešní ceny podle kvality, CSV a metodika. Sledované nabídky, ne prodeje.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Jak web funguje",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Jde o sledované nabídky obchodů a tržišť v našem srovnání, ne o prodeje ani o celý český trh. Nabídka, která zmizí, mohla být prodaná, stažená nebo přeceněná, to z dat nepoznáme.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Jeden řádek = den, model, paměť a kvalita: nejnižší cena, medián, počet nabídek a počet obchodů. Oddělovač středník, kódování UTF-{0}. Data můžete volně použít s odkazem na repasovanyiphone.cz.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Kde dál",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Kolik stojí nejlevnější repasovaný iPhone ve stavu A u šesti modelů s největší nabídkou a jak se cena mění den po dni. Jde o sledované nabídky obchodů a tržišť v našem srovnání, ne o prodeje ani o celý český trh. Nabídka, která zmizí, mohla být prodaná, stažená nebo přeceněná, to z dat nepoznáme.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Metodika",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Model, nejčastější paměť",
+"p": [
+"/ceny-iphonu/",
+"/vykup-iphonu/"
+]
+},
+{
+"k": "Nejlevnější kus ve stavu A",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Nejnižší cena a počet nabídek ({0}. listopadu {1}). Stav převádíme na jednu stupnici, viz <1>převodník stavů</1>.",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Nový",
+"p": [
+"/ceny-iphonu/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "Repasované iPhony",
+"p": [
+"/ceny-iphonu/",
+"/iphone-11-pro-max/"
+]
+},
+{
+"k": "Stáhnout CSV",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Vývoj cen repasovaných iPhonů",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Vývoj cen repasovaných iPhonů – graf a data ke stažení",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "Česká republika",
+"p": [
+"/ceny-iphonu/"
+]
+},
+{
+"k": "<1></1><2>Koupit</2>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Dobrý (C):</1> {0} nabídek, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Jako nový (A+):</1> {0} nabídek, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Lightning:</1> nabíjí se starším kabelem Lightning, ne USB-C jako modely od iPhonu {0}.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro Max přináší čip A{5} Bionic místo A{6} Bionic, větší displej ({7}″ proti {8}″).",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Pro Max</3>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "<1>Velmi dobrý (B):</1> {0} nabídek, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Vyměněné díly:</1> v Nastavení → Obecné → Informace → Díly a historie servisu uvidíte, jestli má telefon neoriginální displej nebo baterii. <2>Jak to číst</2>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Výborný (A):</1> {0} nabídek, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Zámek aktivace:</1> u kusu z bazaru trvejte na tom, aby se prodávající před vámi odhlásil z Apple ID a telefon vymazal. <2>Kontrola IMEI a iCloudu</2>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>vesmírně šedá</2>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Kvalita <2>co znamená A, B, C?</2>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Paměť",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Aktuální iOS {0} a {1}",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Apple Intelligence",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Ceny z {0}. listopadu {1} · {2} nabídek",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Ceník podle paměti a kvality",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Co znamená kvalita A, B a C?",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Co znamená kvalita A, B, C",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Displej",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Dobrý",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Drobné stopy, které uvidíte jen zblízka.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Jak se ceny mění u dalších modelů, ukazuje <1>vývoj cen repasovaných iPhonů</1> (graf, CSV a metodika).",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Jako nový",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kategorie",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kdy skončí podpora iPhone {0} Pro Max?",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kdy vyšel iPhone {0} Pro Max?",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} Pro Max?",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kolik stojí použitý iPhone {0} Pro Max podle kvality",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kondici baterie obchody u tohoto modelu většinou neuvádějí. Před nákupem se na ni zeptejte, pod {0} % ji Apple považuje za opotřebovanou. <1>Jak číst kondici baterie</1>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kondici baterie prodejce uvádí u kusu na svém webu",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Konektor",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kontrola po převzetí",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Koupit u MobileGear",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kvalita popisuje jen vzhled. Pokud telefon nosíte v obalu, horší kvalita ušetří peníze bez rozdílu v používání. <1>Co znamenají kvality A+, A, B a C</1>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kvalita popisuje vzhled, ne funkčnost: A+ je jako nový, A má stopy viditelné jen zblízka, B jemné škrábance na rámu nebo zádech a C viditelné známky používání. Všechny obchody převádíme na tuhle jednu stupnici. <1>Co přesně jednotlivé kvality znamenají</1>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Kvalita popisuje vzhled, ne funkčnost: A+ je jako nový, A má stopy viditelné jen zblízka, B jemné škrábance na rámu nebo zádech a C viditelné známky používání. Všechny obchody převádíme na tuhle jednu stupnici. Co přesně jednotlivé kvality znamenají",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Na co si dát pozor u iPhone {0} Pro Max z druhé ruky",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Nejlevněji",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} GB, zlatá",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Nejnižší cena v každé kombinaci (všechny barvy, včetně platných slevových kódů). Sloupec „Nový“ je nejlevnější nový kus.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Nerozbalený",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Nový, nerozbalený kus, nabídka z tržiště Allegro",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Od obchodníka {0} měsíců, u použitého zboží ji smí dohodou zkrátit na {1} měsíců. Při nákupu přes internet můžete do {2} dnů odstoupit od smlouvy bez udání důvodu. <1>Záruka a vrácení</1>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Od obchodníka {0} měsíců, u použitého zboží ji smí dohodou zkrátit na {1} měsíců. Při nákupu přes internet můžete do {2} dnů odstoupit od smlouvy bez udání důvodu. Záruka a vrácení",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Odemykání",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Paměť",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Podobné modely",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Prodejce garantuje baterii min. {0} %",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Prodáváte starý iPhone? <1>Kde ho vykoupí a kolik si říct</1>.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Proti nejlevnějšímu novému kusu se stejnou pamětí ušetříte typicky <1>{0} %</1>.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro Max z obchodů MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Před nákupem si přečtěte",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Repasované, zánovní, bazarové i nové kusy od <1><2>{0} Kč</2> (stav B)</1>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Pro Max",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro Max stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč, kvalita C od {5} Kč. Nový kus stojí od {6} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro Max: {1} nabídek od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "Stav A (výborný)",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Stav A (výborný), u prodejce „Kategorie A“",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Stav A+ (jako nový), u prodejce „Zánovní“",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Stav B (velmi dobrý)",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Stav B (velmi dobrý), u prodejce „Kategorie B“",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Stav B (velmi dobrý), u prodejce „Velmi dobrý+“",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Stav C (dobrý), u prodejce „Kategorie C“",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Tarif k iPhonu",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Technický list",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Telefon kupujete zvlášť, takže ho nemusíte splácet operátorovi v paušálu. Stačí samotný tarif s daty, třeba od <1>Vodafonu</1>.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Telefon zvlášť, tarif zvlášť: proč se to vyplatí",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Uveden",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Vyplatí se iPhone {0} Pro Max z druhé ruky?",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Výborný",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Výběr iPhonu",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Zánovní iPhone {0} Pro Max od {1} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Záruka podle prodejce na tržišti",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Záruka {0} měsíců",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "ano",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "baterie min. {0} % · záruka {1} měs.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "baterie na webu obchodu · záruka {0} měs.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "bez viditelných stop, často rozbalený nebo krátce používaný",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "drobné stopy, které uvidíte jen zblízka",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone SE ({0}) bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone XR bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone XS Max bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone XS bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone do {0} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone pro děti",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone z bazaru bezpečně",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max (repasovaný)",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro Max Apple představil v roce {1}, dnes je mu {2} let. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. <1>Podpora iOS u všech modelů</1>",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. Podpora iOS u všech modelů",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max podle paměti",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě vesmírně šedá",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning.",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max: cena, bazar a repasovaný od {1} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-12-pro-max/"
+]
+},
+{
+"k": "iPhone {0} Pro bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "iPhone {0} mini bazar",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "jemné škrábance na rámu nebo zádech",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "ne",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "není skladem",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "nový kus · záruka neuvedena",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "nový, nerozbalený a neaktivovaný kus",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "od {0} Kč",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "viditelné známky používání, plně funkční",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "{0} nabídky v této konfiguraci",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "{0}″, {1} Hz",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "Čip",
+"p": [
+"/iphone-11-pro-max/",
+"/iphone-11-pro-max/256-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Pro Max</3><4>›</4><5>{1} GB</5>",
+"p": [
+"/iphone-11-pro-max/256-gb/",
+"/iphone-11-pro-max/512-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Pro Max {1} GB",
+"p": [
+"/iphone-11-pro-max/256-gb/",
+"/iphone-11-pro-max/512-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro Max {1} GB: {2} nabídek od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-11-pro-max/256-gb/",
+"/iphone-11-pro-max/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max {1} GB (repasovaný)",
+"p": [
+"/iphone-11-pro-max/256-gb/",
+"/iphone-11-pro-max/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max {1} GB: cena, bazar a repasovaný od {2} Kč",
+"p": [
+"/iphone-11-pro-max/256-gb/",
+"/iphone-11-pro-max/512-gb/"
+]
+},
+{
+"k": "{0} GB je bezstarostná volba i pro velkou knihovnu fotek a videí. Příplatek proti {1} GB bývá u repasovaných kusů menší než u nových.",
+"p": [
+"/iphone-11-pro-max/256-gb/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "<1>{0} Kč</1><2>o {1} Kč levněji než nový</2>",
+"p": [
+"/iphone-11-pro-max/512-gb/",
+"/iphone-11-pro-max/64-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} GB, vesmírně šedá",
+"p": [
+"/iphone-11-pro-max/512-gb/"
+]
+},
+{
+"k": "{0} GB a víc dává smysl hlavně pro natáčení videa ve vysoké kvalitě nebo pro celou knihovnu fotek offline. Pro běžné používání je to rezerva navíc.",
+"p": [
+"/iphone-11-pro-max/512-gb/",
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "<1><2>{0} Kč</2><3>o {1} Kč víc</3></1><4>Do obchodu</4>",
+"p": [
+"/iphone-11-pro-max/64-gb/",
+"/iphone-11-pro/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>půlnočně zelená</2>",
+"p": [
+"/iphone-11-pro-max/64-gb/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Další obchody",
+"p": [
+"/iphone-11-pro-max/64-gb/",
+"/iphone-11-pro/"
+]
+},
+{
+"k": "Do obchodu",
+"p": [
+"/iphone-11-pro-max/64-gb/",
+"/iphone-11/"
+]
+},
+{
+"k": "Nejlevnější s doloženou baterií a zárukou",
+"p": [
+"/iphone-11-pro-max/64-gb/",
+"/iphone-11-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě půlnočně zelená",
+"p": [
+"/iphone-11-pro-max/64-gb/",
+"/zanovni-iphone/iphone-11-pro-max/"
+]
+},
+{
+"k": "{0} GB stačí na zprávy, pár aplikací a fotky zálohované do iCloudu. Systém si vezme kolem {1} GB, video ve {2}K zabere asi {3} GB za minutu.",
+"p": [
+"/iphone-11-pro-max/64-gb/",
+"/iphone-11-pro/64-gb/"
+]
+},
+{
+"k": "<1><2/><3>baterie min. {0} % · záruka {1} měs.</3></1><4><5><6>sleva{2}</6>",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/64-gb/"
+]
+},
+{
+"k": "<1><2>{0} Kč</2><3>{1} Kč</3></1><4>Do obchodu</4>",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/64-gb/"
+]
+},
+{
+"k": "<1>Jako nový (A+):</1> {0} nabídka, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro přináší čip A{5} Bionic místo A{6} Bionic, větší displej ({7}″ proti {8}″).",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Pro</3>",
+"p": [
+"/iphone-11-pro/",
+"/iphone-12-pro/"
+]
+},
+{
+"k": "Ano, u části obchodů: JabkoLevně kód sleva{0}. Ceny „s kódem“ v konfigurátoru už slevu obsahují, kód zadáte v košíku obchodu.",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Doprava od {0} Kč, osobní odběr v Praze zdarma",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/64-gb/"
+]
+},
+{
+"k": "Kdy skončí podpora iPhone {0} Pro?",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Kdy vyšel iPhone {0} Pro?",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} Pro?",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Kolik stojí použitý iPhone {0} Pro podle kvality",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Kopírovat slevový kód sleva{0}",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/64-gb/"
+]
+},
+{
+"k": "Malé iPhony",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Na co si dát pozor u iPhone {0} Pro z druhé ruky",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav B, {2} GB, stříbrná",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/64-gb/"
+]
+},
+{
+"k": "Platí na repasovaný iPhone slevový kód?",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro z obchodů JabkoLevně, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Pro",
+"p": [
+"/iphone-11-pro/",
+"/iphone-12-pro/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč, kvalita C od {5} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro: {1} nabídek od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-11-pro/",
+"/iphone-12-pro/"
+]
+},
+{
+"k": "Stav A (výborný), u prodejce „Stav A“",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Stav B (velmi dobrý), u prodejce „Stav A/B“",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Vyplatí se iPhone {0} Pro z druhé ruky?",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Zánovní iPhone {0} Pro od {1} Kč",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "doprava od {0} Kč, osobní odběr v Praze zdarma",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro (repasovaný)",
+"p": [
+"/iphone-11-pro/",
+"/iphone-12-pro/"
+]
+},
+{
+"k": "iPhone {0} Pro Apple představil v roce {1}, dnes je mu {2} let. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. <1>Podpora iOS u všech modelů</1>",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. Podpora iOS u všech modelů",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro podle paměti",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě vesmírně šedá",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning.",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro: cena, bazar a repasovaný od {1} Kč",
+"p": [
+"/iphone-11-pro/",
+"/iphone-12-pro/"
+]
+},
+{
+"k": "platí do {0}. {1}. {2}",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "{0} nabídek v této konfiguraci",
+"p": [
+"/iphone-11-pro/",
+"/iphone-11-pro/64-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Pro</3><4>›</4><5>{1} GB</5>",
+"p": [
+"/iphone-11-pro/256-gb/",
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav B, {2} GB, půlnočně zelená",
+"p": [
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} Pro {1} GB",
+"p": [
+"/iphone-11-pro/256-gb/",
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} Pro {1} GB: {2} nabídek od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-11-pro/256-gb/",
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě půlnočně zelená",
+"p": [
+"/iphone-11-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro {1} GB (repasovaný)",
+"p": [
+"/iphone-11-pro/256-gb/",
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro {1} GB: cena, bazar a repasovaný od {2} Kč",
+"p": [
+"/iphone-11-pro/256-gb/",
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "Koupit u Smarty",
+"p": [
+"/iphone-11-pro/512-gb/",
+"/iphone-11/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav B, {2} GB, vesmírně šedá",
+"p": [
+"/iphone-11-pro/512-gb/"
+]
+},
+{
+"k": "{0} nabídka v této konfiguraci",
+"p": [
+"/iphone-11-pro/512-gb/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "<1>Jako nový (A+):</1> {0} nabídky, od {1} Kč, běžně kolem {2} Kč",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} přináší čip A{5} Bionic místo A{6} Bionic. <3>iPhone {7} vs. iPhone {8}: podrobné srovnání</3>",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0}</3>",
+"p": [
+"/iphone-11/",
+"/iphone-12/"
+]
+},
+{
+"k": "<1>Slevový kód</1><2/><3>Kopírovat</3><4>−{0} Kč · platí do {1}. {2}. {3} · zadejte v košíku</4>",
+"p": [
+"/iphone-11/",
+"/iphone-11/64-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone XS Max</2></1> ({0}) stojí z druhé ruky od {1} Kč, tedy o {2} Kč víc. Novější iPhone {3} přináší čip A{4} Bionic místo A{5} Bionic, menší displej ({6}″ proti {7}″), aktuální iOS.",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "<1>{0} Kč</1><2>{1} Kč v obchodě</2>",
+"p": [
+"/iphone-11/",
+"/iphone-11/64-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>černá</2>",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Kdy skončí podpora iPhone {0}?",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Kdy vyšel iPhone {0}?",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0}?",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Kolik stojí použitý iPhone {0} podle kvality",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Koupit s kódem u JabkoLevně",
+"p": [
+"/iphone-11/",
+"/iphone-11/64-gb/"
+]
+},
+{
+"k": "Na co si dát pozor u iPhone {0} z druhé ruky",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav B, {2} GB, černá",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} z obchodů JabkoLevně, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0}",
+"p": [
+"/iphone-11/",
+"/iphone-12/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč, kvalita C od {5} Kč. Nový kus stojí od {6} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0}: {1} nabídek od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-11/",
+"/iphone-12/"
+]
+},
+{
+"k": "Srovnání s jinými modely",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Stav A (výborný), u prodejce „Stav A-“",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Stav C (dobrý)",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Vyplatí se iPhone {0} z druhé ruky?",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "Zánovní iPhone {0} od {1} Kč",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "iPhone {0} (repasovaný)",
+"p": [
+"/iphone-11/",
+"/iphone-12/"
+]
+},
+{
+"k": "iPhone {0} Apple představil v roce {1}, dnes je mu {2} let. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "iPhone {0} dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. <1>Podpora iOS u všech modelů</1>",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "iPhone {0} dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. Podpora iOS u všech modelů",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "iPhone {0} podle paměti",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "iPhone {0} vs. iPhone {1}",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "iPhone {0} vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning.",
+"p": [
+"/iphone-11/",
+"/iphone-11/128-gb/"
+]
+},
+{
+"k": "iPhone {0}: cena, bazar a repasovaný od {1} Kč",
+"p": [
+"/iphone-11/",
+"/iphone-12/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0}</3><4>›</4><5>{1} GB</5>",
+"p": [
+"/iphone-11/128-gb/",
+"/iphone-11/256-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} GB",
+"p": [
+"/iphone-11/128-gb/",
+"/iphone-11/256-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} GB: {1} nabídek od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-11/128-gb/",
+"/iphone-11/256-gb/"
+]
+},
+{
+"k": "iPhone {0} GB (repasovaný)",
+"p": [
+"/iphone-11/128-gb/",
+"/iphone-11/256-gb/"
+]
+},
+{
+"k": "iPhone {0} GB: cena, bazar a repasovaný od {1} Kč",
+"p": [
+"/iphone-11/128-gb/",
+"/iphone-11/256-gb/"
+]
+},
+{
+"k": "{0} GB je rozumný základ pro většinu lidí: tisíce fotek, běžné aplikace i offline mapy. Kdo hodně natáčí, sáhne po {1} GB.",
+"p": [
+"/iphone-11/128-gb/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav C, {2} GB, (product)red",
+"p": [
+"/iphone-11/256-gb/"
+]
+},
+{
+"k": "Repasované, zánovní, bazarové i nové kusy od <1><2>{0} Kč</2> (stav C)</1>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.",
+"p": [
+"/iphone-11/256-gb/",
+"/iphone-11/64-gb/"
+]
+},
+{
+"k": "Viditelné známky používání, plně funkční.",
+"p": [
+"/iphone-11/256-gb/",
+"/iphone-12/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav C, {2} GB, černá",
+"p": [
+"/iphone-11/64-gb/",
+"/iphone-15/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} mini</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} mini přináší čip A{5} Bionic místo A{6} Bionic. <3>iPhone {7} mini vs. iPhone {8} mini: podrobné srovnání</3>",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} mini</3>",
+"p": [
+"/iphone-12-mini/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "Kdy skončí podpora iPhone {0} mini?",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Kdy vyšel iPhone {0} mini?",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Kolik stojí iPhone {0} mini?",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Kolik stojí použitý iPhone {0} mini podle kvality",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Na co si dát pozor u iPhone {0} mini z druhé ruky",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} mini za <1>{1} Kč</1> · stav B, {2} GB, černá",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/64-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} mini z obchodů Aukro, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} mini",
+"p": [
+"/iphone-12-mini/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} mini stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč, kvalita C od {5} Kč. Nový kus stojí od {6} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} mini: {1} nabídek od {2} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-12-mini/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "Stav A+ (jako nový), u prodejce „Zánovní“, nabídka z tržiště Aukro",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Stav C (dobrý), u prodejce „Uspokojivý“, nabídka z tržiště Aukro",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Vyplatí se iPhone {0} mini z druhé ruky?",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Zánovní iPhone {0} mini od {1} Kč",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "baterie min. {0} % · záruka neuvedena",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini (repasovaný)",
+"p": [
+"/iphone-12-mini/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "iPhone {0} mini Apple představil v roce {1}, dnes je mu {2} let. Má čip A{3} Bionic, displej {4}″ a konektor Lightning.",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. <1>Podpora iOS u všech modelů</1>",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini dostává aktuální iOS {1} i {2}. Apple konec podpory dopředu neoznamuje; iPhony historicky dostávají nové verze iOS zhruba {3}–{4} let od vydání, u modelu z roku {5} tedy odhadem do let {6}–{7}. Bezpečnostní opravy chodí obvykle ještě déle. Podpora iOS u všech modelů",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini podle paměti",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini v barvě černá",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/64-gb/"
+]
+},
+{
+"k": "iPhone {0} mini vs. iPhone {1} mini",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning.",
+"p": [
+"/iphone-12-mini/",
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini: cena, bazar a repasovaný od {1} Kč",
+"p": [
+"/iphone-12-mini/",
+"/iphone-13-mini/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} mini</3><4>›</4><5>{1} GB</5>",
+"p": [
+"/iphone-12-mini/128-gb/",
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>bílá</2>",
+"p": [
+"/iphone-12-mini/128-gb/",
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} mini za <1>{1} Kč</1> · stav C, {2} GB, černá",
+"p": [
+"/iphone-12-mini/128-gb/"
+]
+},
+{
+"k": "Repasovaný a použitý iPhone {0} mini {1} GB",
+"p": [
+"/iphone-12-mini/128-gb/",
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "Repasovaný, použitý i bazarový iPhone {0} mini {1} GB: {2} nabídek od {3} Kč. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod a slevové kódy.",
+"p": [
+"/iphone-12-mini/128-gb/",
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "iPhone {0} mini v barvě bílá",
+"p": [
+"/iphone-12-mini/128-gb/",
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "iPhone {0} mini {1} GB (repasovaný)",
+"p": [
+"/iphone-12-mini/128-gb/",
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "iPhone {0} mini {1} GB: cena, bazar a repasovaný od {2} Kč",
+"p": [
+"/iphone-12-mini/128-gb/",
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} mini za <1>{1} Kč</1> · stav C, {2} GB, (product)red",
+"p": [
+"/iphone-12-mini/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro Max přináší čip A{5} Bionic místo A{6} Bionic, {7}Hz displej.",
+"p": [
+"/iphone-12-pro-max/",
+"/iphone-12-pro-max/128-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro Max přináší čip A{5} Bionic místo A{6} Bionic, větší displej ({7}″ proti {8}″).",
+"p": [
+"/iphone-12-pro-max/",
+"/iphone-12-pro-max/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>zlatá</2>",
+"p": [
+"/iphone-12-pro-max/",
+"/iphone-12-pro-max/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro Max z obchodů JabkoLevně, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-12-pro-max/",
+"/iphone-12-pro-max/128-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro Max stojí dnes od {1} Kč. Podle kvality: kvalita A od {2} Kč, kvalita B od {3} Kč, kvalita C od {4} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-12-pro-max/",
+"/iphone-12-pro-max/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>tichomořsky modrá</2>",
+"p": [
+"/iphone-12-pro-max/128-gb/",
+"/iphone-12-pro/"
+]
+},
+{
+"k": "Jemné škrábance na rámu nebo zádech.",
+"p": [
+"/iphone-12-pro-max/128-gb/",
+"/iphone-12-pro/256-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě tichomořsky modrá",
+"p": [
+"/iphone-12-pro-max/128-gb/",
+"/obchody/smarty/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>grafitově šedá</2>",
+"p": [
+"/iphone-12-pro-max/512-gb/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav C, {2} GB, stříbrná",
+"p": [
+"/iphone-12-pro-max/512-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro přináší čip A{5} Bionic místo A{6} Bionic, {7}Hz displej.",
+"p": [
+"/iphone-12-pro/",
+"/iphone-12-pro/128-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro přináší čip A{5} Bionic místo A{6} Bionic, větší displej ({7}″ proti {8}″).",
+"p": [
+"/iphone-12-pro/",
+"/iphone-12-pro/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro za <1>{1} Kč</1> · stav B, {2} GB, grafitově šedá",
+"p": [
+"/iphone-12-pro/",
+"/iphone-12-pro/256-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro z obchodů Aukro, JabkoLevně, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-12-pro/",
+"/iphone-12-pro/128-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro stojí dnes od {1} Kč. Podle kvality: kvalita A+ od {2} Kč, kvalita A od {3} Kč, kvalita B od {4} Kč, kvalita C od {5} Kč. Nový kus stojí od {6} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-12-pro/",
+"/iphone-12-pro/128-gb/"
+]
+},
+{
+"k": "Stav A (výborný), nabídka z tržiště Aukro",
+"p": [
+"/iphone-12-pro/",
+"/iphone-12-pro/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro v barvě tichomořsky modrá",
+"p": [
+"/iphone-12-pro/",
+"/iphone-12-pro/128-gb/"
+]
+},
+{
+"k": "Repasované, zánovní, bazarové i nové kusy od <1><2>{0} Kč</2> (stav A)</1>. Vyberte barvu, paměť a kvalitu, ukážeme nejlevnější obchod.",
+"p": [
+"/iphone-12-pro/128-gb/",
+"/iphone-16/512-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0}</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} přináší čip A{5} Bionic místo A{6} Bionic. <3>iPhone {7} vs. iPhone {8}: podrobné srovnání</3>",
+"p": [
+"/iphone-12/",
+"/iphone-12/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>modrá</2>",
+"p": [
+"/iphone-12/",
+"/iphone-12/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav B, {2} GB, fialová",
+"p": [
+"/iphone-12/",
+"/iphone-12/64-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} z obchodů Aukro, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-12/",
+"/iphone-12/128-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} stojí dnes od {1} Kč. Podle kvality: kvalita A od {2} Kč, kvalita B od {3} Kč, kvalita C od {4} Kč. Nový kus stojí od {5} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-12/",
+"/iphone-12/128-gb/"
+]
+},
+{
+"k": "Stav A (výborný), u prodejce „Téměř výborný“, nabídka z tržiště Aukro",
+"p": [
+"/iphone-12/",
+"/iphone-12/128-gb/"
+]
+},
+{
+"k": "Stav B (velmi dobrý), nabídka z tržiště Aukro",
+"p": [
+"/iphone-12/",
+"/iphone-12/128-gb/"
+]
+},
+{
+"k": "iPhone {0} v barvě modrá",
+"p": [
+"/iphone-12/",
+"/iphone-12/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} za <1>{1} Kč</1> · stav B, {2} GB, (product)red",
+"p": [
+"/iphone-12/256-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} mini</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} mini přináší čip A{5} Bionic místo A{6} Bionic. <3>iPhone {7} mini vs. iPhone {8} mini: podrobné srovnání</3>",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>hvězdně bílá</2>",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "Ano, u části obchodů: JabkoLevně kód sleva{0}, iPhoneMarket kód SLEVA{1}. Ceny „s kódem“ v konfigurátoru už slevu obsahují, kód zadáte v košíku obchodu.",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "Baterie v průměru {0}–{1} % (údaj prodejce pro tento stav)",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} mini za <1>{1} Kč</1> · stav B, {2} GB, hvězdně bílá",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} mini z obchodů JabkoLevně, MobileGear, Smarty, iPhoneMarket. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "Stav C (dobrý), u prodejce „Stav B“",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "baterie ø {0}–{1} % · záruka {2} měs.",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Plus bazar",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "iPhone {0} mini v barvě hvězdně bílá",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "−{0} Kč při nákupu nad {1} Kč",
+"p": [
+"/iphone-13-mini/",
+"/iphone-13-mini/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} mini za <1>{1} Kč</1> · stav B, {2} GB, modrá",
+"p": [
+"/iphone-13-mini/256-gb/"
+]
+},
+{
+"k": "<1>Novější <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč víc. Novější iPhone {4} Pro Max přináší čip A{5} Bionic místo A{6} Bionic.",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>Starší <2>iPhone {0} Pro Max</2></1> ({1}) stojí z druhé ruky od {2} Kč, tedy o {3} Kč méně. Novější iPhone {4} Pro Max přináší čip A{5} Bionic místo A{6} Bionic, {7}Hz displej.",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>{0}</1>Barva <2>horsky modrá</2>",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/128-gb/"
+]
+},
+{
+"k": "Kondici baterie prodejce v nabídce neuvádí",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "Koupit u Aukro",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/128-gb/"
+]
+},
+{
+"k": "Nejlevnější iPhone {0} Pro Max za <1>{1} Kč</1> · stav B, {2} GB, grafitově šedá",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/128-gb/"
+]
+},
+{
+"k": "Právě teď srovnáváme <1>{0} nabídek</1> repasovaného, zánovního nebo bazarového iPhone {1} Pro Max z obchodů Aukro, JabkoLevně, MobileGear, Smarty. Nejlevnější kus stojí <2>{2} Kč</2>, nejčastěji se prodává verze s {3} GB.",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "Repasovaný nebo použitý iPhone {0} Pro Max stojí dnes od {1} Kč. Podle kvality: kvalita A od {2} Kč, kvalita B od {3} Kč, kvalita C od {4} Kč. Nový kus stojí od {5} Kč. Ceny kontrolujeme každou noc.",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "Stav A (výborný), u prodejce „třída A“, nabídka z tržiště Aukro",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "baterie neuvedena · záruka neuvedena",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max v barvě horsky modrá",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/128-gb/"
+]
+},
+{
+"k": "iPhone {0} Pro Max vyšel v roce {1} s čipem A{2} Bionic, je mu {3} let. Telefon dostává aktuální iOS {4} i {5}, má ještě konektor Lightning, má plynulý {6}Hz displej.",
+"p": [
+"/iphone-13-pro-max/",
+"/iphone-13-pro-max/1024-gb/"
+]
+},
+{
+"k": "<1>Repasované iPhony</1><2>›</2><3>iPhone {0} Pro Max</3><4>›</4><5>{1} TB</5>",
+"p": [
+"/iphone-13-pro-max/1024-gb/",
+"/iphone-14-pro-max/1024-gb/"
+]
+}
+]

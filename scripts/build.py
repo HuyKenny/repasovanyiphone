@@ -25,6 +25,7 @@ from pathlib import Path
 APP = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(APP / "scripts"))
 import golinks  # noqa: E402
+import i18n  # noqa: E402
 import parse as P  # noqa: E402
 
 DIST = APP / "dist"
@@ -183,6 +184,10 @@ class Out:
         self.lastmod = json.loads(lp.read_text()) if lp.exists() else {}
         self.new = {}
         self.images = defaultdict(list)       # path -> [(abs url, title)] for the image sitemap
+        self.trs = [i18n.Tr(lang) for lang in i18n.ACTIVE]
+        self.lpages = []                       # (lang, prefix, cs path, indexable)
+        self.js_keys = []
+        self.share = {}                        # "/ua/…" -> share of untranslated words
 
     def write(self, rel, text):
         p = self.root / rel
@@ -193,6 +198,13 @@ class Out:
         rel = path.strip("/") + "/index.html" if path != "/" else "index.html"
         self.write(rel, text)
         self.pages.append((path, index))
+        for tr in self.trs:
+            lt, li, sh = tr.translate(text, path, SITE, index and not STAGING, self.js_keys)
+            note = I18N_NOTE.get(tr.lang, "") if ('id="cfg"' in text or path == "/") else ""
+            lt = lt.replace("<!--l10n-note-->", note, 1)
+            self.write(tr.pfx.strip("/") + "/" + rel, lt)
+            self.lpages.append((tr.lang, tr.pfx, path, li))
+            self.share[tr.pfx + path] = round(sh, 3)
         body = re.sub(r"<script.*?</script>", "", text, flags=re.S)
         body = re.sub(r"Ceny z \d+\. \w+ \d{4}|Aktualizováno \d+\. \w+ \d{4}|ceny z dnešní noci", "", body)   # the date alone is no change
         h = hashlib.md5(body.encode()).hexdigest()[:12]
@@ -255,6 +267,20 @@ NAV = [("/#modely", "Modely"), ("/levny-iphone/", "Levné iPhony"), ("/iphone-ba
        ("/pruvodce/", "Průvodce")]
 
 
+# Czech is the site; /ua/ and /ru/ are translated copies (scripts/i18n.py). hreflang uses "uk" for Ukrainian, the URL "ua".
+LANG_ALT = [("cs", "")] + [(lg, "/" + i18n.LANGS[lg]) for lg in i18n.ACTIVE]
+LANG_SW = [(h, p, (p.strip("/") or "cs").upper()) for h, p in LANG_ALT] if i18n.ACTIVE else []
+# first visit with a Ukrainian/Russian browser (before Czech/Slovak in its list) -> the same page in that language; any choice in the
+# switcher is remembered (ri-lang) and never overridden. Bots send no such language and stay on Czech.
+LANG_AUTO = ('(function(){var d=document.documentElement;if(d.lang!=="cs")return;try{if(localStorage.getItem("ri-lang"))return}catch(e){return}'
+             'var L=navigator.languages||[navigator.language||""];for(var i=0;i<L.length;i++){var l=String(L[i]).slice(0,2).toLowerCase();'
+             'if(l==="cs"||l==="sk")return;var M=' + json.dumps({lg: i18n.LANGS[lg] for lg in i18n.ACTIVE}, separators=(",", ":")) + ';'
+             'if(M[l]){location.replace("/"+M[l]+location.pathname+location.search+location.hash);return}}})();')
+
+# RU/UA pages of the configurator and the homepage: how to buy in a Czech shop (written in the language, not translated)
+I18N_NOTE = {lang: ((APP / f"content/i18n/note-{lang}.html").read_text() if (APP / f"content/i18n/note-{lang}.html").exists() else "") for lang in i18n.LANGS}
+
+
 # Seznam Webmaster ownership tag (public by design, homepage only; Kenny 25. 11. 2026)
 SEZNAM_WMT = '<meta name="seznam-wmt" content="aVqd5hujvnUVu19cMEtJuIQ4shXRjLgr">'
 
@@ -301,6 +327,9 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
     have = {g["slug"] for g in ctx["guides"]}
     guides = "".join(f'<li><a href="/pruvodce/{u}/">{t}</a></li>' for u, t in FOOT_GUIDES if u in have)
     guides += '<li><a class="more" href="/pruvodce/">Všichni průvodci →</a></li>'
+    alt = ("".join(f'<link rel="alternate" hreflang="{h}" href="{SITE}{p}{path}">' for h, p in LANG_ALT) +
+           f'<link rel="alternate" hreflang="x-default" href="{SITE}{path}">') if i18n.ACTIVE else ""
+    langs = "".join(f'<a href="{p}{path}" hreflang="{h}" lang="{h}" data-lang="{h}">{n}</a>' for h, p, n in LANG_SW)
     cfg_tag = f'<script type="application/json" id="cfg">{json.dumps(cfg, ensure_ascii=False, separators=(",", ":"))}</script>' if cfg else ""
     return f"""<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}"><link rel="canonical" href="{canon}"><meta name="robots" content="{robots}">
@@ -308,18 +337,18 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
 <meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{canon}"><meta property="og:image" content="{E(og_img or SITE + '/img/ui/og.png')}">
 <meta name="twitter:card" content="summary_large_image">{SEZNAM_WMT if path == "/" else ""}{preload}
 <style>{ctx['css']}</style>{FONT_PRELOAD if "hand" in body else ""}<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="/favicon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#FFFFFF">{ldtxt}{ga}</head><body>{noscript}
+<link rel="apple-touch-icon" href="/favicon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#FFFFFF">{alt}{f"<script>{LANG_AUTO}</script>" if i18n.ACTIVE else ""}{ldtxt}{ga}</head><body>{noscript}
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
 <header class="top"><div class="wrap top-in"><a class="logo" href="/" aria-label="{BRAND} – úvod">{logo_mark()}<span>repasovaný <b>iPhone</b></span></a>
-<nav class="nav" aria-label="Hlavní">{nav}</nav></div></header>
-{cr}<main id="obsah">{body}</main>
+<nav class="nav" aria-label="Hlavní">{nav}</nav>{f'<nav class="langs" aria-label="Jazyk">{langs}</nav>' if langs else ""}</div></header>
+{cr}<main id="obsah">{body}<!--l10n-note--></main>
 <footer class="foot"><div class="wrap foot-in"><div class="about"><a class="logo" href="/">{logo_mark(30)}<span>repasovaný <b>iPhone</b></span></a>
 <p>Každou noc srovnáme nabídky obchodů s repasovanými iPhony včetně slevových kódů. Za nákup přes odkaz můžeme dostat provizi, cenu ani pořadí to nemění.
 <a href="/o-webu/">Jak web funguje</a></p></div>
 <div><h2>Modely</h2><ul>{fm}</ul></div><div><h2>Nakupujte</h2><ul>{cats}</ul></div><div><h2>Průvodce</h2><ul>{guides}</ul></div></div>
 <div class="wrap foot-legal"><a href="/o-webu/">O webu a kontakt</a><a href="/obchody/">Obchody ve srovnání</a><a href="/pro-obchody/">Pro obchody</a><a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a>{'<a href="#" data-consent-open>Nastavení cookies</a>' if ga else ''}<span>© {TODAY.year} {BRAND}</span></div></footer>
 {'<div class="consent" data-consentbar role="dialog" aria-label="Souhlas s cookies" hidden><p>Smíme měřit návštěvnost (Google Analytics)? Bez souhlasu nic neukládáme. <a href="/ochrana-osobnich-udaju/">Více</a></p><div><button type="button" class="btn sm" data-consent="yes">Souhlasím</button> <button type="button" class="btn sm ghost" data-consent="no">Nesouhlasím</button></div></div>' if ga else ''}
-{cfg_tag}<script>{ctx['js']}</script>{SPECULATION}</body></html>"""
+{cfg_tag}<script type="application/json" id="l10n">{{}}</script><script>{ctx['js']}</script>{SPECULATION}</body></html>"""
 
 
 # ---------------------------------------------------------------- components
@@ -2371,7 +2400,8 @@ a které slevové kódy kopírují, abychom web zlepšovali. Souhlas můžete kd
 <h2>Formulář půjčky</h2><p>Na stránce <a href="/iphone-na-splatky/">iPhone na splátky</a> je vložený formulář partnera (Home Credit přes eSpolupráce, provozuje Elephant Orchestra, s.r.o.,
 IČ 03272974, Srovnejto.cz). Údaje do něj zadáváte přímo provozovateli formuláře, my je nevidíme ani neukládáme. Formulář používá vlastní cookies a měření podle podmínek uvedených v něm.</p>
 <h2>Označení odkazů</h2><p>Do odkazu do obchodu přidáváme jen označení naší stránky a místa, odkud jste klikli (třeba „iphone-15“ a „best“). Affiliate síť ho vrátí u provize,
-takže víme, které stránky lidem pomáhají vybrat. Nejde o osobní údaj a nic o vás neobsahuje.</p></article></div>"""
+takže víme, které stránky lidem pomáhají vybrat. Nejde o osobní údaj a nic o vás neobsahuje.</p>
+<h2>Jazykové verze</h2><p>Web je i v ukrajinštině a ruštině. Volbu jazyka si pamatuje váš prohlížeč (localStorage), nikam ji neposíláme. Překlady jsou informativní, závazné je české znění.</p></article></div>"""
     out.page("/ochrana-osobnich-udaju/", layout(ctx, path="/ochrana-osobnich-udaju/", title="Ochrana osobních údajů a cookies | Repasovaný iPhone",
                                                 desc="Kdo provozuje repasovanyiphone.cz, jak měříme návštěvnost se souhlasem a jak fungují odkazy do obchodů a slevové kódy.",
                                                 body=body, crumbs=[("/", "Repasované iPhony"), ("/ochrana-osobnich-udaju/", "Ochrana osobních údajů")]))
@@ -2593,6 +2623,7 @@ def redirects(out, current):
         else:
             to = "/"
         lines.append(f"{p} {to} 301")
+        lines += [f"{pf}{p} {pf}{to} 301" for _, pf in LANG_ALT[1:]]
     kp.write_text(json.dumps(sorted(known | current)))
     lines = wp_legacy(current) + lines
     out.write("_redirects", "\n".join(lines[:1900]) + "\n")
@@ -2669,6 +2700,7 @@ def main():
     ctx["css"] = minify_css((APP / "static/assets/site.css").read_text())
     ctx["js"] = (APP / "static/assets/app.js").read_text().replace("</script", "<\\/script")
     out = Out(DIST)
+    out.js_keys = i18n.js_keys(ctx["js"])
     page_home(out, ctx)
     for m in MODELS:
         of = by_model.get(m["slug"])
@@ -2702,12 +2734,25 @@ def main():
     n_redir = redirects(out, {p for p, _ in out.pages})
 
     idx = [p for p, i in out.pages if i]
+    lidx = {(pf, p) for _, pf, p, i in out.lpages if i}
     sm = []
     for p in idx:
         imgs = "".join(f"<image:image><image:loc>{E(u)}</image:loc><image:title>{E(t)}</image:title></image:image>" for u, t in out.images.get(p, [])[:8])
-        sm.append(f"<url><loc>{SITE}{p}</loc><lastmod>{out.lastmod.get(p, TODAY.isoformat())}</lastmod>{imgs}</url>")
+        alts = "".join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE}{pf}{p}"/>' for h, pf in LANG_ALT if not pf or (pf, p) in lidx)
+        lm = out.lastmod.get(p, TODAY.isoformat())
+        for h, pf in LANG_ALT:
+            if not pf or (pf, p) in lidx:
+                sm.append(f"<url><loc>{SITE}{pf}{p}</loc><lastmod>{lm}</lastmod>{alts}{imgs if not pf else ''}</url>")
     out.write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+                             'xmlns:xhtml="http://www.w3.org/1999/xhtml" '
                              f'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">{"".join(sm)}</urlset>')
+    out.changed += [pf + p for p in list(out.changed) for _, pf in LANG_ALT[1:] if (pf, p) in lidx]
+    miss = {tr.lang: {k: sorted(v)[:5] for k, v in sorted(tr.missing.items())} for tr in out.trs}
+    for tr in out.trs:
+        tr.js_missing(out.js_keys)
+        miss[tr.lang] = {k: sorted(v)[:5] for k, v in sorted(tr.missing.items())}
+    (STATE / "i18n-missing.json").write_text(json.dumps(miss, ensure_ascii=False, indent=0))
+    (STATE / "i18n-share.json").write_text(json.dumps(out.share, indent=0))
     out.write("robots.txt", "User-agent: *\nDisallow: /\n" if STAGING else f"User-agent: *\nDisallow: /go/\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     key = os.environ.get("INDEXNOW_KEY", "")
     if key:
@@ -2754,9 +2799,10 @@ def main():
     rep = {"date": TODAY.isoformat(), "shops": stats, "skipped": report, "refurb": len(refurb), "offers": len(offers), "new_ref": len(new_min),
            "models": len(by_model), "pages": len(out.pages), "indexable": len(idx), "changed": len(out.changed), "go": go_stats,
            "coupons": {s: [c["code"] for c in cl] for s, cl in coupons.items()}, "with_code": sum(1 for o in offers if o["cp"]),
-           "photos": len(have), "no_photo": no_photo, "redirects": n_redir}
+           "photos": len(have), "no_photo": no_photo, "redirects": n_redir,
+           "i18n": {tr.lang: {"missing": len(miss[tr.lang]), "indexable": sum(1 for lg, _, _, i in out.lpages if lg == tr.lang and i)} for tr in out.trs}}
     (STATE / "build-report.json").write_text(json.dumps(rep, indent=1, ensure_ascii=False))
-    print(json.dumps({k: rep[k] for k in ("refurb", "offers", "models", "pages", "indexable", "coupons", "with_code", "photos", "no_photo", "redirects")}, ensure_ascii=False))
+    print(json.dumps({k: rep[k] for k in ("refurb", "offers", "models", "pages", "indexable", "coupons", "with_code", "photos", "no_photo", "redirects", "i18n")}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

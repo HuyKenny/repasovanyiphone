@@ -1,16 +1,39 @@
 /* repasovanyiphone.cz: voucher copy buttons (every page) + configurator colour -> storage -> quality -> cheapest shop (model pages).
    Configurator data: <script id="cfg" type="application/json"> from scripts/build.py.
    Rows: [colour, storage, grade, shop price, shop, go, battery, eSIM, price after voucher code, facts index into C.f], sorted by price after code.
-   The markup mirrors configurator_html()/result_html() in build.py, so the page reads the same without JS. Quality = our scale only. */
+   The markup mirrors configurator_html()/result_html() in build.py, so the page reads the same without JS. Quality = our scale only.
+   Texts: T(czech text with {0}, x) and pl(n, one/few/many forms) look up the page's #l10n JSON (Ukrainian / Russian pages, scripts/i18n.py). */
+var rpI = (function () {
+  var d = document.documentElement, lang = d.lang || "cs", L = {};
+  try { var el = document.getElementById("l10n"); if (el) L = JSON.parse(el.textContent); } catch (e) { /* ignore */ }
+  var T = function (s) {
+    var a = arguments;
+    return (L[s] || s).replace(/\{(\d)\}/g, function (_, i) { return a[+i + 1]; });
+  };
+  var pl = function (n, forms) {
+    var f = T(forms).split("|"), i;
+    if (lang === "cs") i = n === 1 ? 0 : n >= 2 && n <= 4 ? 1 : 2;
+    else { var a = n % 10, b = n % 100; i = a === 1 && b !== 11 ? 0 : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 1 : 2; }
+    return n + "\u00a0" + (f[i] || f[f.length - 1]);
+  };
+  /* the language switcher remembers the choice: no automatic switch after that */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-lang]");
+    if (a) { try { localStorage.setItem("ri-lang", a.dataset.lang); } catch (x) { /* ignore */ } }
+  });
+  return { T: T, pl: pl, lp: lang === "uk" ? "/ua" : lang === "ru" ? "/ru" : "" };
+})();
+
 (function () {
-  /* copy a voucher code: buttons show "Zkopírováno", links (Koupit s kódem / Do obchodu) copy and then open the shop as usual */
+  var T = rpI.T;
+  /* copy a voucher code: buttons show "copied", links (buy with code / to the shop) copy and then open the shop as usual */
   function copy(code) {
     try { if (navigator.clipboard) return navigator.clipboard.writeText(code); } catch (e) { /* ignore */ }
     var t = document.createElement("textarea"); t.value = code; t.style.position = "fixed"; t.style.opacity = "0";
     document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (e) { /* ignore */ } t.remove();
   }
   function done(el) {
-    var old = el.innerHTML; el.textContent = "Zkopírováno ✓"; el.classList.add("done");
+    var old = el.innerHTML; el.textContent = T("Zkopírováno ✓"); el.classList.add("done");
     setTimeout(function () { el.innerHTML = old; el.classList.remove("done"); }, 2200);
   }
   document.addEventListener("click", function (e) {
@@ -38,7 +61,7 @@
       if (!el.parentNode.querySelector(".cpn-open")) {
         var a = document.createElement("a");
         a.className = "cpn-open"; a.href = href; a.target = "_blank"; a.rel = "sponsored nofollow noopener";
-        a.dataset.go = shop; a.dataset.copy = code; a.textContent = "Otevřít obchod s kódem";
+        a.dataset.go = shop; a.dataset.copy = code; a.textContent = T("Otevřít obchod s kódem");
         el.insertAdjacentElement("afterend", a);
       }
     }
@@ -55,8 +78,8 @@
     var reveal = function () {
       var bar = document.createElement("div");
       bar.className = "kodbar"; bar.setAttribute("role", "status");
-      bar.innerHTML = '<p>Kód <code></code> máte zkopírovaný. Obchod se otevřel v původní kartě, kód vložte v košíku.</p>' +
-        '<button type="button" class="cpn-copy">Kopírovat znovu</button><button type="button" class="kodbar-x" aria-label="Zavřít">×</button>';
+      bar.innerHTML = "<p>" + T("Kód {0} máte zkopírovaný. Obchod se otevřel v původní kartě, kód vložte v košíku.", "<code></code>") + "</p>" +
+        '<button type="button" class="cpn-copy">' + T("Kopírovat znovu") + '</button><button type="button" class="kodbar-x" aria-label="' + T("Zavřít") + '">×</button>';
       bar.querySelector("code").textContent = kc0;
       bar.querySelector(".cpn-copy").dataset.copy = kc0;
       bar.querySelector(".kodbar-x").addEventListener("click", function () { bar.remove(); });
@@ -148,14 +171,14 @@
   var el = document.getElementById("cfg");
   var root = document.querySelector("[data-cfg]");
   if (!el || !root) return;
-  var C = JSON.parse(el.textContent);
+  var C = JSON.parse(el.textContent), T = rpI.T, pl = rpI.pl;
   var ORDER = C.order || ["novy", "aplus", "a", "b", "c"];
   var rows = C.o;
   var q = function (s) { return root.querySelector(s); };
   var kc = function (v) { return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Kč"; };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var gbl = function (v) { return v >= 1024 ? (v / 1024) + " TB" : v + " GB"; };
-  var nab = function (n) { return n + " " + (n === 1 ? "nabídka" : n >= 2 && n <= 4 ? "nabídky" : "nabídek"); };
+  var nab = function (n) { return pl(n, "nabídka|nabídky|nabídek"); };
   var colIdx = function (k) { for (var i = 0; i < C.cols.length; i++) if (C.cols[i][0] === k) return i; return -1; };
   var go = function (r) { return r[5].charAt(0) === "~" ? "/go/" + r[4] + "/?u=" + r[5].slice(1) : r[5]; };
   var min = function (list) { var m = null; list.forEach(function (r) { if (m === null || r[8] < m) m = r[8]; }); return m; };
@@ -206,95 +229,95 @@
     var r = C.rep && C.rep[S.c + "," + S.gi];
     if (!r || r[3] > best[8] - 300) return "";
     var gb = C.gbs[S.gi];
-    var u = "/" + C.m + "/?barva=" + r[0] + "&amp;pamet=" + gb + "&amp;kvalita=" + r[2];
-    return '<a class="repup" href="' + u + '"><span><b>Chcete ušetřit víc?</b> Repasovaný ' + esc(C.name) + " " + gbl(gb) + ", " +
-      esc(r[1].toLowerCase()) + " ve stavu " + esc(C.rgr[r[2]]) + " od <b>" + kc(r[3]) + "</b> · o " + kc(best[8] - r[3]) + ' méně</span><span class="repup-a" aria-hidden="true">→</span></a>';
+    var u = rpI.lp + "/" + C.m + "/?barva=" + r[0] + "&amp;pamet=" + gb + "&amp;kvalita=" + r[2];
+    return '<a class="repup" href="' + u + '"><span>' + T("<b>Chcete ušetřit víc?</b> Repasovaný {0} {1}, {2} ve stavu {3} od <b>{4}</b> · o {5} méně",
+      esc(C.name), gbl(gb), esc(r[1].toLowerCase()), esc(C.rgr[r[2]]), kc(r[3]), kc(best[8] - r[3])) + '</span><span class="repup-a" aria-hidden="true">→</span></a>';
   }
 
   function result() {
     var res = where(S.c, S.gi, S.g);
-    if (!res.length) return '<p class="empty">Tahle kombinace teď není skladem. Zkuste jinou barvu nebo kvalitu.</p>';
+    if (!res.length) return '<p class="empty">' + T("Tahle kombinace teď není skladem. Zkuste jinou barvu nebo kvalitu.") + "</p>";
     var best = res[0], gb = C.gbs[S.gi], newp = C.newp[String(gb)], cp = code(best), F = C.f;
-    var save = newp && newp > best[8] && best[2] !== "novy" ? '<span class="save hand">o ' + kc(newp - best[8]) + " levněji než nový</span>" : "";
-    var was = best[8] < best[3] ? '<span class="was">' + kc(best[3]) + " v obchodě</span>" : "";
+    var save = newp && newp > best[8] && best[2] !== "novy" ? '<span class="save hand">' + T("o {0} levněji než nový", kc(newp - best[8])) + "</span>" : "";
+    var was = best[8] < best[3] ? '<span class="was">' + T("{0} v obchodě", kc(best[3])) + "</span>" : "";
     var lowl = "", L = C.low;
     if (L && best[8] > L[3]) {
       var lc = C.cols[colIdx(L[0])];
-      lowl = '<a class="lowlink" href="?barva=' + L[0] + "&amp;pamet=" + L[1] + "&amp;kvalita=" + L[2] + '" data-low>Nejlevnější ' + esc(C.name) + " za <b>" + kc(L[3]) + "</b> · stav " +
-        esc(C.grades[L[2]][0]) + ", " + gbl(L[1]) + ", " + esc(lc ? lc[1].toLowerCase() : "") + "</a>";
+      lowl = '<a class="lowlink" href="?barva=' + L[0] + "&amp;pamet=" + L[1] + "&amp;kvalita=" + L[2] + '" data-low>' + T("Nejlevnější {0} za <b>{1}</b> · stav {2}, {3}, {4}", esc(C.name), kc(L[3]),
+        esc(C.grades[L[2]][0]), gbl(L[1]), esc(lc ? lc[1].toLowerCase() : "")) + "</a>";
     }
     var seen = {}, others = [];
     res.forEach(function (r) { if (!seen[r[4]]) { seen[r[4]] = 1; if (r !== best) others.push(r); } });
     var pr = F[best[9]][6] ? null : res.filter(function (r) { return F[r[9]][6]; })[0], proven = "";
     if (pr) {
       var pc = code(pr);
-      proven = '<div class="proven"><p class="pv-k">Nejlevnější s doloženou baterií a zárukou</p><div class="pv-row">' + shopMini(pr[4]) +
-        '<span class="pv-p"><b>' + kc(pr[8]) + "</b><small>o " + kc(pr[8] - best[8]) + " víc</small></span>" +
+      proven = '<div class="proven"><p class="pv-k">' + T("Nejlevnější s doloženou baterií a zárukou") + '</p><div class="pv-row">' + shopMini(pr[4]) +
+        '<span class="pv-p"><b>' + kc(pr[8]) + "</b><small>" + T("o {0} víc", kc(pr[8] - best[8])) + "</small></span>" +
         '<a class="btn sm" href="' + esc(go(pr)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + pr[4] + '" data-price="' + pr[8] + '" data-sp="proven"' +
-        (pc ? ' data-copy="' + esc(pc[0]) + '"' : "") + ">Do obchodu</a></div>" + facts(F[pr[9]]) + "</div>";
+        (pc ? ' data-copy="' + esc(pc[0]) + '"' : "") + ">" + T("Do obchodu") + "</a></div>" + facts(F[pr[9]]) + "</div>";
     }
-    var html = '<div class="best"><div class="best-top"><span class="best-k">Nejlevněji</span>' + shopMini(best[4], 26) + "</div>" +
+    var html = '<div class="best"><div class="best-top"><span class="best-k">' + T("Nejlevněji") + "</span>" + shopMini(best[4], 26) + "</div>" +
       '<p class="best-p"><span class="price">' + kc(best[8]) + "</span>" + was + save + "</p>" + lowl + facts(F[best[9]]) +
-      (best[7] ? '<p class="best-f">jen eSIM</p>' : "") +
-      (cp ? '<div class="cpn"><span class="cpn-k">Slevový kód</span><code>' + esc(cp[0]) + '</code><button type="button" class="cpn-copy" data-copy="' + esc(cp[0]) + '" data-shop="' + best[4] + '" data-href="' + esc(go(best)) + '">Kopírovat</button>' +
-        "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · zadejte v košíku</small></div>" : "") +
+      (best[7] ? '<p class="best-f">' + T("jen eSIM") + "</p>" : "") +
+      (cp ? '<div class="cpn"><span class="cpn-k">' + T("Slevový kód") + "</span><code>" + esc(cp[0]) + '</code><button type="button" class="cpn-copy" data-copy="' + esc(cp[0]) + '" data-shop="' + best[4] + '" data-href="' + esc(go(best)) + '">' + T("Kopírovat") + "</button>" +
+        "<small>" + esc(cp[1]) + " · " + esc(cp[2]) + " · " + T("zadejte v košíku") + "</small></div>" : "") +
       '<a class="btn big" href="' + esc(go(best)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + best[4] + '" data-price="' + best[8] + '" data-sp="best"' +
       (cp ? ' data-copy="' + esc(cp[0]) + '"' : "") + ">" +
-      (cp ? "Koupit s kódem u " : "Koupit u ") + esc(C.shops[best[4]][0]) + "</a>" +
-      '<p class="best-n">' + nab(res.length) + " v této konfiguraci</p>" +
-      (best[8] >= 10000 ? '<a class="loanrow" href="/iphone-na-splatky/?z=' + C.m + '" data-loan="card"><img class="hc-logo" src="/img/partners/homecredit.svg" alt="Home Credit" width="40" height="17" loading="lazy" decoding="async">' +
-        "<span>Chcete platit postupně? <b>iPhone na splátky</b></span></a>" : "") + "</div>" + repup(best) + proven;
+      (cp ? T("Koupit s kódem u {0}", esc(C.shops[best[4]][0])) : T("Koupit u {0}", esc(C.shops[best[4]][0]))) + "</a>" +
+      '<p class="best-n">' + T("{0} v této konfiguraci", nab(res.length)) + "</p>" +
+      (best[8] >= 10000 ? '<a class="loanrow" href="' + rpI.lp + "/iphone-na-splatky/?z=" + C.m + '" data-loan="card"><img class="hc-logo" src="/img/partners/homecredit.svg" alt="Home Credit" width="40" height="17" loading="lazy" decoding="async">' +
+        "<span>" + T("Chcete platit postupně? <b>iPhone na splátky</b>") + "</span></a>" : "") + "</div>" + repup(best) + proven;
     var ICON = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>' +
       '<path d="M5 15V6a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     var chip = function (r) {
       var c = code(r);
-      return c ? '<button type="button" class="cchip" data-copy="' + esc(c[0]) + '" data-shop="' + r[4] + '" data-sp="chip" data-href="' + esc(go(r)) + '" aria-label="Kopírovat slevový kód ' + esc(c[0]) + '"><span>' + esc(c[0]) + "</span>" + ICON + "</button>" : "";
+      return c ? '<button type="button" class="cchip" data-copy="' + esc(c[0]) + '" data-shop="' + r[4] + '" data-sp="chip" data-href="' + esc(go(r)) + '" aria-label="' + T("Kopírovat slevový kód {0}", esc(c[0])) + '"><span>' + esc(c[0]) + "</span>" + ICON + "</button>" : "";
     };
     if (!cp) {
       var near = others.filter(function (r) { return code(r) && r[8] <= best[8] * 1.03; })[0];
-      if (near) html += '<p class="cphint"><span class="hand">Radši se slevovým kódem?</span> ' + esc(C.shops[near[4]][0]) + " s kódem " + chip(near) + " za " + kc(near[8]) +
-        (near[8] > best[8] ? " (jen o " + kc(near[8] - best[8]) + " víc)" : "") + "</p>";
+      if (near) html += '<p class="cphint">' + T('<span class="hand">Radši se slevovým kódem?</span> {0} s kódem {1} za {2}', esc(C.shops[near[4]][0]), chip(near), kc(near[8])) +
+        (near[8] > best[8] ? T(" (jen o {0} víc)", kc(near[8] - best[8])) : "") + "</p>";
     }
     if (others.length) {
-      html += '<div class="alts"><h3>Další obchody</h3><ul>' + others.map(function (r) {
+      html += '<div class="alts"><h3>' + T("Další obchody") + "</h3><ul>" + others.map(function (r) {
         var c = code(r);
         return '<li><span class="o-shop">' + shopMini(r[4]) + '<span class="o-f">' + esc(F[r[9]][7]) + '</span></span><span class="o-cp">' + chip(r) + '</span><span class="o-p"><b>' + kc(r[8]) + "</b>" + (c ? "<s>" + kc(r[3]) + "</s>" : "") +
-          '</span><a class="btn sm ghost" href="' + esc(go(r)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + r[4] + '" data-price="' + r[8] + '" data-sp="alt"' + (c ? ' data-copy="' + esc(c[0]) + '"' : "") + ">Do obchodu</a></li>";
+          '</span><a class="btn sm ghost" href="' + esc(go(r)) + '" rel="sponsored nofollow noopener" target="_blank" data-go="' + r[4] + '" data-price="' + r[8] + '" data-sp="alt"' + (c ? ' data-copy="' + esc(c[0]) + '"' : "") + ">" + T("Do obchodu") + "</a></li>";
       }).join("") + "</ul></div>";
     }
     /* cheaper nearby: another colour (same storage + quality) or one step lower quality (same colour + storage) */
     var tips = [];
     var oc = where(-1, S.gi, S.g).filter(function (r) { return r[0] !== S.c && r[8] < best[8] - 200; })[0];
-    if (oc) tips.push('<button type="button" class="tip" data-set-col="' + C.cols[oc[0]][0] + '"><span class="dot xs" style="--h:' + C.cols[oc[0]][2] + '"></span>v barvě ' + esc(C.cols[oc[0]][1]) + " za " + kc(oc[8]) + "</button>");
+    if (oc) tips.push('<button type="button" class="tip" data-set-col="' + C.cols[oc[0]][0] + '"><span class="dot xs" style="--h:' + C.cols[oc[0]][2] + '"></span>' + T("v barvě {0} za {1}", esc(C.cols[oc[0]][1]), kc(oc[8])) + "</button>");
     var lower = ORDER.slice(ORDER.indexOf(S.g) + 1);
     for (var i = 0; i < lower.length; i++) {
       var lg = where(S.c, S.gi, lower[i])[0];
-      if (lg && lg[8] < best[8] - 200) { tips.push('<button type="button" class="tip" data-set-g="' + lower[i] + '">' + (C.glab || "v kvalitě") + " " + C.grades[lower[i]][0] + " za " + kc(lg[8]) + "</button>"); break; }
+      if (lg && lg[8] < best[8] - 200) { tips.push('<button type="button" class="tip" data-set-g="' + lower[i] + '">' + (C.glab ? T("jako {0} za {1}", C.grades[lower[i]][0], kc(lg[8])) : T("v kvalitě {0} za {1}", C.grades[lower[i]][0], kc(lg[8]))) + "</button>"); break; }
     }
-    if (tips.length) html += '<div class="tips"><span class="hand">Levněji:</span>' + tips.join("") + "</div>";
+    if (tips.length) html += '<div class="tips"><span class="hand">' + T("Levněji:") + "</span>" + tips.join("") + "</div>";
     return html;
   }
 
   function render() {
     var col = C.cols[S.c];
     var ph = q("[data-photo]");
-    if (col[3] && ph.getAttribute("src") !== col[3]) { ph.src = col[3]; ph.alt = C.name + " v barvě " + col[1]; }
+    if (col[3] && ph.getAttribute("src") !== col[3]) { ph.src = col[3]; ph.alt = T("{0} v barvě {1}", C.name, col[1]); }
     q("[data-v-col]").textContent = col[1];
     q("[data-cols]").innerHTML = C.cols.map(function (c, i) {
       var here = where(i, S.gi), any = where(i, -1);
-      var t = c[1] + (here.length ? ", od " + kc(min(here)) : any.length ? ", v jiné paměti" : "");
+      var t = c[1] + (here.length ? T(", od {0}", kc(min(here))) : any.length ? T(", v jiné paměti") : "");
       return '<button type="button" class="sw' + (i === S.c ? " on" : "") + (here.length ? "" : " dim") + '" data-col="' + c[0] + '" aria-pressed="' + (i === S.c) +
         '" aria-label="' + esc(t) + '" title="' + esc(t) + '"><span class="dot" style="--h:' + c[2] + '"></span></button>';
     }).join("");
     q("[data-gbs]").innerHTML = C.gbs.map(function (g, i) {
       var here = where(S.c, i);
       return '<button type="button" class="pill' + (i === S.gi ? " on" : "") + (here.length ? "" : " dim") + '" data-gb="' + g + '" aria-pressed="' + (i === S.gi) + '">' +
-        gbl(g) + "<small>" + (here.length ? "od " + kc(min(here)) : "jiná barva") + "</small></button>";
+        gbl(g) + "<small>" + (here.length ? T("od {0}", kc(min(here))) : T("jiná barva")) + "</small></button>";
     }).join("");
     q("[data-grades]").innerHTML = ORDER.map(function (g) {
       var here = where(S.c, S.gi, g), m = min(here);
       return '<button type="button" class="gcard' + (g === S.g ? " on" : "") + (here.length ? "" : " off") + '" data-g="' + g + '" aria-pressed="' + (g === S.g) + '"' + (here.length ? "" : " disabled") + ">" +
-        '<span class="gl g-' + g + '">' + C.grades[g][0] + '</span><span class="gn">' + C.grades[g][1] + '</span><span class="gp">' + (here.length ? "od " + kc(m) : "není skladem") + "</span></button>";
+        '<span class="gl g-' + g + '">' + C.grades[g][0] + '</span><span class="gn">' + C.grades[g][1] + '</span><span class="gp">' + (here.length ? T("od {0}", kc(m)) : T("není skladem")) + "</span></button>";
     }).join("");
     var hint = C.grades[S.g][2];
     q("[data-ghint]").textContent = hint.charAt(0).toUpperCase() + hint.slice(1) + ".";
@@ -305,10 +328,10 @@
     var best = where(S.c, S.gi, S.g)[0], bb = document.querySelector("[data-buybar]");
     if (bb && best) {
       var cp = code(best);
-      bb.querySelector("[data-bb-t]").innerHTML = "<b>" + kc(best[8]) + "</b> " + esc(C.name) + " " + gbl(C.gbs[S.gi]) + ", " + (S.g === "novy" ? "nový" : C.order ? C.grades[S.g][0].toLowerCase() : "stav " + C.grades[S.g][0]) + (cp ? ", s kódem" : "");
+      bb.querySelector("[data-bb-t]").innerHTML = "<b>" + kc(best[8]) + "</b> " + esc(C.name) + " " + gbl(C.gbs[S.gi]) + ", " + (S.g === "novy" ? T("nový") : C.order ? C.grades[S.g][0].toLowerCase() : T("stav {0}", C.grades[S.g][0])) + (cp ? T(", s kódem") : "");
       var a = bb.querySelector("[data-bb-a]");
       a.href = go(best);
-      a.textContent = "Koupit u " + C.shops[best[4]][0];
+      a.textContent = T("Koupit u {0}", C.shops[best[4]][0]);
       if (cp) a.dataset.copy = cp[0]; else delete a.dataset.copy;
       if (window.rpTag) window.rpTag(bb);
     }
@@ -361,11 +384,8 @@
   var fs = Array.prototype.slice.call(document.querySelectorAll("[data-cfilter]")), grid = document.querySelector("[data-cgrid]");
   if (!fs.length || !grid) return;
   var cards = Array.prototype.slice.call(grid.children), out = document.querySelector("[data-cf-n]"), sel = {};
-  var nabWord = grid.dataset.word === "nab";
-  var word = function (n) {
-    return nabWord ? n + " " + (n === 1 ? "nabídka" : n >= 2 && n <= 4 ? "nabídky" : "nabídek")
-                   : n + " " + (n === 1 ? "model" : n >= 2 && n <= 4 ? "modely" : "modelů");
-  };
+  var nabWord = grid.dataset.word === "nab", T = rpI.T, pl = rpI.pl;
+  var word = function (n) { return nabWord ? pl(n, "nabídka|nabídky|nabídek") : pl(n, "model|modely|modelů"); };
   function has(list, v) { return (" " + (list || "") + " ").indexOf(" " + v + " ") >= 0; }
   function apply() {
     var n = 0;
@@ -380,7 +400,7 @@
       c.hidden = !ok; if (ok) n++;
       c.querySelectorAll(".zrow[data-typ]").forEach(function (r) { r.hidden = !!sel.typ && r.dataset.typ !== sel.typ; });
     });
-    if (out) out.textContent = word(n) + (n ? "" : " · zkuste jiný filtr");
+    if (out) out.textContent = word(n) + (n ? "" : T(" · zkuste jiný filtr"));
   }
   fs.forEach(function (f) {
     sel[f.dataset.cfilter] = "";
