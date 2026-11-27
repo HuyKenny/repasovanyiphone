@@ -35,7 +35,7 @@ WORD = re.compile(r"[^\W\d_]{2,}")
 # words that stay as they are in every language: a segment made only of these is not translated
 KEEP = {w.lower() for w in """iphone pro max plus mini se air gb tb kč ios esim apple usb lightning mm mah face id touch a b c
         ok cz eu dph bionic jabkolevně jabkolevne mobilegear smarty iphonemarket aukro allegro istyle swappie refurbed
-        vodafone ehub cj home credit repasovanyiphone www https http cookies x xr xs cs ua ru""".split()}
+        vodafone ehub cj home credit repasovanyiphone www https http cookies x xr xs cs ua ru vs""".split()}
 # "{n} word" alone (card counts): the form follows the number in the target language, not the Czech form
 PLURALS = ["nabídka|nabídky|nabídek", "model|modely|modelů", "rok|roky|let", "měsíc|měsíce|měsíců", "den|dny|dní", "kus|kusy|kusů",
            "obchod|obchody|obchodů", "barva|barvy|barev"]
@@ -57,7 +57,15 @@ ITEMS = sorted({c["name"] for v in _COL["sets"].values() for c in (v.values() if
                key=len, reverse=True)
 _IT = "|".join(re.escape(x[0].upper() + x[1:]) + "|" + re.escape(x[0].lower() + x[1:]) for x in ITEMS)
 _GB = r"\{\d+\} [GT]B"
-LIST = re.compile(rf"(?<![\w-])(?:{_IT})(?:(?:, | a | nebo )(?:{_IT}))*(?![\w-])|{_GB}(?:(?:, | a | nebo ){_GB})+")
+_MODEL = r"iPhone (?:SE \(\{\d+\}\)|\{\d+\}e?|SE|Air|XR|XS|X)(?: Pro Max| Pro| Plus| mini| Max)?(?![\w(])"
+_QUAL = r"kvalita (?:A\+|A|B|C|Nový) od \{\d+\} Kč"
+_J = "(?:, | a | nebo )"
+LIST = re.compile(rf"(?<![\w-])(?:{_IT})(?:{_J}(?:{_IT}))*(?![\w-])|{_GB}(?:{_J}{_GB})*|{_QUAL}(?:{_J}{_QUAL})*|{_MODEL}")
+QUAL_T = {"uk": ("стан", "від", "новий"), "ru": ("состояние", "от", "новый")}
+# Czech forms that only follow the numbers/lists ("1 nabídka", "v paměti 128 GB a barvě"): one key for all of them; the translation
+# agrees through {n|one|few|many}
+CANON = [(r"(\{\d+\}(?:</\d+>)?) nabíd(?:ka|ky|ek)\b", r"\1 nabídek"), (r"\bv paměti\b", "v pamětech"), (r"\ba barvě\b", "a barvách"),
+         (r"\bz obchodu (\[\d+\])", r"z obchodů \1"), (r"(\{\d+\}) (?:den|dny|dní)\b", r"\1 dní"), (r"(\{\d+\}) (?:rok|roky|let)\b", r"\1 let")]
 JOIN = {"uk": {" a ": " і ", " nebo ": " або "}, "ru": {" a ": " и ", " nebo ": " или "}}
 
 
@@ -79,6 +87,21 @@ def needs(text):
     return any(w.lower() not in KEEP for w in WORD.findall(text))
 
 
+def fill(t, nums):
+    """{n} -> the number; {n|one|few|many} -> the number with the form that agrees with it (uk/ru rules)."""
+    def one(m):
+        i = int(m.group(1))
+        v = nums[i] if i < len(nums) else ""
+        if not m.group(2):
+            return v
+        forms = m.group(2).split("|")
+        x = int(re.sub(r"\D", "", v) or 0)
+        a, b = x % 10, x % 100
+        k = 0 if a == 1 and b != 11 else 1 if 2 <= a <= 4 and not 12 <= b <= 14 else 2
+        return v + "\u00a0" + forms[min(k, len(forms) - 1)]
+    return re.sub(r"\{(\d+)(?:\|([^{}]*))?\}", one, t)
+
+
 class Tr:
     """One language: translates whole pages, collects what is missing."""
 
@@ -94,15 +117,27 @@ class Tr:
         """key -> (key with [n] for every colour/shop/storage list and {n} renumbered, the lists, new {n} -> old {n})"""
         found = []
         nk = LIST.sub(lambda m: (found.append(m.group(0)), "[%d]" % (len(found) - 1))[1], key)
+        for a, b in CANON:
+            nk = re.sub(a, b, nk)
         old = list(dict.fromkeys(int(x) for x in re.findall(r"\{(\d+)\}", nk)))
         nk = re.sub(r"\{(\d+)\}", lambda m: "{%d}" % old.index(int(m.group(1))), nk)
+        tg = list(dict.fromkeys(int(x) for x in re.findall(r"<(\d+)/?>", nk)))    # tags in order of first appearance, from 1
+        self._tg = tg
+        nk = re.sub(r"<(/?)(\d+)(/?)>", lambda m: "<%s%d%s>" % (m.group(1), tg.index(int(m.group(2))) + 1, m.group(3)) if int(m.group(2)) in tg else m.group(0), nk)
         return nk, found, old
 
     def render_list(self, src):
         out = []
+        if src.startswith("iPhone "):
+            return src
         for part in re.split(r"(, | a | nebo )", src):
             if part in JOIN[self.lang] or part == ", ":
                 out.append(JOIN[self.lang].get(part, part))
+                continue
+            q = re.fullmatch(r"kvalita (\S+) od (\{\d+\}) Kč", part)
+            if q:
+                st, od, new = QUAL_T[self.lang]
+                out.append(f"{st} {new if q.group(1) == 'Nový' else q.group(1)} {od} {q.group(2)} Kč")
                 continue
             t = self.d.get(part) or self.d.get(part[0].lower() + part[1:])
             if t is None:
@@ -118,12 +153,38 @@ class Tr:
         if t is not None:
             return t, key
         nk, found, old = self.lists(key)
-        if found:
+        if found or nk != key:
             t = self.d.get(nk)
             if t is not None and set(re.findall(r"\[\d+\]", t)) <= {f"[{i}]" for i in range(len(found))}:
-                t = re.sub(r"\{(\d+)\}", lambda m: "{%d}" % old[int(m.group(1))] if int(m.group(1)) < len(old) else m.group(0), t)
+                t = re.sub(r"\{(\d+)((?:\|[^{}]*)?)\}", lambda m: "{%d%s}" % (old[int(m.group(1))], m.group(2)) if int(m.group(1)) < len(old) else m.group(0), t)
+                tg = self._tg
+                t = re.sub(r"<(/?)(\d+)(/?)>", lambda m: "<%s%d%s>" % (m.group(1), tg[int(m.group(2)) - 1], m.group(3)) if int(m.group(2)) <= len(tg) else m.group(0), t)
                 return re.sub(r"\[(\d+)\]", lambda m: self.render_list(found[int(m.group(1))]), t), nk
+        # a paragraph assembled from optional sentences (depends on the data): sentence by sentence, each with its own key
+        parts = re.split(r"(?<=[.?!])\s+(?=[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ<\[{])", key)
+        if len(parts) > 1 and all(self._balanced(x) for x in parts):
+            outs = []
+            for x in parts:
+                if not needs(re.sub(r"</?\d+/?>|\{\d+\}", " ", x)):
+                    outs.append(x)
+                    continue
+                tx = self.d.get(x)
+                if tx is None:
+                    sk, sf, so = self.lists(x)
+                    tx = self.d.get(sk)
+                    if tx is None:
+                        return None, nk
+                    tg = self._tg
+                    tx = re.sub(r"\{(\d+)((?:\|[^{}]*)?)\}", lambda m: "{%d%s}" % (so[int(m.group(1))], m.group(2)) if int(m.group(1)) < len(so) else m.group(0), tx)
+                    tx = re.sub(r"<(/?)(\d+)(/?)>", lambda m: "<%s%d%s>" % (m.group(1), tg[int(m.group(2)) - 1], m.group(3)) if int(m.group(2)) <= len(tg) else m.group(0), tx)
+                    tx = re.sub(r"\[(\d+)\]", lambda m: self.render_list(sf[int(m.group(1))]), tx)
+                outs.append(tx)
+            return " ".join(outs), nk
         return None, nk
+
+    @staticmethod
+    def _balanced(x):
+        return sorted(re.findall(r"<(\d+)>", x)) == sorted(re.findall(r"</(\d+)>", x))
 
     # ------------------------------------------------------------ text / segments
     def text(self, s, count=True):
@@ -150,7 +211,7 @@ class Tr:
                 self.words_miss += n
             return s
         try:
-            return lead + re.sub(r"\{(\d+)\}", lambda m: nums[int(m.group(1))], t) + trail
+            return lead + fill(t, nums) + trail
         except IndexError:
             self.missing[key].add(self.page)
             return s
@@ -216,14 +277,13 @@ class Tr:
             self.missing[mk].add(self.page)
             self.words_miss += words
             return "".join(x[1] for x in head) + "".join(x[1] for x in toks) + "".join(x[1] for x in tail)
-        parts = re.split(r"(</?\d+/?>|\{\d+\})", t)
+        parts = re.split(r"(</?\d+/?>|\{\d+(?:\|[^{}]*)?\})", t)
         outp = []
         for p in parts:
             if p in tags:
                 outp.append(tags[p])
-            elif re.fullmatch(r"\{\d+\}", p or ""):
-                i = int(p[1:-1])
-                outp.append(H.escape(nums[i], quote=False) if i < len(nums) else "")
+            elif re.fullmatch(r"\{\d+(?:\|[^{}]*)?\}", p or ""):
+                outp.append(H.escape(fill(p, nums), quote=False))
             else:
                 outp.append(H.escape(p, quote=False))
         return "".join(x[1] for x in head) + lead + "".join(outp) + trail + "".join(x[1] for x in tail)
