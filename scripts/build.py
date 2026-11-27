@@ -270,6 +270,9 @@ NAV = [("/#modely", "Modely"), ("/levny-iphone/", "Levné iPhony"), ("/iphone-ba
 # Czech is the site; /ua/ and /ru/ are translated copies (scripts/i18n.py). hreflang uses "uk" for Ukrainian, the URL "ua".
 LANG_ALT = [("cs", "")] + [(lg, "/" + i18n.LANGS[lg]) for lg in i18n.ACTIVE]
 LANG_SW = [(h, p, (p.strip("/") or "cs").upper()) for h, p in LANG_ALT] if i18n.ACTIVE else []
+# every language version is for people in Czechia (Czech shops, prices in Kč): hreflang language + region, never just "uk"/"ru",
+# so Google does not offer /ua/ to searchers in Ukraine or /ru/ in Russia
+HREFLANG = {"cs": "cs-CZ", "uk": "uk-CZ", "ru": "ru-CZ"}
 # first visit with a Ukrainian/Russian browser (before Czech/Slovak in its list) -> the same page in that language; any choice in the
 # switcher is remembered (ri-lang) and never overridden. Bots send no such language and stay on Czech.
 LANG_AUTO = ('(function(){var d=document.documentElement;if(d.lang!=="cs")return;try{if(localStorage.getItem("ri-lang"))return}catch(e){return}'
@@ -327,7 +330,7 @@ def layout(ctx, *, path, title, desc, body, crumbs=None, ld=None, index=True, ac
     have = {g["slug"] for g in ctx["guides"]}
     guides = "".join(f'<li><a href="/pruvodce/{u}/">{t}</a></li>' for u, t in FOOT_GUIDES if u in have)
     guides += '<li><a class="more" href="/pruvodce/">Všichni průvodci →</a></li>'
-    alt = ("".join(f'<link rel="alternate" hreflang="{h}" href="{SITE}{p}{path}">' for h, p in LANG_ALT) +
+    alt = ("".join(f'<link rel="alternate" hreflang="{HREFLANG[h]}" href="{SITE}{p}{path}">' for h, p in LANG_ALT) +
            f'<link rel="alternate" hreflang="x-default" href="{SITE}{path}">') if i18n.ACTIVE else ""
     langs = "".join(f'<a href="{p}{path}" hreflang="{h}" lang="{h}" data-lang="{h}">{n}</a>' for h, p, n in LANG_SW)
     cfg_tag = f'<script type="application/json" id="cfg">{json.dumps(cfg, ensure_ascii=False, separators=(",", ":"))}</script>' if cfg else ""
@@ -448,7 +451,8 @@ def product_ld(name, path, offers, image="", desc=""):
     cond = "https://schema.org/RefurbishedCondition" if any(o["g"] != "novy" for o in offers) else "https://schema.org/NewCondition"
     d = {"@context": "https://schema.org", "@type": "Product", "name": name, "brand": {"@type": "Brand", "name": "Apple"}, "url": SITE + path,
          "offers": {"@type": "AggregateOffer", "priceCurrency": "CZK", "lowPrice": min(ps), "highPrice": max(ps), "offerCount": len(ps),
-                    "itemCondition": cond, "availability": "https://schema.org/InStock"}}
+                    "itemCondition": cond, "availability": "https://schema.org/InStock",
+                    "eligibleRegion": {"@type": "Country", "name": "CZ"}}}
     if image:
         d["image"] = image
     if desc:
@@ -1249,7 +1253,7 @@ v sekci <a href="/iphone-bazar/">iPhone bazar</a>.</p>
 <section class="sec wrap"><h2>Časté otázky</h2>{faq_html(items)}</section>"""
     ld = [{"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": SITE + "/", "inLanguage": "cs"},
           {"@context": "https://schema.org", "@type": "Organization", "name": BRAND, "url": SITE + "/", "logo": SITE + "/favicon-512.png",
-           "email": "info@repasovanyiphone.cz"}, faq_ld(items),
+           "email": "info@repasovanyiphone.cz", "areaServed": {"@type": "Country", "name": "CZ"}}, faq_ld(items),
           {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [
               {"@type": "ListItem", "position": i + 1, "url": f'{SITE}/{m["slug"]}/', "name": m["name"]} for i, m in enumerate(pop)]}]
     title = f"Repasovaný iPhone – srovnání cen obchodů od {kc_plain(low)}"
@@ -2738,7 +2742,8 @@ def main():
     sm = []
     for p in idx:
         imgs = "".join(f"<image:image><image:loc>{E(u)}</image:loc><image:title>{E(t)}</image:title></image:image>" for u, t in out.images.get(p, [])[:8])
-        alts = "".join(f'<xhtml:link rel="alternate" hreflang="{h}" href="{SITE}{pf}{p}"/>' for h, pf in LANG_ALT if not pf or (pf, p) in lidx)
+        alts = "".join(f'<xhtml:link rel="alternate" hreflang="{HREFLANG[h]}" href="{SITE}{pf}{p}"/>' for h, pf in LANG_ALT if not pf or (pf, p) in lidx)
+        alts += f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{p}"/>' if lidx else ""
         lm = out.lastmod.get(p, TODAY.isoformat())
         for h, pf in LANG_ALT:
             if not pf or (pf, p) in lidx:

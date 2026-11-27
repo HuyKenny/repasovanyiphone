@@ -398,6 +398,7 @@ class Tr:
             out = out.replace(tc.group(0), f"<title>{tc.group(1)} – {TITLE_TAG[self.lang]}</title>", 1)
         url = site + self.pfx + path
         out = out.replace('<html lang="cs"', f'<html lang="{self.lang}"', 1)
+        out = out.replace('"inLanguage":"cs"', f'"inLanguage":"{self.lang}"')
         out = out.replace('<meta property="og:locale" content="cs_CZ">', f'<meta property="og:locale" content="{LOCALE[self.lang]}">', 1)
         out = re.sub(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{url}">', out, count=1)
         out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{url}">', out, count=1)
