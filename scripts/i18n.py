@@ -49,6 +49,18 @@ MONTHS = {"cs": "ledna února března dubna května června července srpna zá�
           "ru": "января февраля марта апреля мая июня июля августа сентября октября ноября декабря".split()}
 
 
+# lists that change with the nightly data ("v barvách modrá, zelená a černá", "z obchodů JabkoLevně, MobileGear…") become [0], [1]…
+# in the key; the items are translated one by one (colour names from the dictionary, shop names stay)
+_COL = json.loads((APP / "data/colors.json").read_text())
+_SHOPS = [s["name"] for s in json.loads((APP / "data/shops.json").read_text())["shops"]]
+ITEMS = sorted({c["name"] for v in _COL["sets"].values() for c in (v.values() if isinstance(v, dict) else v)} | set(_SHOPS) | {"(product)red"},
+               key=len, reverse=True)
+_IT = "|".join(re.escape(x[0].upper() + x[1:]) + "|" + re.escape(x[0].lower() + x[1:]) for x in ITEMS)
+_GB = r"\{\d+\} [GT]B"
+LIST = re.compile(rf"(?<![\w-])(?:{_IT})(?:(?:, | a | nebo )(?:{_IT}))*(?![\w-])|{_GB}(?:(?:, | a | nebo ){_GB})+")
+JOIN = {"uk": {" a ": " і ", " nebo ": " або "}, "ru": {" a ": " и ", " nebo ": " или "}}
+
+
 def load(lang):
     """The dictionary, plus every dated sentence for the other eleven months (dates are in the text as "27. listopadu")."""
     f = I18N / f"{lang}.json"
@@ -77,6 +89,42 @@ class Tr:
         self.page = ""
         self.words_all = self.words_miss = 0
 
+    # ------------------------------------------------------------ lists
+    def lists(self, key):
+        """key -> (key with [n] for every colour/shop/storage list and {n} renumbered, the lists, new {n} -> old {n})"""
+        found = []
+        nk = LIST.sub(lambda m: (found.append(m.group(0)), "[%d]" % (len(found) - 1))[1], key)
+        old = list(dict.fromkeys(int(x) for x in re.findall(r"\{(\d+)\}", nk)))
+        nk = re.sub(r"\{(\d+)\}", lambda m: "{%d}" % old.index(int(m.group(1))), nk)
+        return nk, found, old
+
+    def render_list(self, src):
+        out = []
+        for part in re.split(r"(, | a | nebo )", src):
+            if part in JOIN[self.lang] or part == ", ":
+                out.append(JOIN[self.lang].get(part, part))
+                continue
+            t = self.d.get(part) or self.d.get(part[0].lower() + part[1:])
+            if t is None:
+                t = part
+            elif part[0].isupper():
+                t = t[0].upper() + t[1:]
+            out.append(t)
+        return "".join(out)
+
+    def lookup(self, key):
+        """Exact key first, then the key with its colour/shop lists as [n]. -> (translation with lists filled in, key to report)"""
+        t = self.d.get(key)
+        if t is not None:
+            return t, key
+        nk, found, old = self.lists(key)
+        if found:
+            t = self.d.get(nk)
+            if t is not None and set(re.findall(r"\[\d+\]", t)) <= {f"[{i}]" for i in range(len(found))}:
+                t = re.sub(r"\{(\d+)\}", lambda m: "{%d}" % old[int(m.group(1))] if int(m.group(1)) < len(old) else m.group(0), t)
+                return re.sub(r"\[(\d+)\]", lambda m: self.render_list(found[int(m.group(1))]), t), nk
+        return None, nk
+
     # ------------------------------------------------------------ text / segments
     def text(self, s, count=True):
         """Plain text (attribute, JSON value): numbers -> {n}."""
@@ -95,9 +143,9 @@ class Tr:
             a, b = v % 10, v % 100
             i = 0 if a == 1 and b != 11 else 1 if 2 <= a <= 4 and not 12 <= b <= 14 else 2
             return lead + nums[0] + "\u00a0" + forms[min(i, len(forms) - 1)] + trail
-        t = self.d.get(key)
+        t, mk = self.lookup(key)
         if t is None:
-            self.missing[key].add(self.page)
+            self.missing[mk].add(self.page)
             if count:
                 self.words_miss += n
             return s
@@ -162,10 +210,10 @@ class Tr:
             # of models, colours and prices do not each need a translation
             return "".join(self.text_node(x[1]) if x[0] == "t" else x[1] for x in head + toks + tail)
         self.words_all += words
-        t = self.d.get(k)
+        t, mk = self.lookup(k)
         ok = t is not None and set(re.findall(r"</?\d+/?>", t)) == set(tags)
         if not ok:
-            self.missing[k].add(self.page)
+            self.missing[mk].add(self.page)
             self.words_miss += words
             return "".join(x[1] for x in head) + "".join(x[1] for x in toks) + "".join(x[1] for x in tail)
         parts = re.split(r"(</?\d+/?>|\{\d+\})", t)

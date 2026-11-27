@@ -2752,6 +2752,9 @@ def main():
         tr.js_missing(out.js_keys)
         miss[tr.lang] = {k: sorted(v)[:5] for k, v in sorted(tr.missing.items())}
     (STATE / "i18n-missing.json").write_text(json.dumps(miss, ensure_ascii=False, indent=0))
+    for lang, keys in miss.items():     # public site text only: lets the monthly translation pass read the Actions log
+        for k in list(keys)[:40]:
+            print(f"i18n missing {lang}: {k[:160]}")
     (STATE / "i18n-share.json").write_text(json.dumps(out.share, indent=0))
     out.write("robots.txt", "User-agent: *\nDisallow: /\n" if STAGING else f"User-agent: *\nDisallow: /go/\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     key = os.environ.get("INDEXNOW_KEY", "")

@@ -20,6 +20,8 @@ each language; Ukrainian is never a conversion of the Russian text.
 - Some keys contain real HTML (`<b>…</b>`, `<span class="hand">…</span>`, `<code></code>`): keep those tags and attributes verbatim.
 - A key with `|` (e.g. `nabídka|nabídky|nabídek`) is a plural set: give three forms one|few|many of the target language
   (uk: пропозиція|пропозиції|пропозицій; ru: предложение|предложения|предложений).
+- `[0]`, `[1]`… are lists that change with the data (colour names, shop names, storage sizes such as «128 GB, 256 GB a 1 TB»).
+  The build fills them in already translated; keep each one, never add one. Write the sentence so any list fits (no agreement with it).
 - Leading/trailing punctuation and spaces of the key (e.g. `, od {0}`, ` · zkuste jiný filtr`) must stay at the same place.
 
 ## Never translate
