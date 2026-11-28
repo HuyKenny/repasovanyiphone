@@ -26,6 +26,7 @@ APP = Path(__file__).resolve().parent.parent
 RAW = APP / "data/raw"
 UA = "RepasIphoneFeed/1.0 (+https://repasovanyiphone.cz)"
 EHUB_CLICK = "https://ehub.cz/system/scripts/click.php?a_aid=052443b7&a_bid={bid}&desturl="   # a_aid is public (in every eHub link)
+AP_CLICK = "https://tracking.affiliateport.eu/click?o={offer}&a=5453&deep_link="   # AffiliatePort: offer id + our public partner id
 
 sys.path.insert(0, str(APP / "scripts"))
 if not os.environ.get("GITHUB_ACTIONS"):
@@ -125,7 +126,8 @@ def local(tag):
 
 
 def xml_offers(shop, resp):
-    pre = EHUB_CLICK.format(bid=shop["a_bid"]) if shop.get("network") == "ehub" else ""
+    pre = (EHUB_CLICK.format(bid=shop["a_bid"]) if shop.get("network") == "ehub" else
+           AP_CLICK.format(offer=shop["ap_offer"]) if shop.get("network") == "affiliateport" else "")
     for _, el in ET.iterparse(resp, events=("end",)):
         t = local(el.tag)
         if t not in ("SHOPITEM", "item", "entry"):
@@ -222,7 +224,7 @@ def coupons(shops):
     import datetime as dt
     import unicodedata
     nd = lambda s: unicodedata.normalize("NFKD", (s or "").lower()).encode("ascii", "ignore").decode()  # noqa: E731
-    by_dom = {s["domain"]: s["id"] for s in shops if s.get("network") == "ehub"}
+    by_dom = {s["domain"]: s["id"] for s in shops if s.get("network") == "ehub" or s.get("a_bid")}   # Smarty: clicks via AffiliatePort, codes still from eHub
     pid, key = os.environ.get("EHUB_PUBLISHER_ID"), os.environ.get("EHUB_API_KEY")
     if not (pid and key):
         log("coupons: EHUB_* missing, keeping the previous file")

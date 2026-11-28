@@ -118,7 +118,7 @@
    "id": "smarty",
    "name": "Smarty",
    "domain": "smarty.cz",
-   "network": "ehub",
+   "network": "affiliateport",
    "a_bid": "1651aa06",
    "feed_key": "eh_smarty",
    "role": "refurb",
@@ -167,7 +167,9 @@
      "kdo": "Home Credit",
      "src": "https://www.smarty.cz/Apple-iPhone-14-Pro-Max-128GB-vesmirne-cerny-4p51174-A"
     }
-   }
+   },
+   "ap_offer": "776",
+   "note_network": "28. 11. 2026: clicks via AffiliatePort offer 776 (CPS 3.9 %); eHub group was \"Kupónové weby\" 0.4 % on phones. Offers and voucher codes still come from the eHub feed/API (a_bid)."
   },
   {
    "id": "iphonemarket",

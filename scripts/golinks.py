@@ -26,7 +26,8 @@ function ok(x){try{var p=new URL(x);return p.protocol==="https:"&&inn(p.hostname
 function nested(x){var m=decodeURIComponent(x).match(/https?:\/\/[^&?#"' ]+/g)||[];return m.slice(1).every(function(y){try{return inn(new URL(y).hostname,sd.length?sd:d)}catch(e){return false}})}
 if(g){if(ok(g)&&nested(g))to=g}else if(u){var t=/^https?:\/\//.test(u)?u:b.h+u;if(ok(t))to=b.p+(b.m==="e"?encodeURIComponent(t):t)+b.s}else if(b.x&&ok(b.x))to=b.x
 var si=q.get("si")||"",sp=q.get("sp")||"";if(!/^[a-z0-9-]{1,40}$/.test(si))si="";if(!/^[a-z]{1,10}$/.test(sp))sp="";
-if(to&&si&&b.n){to+=(to.indexOf("?")<0?"?":"&")+(b.n==="cj"?"sid=rp-"+si+(sp?"-"+sp:""):"data1=rp-"+si+(sp?"&data2="+sp:""))}
+if(to&&si&&b.n){if(b.n==="affiliateport")to=to.replace("&deep_link=","&sub_id1=rp-"+si+(sp?"&sub_id2="+sp:"")+"&deep_link=");
+else to+=(to.indexOf("?")<0?"?":"&")+(b.n==="cj"?"sid=rp-"+si+(sp?"-"+sp:""):"data1=rp-"+si+(sp?"&data2="+sp:""))}
 var a=document.getElementById("go");if(to){a.href=to;location.replace(to)}})();
 """
 
@@ -140,7 +141,7 @@ def go_page(sid, t, name, js_name, default="", label="do obchodu"):
             '<meta name="robots" content="noindex,nofollow"><title>Přesměrování ' + E(label) + ' ' + E(name) + '</title>'
             '<style>body{font:16px/1.5 system-ui,sans-serif;margin:0;display:grid;place-items:center;min-height:90vh;background:#f6f6f8;color:#1b1b24}'
             'a{color:#b5301f;font-weight:700}</style></head>'
-            f'<body data-p="{E(t["p"])}" data-s="{E(t["s"])}" data-m="{t["m"]}" data-h="{E(t["h"])}" data-d="{E(json.dumps(dom))}" data-sd="{E(json.dumps(t.get("sd", [])))}"' + (f' data-x="{E(default)}"' if default else '') + (f' data-n="{t["n"]}"' if t.get("n") in ("ehub", "cj") else '') + '>'
+            f'<body data-p="{E(t["p"])}" data-s="{E(t["s"])}" data-m="{t["m"]}" data-h="{E(t["h"])}" data-d="{E(json.dumps(dom))}" data-sd="{E(json.dumps(t.get("sd", [])))}"' + (f' data-x="{E(default)}"' if default else '') + (f' data-n="{t["n"]}"' if t.get("n") in ("ehub", "cj", "affiliateport") else '') + '>'
             f'<p>Přesměrováváme vás {E(label)} <b>{E(name)}</b>… <a id="go" href="{E(home)}" rel="sponsored nofollow">Pokračovat</a></p>'
             f'<script>{js_name}</script></body></html>')
 
@@ -149,5 +150,5 @@ def write_go(out, tpl, shop_meta):
     """Writes go/<shop>/index.html for every shop, the redirect script inline (allowed by its CSP hash).
     repasovanyiphone: inline script + ?g= nested-URL check (25. 11. 2026); the vian/hrackarium/auty copies still use the old external file."""
     for sid, t in tpl.items():
-        t = dict(t, n=shop_meta.get(sid, {}).get("network", ""))     # subID: ?si=<page>&sp=<place> -> eHub data1/data2, CJ sid (prefix rp-)
+        t = dict(t, n=shop_meta.get(sid, {}).get("network", ""))     # subID: ?si=<page>&sp=<place> -> eHub data1/data2, CJ sid, AffiliatePort sub_id1/2 before deep_link (prefix rp-)
         out.write(f"go/{sid}/index.html", go_page(sid, t, shop_meta.get(sid, {}).get("name", sid), GO_JS))
